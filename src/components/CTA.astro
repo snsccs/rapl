@@ -1,0 +1,32 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+}
+
+const { eyebrow, title, description, primary, secondary } = Astro.props;
+---
+
+<section class="cta-banner">
+  <div class="site-shell">
+    {eyebrow && <div class="eyebrow">{eyebrow}</div>}
+    <h2>{title}</h2>
+    {description && <p style="margin-top: 1rem;">{description}</p>}
+    {(primary || secondary) && (
+      <div class="button-row">
+        {primary && (
+          <a class="button brass" href={primary.href}>
+            {primary.label}
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        )}
+        {secondary && (
+          <a class="button ghost-light" href={secondary.href}>{secondary.label}</a>
+        )}
+      </div>
+    )}
+  </div>
+</section>

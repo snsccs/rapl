@@ -1,6 +1,6 @@
 # rapl
 
-RAPL website (Vite + React).
+RAPL website (Astro) — https://raplleadership.com
 
 ## Scripts
 

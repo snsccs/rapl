@@ -1,0 +1,252 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import CTA from "../components/CTA.astro";
+
+const phases = [
+  {
+    label: "Define the Work",
+    tagline: "Diagnose the right work before committing investment.",
+    capabilities: [
+      { name: "Diagnose", desc: "Frame the business need, the operating context and the work required before committing investment." },
+      { name: "Choose", desc: "Make strategic, evidence-informed choices between competing options, with explicit reasoning." },
+      { name: "Translate", desc: "Convert strategic intent into briefs, mandates and language that delivery and the business can act on." },
+    ],
+  },
+  {
+    label: "Govern the Work",
+    tagline: "Hold the work, the people and the system together through delivery.",
+    capabilities: [
+      { name: "Select", desc: "Determine the right delivery shape — portfolio, program, project, product or hybrid — for the work at hand." },
+      { name: "Integrate", desc: "Coordinate across functions, vendors, governance bodies and operating models so the whole system works." },
+      { name: "Deliver", desc: "Sponsor major milestones, unblock dependencies and protect the conditions delivery needs." },
+    ],
+  },
+  {
+    label: "Protect the Work",
+    tagline: "Keep value, risk and accountability visible from intent to operation.",
+    capabilities: [
+      { name: "Protect", desc: "Hold risk, security, ethics and AI exposure as visible executive concerns, not delivery-team tasks." },
+      { name: "Align", desc: "Keep stakeholders, governance and operating model aligned as the work evolves." },
+      { name: "Govern", desc: "Maintain clear decision rights, investment discipline and accountability through change." },
+    ],
+  },
+  {
+    label: "Land the Value",
+    tagline: "Make the result stick — in adoption, in operations, in sustained value.",
+    capabilities: [
+      { name: "Optimize", desc: "Adjust the work in flight, with the business case and value thesis always visible." },
+      { name: "Adopt", desc: "Drive adoption through change, capability, communication and sponsorship — not just deployment." },
+      { name: "Sustain", desc: "Transition outcomes into the operating model and protect benefits realization over time." },
+    ],
+  },
+];
+
+const engage = [
+  {
+    title: "Executive Certificate",
+    desc: "A personalized, fifty-hour executive development program built around twelve RAPL™ modules and an integrated capstone.",
+    href: "/certificate",
+    cta: "Explore the Executive Certificate",
+  },
+  {
+    title: "For Organizations",
+    desc: "Seat profiles, capability baselines, gap heatmaps, targeted development and governance integration.",
+    href: "/organizations",
+    cta: "Explore Organizational Application",
+  },
+  {
+    title: "Alignment Diagnostic",
+    desc: "A structured way to compare what senior roles require with what leadership and talent systems develop, assess and reward.",
+    href: "/assessment",
+    cta: "Explore the Diagnostic",
+  },
+  {
+    title: "Research and Validation",
+    desc: "A transparent research agenda testing content validity, role demand, talent-system alignment and intervention effectiveness.",
+    href: "/research",
+    cta: "Explore the Research",
+  },
+];
+---
+
+<BaseLayout
+  title="RAPL™ — Role-Agnostic Project Leadership Framework"
+  description="RAPL™ is an executive leadership framework built for senior leaders who must diagnose the right work, govern investment, lead adoption and sustain value across AI-enabled, project-shaped change."
+>
+  <section class="page-hero page-hero--ink">
+    <div class="site-shell page-hero-grid">
+      <div class="reveal-on-scroll">
+        <div class="eyebrow page-hero-eyebrow">Executive Leadership Framework</div>
+        <h1>Work changed faster than <em>leadership systems.</em></h1>
+        <p class="lede">
+          Organizations now deliver strategy through portfolios, programs, projects,
+          products, transformations and AI initiatives. The work crosses functions,
+          technologies, operating models and accountability boundaries.
+        </p>
+        <p class="lede" style="margin-top: 1rem;">
+          Leadership development, role design and succession systems often remain built
+          for stable functions and operational continuity. The result is a measurable
+          <a href="#gap" style="color: var(--brass-light);">Leadership Capability Gap</a>
+          between what strategic work requires and what leadership systems deliberately
+          define, develop, assess, reward, deploy and refresh.
+        </p>
+        <div class="button-row">
+          <a class="button brass" href="/framework">
+            Explore the RAPL™ Framework
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="button ghost-light" href="/assessment">Start the Diagnostic</a>
+        </div>
+        <p style="margin-top: 2rem; color: rgba(241, 240, 236, 0.65); font-size: 0.88rem; letter-spacing: 0.04em;">
+          <span style="color: var(--brass-light);">✓</span> Theory-grounded &nbsp;·&nbsp;
+          <span style="color: var(--brass-light);">✓</span> Practice-informed &nbsp;·&nbsp;
+          <span style="color: var(--brass-light);">✓</span> Designed to be tested
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="one-page">
+    <div class="site-shell">
+      <div style="max-width: 64rem;" class="reveal-on-scroll">
+        <div class="eyebrow">The model at a glance</div>
+        <h2 class="display-title" style="max-width: 24ch;">RAPL™ in one page.</h2>
+        <p class="lede" style="margin-top: 1rem;">
+          RAPL™ follows a strategic investment from need and intent through to
+          responsible, sustained value in operations.
+        </p>
+      </div>
+
+      <div style="margin-top: 3.5rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem;" class="reveal-on-scroll">
+        {phases.map((p) => (
+          <article class="phase">
+            <div class="phase-eyebrow">Phase</div>
+            <h3>{p.label}</h3>
+            <p class="phase-tagline">{p.tagline}</p>
+            <div class="phase-grid">
+              {p.capabilities.map((c, i) => (
+                <div class="capability">
+                  <span class="capability-number">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 style="margin-top: 0.5rem; font-size: 1.2rem;">{c.name}</h3>
+                  <p>{c.desc}</p>
+                </div>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div style="margin-top: 2.5rem;" class="reveal-on-scroll">
+        <a class="button primary" href="/framework">
+          Explore the complete RAPL™ Framework
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--bond-deep" id="gap">
+    <div class="site-shell">
+      <div class="grid-2">
+        <div class="reveal-on-scroll">
+          <div class="eyebrow">What RAPL™ is</div>
+          <ul class="check-list" style="margin-top: 1.25rem;">
+            <li>A single value-cycle map for strategic work — from diagnosis to sustained value.</li>
+            <li>A role-demand model, recognizing different leadership seats require different depth.</li>
+            <li>A capability system that can be assessed, developed, applied and refreshed over time.</li>
+            <li>A translation of specialist disciplines into executive questions, judgments and actions.</li>
+          </ul>
+        </div>
+        <div class="reveal-on-scroll">
+          <div class="eyebrow eyebrow--ink" style="color: var(--graphite);">What RAPL™ is not</div>
+          <ul class="check-list cross-list" style="margin-top: 1.25rem;">
+            <li>Project management training for executives.</li>
+            <li>A replacement for project, program, portfolio, risk, PMO, change, business analysis, benefits or AI specialists — RAPL™ complements, not replaces, these disciplines.</li>
+            <li>A claim that every role needs identical proficiency across all twelve capabilities.</li>
+            <li>A claim that leadership is the only variable in transformation success.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell">
+      <div style="max-width: 64rem;" class="reveal-on-scroll">
+        <div class="eyebrow">How to engage</div>
+        <h2 class="display-title">Four ways to engage with RAPL™.</h2>
+        <p class="lede" style="margin-top: 1rem;">
+          Whether you are an individual senior leader, an organization, or a researcher —
+          there is a structured on-ramp to the framework.
+        </p>
+      </div>
+
+      <div class="grid-2" style="margin-top: 3rem;">
+        {engage.map((e) => (
+          <a class="card card--feature unstyled reveal-on-scroll" href={e.href}>
+            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">{e.title}</h3>
+            <p style="color: var(--graphite); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">{e.desc}</p>
+            <span style="color: var(--annotation); font-weight: 600; font-size: 0.92rem;">
+              {e.cta}
+              <span class="arrow" aria-hidden="true" style="display: inline-block; margin-left: 0.35rem;">→</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ink">
+    <div class="site-shell">
+      <div class="split-layout reveal-on-scroll">
+        <div>
+          <div class="eyebrow">Evidence position</div>
+          <h2 class="display-title" style="color: var(--paper);">An evidence-aware framework.</h2>
+        </div>
+        <div>
+          <p style="color: rgba(241, 240, 236, 0.8); font-size: 1.05rem; line-height: 1.7;">
+            RAPL™ is theory-grounded, practice-informed and designed to be tested. The
+            literature supports the need for the capabilities it integrates, but the
+            complete RAPL™ intervention is not presented as already validated.
+          </p>
+          <p style="color: rgba(241, 240, 236, 0.8); font-size: 1.05rem; line-height: 1.7; margin-top: 1rem;">
+            The framework is intended to improve through expert review, role-demand
+            research, organizational pilots and workplace evidence — examined
+            transparently in the <a href="/research" style="color: var(--brass-light);">Research and Validation</a> agenda.
+          </p>
+          <div class="chip-row" style="margin-top: 2rem;">
+            <span class="pill pill--light">Not presented as already validated</span>
+            <span class="pill pill--light">Open to expert review</span>
+            <span class="pill pill--light">Designed to improve with evidence</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" style="background: var(--paper); border-top: 1px solid rgba(16, 32, 43, 0.08);">
+    <div class="site-shell">
+      <div class="split-layout">
+        <div>
+          <div class="eyebrow">Created and delivered</div>
+          <p style="font-size: 1.05rem; color: var(--graphite); margin-top: 0.75rem;">
+            RAPL™ was created by <a href="/about" style="color: var(--ink); font-weight: 600;">Samia Waqar</a> and
+            delivered through <a href="https://snsccs.com/" class="footer-external" style="color: var(--ink); font-weight: 600;">SnS Coaching and Consulting Services</a>.
+          </p>
+        </div>
+        <div class="button-row" style="justify-content: flex-end;">
+          <a class="button ghost" href="/about">About RAPL™</a>
+          <a class="button primary" href="/certificate">Executive Certificate</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    eyebrow="Next step"
+    title="Explore the framework, discuss the Executive Certificate or begin an organizational diagnostic."
+    description="Choose the on-ramp that matches your role, organization or research interest."
+    primary={{ label: "Explore the RAPL™ Framework", href: "/framework" }}
+    secondary={{ label: "Contact RAPL™ Leadership", href: "/contact" }}
+  />
+</BaseLayout>

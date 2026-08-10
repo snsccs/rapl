@@ -1,0 +1,129 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import CTA from "../components/CTA.astro";
+
+const interests = [
+  { value: "certificate", label: "Executive Certificate", hint: "Apply or request a program brief." },
+  { value: "organizations", label: "For Organizations", hint: "Scope an engagement, cohort or rollout." },
+  { value: "diagnostic", label: "Alignment Diagnostic", hint: "Run the diagnostic in your organization." },
+  { value: "research", label: "Research Collaboration", hint: "Discuss expert review, pilots or academic work." },
+  { value: "other", label: "Something Else", hint: "A general enquiry or a conversation." },
+];
+---
+
+<BaseLayout
+  title="Contact"
+  description="Contact RAPL™ Leadership. Discuss the Executive Certificate, an organizational engagement, the Alignment Diagnostic, or research collaboration."
+>
+  <section class="page-hero page-hero--paper">
+    <div class="site-shell page-hero-grid reveal-on-scroll">
+      <div class="eyebrow page-hero-eyebrow">Contact</div>
+      <h1>Talk to RAPL™ Leadership.</h1>
+      <p class="lede">
+        Choose the conversation that fits what you are trying to do. We respond to
+        every enquiry within two business days.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell">
+      <div class="split-layout">
+        <div class="reveal-on-scroll">
+          <div class="eyebrow">Pick a thread</div>
+          <h2 class="section-title" style="margin-top: 0.5rem; margin-bottom: 1.5rem;">What would you like to discuss?</h2>
+          <p style="font-size: 1.02rem; line-height: 1.65; color: var(--graphite); margin-bottom: 2rem;">
+            Choose the conversation that matches the work you are trying to do. We
+            use this to route the enquiry to the right person and to send you the most
+            relevant follow-up.
+          </p>
+          <div class="stack-4">
+            {interests.map((i) => (
+              <div class="card" style="padding: 1.25rem;">
+                <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                  <div style="width: 8px; height: 8px; background: var(--brass); border-radius: 50%; margin-top: 0.5rem; flex-shrink: 0;"></div>
+                  <div>
+                    <h3 style="font-size: 1.05rem; font-weight: 600;">{i.label}</h3>
+                    <p style="font-size: 0.9rem; color: var(--graphite); margin-top: 0.25rem;">{i.hint}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="reveal-on-scroll">
+          <form class="form" onsubmit="event.preventDefault(); this.querySelector('[data-thanks]').hidden = false; this.hidden = true;">
+            <div class="eyebrow">Send a message</div>
+            <h3 style="font-size: 1.4rem; margin: 0.5rem 0 1.5rem;">Tell us a little about you and the work.</h3>
+
+            <div class="form-row">
+              <div>
+                <label for="name">Full name *</label>
+                <input id="name" type="text" required />
+              </div>
+              <div>
+                <label for="email">Work email *</label>
+                <input id="email" type="email" required />
+              </div>
+            </div>
+
+            <div class="form-row" style="margin-top: 1rem;">
+              <div>
+                <label for="org">Organization *</label>
+                <input id="org" type="text" required />
+              </div>
+              <div>
+                <label for="role">Your role</label>
+                <input id="role" type="text" />
+              </div>
+            </div>
+
+            <div style="margin-top: 1rem;">
+              <label for="interest">Conversation thread</label>
+              <select id="interest">
+                <option value="">Select a thread…</option>
+                {interests.map((i) => <option value={i.value}>{i.label}</option>)}
+              </select>
+            </div>
+
+            <div style="margin-top: 1rem;">
+              <label for="message">Tell us what you are trying to do</label>
+              <textarea id="message" rows="5" placeholder="A few sentences about the strategic work, the seats involved, and the timing."></textarea>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; gap: 1rem; flex-wrap: wrap;">
+              <p style="font-size: 0.78rem; color: var(--graphite);">We use your details only to respond to your enquiry. No marketing list. No sharing.</p>
+              <button type="submit" class="button primary">Send message <span class="arrow" aria-hidden="true">→</span></button>
+            </div>
+          </form>
+
+          <div class="form" data-thanks hidden style="text-align: center;">
+            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">Thank you. We have your message.</h3>
+            <p style="color: var(--graphite); margin-bottom: 1.5rem;">We respond to every enquiry within two business days. If your enquiry is time-sensitive, write to us directly at the address below.</p>
+            <a class="button primary" href="mailto:leadership@raplleadership.com">leadership@raplleadership.com</a>
+          </div>
+
+          <div class="grid-2" style="margin-top: 2rem; gap: 1rem;">
+            <div class="card">
+              <div class="eyebrow" style="color: var(--graphite);">Direct email</div>
+              <a href="mailto:leadership@raplleadership.com" style="font-weight: 600; color: var(--ink); margin-top: 0.5rem; display: inline-block;">leadership@raplleadership.com</a>
+            </div>
+            <div class="card">
+              <div class="eyebrow" style="color: var(--graphite);">Delivered by</div>
+              <a href="https://snsccs.com/" class="footer-external" style="font-weight: 600; color: var(--ink); margin-top: 0.5rem; display: inline-block;">SnS Coaching and Consulting Services</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    eyebrow="Before you write"
+    title="Some questions are answered in the framework."
+    description="If you are new to RAPL™, the framework page is the fastest way to understand the model. The diagnostic is the fastest way to see whether the work is relevant to you."
+    primary={{ label: "Read the framework", href: "/framework" }}
+    secondary={{ label: "About RAPL™", href: "/about" }}
+  />
+</BaseLayout>

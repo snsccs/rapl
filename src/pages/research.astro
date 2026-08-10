@@ -1,0 +1,176 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import CTA from "../components/CTA.astro";
+
+const questions = [
+  { title: "Content validity", desc: "Are the twelve capabilities of the RAPL™ Framework relevant, clear, sufficiently distinct and complete enough for senior leadership work?" },
+  { title: "Role demand", desc: "What capabilities do different senior seats actually require, and how does that demand vary by context, sector and consequence?" },
+  { title: "Talent-system alignment", desc: "Do leadership and talent systems develop, assess, reward, reinforce and observe the capabilities the roles require — the same comparison the Leadership Capability Alignment Diagnostic is built to surface?" },
+  { title: "Intervention effectiveness", desc: "Does deliberate development of the RAPL™ capabilities change executive decisions, sponsorship behavior and value realization in live strategic work?" },
+];
+
+const propositions = [
+  { n: "P1", title: "Role–Capability Fit", desc: "Leadership seats that align capability development with strategic role demand show stronger decision quality than seats that do not." },
+  { n: "P2", title: "Sponsorship Discipline", desc: "Strong sponsorship discipline is associated with better risk visibility, less normalized escalation and stronger benefits realization." },
+  { n: "P3", title: "Governance Integration", desc: "Capability embedded into governance forums predicts more disciplined investment review than capability developed through training alone." },
+  { n: "P4", title: "Value Conversion", desc: "Organizations that deliberately build and assess relevant leadership capability are hypothesized to show stronger sustained benefits realization from AI and transformation investment than organizations that do not." },
+  { n: "P5", title: "System Reinforcement", desc: "Capability embedded into role design, succession, development, performance and governance — the approach outlined in RAPL™'s organizational application — is hypothesized to be more durable than capability developed through standalone training alone." },
+];
+
+const participation = [
+  "Expert-panel review of capability relevance and clarity.",
+  "Role-demand survey participation.",
+  "Talent-system document review and interviews.",
+  "Organizational alignment pilot, aligned with the engagement options available through organizational application.",
+  "RAPL™ development intervention study, delivered through the Executive Certificate or a targeted organizational cohort.",
+  "Academic methods, ethics or publication collaboration.",
+];
+---
+
+<BaseLayout
+  title="Research and Validation"
+  description="RAPL™ is offered as a testable response to the Leadership Capability Gap. A transparent research agenda testing content validity, role demand, talent-system alignment and intervention effectiveness."
+>
+  <section class="page-hero page-hero--paper">
+    <div class="site-shell page-hero-grid reveal-on-scroll">
+      <div class="eyebrow page-hero-eyebrow">Research and Validation</div>
+      <h1>A testable response to the Leadership Capability Gap.</h1>
+      <p class="lede">
+        RAPL™ is offered as a testable response to the
+        <a href="/" style="color: var(--ink); font-weight: 600;">Leadership Capability Gap</a>
+        identified across strategic, AI-enabled work. The research agenda separates what
+        existing evidence supports from what still requires direct measurement.
+      </p>
+      <div class="button-row">
+        <a class="button primary" href="/contact?interest=research">
+          Discuss research collaboration
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="button ghost" href="/framework">See the framework</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell">
+      <div class="split-layout">
+        <div class="reveal-on-scroll">
+          <div class="eyebrow">The evidence position</div>
+          <h2 class="section-title" style="margin-top: 0.5rem;">The literature supports the problem. It does not yet establish RAPL™ as a fully validated intervention.</h2>
+        </div>
+        <div class="reveal-on-scroll">
+          <p style="font-size: 1.05rem; line-height: 1.7; color: var(--graphite);">
+            Existing research and professional practice support the changing nature of
+            work, the difficulty of strategy execution, leadership-development transfer
+            problems, benefits-realization gaps, AI scaling barriers, dynamic capability
+            and the increasing relevance of project and transformation capability to
+            senior leadership.
+          </p>
+          <p style="font-size: 1.05rem; line-height: 1.7; color: var(--graphite); margin-top: 1rem;">
+            They do not yet directly prove the complete RAPL™ intervention as validated
+            across roles and organizations. That boundary should remain visible — and it
+            is precisely what this research agenda is designed to close.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--bond-deep">
+    <div class="site-shell">
+      <div style="max-width: 64rem;" class="reveal-on-scroll">
+        <div class="eyebrow">The research questions</div>
+        <h2 class="display-title">Four validation questions.</h2>
+        <p class="lede" style="margin-top: 1rem;">
+          The research agenda is organized around four questions. Each connects to a
+          method, a sample, and an expected outcome.
+        </p>
+      </div>
+      <div class="grid-2" style="margin-top: 3rem;">
+        {questions.map((q, i) => (
+          <div class="card reveal-on-scroll">
+            <div style="color: var(--brass); font-size: 1.4rem; font-weight: 700; margin-bottom: 0.75rem;">{String(i + 1).padStart(2, "0")}</div>
+            <h3 style="font-size: 1.3rem;">{q.title}</h3>
+            <p style="font-size: 0.95rem; line-height: 1.6; color: var(--graphite); margin-top: 0.5rem;">{q.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell">
+      <div style="max-width: 64rem;" class="reveal-on-scroll">
+        <div class="eyebrow">Testable propositions</div>
+        <h2 class="display-title">Five propositions the framework proposes.</h2>
+        <p class="lede" style="margin-top: 1rem;">
+          The framework is built on a set of explicit, testable claims about how
+          leadership capability shows up in strategic work — and what changes when it is
+          deliberately developed.
+        </p>
+      </div>
+      <div class="stack-6" style="margin-top: 3rem;">
+        {propositions.map((p) => (
+          <div class="card reveal-on-scroll" style="display: grid; grid-template-columns: 100px 1fr; gap: 1.5rem; align-items: start;">
+            <div style="color: var(--brass); font-size: 2rem; font-weight: 700; line-height: 1;">{p.n}</div>
+            <div>
+              <h3 style="font-size: 1.3rem;">{p.title}</h3>
+              <p style="font-size: 1rem; line-height: 1.6; color: var(--graphite); margin-top: 0.5rem;">{p.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--bond-deep">
+    <div class="site-shell">
+      <div class="split-layout">
+        <div class="reveal-on-scroll">
+          <div class="eyebrow">Research participation</div>
+          <h2 class="section-title" style="margin-top: 0.5rem;">Six ways to participate.</h2>
+          <p class="lede" style="margin-top: 1rem;">
+            If your work touches leadership development, senior-team capability, or the
+            evidence base behind AI-enabled transformation, there is likely a structured
+            way to participate.
+          </p>
+        </div>
+        <div class="reveal-on-scroll">
+          <ul class="check-list" style="font-size: 1.02rem;">
+            {participation.map((p) => <li>{p}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ink">
+    <div class="site-shell">
+      <div class="split-layout">
+        <div class="reveal-on-scroll">
+          <div class="eyebrow">Methodological honesty</div>
+          <h2 class="display-title" style="color: var(--paper);">The objective is not to defend a framework.</h2>
+        </div>
+        <div class="reveal-on-scroll">
+          <p style="font-size: 1.05rem; line-height: 1.7; color: rgba(241, 240, 236, 0.8);">
+            The objective is not to defend the RAPL™ Leadership Framework at all costs.
+            It is to examine the problem, test the model's twelve capabilities and
+            improve both the framework and the intervention when evidence requires it.
+          </p>
+          <p style="font-size: 1.05rem; line-height: 1.7; color: rgba(241, 240, 236, 0.8); margin-top: 1rem;">
+            That is the standard the research agenda holds itself to — and the standard
+            we ask collaborators, reviewers and pilot organizations to hold it to as
+            well.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    eyebrow="Help shape the next stage"
+    title="Discuss expert review, organizational participation or academic collaboration and help shape the next stage of the RAPL™ Leadership Framework."
+    primary={{ label: "Start the conversation", href: "/contact?interest=research" }}
+    secondary={{ label: "See the framework", href: "/framework" }}
+  />
+</BaseLayout>

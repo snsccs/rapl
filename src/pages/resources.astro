@@ -1,0 +1,169 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import CTA from "../components/CTA.astro";
+
+const downloads = [
+  { title: "The Leadership Capability Gap — Executive Brief", desc: "A concise explanation of the gap, the RAPL™ response and how the framework's phases and capabilities address it.", meta: "PDF · 8 pages", link: null, cta: "Download brief" },
+  { title: "RAPL™ in One Page", desc: "A single-page value-cycle map summarizing the model, built for executive discussion and leadership development.", meta: "PDF · 1 page", link: null, cta: "Download map" },
+  { title: "Executive Sponsorship Health Check", desc: "A milestone-based check of sponsor presence, value articulation, decision rights, adoption readiness, risk escalation, benefits ownership and sustainment — the sponsorship capability developed through the Executive Certificate.", meta: "Self-assessment · 12 questions", link: "/certificate", cta: "Open the health check" },
+  { title: "AI Go-or-No-Go Gate", desc: "A value-protection gate covering business need, AI justification, data readiness, human oversight, sponsor accountability, workflow redesign, adoption risk, benefits ownership and post-deployment monitoring — the governance discipline organizations embed through structured application.", meta: "Decision gate · 9 criteria", link: "/organizations", cta: "Open the gate" },
+  { title: "Research Participation Brief", desc: "An overview of the Leadership Capability Alignment Study, research questions, participation options and data-use principles — part of the RAPL™ research and validation agenda.", meta: "PDF · 6 pages", link: "/research", cta: "Download brief" },
+];
+
+const insights = [
+  "Work has changed faster than leadership systems.",
+  "The Leadership Capability Gap is structural, not personal.",
+  "Sponsorship is a capability, not a title.",
+  "Risk being normalized is a signal, not a status update.",
+  "Adoption is a leadership discipline, not a delivery artifact.",
+  "AI does not replace leadership judgment; it raises the cost of weak judgment.",
+  "Sustained value is governed, not delivered.",
+  "Capability must change decisions and behavior in live work.",
+];
+
+const reading = [
+  { title: "The Leadership Economy by Samia Waqar", url: "https://samiawaqar.com/book", desc: null },
+  { title: "The Leadership Economy concept", url: "https://samiawaqar.com/leadership-economy", desc: "The broader thinking behind RAPL™'s approach to leadership and value." },
+  { title: "SnS Coaching and Consulting Services", url: "https://snsccs.com/", desc: null },
+];
+---
+
+<BaseLayout
+  title="Resources and Insights"
+  description="Approved RAPL™ briefs and decision aids, grounded in the RAPL™ Leadership Framework, to diagnose leadership demand, sharpen strategic choices, strengthen sponsorship, govern AI and keep value visible after delivery."
+>
+  <section class="page-hero page-hero--paper">
+    <div class="site-shell page-hero-grid reveal-on-scroll">
+      <div class="eyebrow page-hero-eyebrow">Resources and Insights</div>
+      <h1>RAPL™ briefs, decision aids and applied thinking for senior leaders.</h1>
+      <p class="lede">
+        Use approved RAPL™ briefs and decision aids, grounded in the
+        <a href="/framework" style="color: var(--ink); font-weight: 600;">RAPL™ Leadership Framework</a>,
+        to diagnose leadership demand, sharpen strategic choices, strengthen
+        sponsorship, govern AI and keep value visible after delivery.
+      </p>
+      <div class="button-row">
+        <a class="button primary" href="https://samiawaqar.com/book#join">
+          Subscribe to the briefing
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="button ghost" href="/framework">See the framework</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell">
+      <div style="max-width: 64rem;" class="reveal-on-scroll">
+        <div class="eyebrow">Featured downloads</div>
+        <h2 class="display-title">Decision aids, briefs and tools.</h2>
+        <p class="lede" style="margin-top: 1rem;">
+          Each resource is grounded in the RAPL™ Leadership Framework and tied to the
+          entry point that makes most sense for what you are trying to do.
+        </p>
+      </div>
+      <div class="grid-3" style="margin-top: 3rem;">
+        {downloads.map((d) => (
+          <div class="card card--feature reveal-on-scroll" style="display: flex; flex-direction: column; height: 100%;">
+            <div class="pill" style="font-size: 0.7rem; align-self: flex-start;">{d.meta}</div>
+            <h3 style="font-size: 1.15rem; margin-top: 0.75rem;">{d.title}</h3>
+            <p style="font-size: 0.9rem; line-height: 1.55; color: var(--graphite); margin-top: 0.5rem; flex: 1;">{d.desc}</p>
+            <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid rgba(16, 32, 43, 0.08);">
+              {d.link ? (
+                <a href={d.link} style="color: var(--annotation); font-weight: 600; font-size: 0.9rem;">{d.cta} <span class="arrow" aria-hidden="true">→</span></a>
+              ) : (
+                <a href="#download" style="color: var(--annotation); font-weight: 600; font-size: 0.9rem;">{d.cta} <span class="arrow" aria-hidden="true">↓</span></a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+      <p style="font-size: 0.78rem; color: var(--graphite); margin-top: 1.5rem; font-style: italic; max-width: 80ch;">
+        All RAPL™ decision aids are provided for use in live strategic, AI and transformation work. Where a download requires contact information, your details are used only to share the requested resource and relevant research updates.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--bond-deep">
+    <div class="site-shell">
+      <div class="split-layout">
+        <div class="reveal-on-scroll">
+          <div class="eyebrow">Applied thinking</div>
+          <h2 class="section-title" style="margin-top: 0.5rem;">Eight working propositions for executive leaders.</h2>
+          <p class="lede" style="margin-top: 1rem;">
+            These are the working propositions that shape RAPL™'s approach. They are
+            not slogans — they are tested against live strategic, AI and transformation
+            work.
+          </p>
+        </div>
+        <div class="reveal-on-scroll">
+          <ol class="prose-list" style="list-style: none; padding: 0;">
+            {insights.map((i, idx) => (
+              <li style="counter-increment: rapl; position: relative; padding-left: 3rem; margin-bottom: 1rem; line-height: 1.5; font-size: 1rem; color: var(--graphite);">
+                <span style="position: absolute; left: 0; top: 0; color: var(--brass); font-weight: 600; font-size: 0.9rem;">{String(idx + 1).padStart(2, "0")}</span>
+                {i}
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell">
+      <div style="max-width: 64rem;" class="reveal-on-scroll">
+        <div class="eyebrow">Connected reading</div>
+        <h2 class="display-title">Adjacent thinking and broader context.</h2>
+        <p class="lede" style="margin-top: 1rem;">
+          RAPL™ sits inside a wider set of ideas about leadership and value. The
+          resources below are the most direct extensions.
+        </p>
+      </div>
+      <div class="grid-3" style="margin-top: 3rem;">
+        {reading.map((r) => (
+          <a class="card unstyled reveal-on-scroll" href={r.url} target="_blank" rel="noreferrer">
+            <h3 style="font-size: 1.1rem;">{r.title}</h3>
+            {r.desc && <p style="font-size: 0.9rem; line-height: 1.55; color: var(--graphite); margin-top: 0.5rem;">{r.desc}</p>}
+            <span style="color: var(--annotation); font-weight: 600; font-size: 0.9rem; display: inline-block; margin-top: 1rem;">Visit ↗</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--ink">
+    <div class="site-shell">
+      <div class="split-layout">
+        <div class="reveal-on-scroll">
+          <div class="eyebrow">Briefing and updates</div>
+          <h2 class="display-title" style="color: var(--paper);">Join the Leadership Economy Briefing.</h2>
+          <p style="font-size: 1.05rem; line-height: 1.7; color: rgba(241, 240, 236, 0.8); margin-top: 1rem;">
+            Selected book, research, RAPL™ and event updates — including new resources,
+            research findings and Executive Certificate cohort dates. One email,
+            occasional, useful.
+          </p>
+        </div>
+        <div class="reveal-on-scroll">
+          <form class="form" style="background: var(--paper); color: var(--ink);" onsubmit="event.preventDefault();">
+            <div class="eyebrow">Subscribe</div>
+            <label for="briefing-email" style="margin-top: 1rem;">Your work email</label>
+            <input id="briefing-email" type="email" placeholder="leader@organization.com" />
+            <div class="button-row" style="margin-top: 1.25rem;">
+              <button type="submit" class="button primary">Join the briefing <span class="arrow" aria-hidden="true">→</span></button>
+            </div>
+            <p style="font-size: 0.78rem; color: var(--graphite); margin-top: 1rem;">We use your email only to send the briefing. Unsubscribe in one click.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    eyebrow="Take the next step"
+    title="Move from insight to action."
+    description="The briefs and decision aids are the lightest on-ramp. The diagnostic, the certificate and the organizational engagement are where they translate into capability."
+    primary={{ label: "Run the diagnostic", href: "/assessment" }}
+    secondary={{ label: "See the framework", href: "/framework" }}
+  />
+</BaseLayout>

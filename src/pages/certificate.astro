@@ -1,0 +1,194 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+import CTA from "../components/CTA.astro";
+
+const modules = [
+  { phase: "Define", name: "Diagnose the Work" },
+  { phase: "Define", name: "Choose the Work" },
+  { phase: "Define", name: "Translate the Work" },
+  { phase: "Govern", name: "Select the Shape" },
+  { phase: "Govern", name: "Integrate the System" },
+  { phase: "Govern", name: "Sponsor Delivery" },
+  { phase: "Protect", name: "Protect Value and Risk" },
+  { phase: "Protect", name: "Align Stakeholders" },
+  { phase: "Protect", name: "Govern Investment" },
+  { phase: "Land", name: "Optimize in Flight" },
+  { phase: "Land", name: "Drive Adoption" },
+  { phase: "Land", name: "Sustain Benefits" },
+];
+
+const who = [
+  "CEOs, COOs and business-unit leaders accountable for strategic outcomes.",
+  "CIOs, CHROs, CFOs and chief transformation officers who sponsor, govern or enable strategic work.",
+  "PMO, delivery and execution-office leaders bridging strategy and operations.",
+  "Senior leaders in functions that shape, enable or depend on AI and transformation initiatives.",
+];
+
+const outcomes = [
+  "A personal baseline across all twelve RAPL™ capabilities, measured against the demands of your seat.",
+  "A structured development path through the four phases — Define, Govern, Protect, Land.",
+  "Decision frameworks, briefs and tools you can apply in your live work during the program.",
+  "An integrated capstone that turns learning into a personal leadership intervention for a real strategic challenge.",
+  "A peer cohort of senior leaders confronting the same kind of work — and a network that continues afterward.",
+];
+
+const format = [
+  { value: "50", label: "Hours", note: "Total executive development hours" },
+  { value: "12", label: "Modules", note: "Mapped to the twelve RAPL™ capabilities" },
+  { value: "12–18", label: "Cohort", note: "Senior leaders per cohort" },
+  { value: "Live", label: "Capstone", note: "Real strategic work, not a simulation" },
+];
+---
+
+<BaseLayout
+  title="Executive Certificate"
+  description="A personalized, fifty-hour executive development program built around twelve RAPL™ modules and an integrated capstone."
+>
+  <section class="page-hero page-hero--ink">
+    <div class="site-shell page-hero-grid reveal-on-scroll">
+      <div class="eyebrow page-hero-eyebrow">Executive Certificate</div>
+      <h1>Develop the executive judgment leaders need <em>above, across and beyond</em> delivery.</h1>
+      <p class="lede">
+        A personalized, fifty-hour executive development program built around twelve RAPL™
+        modules and an integrated capstone.
+      </p>
+      <div class="button-row">
+        <a class="button brass" href="/contact?interest=certificate">
+          Apply for the next cohort
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="button ghost-light" href="/framework">Explore the framework</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell">
+      <div class="split-layout">
+        <div class="reveal-on-scroll">
+          <div class="eyebrow">Who it's for</div>
+          <h2 class="section-title" style="margin-top: 0.5rem;">Senior leaders accountable for strategic work they don't personally deliver.</h2>
+          <p class="lede" style="margin-top: 1rem;">
+            RAPL™ is not project management training for executives. It develops the
+            executive judgment, governance capability, integration skill, sponsorship
+            discipline and value leadership senior leaders need.
+          </p>
+        </div>
+        <div class="reveal-on-scroll">
+          <ul class="check-list">
+            {who.map((w) => <li>{w}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--bond-deep section--tight">
+    <div class="site-shell">
+      <div class="stat-row">
+        {format.map((f) => (
+          <div>
+            <div class="stat-value">{f.value}</div>
+            <div class="stat-label">{f.label}</div>
+            <p class="stat-note">{f.note}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell">
+      <div style="max-width: 64rem;" class="reveal-on-scroll">
+        <div class="eyebrow">Curriculum</div>
+        <h2 class="display-title">Twelve modules. Four phases. One integrated program.</h2>
+        <p class="lede" style="margin-top: 1rem;">
+          The certificate moves through the same value cycle RAPL™ describes — from
+          diagnosing the right work, through governing and protecting it, to landing the
+          value in operations.
+        </p>
+      </div>
+      <div class="grid-3" style="margin-top: 3rem;">
+        {modules.map((m, i) => (
+          <div class="capability reveal-on-scroll">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <span class="capability-number">{String(i + 1).padStart(2, "0")}</span>
+              <span class="pill" style="font-size: 0.7rem;">{m.phase}</span>
+            </div>
+            <h3 style="font-size: 1.15rem;">{m.name}</h3>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--bond-deep">
+    <div class="site-shell">
+      <div style="max-width: 64rem;" class="reveal-on-scroll">
+        <div class="eyebrow">Outcomes</div>
+        <h2 class="display-title">What you leave with.</h2>
+        <p class="lede" style="margin-top: 1rem;">Not a certificate of attendance — a structured personal development intervention.</p>
+      </div>
+      <div class="grid-2" style="margin-top: 3rem;">
+        {outcomes.map((o, i) => (
+          <div class="card reveal-on-scroll" style="display: flex; gap: 1rem; align-items: flex-start;">
+            <div style="color: var(--brass); font-size: 1.4rem; font-weight: 700; line-height: 1;">{String(i + 1).padStart(2, "0")}</div>
+            <p style="font-size: 1rem; line-height: 1.6; color: var(--graphite);">{o}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell">
+      <div class="grid-3">
+        <div class="card reveal-on-scroll">
+          <div class="eyebrow">Step 1</div>
+          <h3 style="font-size: 1.2rem; margin: 0.5rem 0 0.75rem;">Baseline</h3>
+          <p style="font-size: 0.95rem; line-height: 1.6; color: var(--graphite);">A capability baseline and seat-demand assessment at the start, mapped to the twelve RAPL™ capabilities and the consequences of weak performance in your role.</p>
+        </div>
+        <div class="card reveal-on-scroll">
+          <div class="eyebrow">Step 2</div>
+          <h3 style="font-size: 1.2rem; margin: 0.5rem 0 0.75rem;">Cohort work</h3>
+          <p style="font-size: 0.95rem; line-height: 1.6; color: var(--graphite);">A 12–18 person cohort of senior leaders working through the four phases, with case material drawn from real strategic, AI and transformation work.</p>
+        </div>
+        <div class="card reveal-on-scroll">
+          <div class="eyebrow">Step 3</div>
+          <h3 style="font-size: 1.2rem; margin: 0.5rem 0 0.75rem;">Capstone</h3>
+          <p style="font-size: 0.95rem; line-height: 1.6; color: var(--graphite);">A personal leadership intervention on a live strategic challenge — assessed against the RAPL™ capabilities, peer-reviewed, and applied in your work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight section--bond-deep">
+    <div class="site-shell">
+      <div class="split-layout">
+        <div>
+          <div class="eyebrow">Delivered by</div>
+          <h2 class="section-title" style="margin-top: 0.5rem;">A program from SnS Coaching and Consulting Services.</h2>
+          <p class="lede" style="margin-top: 1rem;">
+            The Executive Certificate is delivered through <a href="https://snsccs.com/" class="footer-external" style="color: var(--ink); font-weight: 600;">SnS Coaching and Consulting Services</a>, and built around the same RAPL™ Leadership Framework published on this site.
+          </p>
+        </div>
+        <div class="callout-card">
+          <div class="eyebrow">What this program is not</div>
+          <ul class="cross-list check-list" style="margin-top: 1rem;">
+            <li>Project management training for executives.</li>
+            <li>A replacement for PMO, change or delivery specialists.</li>
+            <li>A generalist leadership program that ignores the work.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    eyebrow="Next cohort"
+    title="Apply for the next Executive Certificate cohort."
+    description="Spaces are limited to preserve cohort depth. The next cohort opens enrollment quarterly."
+    primary={{ label: "Apply or request a brief", href: "/contact?interest=certificate" }}
+    secondary={{ label: "See the framework first", href: "/framework" }}
+  />
+</BaseLayout>

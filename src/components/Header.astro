@@ -1,0 +1,41 @@
+---
+const pathname = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
+---
+
+<header class="site-header">
+  <div class="site-shell header-bar">
+    <a class="brand unstyled" href="/" aria-label="RAPL — Home">
+      <span class="brand-mark">R</span>
+      <span class="brand-name">
+        <span class="brand-name-main">RAPL<sup>™</sup></span>
+        <span class="brand-name-sub">Role-Agnostic Leadership</span>
+      </span>
+    </a>
+
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="primary-nav"
+      aria-label="Open menu"
+    >
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+    </button>
+
+    <nav class="nav" id="primary-nav" aria-label="Primary">
+      <a href="/framework" aria-current={isActive("/framework") ? "page" : undefined}>Framework</a>
+      <a href="/certificate" aria-current={isActive("/certificate") ? "page" : undefined}>Certificate</a>
+      <a href="/organizations" aria-current={isActive("/organizations") ? "page" : undefined}>For Organizations</a>
+      <a href="/assessment" aria-current={isActive("/assessment") ? "page" : undefined}>Diagnostic</a>
+      <a href="/research" aria-current={isActive("/research") ? "page" : undefined}>Research</a>
+      <a href="/resources" aria-current={isActive("/resources") ? "page" : undefined}>Resources</a>
+      <a href="/about" aria-current={isActive("/about") ? "page" : undefined}>About</a>
+    </nav>
+
+    <a class="header-action" href="/contact">Contact</a>
+  </div>
+</header>

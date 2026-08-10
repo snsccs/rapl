@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://raplleadership.com/sitemap-index.xml
