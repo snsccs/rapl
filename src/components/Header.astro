@@ -4,10 +4,10 @@ const isActive = (href: string) =>
   href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
 ---
 
-<header class="site-header">
+<header class="site-header site-header--figma">
   <div class="site-shell header-bar">
     <a class="brand unstyled" href="/" aria-label="RAPL — Home">
-      <span class="brand-mark">R</span>
+      <span class="brand-mark brand-mark--figma">R</span>
       <span class="brand-name">
         <span class="brand-name-main">RAPL<sup>™</sup></span>
         <span class="brand-name-sub">Role-Agnostic Leadership</span>
@@ -36,6 +36,6 @@ const isActive = (href: string) =>
       <a href="/about" aria-current={isActive("/about") ? "page" : undefined}>About</a>
     </nav>
 
-    <a class="header-action" href="/contact">Contact</a>
+    <a class="header-action" href="/contact">CONTACT</a>
   </div>
 </header>
