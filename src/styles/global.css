@@ -6,20 +6,30 @@
 @import "@fontsource/inter/500.css";
 
 :root {
-  --ink: #10202b;
-  --ink-soft: #1a2e3a;
-  --ink-muted: #2b3e4a;
-  --graphite: #46545e;
-  --graphite-light: #6b7a83;
-  --bond: #f1f0ec;
-  --bond-deep: #e4e2db;
-  --bond-darker: #d8d5c9;
-  --annotation: #a8322a;
-  --annotation-light: #c4483f;
-  --brass: #b4894a;
-  --brass-light: #c89c5e;
-  --brass-deep: #8e6c34;
+  /* Brand — Figma-derived palette (PMI Figma file, Slide 16:9 home page) */
+  --ink: #0f1e31;          /* deep navy — used on dark sections & primary text */
+  --ink-soft: #122341;
+  --ink-muted: #1f2d44;
+  --graphite: #4c4646;     /* body charcoal — Figma body text */
+  --graphite-light: #6b625f;
+  --bond: #f4f2ef;         /* cream paper — Figma primary background */
+  --bond-deep: #ede8e5;    /* darker cream for stripes */
+  --bond-darker: #d9d9d9;
+  --annotation: #781222;   /* brand red — Figma accent */
+  --annotation-light: #951a30;
+  --annotation-deep: #5a0e19;
+  --brass: #cda367;        /* brass / gold — secondary accent */
+  --brass-light: #d9b785;
+  --brass-deep: #8f6e36;
   --paper: #fdfcf9;
+  --hero-rule: #0d0149;    /* deep indigo — used in header R logo */
+
+  /* Section backgrounds (Figma) */
+  --bg-cream-1: #f6f4f2;
+  --bg-cream-2: #f1eeea;
+  --bg-cream-3: #ede8e5;
+  --bg-cream-4: #f6f3ea;
+  --bg-ink: #0f1e31;
 
   --max-width: 1240px;
   --shell-padding: 24px;
@@ -88,29 +98,32 @@ h3,
 h4 {
   font-family: var(--font-sans);
   font-variation-settings: "opsz" 72;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.01em;
-  line-height: 1.1;
+  line-height: 1.05;
   color: var(--ink);
   margin: 0;
 }
 
 h1 {
-  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  /* Figma hero: 100px on desktop, scaled down on mobile */
+  font-size: clamp(2.6rem, 7.5vw, 6.25rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.04;
 }
 
 h2 {
-  font-size: clamp(1.8rem, 3.4vw, 2.8rem);
-  line-height: 1.1;
-  letter-spacing: -0.015em;
+  /* Figma section H2: 96px on desktop */
+  font-size: clamp(2rem, 5.5vw, 6rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
 }
 
 h3 {
-  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
-  line-height: 1.25;
+  /* Figma H3 / eyebrow: 32px */
+  font-size: clamp(1.4rem, 1.8vw, 2rem);
+  line-height: 1.2;
 }
 
 h4 {
@@ -152,18 +165,20 @@ img {
   font-size: 0.78rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--brass-deep);
 }
 
 .eyebrow {
-  font-size: 0.78rem;
-  letter-spacing: 0.2em;
+  /* Figma eyebrow: 32px Bold, charcoal #4c4646 (NOT brass) */
+  font-size: clamp(1.1rem, 1.4vw, 2rem);
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  font-weight: 600;
-  color: var(--brass-deep);
-  margin-bottom: 1rem;
+  font-weight: 700;
+  color: var(--graphite);
+  margin-bottom: 1.25rem;
   display: inline-block;
+  line-height: 1.1;
 }
 
 .eyebrow--ink {
@@ -180,7 +195,7 @@ img {
 
 .display-title {
   font-family: var(--font-sans);
-  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-size: clamp(2.4rem, 5.5vw, 6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.04;
@@ -197,15 +212,15 @@ img {
 }
 
 .lede {
-  font-size: 1.18rem;
-  line-height: 1.55;
+  font-size: clamp(1.15rem, 1.4vw, 1.5rem);
+  line-height: 1.45;
   color: var(--graphite);
   max-width: 60ch;
 }
 
 .body-text {
-  font-size: 1rem;
-  line-height: 1.65;
+  font-size: 1.1rem;
+  line-height: 1.55;
   color: var(--graphite);
 }
 
@@ -220,7 +235,7 @@ img {
 }
 
 .section--ink {
-  background: var(--ink);
+  background: var(--bg-ink);
   color: var(--bond);
 }
 
@@ -269,10 +284,281 @@ img {
   background: var(--paper);
 }
 
-.section-divider {
-  border: 0;
-  border-top: 1px solid rgba(16, 32, 43, 0.12);
+/* Figma cream backgrounds */
+.section--cream-1 { background: var(--bg-cream-1); }
+.section--cream-2 { background: var(--bg-cream-2); }
+.section--cream-3 { background: var(--bg-cream-3); }
+.section--cream-4 { background: var(--bg-cream-4); }
+
+/* Figma hero — centered text layout with full-height right-side building image background */
+.page-hero--figma {
+  background: #F6F4F2 url("/hero-architecture.png") right top / auto 100% no-repeat;
+  color: var(--ink);
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(4rem, 7vw, 7.5rem);
+}
+
+.page-hero--figma .site-shell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.page-hero--figma .page-hero-copy {
+  max-width: 900px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-hero--figma .page-hero-copy h1 {
+  color: #3B3A3A;
+  font-size: clamp(2.8rem, 5.5vw, 5.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  max-width: 18ch;
+  margin-inline: auto;
+  margin-block: 0.5rem 1.5rem;
+}
+
+.page-hero--figma .page-hero-eyebrow {
+  color: #4C4747;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.page-hero--figma .lede {
+  color: #4C4747;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  max-width: 44ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.page-hero--figma .hero-proof-bar {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #3B3A3A;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+@media (max-width: 1200px) {
+  .page-hero--figma {
+    background-size: cover;
+  }
+}
+
+/* Section 3: Forthcoming Book section (Figma Screenshot 4 Matching) */
+.section--book {
+  background: linear-gradient(135deg, #0d2138 0%, #061120 100%);
+  color: #ffffff;
+  padding-block: clamp(4.5rem, 8vw, 7rem);
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.book-cover-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book-cover-img {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 25px 40px rgba(0, 0, 0, 0.4));
+}
+
+.book-copy h2 {
+  color: #ffffff;
+  font-size: clamp(2.4rem, 4.5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-top: 0.5rem;
+}
+
+.book-copy .book-eyebrow {
+  color: #e59835;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 0.25rem;
+}
+
+.book-copy p {
+  color: rgba(241, 240, 236, 0.9);
+  font-size: 1.2rem;
+  line-height: 1.55;
+  max-width: 52ch;
+}
+
+.book-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.button.book-primary {
+  background: #ffffff;
+  color: #0d2138;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.65rem 1.35rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.18s ease;
+}
+
+.button.book-primary:hover {
+  background: #e5e7eb;
+  color: #061120;
+}
+
+.button.book-outline {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.65rem 1.35rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.button.book-outline:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Section 5: RAPL Framework Detail Section (Figma Screenshot 5 Matching) */
+.section--framework-detail {
+  background: #FDFBF7;
+  padding-block: clamp(4.5rem, 8vw, 7rem);
+}
+
+.framework-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.framework-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  margin-top: 2.25rem;
+}
+
+.framework-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.framework-feature-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #0F1E31;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.framework-feature-info h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 0.2rem;
+}
+
+.framework-feature-info p {
+  font-size: 0.98rem;
+  color: #4B5563;
   margin: 0;
+  font-weight: 500;
+}
+
+.framework-cta-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: #FAF6EF;
+  border: 1px solid #EADBCC;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin-top: 2.25rem;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.framework-cta-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15, 30, 49, 0.08);
+}
+
+.framework-cta-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #CDA367;
+  color: #CDA367;
+  background: #ffffff;
+  flex-shrink: 0;
+}
+
+.framework-cta-card span.title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0F1E31;
+}
+
+.framework-diagram-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.framework-diagram-img {
+  width: 100%;
+  max-width: 620px;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 980px) {
+  .framework-detail-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .section-divider--ink {
@@ -308,14 +594,15 @@ img {
 }
 
 .button.primary {
-  background: var(--ink);
-  color: var(--bond);
-  border-color: var(--ink);
+  /* Figma primary button: dark gray #3b3a3a */
+  background: #3b3a3a;
+  color: var(--paper);
+  border-color: #3b3a3a;
 }
 
 .button.primary:hover {
-  background: var(--ink-muted);
-  border-color: var(--ink-muted);
+  background: #1f1e1e;
+  border-color: #1f1e1e;
   color: var(--paper);
 }
 
@@ -511,20 +798,20 @@ img {
   color: var(--brass);
 }
 
-/* ============ Header ============ */
+/* ============ Header (Figma: Solid White Top Bar) ============ */
 
 .site-header {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(241, 240, 236, 0.95);
-  backdrop-filter: saturate(180%) blur(8px);
-  border-bottom: 1px solid rgba(16, 32, 43, 0.1);
+  background: #ffffff;
+  border-bottom: 1px solid rgba(15, 30, 49, 0.08);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
 }
 
 .site-header.scrolled {
-  background: rgba(241, 240, 236, 0.98);
-  box-shadow: 0 1px 0 rgba(16, 32, 43, 0.04);
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .header-bar {
@@ -550,15 +837,28 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   background: var(--ink);
-  color: var(--brass);
+  color: var(--paper);
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.4rem;
+  font-weight: 700;
+  font-size: 1.5rem;
   line-height: 1;
   border-radius: 2px;
+}
+
+/* Figma-style brand mark: deep indigo bg, white R, taller proportions */
+.brand-mark--figma {
+  background: #0B132B;
+  color: #ffffff;
+  width: 42px;
+  height: 42px;
+  font-family: var(--font-sans);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  border-radius: 4px;
 }
 
 .brand-name {
@@ -569,8 +869,9 @@ img {
 
 .brand-name-main {
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.05rem;
   letter-spacing: -0.01em;
+  color: #0F1E31;
 }
 
 .brand-name-sub {
@@ -593,22 +894,22 @@ img {
 .nav {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
 }
 
 .nav a {
   text-decoration: none;
-  color: var(--graphite);
-  font-weight: 500;
-  font-size: 0.94rem;
-  padding: 0.5rem 0.85rem;
+  color: #4C4747;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.95rem;
   letter-spacing: 0;
   transition: color 0.18s ease;
 }
 
 .nav a:hover,
 .nav a[aria-current="page"] {
-  color: var(--ink);
+  color: #0F1E31;
 }
 
 .nav-toggle {
@@ -633,20 +934,20 @@ img {
 .header-action {
   display: inline-flex;
   align-items: center;
-  padding: 0.55rem 1rem;
-  background: var(--ink);
-  color: var(--bond);
+  padding: 0.6rem 1.25rem;
+  background: #E5E7EB;
+  color: #3B3A3A;
   text-decoration: none;
-  font-weight: 600;
-  font-size: 0.88rem;
-  letter-spacing: 0.01em;
-  border-radius: var(--radius);
-  transition: background 0.18s ease;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  border-radius: 6px;
+  transition: background 0.18s ease, color 0.18s ease;
 }
 
 .header-action:hover {
-  background: var(--ink-muted);
-  color: var(--paper);
+  background: #D1D5DB;
+  color: #0F1E31;
 }
 
 @media (max-width: 980px) {
@@ -1026,31 +1327,39 @@ img {
 }
 
 .phase {
-  background: var(--ink);
-  color: var(--bond);
+  /* Figma: light cream/white card, dark text, brass accent */
+  background: var(--paper);
+  color: var(--ink);
   padding: 1.75rem 1.75rem 0.5rem;
   border-radius: 0;
+  border: 1px solid rgba(15, 30, 49, 0.08);
+  border-left: 3px solid var(--brass);
 }
 
 .phase h3 {
-  color: var(--paper);
-  font-size: 1.75rem;
-  margin: 0.35rem 0 0.25rem;
+  color: var(--ink);
+  font-size: 1.85rem;
+  margin: 0.35rem 0 0.5rem;
   font-weight: 700;
+  line-height: 1.15;
 }
 
 .phase .phase-eyebrow {
-  color: var(--brass-light);
-  font-size: 0.72rem;
-  letter-spacing: 0.22em;
+  /* Figma PHASE label: 24px weight 400 charcoal, not bold */
+  color: var(--graphite);
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
 }
 
 .phase .phase-tagline {
-  color: rgba(241, 240, 236, 0.7);
-  font-size: 0.95rem;
+  color: var(--graphite);
+  font-size: 0.98rem;
   margin-top: 0.5rem;
+  line-height: 1.45;
+  max-width: 56ch;
 }
 
 @media (max-width: 640px) {
@@ -1080,17 +1389,18 @@ img {
 .phase-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-top: 1px solid rgba(241, 240, 236, 0.1);
-  background: var(--ink-soft);
+  border-top: 1px solid rgba(15, 30, 49, 0.08);
+  background: transparent;
+  margin-top: 1.25rem;
 }
 
 .phase-grid .capability {
   background: transparent;
   border: 0;
-  border-right: 1px solid rgba(241, 240, 236, 0.08);
+  border-right: 1px solid rgba(15, 30, 49, 0.08);
   border-radius: 0;
-  padding: 1.5rem 1.5rem 2rem;
-  color: var(--bond);
+  padding: 1.25rem 1.25rem 1.5rem;
+  color: var(--graphite);
 }
 
 .phase-grid .capability:last-child {
@@ -1098,11 +1408,14 @@ img {
 }
 
 .phase-grid .capability h3 {
-  color: var(--paper);
+  color: var(--ink);
+  margin: 0.4rem 0 0.4rem;
 }
 
 .phase-grid .capability p {
-  color: rgba(241, 240, 236, 0.7);
+  color: var(--graphite);
+  font-size: 0.92rem;
+  line-height: 1.5;
 }
 
 @media (max-width: 880px) {
@@ -1504,3 +1817,607 @@ img {
 @media (max-width: 540px) {
   .form-row { grid-template-columns: 1fr; }
 }
+
+/* ============ Figma home-page additions ============ */
+
+/* Brand red filled button (Figma-style "Join the Book Community") */
+.button.brand {
+  background: var(--annotation);
+  color: var(--paper);
+  border-color: var(--annotation);
+}
+.button.brand:hover {
+  background: var(--annotation-light);
+  border-color: var(--annotation-light);
+  color: var(--paper);
+}
+
+/* Outline button — for "Explore the RAPL™ Framework →" outlined style */
+.button.outline-ink {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.button.outline-ink:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Big RAPL framework diagram section */
+.rapl-diagram-section {
+  background: var(--bg-cream-1);
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+
+.rapl-diagram-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.rapl-diagram-copy h2 {
+  font-size: clamp(2.4rem, 5vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  color: var(--ink);
+}
+
+.rapl-diagram-image {
+  width: 100%;
+  max-width: 920px;
+  aspect-ratio: 1921 / 989;
+  display: block;
+}
+
+@media (max-width: 980px) {
+  .rapl-diagram-wrap {
+    grid-template-columns: 1fr;
+  }
+  .rapl-diagram-image {
+    order: -1;
+  }
+}
+
+/* Engage cards 2x2 grid (Four ways to engage) */
+.engage-grid-2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.engage-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1.75rem 1.75rem 1.5rem;
+  background: var(--paper);
+  border: 1px solid rgba(15, 30, 49, 0.08);
+  border-left: 3px solid var(--annotation);
+  border-radius: 0;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.engage-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px -20px rgba(15, 30, 49, 0.25);
+  border-left-color: var(--annotation);
+  color: inherit;
+}
+
+.engage-card__title {
+  font-size: 1.85rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0;
+}
+
+.engage-card__desc {
+  color: var(--graphite);
+  font-size: 1rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.engage-card__cta {
+  margin-top: 0.5rem;
+  color: var(--annotation);
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: underline;
+  text-decoration-color: rgba(120, 18, 34, 0.4);
+  text-underline-offset: 0.2em;
+}
+
+.engage-card__cta .arrow {
+  transition: transform 0.18s ease;
+}
+
+.engage-card:hover .engage-card__cta .arrow {
+  transform: translateX(3px);
+}
+
+@media (max-width: 760px) {
+  .engage-grid-2x2 {
+    grid-template-columns: 1fr;
+  }
+  .engage-card__title { font-size: 1.5rem; }
+}
+
+/* "What RAPL is / is not" two-column with red & blue rules */
+.is-not-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  margin-top: 2rem;
+}
+
+.is-not-col {
+  border-top: 3px solid;
+  padding-top: 1.25rem;
+}
+
+.is-not-col--is { border-color: var(--annotation); }
+.is-not-col--not { border-color: #1f4ea8; }
+
+.is-not-col h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 1.25rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--ink);
+}
+
+.is-not-col--is h3::before {
+  content: "✓";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--annotation);
+  color: var(--paper);
+  font-size: 1.1rem;
+}
+
+.is-not-col--not h3::before {
+  content: "✕";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid #1f4ea8;
+  color: #1f4ea8;
+  font-size: 1rem;
+}
+
+.is-not-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.is-not-col li {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(15, 30, 49, 0.08);
+  color: var(--graphite);
+  line-height: 1.55;
+  font-size: 1rem;
+}
+
+.is-not-col li:last-child {
+  border-bottom: 0;
+}
+
+@media (max-width: 880px) {
+  .is-not-grid { grid-template-columns: 1fr; }
+}
+
+/* Pill — dark variant for evidence section */
+.pill--ink {
+  background: transparent;
+  color: var(--paper);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.evidence-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  border-left: 2px solid rgba(255, 255, 255, 0.25);
+  padding-left: 1.25rem;
+}
+
+.evidence-block__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brass-light);
+  display: inline-block;
+  margin-right: 0.6rem;
+}
+
+/* Footer — Figma uses a dark navy with cream text */
+.site-footer {
+  background: var(--bg-ink);
+  color: rgba(241, 240, 236, 0.78);
+  padding-block: clamp(3rem, 5vw, 5rem);
+  font-size: 0.95rem;
+}
+
+.site-footer h4 {
+  color: var(--paper);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 0.85rem 0;
+  font-weight: 700;
+}
+
+.site-footer a {
+  color: rgba(241, 240, 236, 0.78);
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.18rem 0;
+}
+
+.site-footer a:hover {
+  color: var(--paper);
+}
+
+/* Card background graphics & exact Figma home layout */
+
+/* Section 1: Hero image card styling */
+.page-hero--figma .hero-image {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--paper);
+  box-shadow: 0 20px 40px -15px rgba(15, 30, 49, 0.15);
+  border: 1px solid rgba(15, 30, 49, 0.08);
+}
+
+.page-hero--figma .hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Section 2: Phase cards (The Model at a Glance - Figma Screenshot 3 Matching) */
+.phases-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+.phase {
+  background: #ffffff;
+  color: var(--ink);
+  padding: 2.25rem 2.25rem 1.75rem;
+  border-radius: 4px;
+  border: 1px solid #E5E7EB;
+  border-left: 14px solid #0F1E31;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+}
+
+.phase .phase-eyebrow {
+  color: #6B7280;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.phase h3 {
+  color: #111827;
+  font-size: 1.65rem;
+  margin: 0 0 0.4rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.phase .phase-tagline {
+  color: #4B5563;
+  font-size: 0.98rem;
+  margin: 0;
+  line-height: 1.45;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  background: transparent;
+  margin-top: 1.25rem;
+}
+
+.phase-grid .capability {
+  background: transparent;
+  border: 0;
+  border-right: 1px solid #E5E7EB;
+  border-radius: 0;
+  padding: 0 1rem 0.5rem 0;
+  margin-right: 1rem;
+  color: #4B5563;
+}
+
+.phase-grid .capability:first-child {
+  padding-left: 0;
+}
+
+.phase-grid .capability:last-child {
+  border-right: 0;
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.phase-grid .capability .capability-number {
+  color: #6B7280;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: block;
+}
+
+.phase-grid .capability h4 {
+  color: #111827;
+  margin: 0.25rem 0 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.phase-grid .capability p {
+  color: #4B5563;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+@media (max-width: 980px) {
+  .phases-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .phase-grid { grid-template-columns: 1fr; }
+  .phase-grid .capability {
+    border-right: 0;
+    border-bottom: 1px solid #E5E7EB;
+    padding: 0.75rem 0;
+    margin-right: 0;
+  }
+  .phase-grid .capability:last-child {
+    border-bottom: 0;
+  }
+}
+
+/* Section 3: "What RAPL is / is not" clean two-column cards */
+.is-not-container {
+  max-width: var(--max-width);
+  margin-inline: auto;
+}
+
+.is-not-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.is-not-card {
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(15, 30, 49, 0.06);
+  border: 1px solid rgba(15, 30, 49, 0.08);
+}
+
+.is-not-card--is {
+  border-top: 4px solid var(--annotation);
+}
+
+.is-not-card--not {
+  border-top: 4px solid #1f4ea8;
+}
+
+.is-not-card__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.is-not-card__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.is-not-card--is .is-not-card__badge {
+  background: var(--annotation);
+  color: #ffffff;
+}
+
+.is-not-card--not .is-not-card__badge {
+  border: 2px solid #1f4ea8;
+  color: #1f4ea8;
+  background: transparent;
+}
+
+.is-not-card h3 {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+
+.is-not-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.is-not-card li {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(15, 30, 49, 0.08);
+  color: var(--graphite);
+  line-height: 1.55;
+  font-size: 1.05rem;
+}
+
+.is-not-card li:last-child {
+  border-bottom: 0;
+}
+
+@media (max-width: 880px) {
+  .is-not-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Section 4: Engage Cards (Four ways to engage) */
+.engage-grid-2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem;
+  margin-top: 3rem;
+}
+
+.engage-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 2.25rem;
+  background: #ffffff;
+  border: 1px solid rgba(15, 30, 49, 0.08);
+  border-left: 4px solid var(--annotation);
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 6px 24px rgba(15, 30, 49, 0.04);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  position: relative;
+}
+
+.engage-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px -15px rgba(15, 30, 49, 0.15);
+}
+
+.engage-card__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(120, 18, 34, 0.08);
+  color: var(--annotation);
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.engage-card__title {
+  font-size: 1.85rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0;
+}
+
+.engage-card__desc {
+  color: var(--graphite);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.engage-card__cta {
+  margin-top: 0.75rem;
+  color: var(--annotation);
+  font-weight: 600;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: underline;
+  text-decoration-color: rgba(120, 18, 34, 0.4);
+  text-underline-offset: 0.2em;
+}
+
+@media (max-width: 760px) {
+  .engage-grid-2x2 { grid-template-columns: 1fr; }
+}
+
+/* Section 7: Next Step CTA with centered circular diagram background */
+.cta-banner--wheel {
+  background: var(--ink);
+  color: var(--bond);
+  padding-block: clamp(5rem, 9vw, 8rem);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.cta-wheel-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 850px;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cta-banner--wheel .site-shell {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cta-banner--wheel h2 {
+  color: #ffffff;
+  max-width: 24ch;
+  margin-inline: auto;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  line-height: 1.12;
+}
+
+.cta-banner--wheel p {
+  color: rgba(241, 240, 236, 0.85);
+  max-width: 54ch;
+  margin-inline: auto;
+  font-size: 1.2rem;
+}
+
+.cta-banner--wheel .button-row {
+  justify-content: center;
+}
+
+

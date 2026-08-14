@@ -4,6 +4,7 @@ import CTA from "../components/CTA.astro";
 
 const phases = [
   {
+    n: "1",
     label: "Define the Work",
     tagline: "Diagnose the right work before committing investment.",
     capabilities: [
@@ -13,8 +14,9 @@ const phases = [
     ],
   },
   {
+    n: "2",
     label: "Govern the Work",
-    tagline: "Hold the work, the people and the system together through delivery.",
+    tagline: "Hold the work, the people & the system together through delivery.",
     capabilities: [
       { name: "Select", desc: "Determine the right delivery shape — portfolio, program, project, product or hybrid — for the work at hand." },
       { name: "Integrate", desc: "Coordinate across functions, vendors, governance bodies and operating models so the whole system works." },
@@ -22,8 +24,9 @@ const phases = [
     ],
   },
   {
+    n: "3",
     label: "Protect the Work",
-    tagline: "Keep value, risk and accountability visible from intent to operation.",
+    tagline: "Keep value, risk & accountability visible from intent to operation.",
     capabilities: [
       { name: "Protect", desc: "Hold risk, security, ethics and AI exposure as visible executive concerns, not delivery-team tasks." },
       { name: "Align", desc: "Keep stakeholders, governance and operating model aligned as the work evolves." },
@@ -31,6 +34,7 @@ const phases = [
     ],
   },
   {
+    n: "4",
     label: "Land the Value",
     tagline: "Make the result stick — in adoption, in operations, in sustained value.",
     capabilities: [
@@ -43,24 +47,28 @@ const phases = [
 
 const engage = [
   {
+    icon: "🎓",
     title: "Executive Certificate",
     desc: "A personalized, fifty-hour executive development program built around twelve RAPL™ modules and an integrated capstone.",
     href: "/certificate",
     cta: "Explore the Executive Certificate",
   },
   {
+    icon: "🏛",
     title: "For Organizations",
     desc: "Seat profiles, capability baselines, gap heatmaps, targeted development and governance integration.",
     href: "/organizations",
     cta: "Explore Organizational Application",
   },
   {
+    icon: "◎",
     title: "Alignment Diagnostic",
     desc: "A structured way to compare what senior roles require with what leadership and talent systems develop, assess and reward.",
     href: "/assessment",
     cta: "Explore the Diagnostic",
   },
   {
+    icon: "❍",
     title: "Research and Validation",
     desc: "A transparent research agenda testing content validity, role demand, talent-system alignment and intervention effectiveness.",
     href: "/research",
@@ -73,61 +81,62 @@ const engage = [
   title="RAPL™ — Role-Agnostic Project Leadership Framework"
   description="RAPL™ is an executive leadership framework built for senior leaders who must diagnose the right work, govern investment, lead adoption and sustain value across AI-enabled, project-shaped change."
 >
-  <section class="page-hero page-hero--ink">
-    <div class="site-shell page-hero-grid">
-      <div class="reveal-on-scroll">
-        <div class="eyebrow page-hero-eyebrow">Executive Leadership Framework</div>
-        <h1>Work changed faster than <em>leadership systems.</em></h1>
-        <p class="lede">
-          Organizations now deliver strategy through portfolios, programs, projects,
-          products, transformations and AI initiatives. The work crosses functions,
-          technologies, operating models and accountability boundaries.
+  <!-- ============== HERO (Figma Screenshot 2 Matching) ============== -->
+  <section class="page-hero page-hero--figma">
+    <div class="site-shell">
+      <div class="page-hero-copy reveal-on-scroll">
+        <div class="eyebrow page-hero-eyebrow">EXECUTIVE LEADERSHIP FRAMEWORK</div>
+        <h1>Work changed faster than leadership systems.</h1>
+        <p class="lede" style="margin-top: 1.5rem;">
+          Organizations now deliver strategy through portfolios, programs,
+          projects, products, transformations & AI initiatives. The work
+          crosses functions, technologies, operating models and
+          accountability boundaries. Leadership development, role
+          design and succession systems often remain built for
+          stable functions and operational continuity. The result
+          is a measurable <u style="text-underline-offset: 4px; font-weight: 700; color: var(--ink);">Leadership Capability Gap</u> between what
+          strategic work requires and what leadership systems
+          deliberately define, develop, assess, reward, deploy & refresh.
         </p>
-        <p class="lede" style="margin-top: 1rem;">
-          Leadership development, role design and succession systems often remain built
-          for stable functions and operational continuity. The result is a measurable
-          <a href="#gap" style="color: var(--brass-light);">Leadership Capability Gap</a>
-          between what strategic work requires and what leadership systems deliberately
-          define, develop, assess, reward, deploy and refresh.
-        </p>
-        <div class="button-row">
-          <a class="button brass" href="/framework">
+        <div class="button-row" style="margin-top: 2.25rem;">
+          <a class="button primary" href="/framework">
             Explore the RAPL™ Framework
             <span class="arrow" aria-hidden="true">→</span>
           </a>
-          <a class="button ghost-light" href="/assessment">Start the Diagnostic</a>
+          <a class="button primary" href="/assessment">Start the Diagnostic</a>
         </div>
-        <p style="margin-top: 2rem; color: rgba(241, 240, 236, 0.65); font-size: 0.88rem; letter-spacing: 0.04em;">
-          <span style="color: var(--brass-light);">✓</span> Theory-grounded &nbsp;·&nbsp;
-          <span style="color: var(--brass-light);">✓</span> Practice-informed &nbsp;·&nbsp;
-          <span style="color: var(--brass-light);">✓</span> Designed to be tested
+        <p class="hero-proof-bar" style="margin-top: 2rem; color: #3B3A3A; font-size: 1.25rem; letter-spacing: 0.02em; font-weight: 500;">
+          <span style="color: #3B3A3A; font-weight: 700;">✓</span> Theory-grounded &nbsp;·&nbsp;
+          <span style="color: #3B3A3A; font-weight: 700;">✓</span> Practice-informed &nbsp;·&nbsp;
+          <span style="color: #3B3A3A; font-weight: 700;">✓</span> Designed to be tested
         </p>
       </div>
     </div>
   </section>
 
-  <section class="section" id="one-page">
+  <!-- ============== RAPL IN ONE PAGE — 4-phase grid (Figma Screenshot 3 Matching) ============== -->
+  <section class="section section--cream-1" id="one-page" style="background: #F9F8F6; padding-block: clamp(4rem, 7vw, 6.5rem);">
     <div class="site-shell">
-      <div style="max-width: 64rem;" class="reveal-on-scroll">
-        <div class="eyebrow">The model at a glance</div>
-        <h2 class="display-title" style="max-width: 24ch;">RAPL™ in one page.</h2>
-        <p class="lede" style="margin-top: 1rem;">
-          RAPL™ follows a strategic investment from need and intent through to
+      <div style="max-width: 58rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; letter-spacing: 0.06em; font-weight: 700; margin-bottom: 0.5rem;">THE MODEL AT A GLANCE</div>
+        <h2 style="color: #3B3A3A; font-size: clamp(2.8rem, 5.5vw, 5rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.05;">RAPL™ in one page.</h2>
+        <p class="lede" style="margin-top: 1.25rem; font-size: 1.2rem; color: #4B5563; line-height: 1.5; max-width: 52ch;">
+          RAPL™ follows a strategic investment from need & intent through to
           responsible, sustained value in operations.
         </p>
       </div>
 
-      <div class="phases-grid reveal-on-scroll" style="margin-top: 3.5rem;">
+      <div class="phases-grid reveal-on-scroll" style="margin-top: 3rem;">
         {phases.map((p) => (
           <article class="phase">
-            <div class="phase-eyebrow">Phase</div>
+            <div class="phase-eyebrow">PHASE {p.n}</div>
             <h3>{p.label}</h3>
             <p class="phase-tagline">{p.tagline}</p>
             <div class="phase-grid">
               {p.capabilities.map((c, i) => (
                 <div class="capability">
                   <span class="capability-number">{String(i + 1).padStart(2, "0")}</span>
-                  <h3 style="margin-top: 0.5rem; font-size: 1.2rem;">{c.name}</h3>
+                  <h4>{c.name}</h4>
                   <p>{c.desc}</p>
                 </div>
               ))}
@@ -136,117 +145,274 @@ const engage = [
         ))}
       </div>
 
-      <div style="margin-top: 2.5rem;" class="reveal-on-scroll">
-        <a class="button primary" href="/framework">
-          Explore the complete RAPL™ Framework
-          <span class="arrow" aria-hidden="true">→</span>
+      <div style="margin-top: 3rem;" class="reveal-on-scroll">
+        <a class="button primary" href="/framework" style="background: #3B3A3A; color: #FFFFFF; font-size: 0.85rem; font-weight: 700; padding: 0.6rem 1.25rem; border-radius: 4px;">
+          Explore the complete RAPL™ Framework →
         </a>
       </div>
     </div>
   </section>
 
-  <section class="section section--bond-deep" id="gap">
+  <!-- ============== FORTHCOMING BOOK SECTION (Figma Screenshot 4 Matching) ============== -->
+  <section class="section section--book" id="book">
+    <div class="site-shell book-grid reveal-on-scroll">
+      <div class="book-cover-wrap">
+        <img
+          src="/book-cover.png"
+          alt="The Leadership Economy — Why Today's Organizations Need the Leaders We Are Not Yet Developing by Samia Waqar"
+          class="book-cover-img"
+          loading="lazy"
+        />
+      </div>
+      <div class="book-copy">
+        <span class="book-eyebrow">FORTHCOMING BOOK</span>
+        <h2>Why Today's Organizations Need the Leaders We Are Not Yet Developing</h2>
+        <p style="margin-top: 1.5rem;">
+          The book examines why work has changed faster than leadership systems
+          and introduces Role-Agnostic Project Leadership™, or RAPL™, as a
+          four-phase, twelve-capability architecture for carrying AI-enabled,
+          project-shaped strategy into responsible & sustained value.
+        </p>
+        <div class="book-button-row">
+          <a class="button book-primary" href="/resources">Explore the Book</a>
+          <a class="button book-outline" href="/contact">Join the Book Community</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== WHAT RAPL IS / IS NOT (Clean White Cards) ============== -->
+  <section class="section section--cream-2" id="gap">
     <div class="site-shell">
-      <div class="grid-2">
-        <div class="reveal-on-scroll">
-          <div class="eyebrow">What RAPL™ is</div>
-          <ul class="check-list" style="margin-top: 1.25rem;">
+      <div class="is-not-grid reveal-on-scroll">
+        <div class="is-not-card is-not-card--is">
+          <div class="is-not-card__header">
+            <span class="is-not-card__badge" aria-hidden="true">✓</span>
+            <h3>What RAPL™ is</h3>
+          </div>
+          <ul>
             <li>A single value-cycle map for strategic work — from diagnosis to sustained value.</li>
             <li>A role-demand model, recognizing different leadership seats require different depth.</li>
             <li>A capability system that can be assessed, developed, applied and refreshed over time.</li>
             <li>A translation of specialist disciplines into executive questions, judgments and actions.</li>
           </ul>
         </div>
-        <div class="reveal-on-scroll">
-          <div class="eyebrow eyebrow--ink" style="color: var(--graphite);">What RAPL™ is not</div>
-          <ul class="check-list cross-list" style="margin-top: 1.25rem;">
+
+        <div class="is-not-card is-not-card--not">
+          <div class="is-not-card__header">
+            <span class="is-not-card__badge" aria-hidden="true">✕</span>
+            <h3>What RAPL™ is not</h3>
+          </div>
+          <ul>
             <li>Project management training for executives.</li>
             <li>A replacement for project, program, portfolio, risk, PMO, change, business analysis, benefits or AI specialists — RAPL™ complements, not replaces, these disciplines.</li>
             <li>A claim that every role needs identical proficiency across all twelve capabilities.</li>
             <li>A claim that leadership is the only variable in transformation success.</li>
           </ul>
         </div>
+    </div>
+  </section>
+
+  <!-- ============== RAPL FRAMEWORK DETAIL SECTION (Figma Screenshot 5 Matching) ============== -->
+  <section class="section section--framework-detail" id="framework-detail">
+    <div class="site-shell framework-detail-grid reveal-on-scroll">
+      <div>
+        <div class="eyebrow" style="color: #CDA367; font-size: 1.25rem; letter-spacing: 0.08em; font-weight: 700; margin-bottom: 0.25rem;">
+          LEADERSHIP FRAMEWORK
+        </div>
+        <h2 style="color: #0F1E31; font-size: clamp(2.8rem, 5.5vw, 5rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.05;">
+          RAPL<sup>™</sup> Framework
+        </h2>
+        <p class="lede" style="margin-top: 1.25rem; font-size: 1.2rem; color: #1F2937; line-height: 1.5; font-weight: 600; max-width: 48ch;">
+          RAPL™ follows a strategic investment from need and intent through to responsible, sustained value in operations:
+        </p>
+
+        <div class="framework-features-list">
+          <div class="framework-feature-item">
+            <div class="framework-feature-badge" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </div>
+            <div class="framework-feature-info">
+              <h4>Define the Work</h4>
+              <p>Diagnose | Choose | Translate</p>
+            </div>
+          </div>
+
+          <div class="framework-feature-item">
+            <div class="framework-feature-badge" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="framework-feature-info">
+              <h4>Govern the Work</h4>
+              <p>Select | Integrate | Deliver</p>
+            </div>
+          </div>
+
+          <div class="framework-feature-item">
+            <div class="framework-feature-badge" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="framework-feature-info">
+              <h4>Protect the Work</h4>
+              <p>Protect | Align | Govern</p>
+            </div>
+          </div>
+
+          <div class="framework-feature-item">
+            <div class="framework-feature-badge" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <div class="framework-feature-info">
+              <h4>Land the Value</h4>
+              <p>Optimize | Adopt | Sustain</p>
+            </div>
+          </div>
+        </div>
+
+        <a class="framework-cta-card" href="/framework">
+          <div class="framework-cta-badge" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <span class="title">Explore the complete RAPL™ Framework</span>
+        </a>
+      </div>
+
+      <div class="framework-diagram-wrap">
+        <img
+          src="/rapl-framework-diagram.png"
+          alt="Role Agnostic Project Leadership (RAPL) Framework Wheel Diagram"
+          class="framework-diagram-img"
+          loading="lazy"
+        />
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <!-- ============== HOW TO ENGAGE (2x2 White Cards with Icon Badges) ============== -->
+  <section class="section section--cream-3" id="engage">
     <div class="site-shell">
       <div style="max-width: 64rem;" class="reveal-on-scroll">
-        <div class="eyebrow">How to engage</div>
-        <h2 class="display-title">Four ways to engage with RAPL™.</h2>
-        <p class="lede" style="margin-top: 1rem;">
-          Whether you are an individual senior leader, an organization, or a researcher —
-          there is a structured on-ramp to the framework.
+        <div class="eyebrow">HOW TO ENGAGE</div>
+        <h2>Four ways to engage with RAPL™.</h2>
+        <p class="lede" style="margin-top: 1.5rem; font-size: 1.35rem;">
+          Whether you are an individual senior leader, an organization, or a researcher there is a structured on-ramp to the framework.
         </p>
       </div>
 
-      <div class="grid-2" style="margin-top: 3rem;">
-        {engage.map((e) => (
-          <a class="card card--feature unstyled reveal-on-scroll" href={e.href}>
-            <h3 style="font-size: 1.5rem; margin-bottom: 0.75rem;">{e.title}</h3>
-            <p style="color: var(--graphite); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">{e.desc}</p>
-            <span style="color: var(--annotation); font-weight: 600; font-size: 0.92rem;">
-              {e.cta}
-              <span class="arrow" aria-hidden="true" style="display: inline-block; margin-left: 0.35rem;">→</span>
-            </span>
-          </a>
-        ))}
+      <div class="engage-grid-2x2 reveal-on-scroll" style="margin-top: 3rem;">
+        <a class="engage-card" href="/certificate">
+          <div class="engage-card__badge" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <h3 class="engage-card__title">Executive Certificate</h3>
+          <p class="engage-card__desc">A personalized, fifty-hour executive development program built around twelve RAPL™ modules and an integrated capstone.</p>
+          <span class="engage-card__cta">
+            Explore the Executive Certificate
+            <span class="arrow" aria-hidden="true">→</span>
+          </span>
+        </a>
+
+        <a class="engage-card" href="/organizations">
+          <div class="engage-card__badge" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>
+          </div>
+          <h3 class="engage-card__title">For Organizations</h3>
+          <p class="engage-card__desc">Seat profiles, capability baselines, gap heatmaps, targeted development and governance integration.</p>
+          <span class="engage-card__cta">
+            Explore Organizational Application
+            <span class="arrow" aria-hidden="true">→</span>
+          </span>
+        </a>
+
+        <a class="engage-card" href="/assessment">
+          <div class="engage-card__badge" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </div>
+          <h3 class="engage-card__title">Alignment Diagnostic</h3>
+          <p class="engage-card__desc">A structured way to compare what senior roles require with what leadership and talent systems develop, assess and reward.</p>
+          <span class="engage-card__cta">
+            Explore the Diagnostic
+            <span class="arrow" aria-hidden="true">→</span>
+          </span>
+        </a>
+
+        <a class="engage-card" href="/research">
+          <div class="engage-card__badge" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <h3 class="engage-card__title">Research and Validation</h3>
+          <p class="engage-card__desc">A transparent research agenda testing content validity, role demand, talent-system alignment and intervention effectiveness.</p>
+          <span class="engage-card__cta">
+            Explore the Research
+            <span class="arrow" aria-hidden="true">→</span>
+          </span>
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="section section--ink">
+  <!-- ============== EVIDENCE-AWARE FRAMEWORK ============== -->
+  <section class="section section--ink" id="evidence">
     <div class="site-shell">
       <div class="split-layout reveal-on-scroll">
         <div>
-          <div class="eyebrow">Evidence position</div>
-          <h2 class="display-title" style="color: var(--paper);">An evidence-aware framework.</h2>
+          <div class="eyebrow" style="color: var(--annotation);">EVIDENCE POSITION</div>
+          <h2 style="color: var(--paper); max-width: 14ch;">An evidence – aware framework</h2>
         </div>
         <div>
-          <p style="color: rgba(241, 240, 236, 0.8); font-size: 1.05rem; line-height: 1.7;">
+          <p style="color: rgba(241, 240, 236, 0.92); font-size: 1.25rem; line-height: 1.6;">
             RAPL™ is theory-grounded, practice-informed and designed to be tested. The
             literature supports the need for the capabilities it integrates, but the
             complete RAPL™ intervention is not presented as already validated.
           </p>
-          <p style="color: rgba(241, 240, 236, 0.8); font-size: 1.05rem; line-height: 1.7; margin-top: 1rem;">
+          <p style="color: rgba(241, 240, 236, 0.92); font-size: 1.25rem; line-height: 1.6; margin-top: 1.25rem;">
             The framework is intended to improve through expert review, role-demand
             research, organizational pilots and workplace evidence — examined
-            transparently in the <a href="/research" style="color: var(--brass-light);">Research and Validation</a> agenda.
+            transparently in the <a href="/research" style="color: var(--brass-light); font-weight: 600;">Research and Validation</a> agenda.
           </p>
-          <div class="chip-row" style="margin-top: 2rem;">
-            <span class="pill pill--light">Not presented as already validated</span>
-            <span class="pill pill--light">Open to expert review</span>
-            <span class="pill pill--light">Designed to improve with evidence</span>
+          <div class="evidence-block" style="margin-top: 2.5rem;">
+            <div><span class="evidence-block__dot" aria-hidden="true"></span>Not presented as already validated</div>
+            <div><span class="evidence-block__dot" aria-hidden="true"></span>Open to expert review</div>
+            <div><span class="evidence-block__dot" aria-hidden="true"></span>Designed to improve with evidence</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--tight" style="background: var(--paper); border-top: 1px solid rgba(16, 32, 43, 0.08);">
+  <!-- ============== CREATED AND DELIVERED ============== -->
+  <section class="section section--tight section--cream-4" style="border-top: 1px solid rgba(15, 30, 49, 0.08);">
     <div class="site-shell">
-      <div class="split-layout">
+      <div class="split-layout align-center">
         <div>
-          <div class="eyebrow">Created and delivered</div>
-          <p style="font-size: 1.05rem; color: var(--graphite); margin-top: 0.75rem;">
-            RAPL™ was created by <a href="/about" style="color: var(--ink); font-weight: 600;">Samia Waqar</a> and
-            delivered through <a href="https://snsccs.com/" class="footer-external" style="color: var(--ink); font-weight: 600;">SnS Coaching and Consulting Services</a>.
+          <div class="eyebrow">CREATED AND DELIVERED</div>
+          <p style="font-size: 1.25rem; color: var(--graphite); margin-top: 0.75rem; max-width: 60ch; line-height: 1.5;">
+            RAPL™ was created by <a href="/about" style="color: var(--ink); font-weight: 700;">Samia Waqar</a> and
+            delivered through <a href="https://snsccs.com/" class="footer-external" style="color: var(--ink); font-weight: 700;">SnS Coaching and Consulting Services</a>.
           </p>
         </div>
         <div class="button-row" style="justify-content: flex-end;">
-          <a class="button ghost" href="/about">About RAPL™</a>
+          <a class="button outline-ink" href="/about">About RAPL™</a>
           <a class="button primary" href="/certificate">Executive Certificate</a>
         </div>
       </div>
     </div>
   </section>
 
-  <CTA
-    eyebrow="Next step"
-    title="Explore the framework, discuss the Executive Certificate or begin an organizational diagnostic."
-    description="Choose the on-ramp that matches your role, organization or research interest."
-    primary={{ label: "Explore the RAPL™ Framework", href: "/framework" }}
-    secondary={{ label: "Contact RAPL™ Leadership", href: "/contact" }}
-  />
+  <!-- ============== NEXT STEP CTA (With Centered Circular Rainbow Wheel Background) ============== -->
+  <section class="cta-banner--wheel" id="cta">
+    <img src="/rapl-framework-diagram.png" class="cta-wheel-bg" alt="RAPL Leadership Framework Capability Wheel" />
+    <div class="site-shell reveal-on-scroll">
+      <div class="eyebrow" style="color: var(--brass);">NEXT STEP</div>
+      <h2>Explore the framework, discuss the Executive Certificate or begin an organizational diagnostic.</h2>
+      <p style="margin-top: 1.25rem;">Choose the on-ramp that matches your role, organization or research interest.</p>
+      <div class="button-row" style="margin-top: 2rem;">
+        <a class="button brass" href="/framework">
+          Explore the RAPL™ Framework
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="button ghost-light" href="/contact">Contact RAPL™ Leadership</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
