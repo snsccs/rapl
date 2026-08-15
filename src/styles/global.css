@@ -2267,16 +2267,16 @@ img {
   flex-shrink: 0;
 }
 
-/* Footer — Figma uses a dark navy with cream text */
+/* Footer — Figma uses light cream background with dark text */
 .site-footer {
-  background: var(--bg-ink);
-  color: rgba(241, 240, 236, 0.78);
+  background: #F5F0EA;
+  color: #1F2937;
   padding-block: clamp(3rem, 5vw, 5rem);
   font-size: 0.95rem;
 }
 
 .site-footer h4 {
-  color: var(--paper);
+  color: #CDA367;
   font-size: 0.95rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -2285,14 +2285,33 @@ img {
 }
 
 .site-footer a {
-  color: rgba(241, 240, 236, 0.78);
-  text-decoration: none;
+  color: #1F2937;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   display: inline-block;
   padding: 0.18rem 0;
 }
 
 .site-footer a:hover {
-  color: var(--paper);
+  color: #0F1E31;
+}
+
+.site-footer .brand-name-main {
+  color: #0F1E31;
+}
+
+.site-footer .brand-name-sub {
+  color: #4B5563;
+}
+
+.site-footer .footer-brand-bio {
+  color: #374151;
+}
+
+.site-footer .footer-external {
+  color: #1F2937;
+  font-weight: 600;
+  text-decoration: underline;
 }
 
 /* Card background graphics & exact Figma home layout */
@@ -2588,53 +2607,50 @@ img {
   .engage-grid-2x2 { grid-template-columns: 1fr; }
 }
 
-/* Section 7: Next Step CTA with centered circular diagram background */
-.cta-banner--wheel {
-  background: var(--ink);
-  color: var(--bond);
+/* Section: Next Step CTA (light cream bg, dark text — Figma match) */
+.section--nextstep {
+  background: #F5F0EA;
   padding-block: clamp(5rem, 9vw, 8rem);
-  position: relative;
-  overflow: hidden;
-  text-align: center;
+  border-top: 1px solid rgba(15, 30, 49, 0.08);
 }
 
-.cta-wheel-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  max-width: 850px;
-  opacity: 0.35;
-  pointer-events: none;
-  z-index: 1;
+.nextstep-eyebrow {
+  color: #0F1E31;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
 }
 
-.cta-banner--wheel .site-shell {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.cta-banner--wheel h2 {
-  color: #ffffff;
-  max-width: 24ch;
-  margin-inline: auto;
+.nextstep-heading {
+  color: #0F1E31;
   font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 700;
   line-height: 1.12;
+  max-width: 24ch;
 }
 
-.cta-banner--wheel p {
-  color: rgba(241, 240, 236, 0.85);
-  max-width: 54ch;
-  margin-inline: auto;
+.nextstep-sub {
+  color: #374151;
   font-size: 1.2rem;
+  margin-top: 1.25rem;
+  max-width: 54ch;
 }
 
-.cta-banner--wheel .button-row {
-  justify-content: center;
+.nextstep-btn {
+  background: transparent;
+  color: #0F1E31;
+  border: 1.5px solid #0F1E31;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-
+.nextstep-btn:hover {
+  background: #0F1E31;
+  color: #ffffff;
+}
