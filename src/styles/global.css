@@ -31,8 +31,8 @@
   --bg-cream-4: #f6f3ea;
   --bg-ink: #0f1e31;
 
-  --max-width: 1240px;
-  --shell-padding: 24px;
+  --max-width: 1360px;
+  --shell-padding: clamp(20px, 3vw, 40px);
   --radius: 2px;
 
   --font-display: "Fraunces Variable", "Fraunces", Georgia, serif;
@@ -291,12 +291,17 @@ img {
 .section--cream-4 { background: var(--bg-cream-4); }
 
 /* Figma hero — centered text layout with full-height right-side building image background */
+/* Figma hero — centered text layout with full-height right-side building image background */
 .page-hero--figma {
-  background: #F6F4F2 url("/hero-architecture.png") right top / auto 100% no-repeat;
+  background-color: #F6F4F2;
+  background-image: url("/hero-architecture.png");
+  background-position: right center;
+  background-size: cover;
+  background-repeat: no-repeat;
   color: var(--ink);
   position: relative;
   overflow: hidden;
-  padding-block: clamp(4rem, 7vw, 7.5rem);
+  padding-block: clamp(4.5rem, 7.5vw, 8rem);
 }
 
 .page-hero--figma .site-shell {
@@ -304,14 +309,17 @@ img {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .page-hero--figma .page-hero-copy {
-  max-width: 900px;
+  max-width: 860px;
   margin-inline: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 .page-hero--figma .page-hero-copy h1 {
@@ -319,10 +327,11 @@ img {
   font-size: clamp(2.8rem, 5.5vw, 5.25rem);
   font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1.05;
+  line-height: 1.06;
   max-width: 18ch;
   margin-inline: auto;
   margin-block: 0.5rem 1.5rem;
+  text-align: center;
 }
 
 .page-hero--figma .page-hero-eyebrow {
@@ -333,13 +342,14 @@ img {
   text-transform: uppercase;
   margin-bottom: 0.5rem;
   display: inline-block;
+  text-align: center;
 }
 
 .page-hero--figma .lede {
-  color: #4C4747;
+  color: #000000;
   font-size: 1.25rem;
-  line-height: 1.5;
-  max-width: 44ch;
+  line-height: 1.55;
+  max-width: 52ch;
   margin-inline: auto;
   text-align: center;
 }
@@ -347,14 +357,75 @@ img {
 .page-hero--figma .hero-proof-bar {
   font-size: 1.25rem;
   font-weight: 500;
-  color: #3B3A3A;
+  color: #000000;
   margin-top: 2rem;
   text-align: center;
 }
 
-@media (max-width: 1200px) {
+.page-hero--figma .button-row {
+  justify-content: center;
+  gap: 1rem;
+}
+
+.page-hero--figma .button.primary {
+  background: #3C3B3B;
+  color: #ffffff;
+  border: 1px solid #3C3B3B;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.7rem 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.page-hero--figma .button.primary:hover {
+  background: #1F1E1E;
+  border-color: #1F1E1E;
+  transform: translateY(-1px);
+}
+
+@media (min-width: 1400px) {
   .page-hero--figma {
+    padding-block: clamp(5rem, 8vw, 8.5rem);
     background-size: cover;
+  }
+  .page-hero--figma .page-hero-copy h1 {
+    font-size: 5.5rem;
+    max-width: 19ch;
+  }
+}
+
+@media (max-width: 980px) {
+  .page-hero--figma {
+    background: linear-gradient(180deg, rgba(246, 244, 242, 0.92) 0%, rgba(246, 244, 242, 0.98) 100%), url("/hero-architecture.png") center top / cover no-repeat;
+    padding-block: clamp(3.5rem, 8vw, 5.5rem);
+  }
+  .page-hero--figma .page-hero-copy h1 {
+    font-size: clamp(2.2rem, 6.5vw, 3.8rem);
+    max-width: none;
+  }
+  .page-hero--figma .lede {
+    font-size: 1.1rem;
+    max-width: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .page-hero--figma .button-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+  .page-hero--figma .button-row .button {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+  .page-hero--figma .hero-proof-bar {
+    font-size: 1.05rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
   }
 }
 
@@ -452,7 +523,65 @@ img {
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* Section 5: RAPL Framework Detail Section (Figma Screenshot 5 Matching) */
+@media (max-width: 980px) {
+  .book-grid {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+    text-align: center;
+  }
+
+  .book-cover-wrap {
+    order: -1; /* Stack book cover graphic ON TOP of text on mobile */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .book-cover-img {
+    max-width: 320px;
+    width: 80%;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .book-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .book-copy p {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .book-button-row {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .book-cover-img {
+    max-width: 250px;
+    width: 85%;
+  }
+
+  .book-button-row {
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .book-button-row .button {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* Section 5: RAPL Framework Detail Section (Exact Figma Matching) */
 .section--framework-detail {
   background: #FDFBF7;
   padding-block: clamp(4.5rem, 8vw, 7rem);
@@ -460,16 +589,44 @@ img {
 
 .framework-detail-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-  gap: clamp(2.5rem, 5vw, 5rem);
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 4vw, 4rem);
   align-items: center;
+}
+
+.framework-eyebrow {
+  color: #CDA367;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  font-family: var(--font-sans);
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.framework-title {
+  color: #122341;
+  font-size: clamp(2.4rem, 4.5vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin: 0.25rem 0 1rem;
+}
+
+.framework-lede {
+  margin-top: 1rem;
+  font-size: 1.15rem;
+  color: #1F2937;
+  line-height: 1.5;
+  font-weight: 600;
+  max-width: 48ch;
 }
 
 .framework-features-list {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
-  margin-top: 2.25rem;
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
 .framework-feature-item {
@@ -490,11 +647,18 @@ img {
   flex-shrink: 0;
 }
 
+.framework-feature-divider {
+  width: 2px;
+  height: 36px;
+  background: #0F1E31;
+  flex-shrink: 0;
+}
+
 .framework-feature-info h4 {
   font-size: 1.25rem;
   font-weight: 700;
   color: #111827;
-  margin: 0 0 0.2rem;
+  margin: 0 0 0.15rem;
 }
 
 .framework-feature-info p {
@@ -513,6 +677,7 @@ img {
   border-radius: 8px;
   padding: 1.25rem 1.5rem;
   margin-top: 2.25rem;
+  max-width: 460px;
   text-decoration: none;
   color: inherit;
   transition: transform 0.18s ease, box-shadow 0.18s ease;
@@ -546,18 +711,43 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .framework-diagram-img {
   width: 100%;
-  max-width: 620px;
   height: auto;
+  object-fit: contain;
   display: block;
 }
 
 @media (max-width: 980px) {
   .framework-detail-grid {
     grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .framework-diagram-wrap {
+    order: 1; /* Position framework wheel diagram AT THE BOTTOM of text on mobile */
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .framework-diagram-img {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 540px) {
+  .framework-cta-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.25rem 1rem;
+    gap: 0.85rem;
+  }
+  .framework-cta-card span.title {
+    font-size: 1.05rem;
   }
 }
 
@@ -962,15 +1152,25 @@ img {
     left: 0;
     right: 0;
     flex-direction: column;
-    background: var(--bond);
-    border-bottom: 1px solid rgba(16, 32, 43, 0.1);
-    padding: 1rem var(--shell-padding);
+    background: #ffffff;
+    border-bottom: 1px solid rgba(15, 30, 49, 0.1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    padding: 1.25rem var(--shell-padding);
     align-items: stretch;
+    gap: 0.25rem;
+    z-index: 100;
   }
 
   .nav-open .nav a {
-    padding: 0.75rem 0.5rem;
-    border-bottom: 1px solid rgba(16, 32, 43, 0.08);
+    padding: 0.85rem 0.5rem;
+    border-bottom: 1px solid rgba(15, 30, 49, 0.06);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0F1E31;
+  }
+
+  .nav-open .nav a:last-child {
+    border-bottom: 0;
   }
 }
 
@@ -1536,27 +1736,71 @@ img {
   line-height: 1.4;
 }
 
-/* ============ CTA Banner ============ */
+/* ============ CTA Banner (Light cream matching Figma) ============ */
 
 .cta-banner {
-  background: var(--ink);
-  color: var(--bond);
-  padding-block: clamp(3.5rem, 6vw, 5rem);
+  background: #F5F0EA;
+  color: #1F2937;
+  padding-block: clamp(4rem, 7vw, 6.5rem);
   position: relative;
+  border-top: 1px solid rgba(15, 30, 49, 0.08);
 }
 
 .cta-banner h2,
 .cta-banner h3 {
-  color: var(--paper);
+  color: #0F1E31;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1.12;
+  max-width: 24ch;
 }
 
 .cta-banner p {
-  color: rgba(241, 240, 236, 0.75);
+  color: #374151;
+  font-size: 1.2rem;
   max-width: 60ch;
+  line-height: 1.55;
 }
 
 .cta-banner .eyebrow {
-  color: var(--brass-light);
+  color: #0F1E31;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.cta-banner .button.brass {
+  background: #0F1E31;
+  color: #ffffff;
+  border: 1.5px solid #0F1E31;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.cta-banner .button.brass:hover {
+  background: #233957;
+  border-color: #233957;
+}
+
+.cta-banner .button.ghost-light {
+  background: transparent;
+  color: #0F1E31;
+  border: 1.5px solid #0F1E31;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.cta-banner .button.ghost-light:hover {
+  background: #0F1E31;
+  color: #ffffff;
 }
 
 /* ============ Heatmap mock ============ */
@@ -2033,33 +2277,82 @@ img {
   border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-.evidence-block {
+/* Section: Evidence Position (light cream bg, maroon heading — Figma match) */
+.section--evidence {
+  background: #F5F0EA;
+  padding-block: clamp(4.5rem, 8vw, 7rem);
+}
+
+.evidence-eyebrow {
+  color: #781222;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.evidence-heading {
+  color: #781222;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1.1;
+  max-width: 14ch;
+}
+
+.evidence-body {
+  color: #1F2937;
+  font-size: 1.15rem;
+  line-height: 1.65;
+}
+
+.evidence-link {
+  color: #781222;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.evidence-link:hover {
+  color: #5a0d19;
+}
+
+.evidence-bullets {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  border-left: 2px solid rgba(255, 255, 255, 0.25);
+  gap: 1rem;
+  margin-top: 2.5rem;
+  border-left: 2px solid rgba(15, 30, 49, 0.15);
   padding-left: 1.25rem;
 }
 
-.evidence-block__dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--brass-light);
-  display: inline-block;
-  margin-right: 0.6rem;
+.evidence-bullet-item {
+  color: #1F2937;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 
-/* Footer — Figma uses a dark navy with cream text */
+.evidence-bullet-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #1F2937;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Footer — Figma uses light cream background with dark text */
 .site-footer {
-  background: var(--bg-ink);
-  color: rgba(241, 240, 236, 0.78);
+  background: #F5F0EA;
+  color: #1F2937;
   padding-block: clamp(3rem, 5vw, 5rem);
   font-size: 0.95rem;
 }
 
 .site-footer h4 {
-  color: var(--paper);
+  color: #CDA367;
   font-size: 0.95rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -2068,14 +2361,33 @@ img {
 }
 
 .site-footer a {
-  color: rgba(241, 240, 236, 0.78);
-  text-decoration: none;
+  color: #1F2937;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   display: inline-block;
   padding: 0.18rem 0;
 }
 
 .site-footer a:hover {
-  color: var(--paper);
+  color: #0F1E31;
+}
+
+.site-footer .brand-name-main {
+  color: #0F1E31;
+}
+
+.site-footer .brand-name-sub {
+  color: #4B5563;
+}
+
+.site-footer .footer-brand-bio {
+  color: #374151;
+}
+
+.site-footer .footer-external {
+  color: #1F2937;
+  font-weight: 600;
+  text-decoration: underline;
 }
 
 /* Card background graphics & exact Figma home layout */
@@ -2371,53 +2683,50 @@ img {
   .engage-grid-2x2 { grid-template-columns: 1fr; }
 }
 
-/* Section 7: Next Step CTA with centered circular diagram background */
-.cta-banner--wheel {
-  background: var(--ink);
-  color: var(--bond);
+/* Section: Next Step CTA (light cream bg, dark text — Figma match) */
+.section--nextstep {
+  background: #F5F0EA;
   padding-block: clamp(5rem, 9vw, 8rem);
-  position: relative;
-  overflow: hidden;
-  text-align: center;
+  border-top: 1px solid rgba(15, 30, 49, 0.08);
 }
 
-.cta-wheel-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  max-width: 850px;
-  opacity: 0.35;
-  pointer-events: none;
-  z-index: 1;
+.nextstep-eyebrow {
+  color: #0F1E31;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
 }
 
-.cta-banner--wheel .site-shell {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.cta-banner--wheel h2 {
-  color: #ffffff;
-  max-width: 24ch;
-  margin-inline: auto;
+.nextstep-heading {
+  color: #0F1E31;
   font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 700;
   line-height: 1.12;
+  max-width: 24ch;
 }
 
-.cta-banner--wheel p {
-  color: rgba(241, 240, 236, 0.85);
-  max-width: 54ch;
-  margin-inline: auto;
+.nextstep-sub {
+  color: #374151;
   font-size: 1.2rem;
+  margin-top: 1.25rem;
+  max-width: 54ch;
 }
 
-.cta-banner--wheel .button-row {
-  justify-content: center;
+.nextstep-btn {
+  background: transparent;
+  color: #0F1E31;
+  border: 1.5px solid #0F1E31;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-
+.nextstep-btn:hover {
+  background: #0F1E31;
+  color: #ffffff;
+}
