@@ -1736,27 +1736,71 @@ img {
   line-height: 1.4;
 }
 
-/* ============ CTA Banner ============ */
+/* ============ CTA Banner (Light cream matching Figma) ============ */
 
 .cta-banner {
-  background: var(--ink);
-  color: var(--bond);
-  padding-block: clamp(3.5rem, 6vw, 5rem);
+  background: #F5F0EA;
+  color: #1F2937;
+  padding-block: clamp(4rem, 7vw, 6.5rem);
   position: relative;
+  border-top: 1px solid rgba(15, 30, 49, 0.08);
 }
 
 .cta-banner h2,
 .cta-banner h3 {
-  color: var(--paper);
+  color: #0F1E31;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1.12;
+  max-width: 24ch;
 }
 
 .cta-banner p {
-  color: rgba(241, 240, 236, 0.75);
+  color: #374151;
+  font-size: 1.2rem;
   max-width: 60ch;
+  line-height: 1.55;
 }
 
 .cta-banner .eyebrow {
-  color: var(--brass-light);
+  color: #0F1E31;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.cta-banner .button.brass {
+  background: #0F1E31;
+  color: #ffffff;
+  border: 1.5px solid #0F1E31;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.cta-banner .button.brass:hover {
+  background: #233957;
+  border-color: #233957;
+}
+
+.cta-banner .button.ghost-light {
+  background: transparent;
+  color: #0F1E31;
+  border: 1.5px solid #0F1E31;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.cta-banner .button.ghost-light:hover {
+  background: #0F1E31;
+  color: #ffffff;
 }
 
 /* ============ Heatmap mock ============ */
