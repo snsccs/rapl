@@ -549,7 +549,7 @@ img {
   }
 }
 
-/* Section 5: RAPL Framework Detail Section (Figma Screenshot 5 Matching) */
+/* Section 5: RAPL Framework Detail Section (Exact Figma Matching) */
 .section--framework-detail {
   background: #FDFBF7;
   padding-block: clamp(4.5rem, 8vw, 7rem);
@@ -557,16 +557,45 @@ img {
 
 .framework-detail-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.15fr);
   gap: clamp(2.5rem, 5vw, 5rem);
   align-items: center;
+}
+
+.framework-eyebrow {
+  color: #CDA367;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  font-family: var(--font-sans);
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.framework-title {
+  color: #122341;
+  font-size: clamp(2.6rem, 5.5vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0.25rem 0 1rem;
+  white-space: nowrap;
+}
+
+.framework-lede {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #1F2937;
+  line-height: 1.5;
+  font-weight: 600;
+  max-width: 48ch;
 }
 
 .framework-features-list {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
-  margin-top: 2.25rem;
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
 .framework-feature-item {
@@ -587,11 +616,18 @@ img {
   flex-shrink: 0;
 }
 
+.framework-feature-divider {
+  width: 2px;
+  height: 36px;
+  background: #0F1E31;
+  flex-shrink: 0;
+}
+
 .framework-feature-info h4 {
   font-size: 1.25rem;
   font-weight: 700;
   color: #111827;
-  margin: 0 0 0.2rem;
+  margin: 0 0 0.15rem;
 }
 
 .framework-feature-info p {
@@ -610,6 +646,7 @@ img {
   border-radius: 8px;
   padding: 1.25rem 1.5rem;
   margin-top: 2.25rem;
+  max-width: 460px;
   text-decoration: none;
   color: inherit;
   transition: transform 0.18s ease, box-shadow 0.18s ease;
