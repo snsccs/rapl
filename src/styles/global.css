@@ -31,8 +31,8 @@
   --bg-cream-4: #f6f3ea;
   --bg-ink: #0f1e31;
 
-  --max-width: 1240px;
-  --shell-padding: 24px;
+  --max-width: 1360px;
+  --shell-padding: clamp(20px, 3vw, 40px);
   --radius: 2px;
 
   --font-display: "Fraunces Variable", "Fraunces", Georgia, serif;
@@ -352,9 +352,48 @@ img {
   text-align: center;
 }
 
-@media (max-width: 1200px) {
+@media (min-width: 1400px) {
   .page-hero--figma {
-    background-size: cover;
+    padding-block: clamp(5rem, 8vw, 8.5rem);
+    background-size: auto 100%;
+  }
+  .page-hero--figma .page-hero-copy h1 {
+    font-size: 5.5rem;
+    max-width: 19ch;
+  }
+}
+
+@media (max-width: 980px) {
+  .page-hero--figma {
+    background: linear-gradient(180deg, rgba(246, 244, 242, 0.93) 0%, rgba(246, 244, 242, 0.98) 100%), url("/hero-architecture.png") center top / cover no-repeat;
+    padding-block: clamp(3.5rem, 8vw, 5.5rem);
+  }
+  .page-hero--figma .page-hero-copy h1 {
+    font-size: clamp(2.2rem, 6.5vw, 3.8rem);
+    max-width: none;
+  }
+  .page-hero--figma .lede {
+    font-size: 1.1rem;
+    max-width: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .page-hero--figma .button-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+  .page-hero--figma .button-row .button {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+  .page-hero--figma .hero-proof-bar {
+    font-size: 1.05rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
   }
 }
 
@@ -962,15 +1001,25 @@ img {
     left: 0;
     right: 0;
     flex-direction: column;
-    background: var(--bond);
-    border-bottom: 1px solid rgba(16, 32, 43, 0.1);
-    padding: 1rem var(--shell-padding);
+    background: #ffffff;
+    border-bottom: 1px solid rgba(15, 30, 49, 0.1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    padding: 1.25rem var(--shell-padding);
     align-items: stretch;
+    gap: 0.25rem;
+    z-index: 100;
   }
 
   .nav-open .nav a {
-    padding: 0.75rem 0.5rem;
-    border-bottom: 1px solid rgba(16, 32, 43, 0.08);
+    padding: 0.85rem 0.5rem;
+    border-bottom: 1px solid rgba(15, 30, 49, 0.06);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0F1E31;
+  }
+
+  .nav-open .nav a:last-child {
+    border-bottom: 0;
   }
 }
 
