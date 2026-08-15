@@ -295,8 +295,8 @@ img {
 .page-hero--figma {
   background-color: #F6F4F2;
   background-image: url("/hero-architecture.png");
-  background-position: right top;
-  background-size: auto 100%;
+  background-position: right center;
+  background-size: cover;
   background-repeat: no-repeat;
   color: var(--ink);
   position: relative;
@@ -346,7 +346,7 @@ img {
 }
 
 .page-hero--figma .lede {
-  color: #4C4747;
+  color: #000000;
   font-size: 1.25rem;
   line-height: 1.55;
   max-width: 52ch;
@@ -357,19 +357,37 @@ img {
 .page-hero--figma .hero-proof-bar {
   font-size: 1.25rem;
   font-weight: 500;
-  color: #3B3A3A;
+  color: #000000;
   margin-top: 2rem;
   text-align: center;
 }
 
 .page-hero--figma .button-row {
   justify-content: center;
+  gap: 1rem;
+}
+
+.page-hero--figma .button.primary {
+  background: #3C3B3B;
+  color: #ffffff;
+  border: 1px solid #3C3B3B;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.7rem 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.page-hero--figma .button.primary:hover {
+  background: #1F1E1E;
+  border-color: #1F1E1E;
+  transform: translateY(-1px);
 }
 
 @media (min-width: 1400px) {
   .page-hero--figma {
     padding-block: clamp(5rem, 8vw, 8.5rem);
-    background-size: auto 100%;
+    background-size: cover;
   }
   .page-hero--figma .page-hero-copy h1 {
     font-size: 5.5rem;
