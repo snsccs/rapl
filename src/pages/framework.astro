@@ -1,115 +1,240 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
-import CTA from "../components/CTA.astro";
 
 const phases = [
   {
+    n: "1",
     label: "Define the Work",
     tagline: "Diagnose what is really required before anything is committed.",
     capabilities: [
-      { name: "Diagnose", desc: "Frame the business need, the operating context, and the work required before committing investment." },
-      { name: "Choose", desc: "Make strategic, evidence-informed choices between competing options, with explicit reasoning." },
-      { name: "Translate", desc: "Convert strategic intent into briefs, mandates, and language that delivery and the business can act on." },
+      {
+        num: "01",
+        name: "Diagnose",
+        desc: "Frame the business need, the operating context and the work required before committing investment.",
+      },
+      {
+        num: "02",
+        name: "Choose",
+        desc: "Make strategic, evidence-informed choices between competing options, with explicit reasoning.",
+      },
+      {
+        num: "03",
+        name: "Translate",
+        desc: "Convert strategic intent into briefs, mandates and language that delivery and the business can act on.",
+      },
     ],
   },
   {
+    n: "2",
     label: "Govern the Work",
-    tagline: "Hold the work, the people and the system together through delivery.",
+    tagline: "Hold the work, the people & the system together through delivery.",
     capabilities: [
-      { name: "Select", desc: "Determine the right delivery shape — portfolio, program, project, product or hybrid — for the work at hand." },
-      { name: "Integrate", desc: "Coordinate across functions, vendors, governance bodies and operating models so the whole system works." },
-      { name: "Deliver", desc: "Sponsor major milestones, unblock dependencies and protect the conditions delivery needs." },
+      {
+        num: "01",
+        name: "Select",
+        desc: "Determine the right delivery shape — portfolio, program, project, product or hybrid — for the work at hand.",
+      },
+      {
+        num: "02",
+        name: "Integrate",
+        desc: "Coordinate across functions, vendors, governance bodies and operating models so the whole system works.",
+      },
+      {
+        num: "03",
+        name: "Deliver",
+        desc: "Sponsor major milestones, unblock dependencies and protect the conditions delivery needs.",
+      },
     ],
   },
   {
+    n: "3",
     label: "Protect the Work",
     tagline: "Keep value, risk and accountability visible from intent to operation.",
     capabilities: [
-      { name: "Protect", desc: "Hold risk, security, ethics and AI exposure as visible executive concerns, not delivery-team tasks." },
-      { name: "Align", desc: "Keep stakeholders, governance and operating model aligned as the work evolves." },
-      { name: "Govern", desc: "Maintain clear decision rights, investment discipline and accountability through change." },
+      {
+        num: "01",
+        name: "Protect",
+        desc: "Hold risk, security, ethics and AI exposure as visible executive concerns, not delivery-team tasks.",
+      },
+      {
+        num: "02",
+        name: "Align",
+        desc: "Keep stakeholders, governance and operating model aligned as the work evolves.",
+      },
+      {
+        num: "03",
+        name: "Govern",
+        desc: "Maintain clear decision rights, investment discipline and accountability through change.",
+      },
     ],
   },
   {
+    n: "4",
     label: "Land the Value",
-    tagline: "Make the result stick — in adoption, in operations, in sustained value.",
+    tagline: "Make the result stick in adoption, in operations, in sustained value.",
     capabilities: [
-      { name: "Optimize", desc: "Adjust the work in flight, with the business case and value thesis always visible." },
-      { name: "Adopt", desc: "Drive adoption through change, capability, communication and sponsorship — not just deployment." },
-      { name: "Sustain", desc: "Transition outcomes into the operating model and protect benefits realization over time." },
+      {
+        num: "01",
+        name: "Optimize",
+        desc: "Adjust the work in flight, with the business case and value thesis always visible.",
+      },
+      {
+        num: "02",
+        name: "Adopt",
+        desc: "Drive adoption through change, capability, communication and sponsorship — not just deployment.",
+      },
+      {
+        num: "03",
+        name: "Sustain",
+        desc: "Transition outcomes into the operating model and protect benefits realization over time",
+      },
     ],
   },
 ];
 
-const views = [
-  { title: "Value cycle", desc: "Define the Work, Govern the Work, Protect the Work and Land the Value." },
-  { title: "Capability set", desc: "Twelve leadership acts and the established practice domains they draw upon." },
-  { title: "Role-demand model", desc: "The depth required varies by seat, context and consequence." },
-  { title: "Capability-management system", desc: "Capability is assessed, developed, applied, evidenced and refreshed." },
+const seats = [
+  "CEO",
+  "CIO",
+  "CHRO",
+  "CFO",
+  "COO",
+  "Chief Transformation Officer",
+  "PMO Leader",
+  "Business-Unit Leader",
 ];
 
-const seats = ["CEO", "CIO", "CHRO", "CFO", "COO", "Chief Transformation Officer", "PMO Leader", "Business-Unit Leader"];
+const views = [
+  {
+    num: "01",
+    title: "Value cycle",
+    desc: "Define the Work, Govern the Work, Protect the Work and Land the Value.",
+  },
+  {
+    num: "02",
+    title: "Capability set",
+    desc: "Twelve leadership acts & the established practice domains they draw upon.",
+  },
+  {
+    num: "03",
+    title: "Role-demand model",
+    desc: "The depth required varies by seat, context and consequence.",
+  },
+  {
+    num: "04",
+    title: "Capability-management system",
+    desc: "Capability is assessed, developed, applied, evidenced and refreshed.",
+  },
+];
+
+const conceptCards = [
+  {
+    eyebrow: "EXTERNAL CONCEPT",
+    title: "The Leadership Economy",
+    desc: "The broader thinking behind RAPL™'s approach to leadership and value.",
+    linkText: "Explore ↗",
+    href: "https://samiawaqar.com/leadership-economy",
+    isExternal: true,
+  },
+  {
+    eyebrow: "INTERNAL",
+    title: "Research and Validation",
+    desc: "A transparent agenda testing content validity, role demand and intervention effectiveness.",
+    linkText: "Read the evidence position →",
+    href: "/research",
+    isExternal: false,
+  },
+  {
+    eyebrow: "INTERNAL",
+    title: "Executive Certificate",
+    desc: "A fifty-hour development program across the twelve RAPL™ modules with an integrated capstone.",
+    linkText: "See the program →",
+    href: "/certificate",
+    isExternal: false,
+  },
+];
 ---
 
 <BaseLayout
-  title="RAPL™ Framework"
-  description="Role-Agnostic Project Leadership is a leadership capability framework designed to help organizations examine and address the gap between what strategic work requires and what leadership systems deliberately build."
+  title="RAPL™ Framework — Executive Leadership Framework"
+  description="Role-Agnostic Project Leadership (RAPL™) is a leadership capability framework designed to help organizations examine & address the gap between what strategic work requires & what leadership systems deliberately build."
 >
-  <section class="page-hero page-hero--paper">
-    <div class="site-shell page-hero-grid reveal-on-scroll">
-      <div class="eyebrow page-hero-eyebrow">RAPL™ Leadership Framework</div>
-      <h1>A leadership framework for the work leaders are already expected to govern.</h1>
-      <p class="lede">
-        Role-Agnostic Project Leadership<sup>™</sup> is a leadership capability framework designed
-        to help organizations examine and address the gap between what strategic work requires
-        and what leadership systems deliberately build. The model follows the full value path
-        from business need and strategic choice through governance, delivery, risk, adoption
-        and sustained operational value — <a href="/" style="color: var(--ink);">the same Leadership Capability Gap introduced on the RAPL™ home page</a>.
-      </p>
-      <div class="button-row">
-        <a class="button primary" href="/certificate">
-          Explore the Executive Certificate
-          <span class="arrow" aria-hidden="true">→</span>
-        </a>
-        <a class="button ghost" href="/assessment">Start the Diagnostic</a>
+  <!-- ==================== 1. HERO SECTION (Exact Figma Frame 313964) ==================== -->
+  <section class="page-hero page-hero--framework">
+    <div class="site-shell">
+      <div class="framework-hero-copy reveal-on-scroll">
+        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; letter-spacing: 0.08em; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem;">
+          EXECUTIVE OFFICER
+        </div>
+        <h1 class="framework-hero-title">
+          A leadership framework for the work leaders <span style="color: #755436;">are already expected to govern.</span>
+        </h1>
+        <p class="framework-hero-lede">
+          Role-Agnostic Project Leadership™ is a leadership capability framework designed
+          to help organizations examine &amp; address the gap between what strategic work requires
+          &amp; what leadership systems deliberately build. The model follows the full value path
+          from business need &amp; strategic choice through governance, delivery risk, adoption
+          &amp; sustained operational value <a href="/" style="color: #755436; font-weight: 700; text-decoration: underline; text-underline-offset: 3px;">the same Leadership Capability Gap introduced on the RAPL™ home page</a>.
+        </p>
+        <div class="button-row">
+          <a class="button primary" href="/certificate" style="background: #3C3B3B; color: #ffffff; border: 1px solid #3C3B3B; border-radius: 4px; font-size: 0.95rem; font-weight: 700; padding: 0.7rem 1.5rem; text-decoration: none;">
+            Explore the Executive Certificate→
+          </a>
+          <a class="button" href="/assessment" style="background: transparent; color: #102033; border: 1.5px solid #755436; border-radius: 4px; font-size: 0.95rem; font-weight: 700; padding: 0.7rem 1.5rem; text-decoration: none;">
+            Start the Diagnostic
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <!-- ==================== 2. WHAT ROLE-AGNOSTIC MEANS ==================== -->
+  <section class="section" style="background: #FAF7F5; padding-block: clamp(4.5rem, 7.5vw, 6.5rem);">
     <div class="site-shell">
-      <div class="split-layout reveal-on-scroll">
+      <div class="split-layout reveal-on-scroll" style="align-items: flex-start; gap: 3.5rem;">
         <div>
-          <div class="eyebrow">What role-agnostic means</div>
-          <h2 class="section-title" style="margin-top: 0.5rem;">The capability follows the work, not the job title.</h2>
+          <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+            WHAT ROLE-AGNOSTIC MEANS
+          </div>
+          <h2 style="color: #4C4747; font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 700; line-height: 1.1; margin-top: 0.75rem; max-width: 16ch;">
+            The capability follows the work, not the job title.
+          </h2>
         </div>
         <div>
-          <p style="font-size: 1.05rem; line-height: 1.7; color: var(--graphite);">
+          <p style="font-size: 1.15rem; line-height: 1.65; color: #000000;">
             Role-agnostic means the capability follows the work, not the job title. Any
             leader who sponsors, governs, prioritizes, shapes, enables or depends on
             strategic initiatives may require RAPL™ capability.
           </p>
-          <p style="font-size: 1.05rem; line-height: 1.7; color: var(--graphite); margin-top: 1rem;">
+          <p style="font-size: 1.15rem; line-height: 1.65; color: #000000; margin-top: 1.25rem;">
             It does not mean every role requires the same depth. A CEO, CIO, CHRO, CFO, COO,
             chief transformation officer, PMO leader and business-unit leader should each be
             assessed against the demands of the seat and the consequences of weak
             performance — a comparison made explicit through the
-            <a href="/assessment" style="color: var(--ink); font-weight: 600;"> Leadership Capability Alignment Diagnostic</a>.
+            <a href="/assessment" style="color: #0F1E31; font-weight: 700; text-decoration: underline; text-underline-offset: 3px;"> Leadership Capability Alignment Diagnostic</a>.
           </p>
-          <div class="chip-row">
-            {seats.map((s) => <span class="pill pill--ink">{s}</span>)}
+          <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.75rem;">
+            {seats.map((s) => (
+              <span class="framework-pill" style="color: #4C4747; border-color: #4C4747; background: transparent;">
+                {s}
+              </span>
+            ))}
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--bond-deep">
+  <!-- ==================== 3. A CLEAR DISTINCTION ==================== -->
+  <section class="section section--framework-distinction">
     <div class="site-shell">
-      <div class="prose-block reveal-on-scroll" style="max-width: 60rem;">
-        <div class="eyebrow">A clear distinction</div>
-        <h2 class="section-title" style="margin-top: 0.5rem; margin-bottom: 1.25rem;">Executive project leadership, not practitioner substitution.</h2>
-        <p>
+      <div class="reveal-on-scroll" style="max-width: 68rem; margin-inline: auto; text-align: center;">
+        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+          A CLEAR DISTINCTION
+        </div>
+        <h2 style="color: #4C4747; font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 700; line-height: 1.12; margin-top: 0.75rem; margin-bottom: 1.75rem; max-width: 24ch; margin-inline: auto;">
+          Executive project leadership, not practitioner substitution.
+        </h2>
+        <p style="font-size: 1.2rem; line-height: 1.65; color: #4C4747; max-width: 58ch; margin-inline: auto;">
           RAPL™ does not ask senior leaders to build schedules, maintain backlogs,
           manage RAID logs or perform the specialist work of delivery teams. It asks
           them to know what questions the evidence should answer, when information is
@@ -117,7 +242,7 @@ const seats = ["CEO", "CIO", "CHRO", "CFO", "COO", "Chief Transformation Officer
           executive action, when a business case has weakened and when work should
           stop.
         </p>
-        <p>
+        <p style="font-size: 1.2rem; line-height: 1.65; color: #4C4747; max-width: 58ch; margin-inline: auto; margin-top: 1.25rem;">
           This distinction — between leading the work and performing it — is what the
           twelve capabilities below are built to develop.
         </p>
@@ -125,133 +250,192 @@ const seats = ["CEO", "CIO", "CHRO", "CFO", "COO", "Chief Transformation Officer
     </div>
   </section>
 
-  <section class="section">
+  <!-- ==================== 4. THE FULL MODEL (4 PHASES, 12 CAPABILITIES) ==================== -->
+  <section class="section" id="full-model" style="background: #F6F4F2; padding-block: clamp(4.5rem, 8vw, 7rem);">
     <div class="site-shell">
-      <div style="max-width: 64rem;" class="reveal-on-scroll">
-        <div class="eyebrow">The full model</div>
-        <h2 class="display-title" style="max-width: 22ch;">Four phases. Twelve capabilities. One value cycle.</h2>
-        <p class="lede" style="margin-top: 1rem;">
+      <div style="max-width: 60rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; letter-spacing: 0.06em; font-weight: 700; margin-bottom: 0.5rem;">
+          THE FULL MODEL
+        </div>
+        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.08;">
+          Four phases. Twelve capabilities. One value cycle.
+        </h2>
+        <p class="lede" style="margin-top: 1.25rem; font-size: 1.2rem; color: #000000; line-height: 1.55; max-width: 56ch;">
           Each phase groups three leadership acts. The same capability can be exercised
           in different phases and at different depths depending on the seat and the work.
         </p>
       </div>
 
-      <div class="stack-8" style="margin-top: 3.5rem;">
-        {phases.map((p, idx) => (
-          <article class="reveal-on-scroll">
-            <div class="phase">
-              <div class="phase-eyebrow">Phase {String(idx + 1).padStart(2, "0")}</div>
-              <h3>{p.label}</h3>
-              <p class="phase-tagline">{p.tagline}</p>
-            </div>
+      <div class="phases-grid reveal-on-scroll" style="margin-top: 3rem;">
+        {phases.map((p) => (
+          <article class="phase" style="border-left: 14px solid #3C3B3B; background: #F4F2EF;">
+            <div class="phase-eyebrow" style="color: #4C4747; font-weight: 600;">PHASE {p.n}</div>
+            <h3 style="color: #4C4747;">{p.label}</h3>
+            <p class="phase-tagline" style="color: #000000; border-bottom-color: #535252;">{p.tagline}</p>
             <div class="phase-grid">
-              {p.capabilities.map((c, i) => (
-                <div class="capability">
-                  <span class="capability-number">{String(idx * 3 + i + 1).padStart(2, "0")}</span>
-                  <h3 style="margin-top: 0.5rem; font-size: 1.3rem;">{c.name}</h3>
-                  <p>{c.desc}</p>
+              {p.capabilities.map((c) => (
+                <div class="capability" style="border-right-color: #535252;">
+                  <span class="capability-number" style="color: #4C4747;">{c.num}</span>
+                  <h4 style="color: #4C4747;">{c.name}</h4>
+                  <p style="color: #000000;">{c.desc}</p>
                 </div>
               ))}
             </div>
           </article>
         ))}
       </div>
+
+      <div style="margin-top: 3rem;" class="reveal-on-scroll">
+        <a class="button primary" href="/certificate" style="background: #3C3B3B; color: #FFFFFF; font-size: 0.85rem; font-weight: 700; padding: 0.6rem 1.25rem; border-radius: 4px; text-decoration: none;">
+          Explore the complete RAPL™ Framework→
+        </a>
+      </div>
     </div>
   </section>
 
-  <section class="section section--bond-deep">
+  <!-- ==================== 5. HOW TO READ THE MODEL (4 VIEWS) ==================== -->
+  <section class="section section--framework-views">
     <div class="site-shell">
-      <div style="max-width: 64rem;" class="reveal-on-scroll">
-        <div class="eyebrow">How to read the model</div>
-        <h2 class="display-title">Four views of one model.</h2>
-        <p class="lede" style="margin-top: 1rem;">
+      <div style="max-width: 60rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+          HOW TO READ THE MODEL
+        </div>
+        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.1; margin-top: 0.5rem;">
+          Four views of one model.
+        </h2>
+        <p class="lede" style="margin-top: 1.25rem; font-size: 1.2rem; color: #000000; line-height: 1.55; max-width: 56ch;">
           RAPL™ can be read as four different things at once — depending on what the work needs from you.
         </p>
       </div>
-      <div class="grid-4" style="margin-top: 3rem;">
-        {views.map((v, i) => (
-          <div class="card reveal-on-scroll">
-            <div style="color: var(--brass); font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem;">{String(i + 1).padStart(2, "0")}</div>
-            <h3 style="font-size: 1.2rem;">{v.title}</h3>
-            <p style="color: var(--graphite); font-size: 0.92rem; line-height: 1.55; margin-top: 0.5rem;">{v.desc}</p>
+
+      <div class="grid-4 reveal-on-scroll" style="margin-top: 3.5rem; gap: 2rem;">
+        {views.map((v) => (
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <div style="color: #755436; font-size: 1.65rem; font-weight: 700;">{v.num}</div>
+            <h3 style="color: #4C4747; font-size: 1.35rem; font-weight: 700; margin: 0;">{v.title}</h3>
+            <p style="color: #000000; font-size: 1.05rem; line-height: 1.55; margin: 0.25rem 0 0;">{v.desc}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <!-- ==================== 6. AT ORGANIZATIONAL SCALE ==================== -->
+  <section class="section" style="background: #F9F8F4; padding-block: clamp(4.5rem, 8vw, 7rem);">
     <div class="site-shell">
-      <div class="split-layout">
-        <div class="reveal-on-scroll">
-          <div class="eyebrow">At organizational scale</div>
-          <h2 class="section-title" style="margin-top: 0.5rem;">Embedding RAPL™ into roles, governance and talent systems.</h2>
-          <p class="lede" style="margin-top: 1rem;">
+      <div class="split-layout reveal-on-scroll" style="align-items: center; gap: 3.5rem;">
+        <div>
+          <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+            AT ORGANIZATIONAL SCALE
+          </div>
+          <h2 style="color: #3C3B3B; font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 700; line-height: 1.1; margin-top: 0.75rem; max-width: 18ch;">
+            Embedding RAPL™ into roles, governance and talent systems.
+          </h2>
+          <p style="font-size: 1.15rem; line-height: 1.65; color: #000000; margin-top: 1.5rem; max-width: 48ch;">
             The framework is most effective when it moves beyond individual
             development and shapes role design, governance forums, performance
-            standards and succession criteria across the leadership system.
+            standards &amp; succession criteria across the leadership system.
           </p>
-          <div class="button-row">
-            <a class="button primary" href="/organizations">
-              See organizational application
-              <span class="arrow" aria-hidden="true">→</span>
+          <div class="button-row" style="margin-top: 2rem; gap: 1rem;">
+            <a class="button primary" href="/organizations" style="background: #755436; color: #ffffff; border: 1px solid #755436; border-radius: 4px; font-weight: 700; font-size: 0.95rem; padding: 0.7rem 1.5rem;">
+              See organizational application→
             </a>
-            <a class="button ghost" href="/assessment">Run the Alignment Diagnostic</a>
+            <a class="button" href="/assessment" style="background: transparent; color: #102033; border: 1.5px solid #755436; border-radius: 4px; font-weight: 700; font-size: 0.95rem; padding: 0.7rem 1.5rem; text-decoration: none;">
+              Run the Alignment Diagnostic
+            </a>
           </div>
         </div>
-        <div class="callout-card reveal-on-scroll">
-          <div class="eyebrow">The capability gap</div>
-          <p style="font-size: 1.05rem; line-height: 1.65; color: var(--ink); margin-top: 0.5rem;">
+
+        <!-- Right Callout Box (Figma dark container #3C3B3B) -->
+        <div class="framework-callout-card">
+          <h3 style="color: #ffffff; font-size: 2.2rem; font-weight: 700; margin: 0 0 1rem; line-height: 1.15;">
+            The capability gap
+          </h3>
+          <p style="font-size: 1.1rem; line-height: 1.65; color: #ffffff; margin: 0 0 1.25rem;">
             A <strong>capability gap</strong> exists when the capability a strategic role
             requires is not what the leadership system deliberately develops, assesses or
             rewards.
           </p>
-          <p style="font-size: 1rem; line-height: 1.65; color: var(--graphite); margin-top: 1rem;">
+          <p style="font-size: 1.1rem; line-height: 1.65; color: #ffffff; margin: 0 0 1.75rem;">
             RAPL™ is built to make that gap visible, then close it — through seat
             profiles, capability baselines, gap heatmaps and governance integration.
           </p>
-          <div class="chip-row">
-            <span class="pill">Seat profiles</span>
-            <span class="pill">Baselines</span>
-            <span class="pill">Heatmaps</span>
-            <span class="pill">Targeted development</span>
-            <span class="pill">Governance integration</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+            <span class="framework-pill" style="color: #ffffff; border-color: #ffffff; background: transparent;">
+              Seat Profiles
+            </span>
+            <span class="framework-pill" style="color: #ffffff; border-color: #ffffff; background: transparent;">
+              Baselines
+            </span>
+            <span class="framework-pill" style="color: #ffffff; border-color: #ffffff; background: transparent;">
+              Heatmaps
+            </span>
+            <span class="framework-pill" style="color: #ffffff; border-color: #ffffff; background: transparent;">
+              Targeted development
+            </span>
+            <span class="framework-pill" style="color: #ffffff; border-color: #ffffff; background: transparent;">
+              Governance integration
+            </span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--tight section--bond-deep">
+  <!-- ==================== 7. 3 CONCEPT CARDS (EXTERNAL / INTERNAL) ==================== -->
+  <section class="section section--framework-concepts">
     <div class="site-shell">
-      <div class="grid-3">
-        <a class="card unstyled reveal-on-scroll" href="https://samiawaqar.com/leadership-economy">
-          <div class="eyebrow" style="color: var(--graphite);">External concept</div>
-          <h3 style="font-size: 1.2rem; margin-top: 0.5rem;">The Leadership Economy</h3>
-          <p style="color: var(--graphite); font-size: 0.92rem; line-height: 1.55; margin: 0.5rem 0 1rem;">The broader thinking behind RAPL™'s approach to leadership and value.</p>
-          <span style="color: var(--annotation); font-weight: 600; font-size: 0.9rem;">Explore ↗</span>
-        </a>
-        <a class="card unstyled reveal-on-scroll" href="/research">
-          <div class="eyebrow" style="color: var(--graphite);">Internal</div>
-          <h3 style="font-size: 1.2rem; margin-top: 0.5rem;">Research and Validation</h3>
-          <p style="color: var(--graphite); font-size: 0.92rem; line-height: 1.55; margin: 0.5rem 0 1rem;">A transparent agenda testing content validity, role demand and intervention effectiveness.</p>
-          <span style="color: var(--annotation); font-weight: 600; font-size: 0.9rem;">Read the evidence position →</span>
-        </a>
-        <a class="card unstyled reveal-on-scroll" href="/certificate">
-          <div class="eyebrow" style="color: var(--graphite);">Internal</div>
-          <h3 style="font-size: 1.2rem; margin-top: 0.5rem;">Executive Certificate</h3>
-          <p style="color: var(--graphite); font-size: 0.92rem; line-height: 1.55; margin: 0.5rem 0 1rem;">A fifty-hour development program across the twelve RAPL™ modules with an integrated capstone.</p>
-          <span style="color: var(--annotation); font-weight: 600; font-size: 0.9rem;">See the program →</span>
-        </a>
+      <div class="grid-3 reveal-on-scroll" style="gap: 2rem;">
+        {conceptCards.map((c) => (
+          <a
+            class="card unstyled"
+            href={c.href}
+            target={c.isExternal ? "_blank" : undefined}
+            rel={c.isExternal ? "noopener noreferrer" : undefined}
+            style="background: #ffffff; padding: 2.25rem; border-radius: 4px; border: 1px solid rgba(15, 30, 49, 0.08); box-shadow: 0 6px 24px rgba(15, 30, 49, 0.04); display: flex; flex-direction: column; justify-content: space-between;"
+          >
+            <div>
+              <div style="color: #755436; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;">
+                {c.eyebrow}
+              </div>
+              <h3 style="font-size: 1.45rem; font-weight: 700; color: #4C4747; margin: 0.6rem 0 0.85rem; line-height: 1.2;">
+                {c.title}
+              </h3>
+              <p style="color: #000000; font-size: 1.05rem; line-height: 1.55; margin: 0;">
+                {c.desc}
+              </p>
+            </div>
+            <span style="color: #000000; font-weight: 600; font-size: 1.05rem; margin-top: 1.5rem; display: inline-flex; align-items: center; gap: 0.35rem;">
+              {c.linkText}
+            </span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
 
-  <CTA
-    eyebrow="Begin the framework"
-    title="Explore the model. Build the capability. Govern the work."
-    description="Whether you're an individual senior leader, an organization, or a researcher — there is a structured on-ramp."
-    primary={{ label: "Start the Diagnostic", href: "/assessment" }}
-    secondary={{ label: "Contact RAPL™ Leadership", href: "/contact" }}
-  />
+  <!-- ==================== 8. NEXT STEP CTA ==================== -->
+  <section class="section" id="cta" style="background: #F6F3EA; padding-block: clamp(5rem, 9vw, 8rem); border-top: 1px solid rgba(15, 30, 49, 0.08);">
+    <div class="site-shell reveal-on-scroll">
+      <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem;">
+        BEGIN THE FRAMEWORK
+      </div>
+      <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; max-width: 28ch;">
+        Explore the model. Build the capability. Govern the work.
+      </h2>
+      <p style="color: #000000; font-size: 1.25rem; margin-top: 1.5rem; max-width: 58ch; line-height: 1.5;">
+        Whether you're an individual senior leader, an organization, or a researcher — there is a structured on-ramp.
+      </p>
+      <div class="button-row" style="margin-top: 2.5rem; gap: 1rem;">
+        <a class="button primary" href="/assessment" style="background: #755436; color: #ffffff; border: 1px solid #755436; font-weight: 700; border-radius: 7px; padding: 0.75rem 1.75rem; text-decoration: none;">
+          Start the Diagnostic→
+        </a>
+        <a class="button" href="/contact" style="background: transparent; border: 1.5px solid #755436; color: #755436; font-weight: 700; border-radius: 7px; padding: 0.75rem 1.75rem; text-decoration: none;">
+          Contact RAPL™ Leadership
+        </a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+
