@@ -1,13 +1,32 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
-import CTA from "../components/CTA.astro";
 
 const steps = [
-  { title: "Define the strategic work", desc: "Identify the initiatives, portfolios and AI-enabled change the senior leadership team is accountable for in the next 12–24 months." },
-  { title: "Map the seats against the work", desc: "Identify which RAPL™ capabilities each senior role is expected to exercise, and at what depth, in this work." },
-  { title: "Baseline current capability", desc: "Assess current leadership capability against the twelve RAPL™ capabilities, using evidence beyond self-report where possible." },
-  { title: "Surface the gap as a heatmap", desc: "Compare role demand and current capability in a visible, role-by-role, capability-by-capability heatmap." },
-  { title: "Prioritize the development", desc: "Use the heatmap to target the highest-consequence gaps first — through cohort programs, targeted modules, coaching and governance work." },
+  {
+    num: "01",
+    title: "Define the strategic work",
+    desc: "Identify the initiatives, portfolios and AI-enabled change the senior leadership team is accountable for in the next 12–24 months.",
+  },
+  {
+    num: "02",
+    title: "Map the seats against the work",
+    desc: "Identify which RAPL™ capabilities each senior role is expected to exercise, and at what depth, in this work.",
+  },
+  {
+    num: "03",
+    title: "Baseline current capability",
+    desc: "Assess current leadership capability against the twelve RAPL™ capabilities, using evidence beyond self-report where possible.",
+  },
+  {
+    num: "04",
+    title: "Surface the gap as a heatmap",
+    desc: "Compare role demand and current capability in a visible, role-by-role, capability-by-capability heatmap.",
+  },
+  {
+    num: "05",
+    title: "Prioritize the development",
+    desc: "Use the heatmap to target the highest-consequence gaps first — through cohort programs, targeted modules, coaching and governance work.",
+  },
 ];
 
 const outputs = [
@@ -18,162 +37,177 @@ const outputs = [
   "A re-measurement plan to track whether the gap is closing.",
 ];
 
-const heatmap = [
-  { seat: "CEO", cells: ["low", "med", "low", "med"] },
-  { seat: "CIO", cells: ["med", "high", "high", "low"] },
-  { seat: "CHRO", cells: ["low", "med", "low", "low"] },
-  { seat: "CFO", cells: ["med", "low", "med", "low"] },
-  { seat: "COO", cells: ["med", "med", "med", "med"] },
-  { seat: "CxO Trans.", cells: ["high", "high", "low", "low"] },
+const heatmapRows = [
+  { seat: "CEO", define: "MED", govern: "LOW", protect: "MED", land: "LOW" },
+  { seat: "CIO", define: "LOW", govern: "HIGH", protect: "HIGH", land: "MED" },
+  { seat: "CHRO", define: "LOW", govern: "MED", protect: "LOW", land: "LOW" },
+  { seat: "CFO", define: "LOW", govern: "MED", protect: "MED", land: "LOW" },
+  { seat: "COO", define: "MED", govern: "MED", protect: "MED", land: "MED" },
+  { seat: "CxO Trans", define: "LOW", govern: "HIGH", protect: "HIGH", land: "LOW" },
 ];
 ---
 
 <BaseLayout
-  title="Leadership Capability Alignment Diagnostic"
-  description="A structured way to compare what senior roles require with what leadership and talent systems develop, assess and reward."
+  title="Leadership Capability Alignment Diagnostic — RAPL™"
+  description="Make the leadership capability gap visible by seat, by capability, by consequence. A structured way to compare what senior roles require with what leadership systems develop, assess and reward."
 >
-  <section class="page-hero page-hero--paper">
-    <div class="site-shell page-hero-grid reveal-on-scroll">
-      <div class="eyebrow page-hero-eyebrow">Leadership Capability Alignment Diagnostic</div>
-      <h1>Make the leadership capability gap visible — by seat, by capability, by consequence.</h1>
-      <p class="lede">
-        A structured way to compare what senior roles require with what leadership and
-        talent systems develop, assess and reward. The diagnostic is the entry point to
-        every RAPL™ engagement.
-      </p>
-      <div class="button-row">
-        <a class="button primary" href="/contact?interest=diagnostic">
-          Request the diagnostic
-          <span class="arrow" aria-hidden="true">→</span>
-        </a>
-        <a class="button ghost" href="/framework">See the framework</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
+  <!-- ==================== 1. HERO SECTION (Figma Node 6186:10165) ==================== -->
+  <section class="page-hero page-hero--diagnostic">
     <div class="site-shell">
-      <div class="split-layout">
-        <div class="reveal-on-scroll">
-          <div class="eyebrow">What the diagnostic does</div>
-          <h2 class="section-title" style="margin-top: 0.5rem;">It compares what the work demands with what the leadership system actually develops.</h2>
+      <div class="diag-hero-copy reveal-on-scroll">
+        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; letter-spacing: 0.08em; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem;">
+          LEADERSHIP CAPABILITY ALIGNMENT DIAGNOSTIC
         </div>
-        <div class="reveal-on-scroll">
-          <p style="font-size: 1.05rem; line-height: 1.7; color: var(--graphite);">
-            The Leadership Capability Alignment Diagnostic makes the gap between
-            strategic work and leadership systems visible — not as an abstract idea,
-            but as a concrete comparison you can act on.
-          </p>
-          <p style="font-size: 1.05rem; line-height: 1.7; color: var(--graphite); margin-top: 1rem;">
-            It looks at each senior seat, the work it is expected to govern, the
-            capability the work requires, and the capability the talent system
-            actually develops, assesses and rewards. Where the two don't match, the
-            gap is named — and prioritized.
-          </p>
-          <div class="chip-row">
-            <span class="pill pill--brass">Seat profiles</span>
-            <span class="pill pill--brass">Role demand</span>
-            <span class="pill pill--brass">Capability baseline</span>
-            <span class="pill pill--brass">Gap heatmap</span>
-          </div>
+        <h1 class="diag-hero-title">
+          Make the leadership capability gap visible by seat, by capability, by consequence.
+        </h1>
+        <p class="diag-hero-lede">
+          A structured way to compare what senior roles require with what leadership and talent systems develop, assess and reward. The diagnostic is the entry point to every RAPL™ engagement.
+        </p>
+        <div class="button-row">
+          <a class="button primary" href="/contact?interest=diagnostic" style="background: #755436; color: #ffffff; border: 1px solid #755436; border-radius: 4px; font-size: 0.95rem; font-weight: 700; padding: 0.7rem 1.5rem; text-decoration: none;">
+            Request the diagnostic→
+          </a>
+          <a class="button" href="/framework" style="background: transparent; color: #3C3B3B; border: 1.5px solid #3C3B3B; border-radius: 4px; font-size: 0.95rem; font-weight: 700; padding: 0.7rem 1.5rem; text-decoration: none;">
+            See the framework
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--bond-deep">
+  <!-- ==================== 2. FIVE STEPS OF THE DIAGNOSTIC ==================== -->
+  <section class="section section--diag-steps">
     <div class="site-shell">
-      <div style="max-width: 64rem;" class="reveal-on-scroll">
-        <div class="eyebrow">The diagnostic process</div>
-        <h2 class="display-title">Five steps from work to action.</h2>
-        <p class="lede" style="margin-top: 1rem;">
-          The diagnostic moves from defining the work, through mapping seats and baseline,
-          to a visible heatmap and prioritized development plan.
+      <div style="max-width: 68rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+          HOW IT WORKS
+        </div>
+        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 24ch;">
+          Five steps from context to heatmap.
+        </h2>
+        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.6; margin-top: 1.25rem; max-width: 58ch;">
+          The diagnostic moves from defining the work, through mapping seats and baseline, to a visible heatmap and prioritized development plan.
         </p>
       </div>
-      <ol class="prose-list" style="margin-top: 3.5rem; max-width: 60rem;">
-        {steps.map((s) => (
-          <li class="reveal-on-scroll" style="padding-left: 4.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(16, 32, 43, 0.08);">
-            <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem;">{s.title}</h3>
-            <p style="font-size: 1.02rem; line-height: 1.6; color: var(--graphite);">{s.desc}</p>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="site-shell">
-      <div class="split-layout">
-        <div class="reveal-on-scroll">
-          <div class="eyebrow">What you get</div>
-          <h2 class="section-title" style="margin-top: 0.5rem;">A diagnostic you can act on, not a report that sits on a shelf.</h2>
-        </div>
-        <div class="reveal-on-scroll">
-          <ul class="dot-list" style="font-size: 1.05rem; line-height: 1.6; color: var(--graphite);">
-            {outputs.map((o) => <li style="padding-left: 1.5rem; margin-bottom: 0.75rem;">{o}</li>)}
-          </ul>
-        </div>
+      <div class="diag-steps-stack reveal-on-scroll">
+        {steps.map((s) => (
+          <div class="diag-step-card">
+            <div class="diag-step-num">{s.num}</div>
+            <div class="diag-step-content">
+              <h3 class="diag-step-title">{s.title}</h3>
+              <p class="diag-step-desc">{s.desc}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <section class="section section--bond-deep">
+  <!-- ==================== 3. DELIVERABLES ==================== -->
+  <section class="section section--diag-deliverables">
     <div class="site-shell">
-      <div style="max-width: 60rem; margin: 0 auto;">
-        <div class="text-center reveal-on-scroll" style="margin-bottom: 2.5rem;">
-          <div class="eyebrow">What a heatmap looks like</div>
-          <h2 class="display-title" style="margin-top: 0.5rem;">The gap, made visible.</h2>
+      <div style="max-width: 68rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+          DELIVERABLES
         </div>
-        <div class="heatmap reveal-on-scroll">
-          <div class="heatmap-row header">
-            <div>Seat</div>
-            <div>Define</div>
-            <div>Govern</div>
-            <div>Protect</div>
-            <div>Land</div>
-          </div>
-          {heatmap.map((row) => (
-            <div class="heatmap-row">
-              <div class="seat">{row.seat}</div>
-              {row.cells.map((c) => <div class={`heatmap-cell ${c}`}>{c}</div>)}
+        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 26ch;">
+          What the diagnostic delivers.
+        </h2>
+      </div>
+
+      <div class="diag-deliverables-box reveal-on-scroll">
+        <div class="diag-deliverables-list">
+          {outputs.map((o) => (
+            <div class="diag-deliverable-item">
+              <span class="diag-deliverable-check" aria-hidden="true">✓</span>
+              <span>{o}</span>
             </div>
           ))}
-          <div class="heatmap-legend">
-            <span class="swatch low">Low</span>
-            <span class="swatch med">Medium</span>
-            <span class="swatch high">High demand</span>
-          </div>
-          <p style="font-size: 0.78rem; color: var(--graphite); margin-top: 1rem; font-style: italic;">Illustrative example only — actual heatmaps are generated for each organization from the diagnostic engagement.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--tight">
+  <!-- ==================== 4. ILLUSTRATIVE HEATMAP ==================== -->
+  <section class="section section--diag-heatmap">
     <div class="site-shell">
-      <div class="grid-3">
-        <div class="card reveal-on-scroll">
-          <h3 style="font-size: 1.15rem;">Boards and CEOs</h3>
-          <p style="font-size: 0.92rem; line-height: 1.55; color: var(--graphite); margin-top: 0.5rem;">Sanity-check whether the senior team has the leadership capability the strategic agenda actually requires.</p>
+      <div style="max-width: 68rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+          HEATMAP
         </div>
-        <div class="card reveal-on-scroll">
-          <h3 style="font-size: 1.15rem;">CHROs and PMOs</h3>
-          <p style="font-size: 0.92rem; line-height: 1.55; color: var(--graphite); margin-top: 0.5rem;">Target development and succession investment where the gap is highest and the consequences are greatest.</p>
-        </div>
-        <div class="card reveal-on-scroll">
-          <h3 style="font-size: 1.15rem;">Transformation leaders</h3>
-          <p style="font-size: 0.92rem; line-height: 1.55; color: var(--graphite); margin-top: 0.5rem;">Identify which leadership seats need strengthening before the next wave of AI and transformation work.</p>
+        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 26ch;">
+          An illustrative heatmap.
+        </h2>
+        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.6; margin-top: 1.25rem; max-width: 58ch;">
+          Illustrative example only — actual heatmaps are generated for each organization from the diagnostic engagement.
+        </p>
+      </div>
+
+      <div class="diag-heatmap-card reveal-on-scroll">
+        <table class="diag-heatmap-table">
+          <thead>
+            <tr>
+              <th>Role / Seat</th>
+              <th>Phase 1: Define</th>
+              <th>Phase 2: Govern</th>
+              <th>Phase 3: Protect</th>
+              <th>Phase 4: Land</th>
+            </tr>
+          </thead>
+          <tbody>
+            {heatmapRows.map((r) => (
+              <tr>
+                <td>{r.seat}</td>
+                <td><span class={`diag-pill diag-pill--${r.define.toLowerCase()}`}>{r.define}</span></td>
+                <td><span class={`diag-pill diag-pill--${r.govern.toLowerCase()}`}>{r.govern}</span></td>
+                <td><span class={`diag-pill diag-pill--${r.protect.toLowerCase()}`}>{r.protect}</span></td>
+                <td><span class={`diag-pill diag-pill--${r.land.toLowerCase()}`}>{r.land}</span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <div style="display: flex; gap: 2rem; align-items: center; justify-content: flex-end; margin-top: 2rem; flex-wrap: wrap;">
+          <div style="display: flex; align-items: center; gap: 0.6rem;">
+            <span class="diag-pill diag-pill--low" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">LOW</span>
+            <span style="font-size: 0.95rem; color: #4C4747;">Low Demand / Capability</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.6rem;">
+            <span class="diag-pill diag-pill--med" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">MED</span>
+            <span style="font-size: 0.95rem; color: #4C4747;">Moderate Demand / Gap</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.6rem;">
+            <span class="diag-pill diag-pill--high" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">HIGH</span>
+            <span style="font-size: 0.95rem; color: #4C4747;">High Consequence Gap</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <CTA
-    eyebrow="Begin the diagnostic"
-    title="Make the gap visible. Then close it."
-    description="The diagnostic is the structured entry point to every RAPL™ engagement."
-    primary={{ label: "Request the diagnostic", href: "/contact?interest=diagnostic" }}
-    secondary={{ label: "Read the research", href: "/research" }}
-  />
+  <!-- ==================== 5. BEGIN THE DIAGNOSTIC CTA BANNER ==================== -->
+  <section class="section" id="begin-diagnostic" style="background: #F6F3EA; padding-block: clamp(5rem, 9vw, 8rem); border-top: 1px solid rgba(15, 30, 49, 0.08);">
+    <div class="site-shell reveal-on-scroll">
+      <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem;">
+        BEGIN THE DIAGNOSTIC
+      </div>
+      <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; max-width: 26ch;">
+        Make the gap visible. Then close it.
+      </h2>
+      <p style="color: #000000; font-size: 1.25rem; margin-top: 1.5rem; max-width: 58ch; line-height: 1.5;">
+        The diagnostic is the structured entry point to every RAPL™ engagement.
+      </p>
+      <div class="button-row" style="margin-top: 2.5rem; gap: 1rem;">
+        <a class="button primary" href="/contact?interest=diagnostic" style="background: #755436; color: #ffffff; border: 1px solid #755436; font-weight: 700; border-radius: 7px; padding: 0.75rem 1.75rem; text-decoration: none;">
+          Request the diagnostic→
+        </a>
+        <a class="button" href="/research" style="background: transparent; border: 1.5px solid #755436; color: #755436; font-weight: 700; border-radius: 7px; padding: 0.75rem 1.75rem; text-decoration: none;">
+          Read the research
+        </a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+

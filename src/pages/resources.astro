@@ -1,16 +1,45 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
-import CTA from "../components/CTA.astro";
 
 const downloads = [
-  { title: "The Leadership Capability Gap — Executive Brief", desc: "A concise explanation of the gap, the RAPL™ response and how the framework's phases and capabilities address it.", meta: "PDF · 8 pages", link: null, cta: "Download brief" },
-  { title: "RAPL™ in One Page", desc: "A single-page value-cycle map summarizing the model, built for executive discussion and leadership development.", meta: "PDF · 1 page", link: null, cta: "Download map" },
-  { title: "Executive Sponsorship Health Check", desc: "A milestone-based check of sponsor presence, value articulation, decision rights, adoption readiness, risk escalation, benefits ownership and sustainment — the sponsorship capability developed through the Executive Certificate.", meta: "Self-assessment · 12 questions", link: "/certificate", cta: "Open the health check" },
-  { title: "AI Go-or-No-Go Gate", desc: "A value-protection gate covering business need, AI justification, data readiness, human oversight, sponsor accountability, workflow redesign, adoption risk, benefits ownership and post-deployment monitoring — the governance discipline organizations embed through structured application.", meta: "Decision gate · 9 criteria", link: "/organizations", cta: "Open the gate" },
-  { title: "Research Participation Brief", desc: "An overview of the Leadership Capability Alignment Study, research questions, participation options and data-use principles — part of the RAPL™ research and validation agenda.", meta: "PDF · 6 pages", link: "/research", cta: "Download brief" },
+  {
+    tag: "PDF · 8 pages",
+    title: "The Leadership Capability Gap — Executive Brief",
+    desc: "A concise explanation of the gap, the RAPL™ response and how the framework's phases and capabilities address it.",
+    cta: "Download brief →",
+    href: "/contact?interest=brief",
+  },
+  {
+    tag: "PDF · 1 page",
+    title: "RAPL™ in One Page",
+    desc: "A single-page value-cycle map summarizing the model, built for executive discussion and leadership development.",
+    cta: "Download map →",
+    href: "/contact?interest=map",
+  },
+  {
+    tag: "PDF · 1 page",
+    title: "Executive Sponsorship Health Check",
+    desc: "A milestone-based check of sponsor presence, value articulation, decision rights, adoption readiness, risk escalation, benefits ownership and sustainment — the sponsorship capability developed through the Executive Certificate.",
+    cta: "Open the health check →",
+    href: "/certificate",
+  },
+  {
+    tag: "Decision gate · 9 criteria",
+    title: "AI Go-or-No-Go Gate",
+    desc: "A value-protection gate covering business need, AI justification, data readiness, human oversight, sponsor accountability, workflow redesign, adoption risk, benefits ownership and post-deployment monitoring — the governance discipline organizations embed through structured application.",
+    cta: "Open the gate →",
+    href: "/organizations",
+  },
+  {
+    tag: "PDF · 6 pages",
+    title: "Research Participation Brief",
+    desc: "An overview of the Leadership Capability Alignment Study, research questions, participation options and data-use principles — part of the RAPL™ research and validation agenda.",
+    cta: "Download brief →",
+    href: "/research",
+  },
 ];
 
-const insights = [
+const propositions = [
   "Work has changed faster than leadership systems.",
   "The Leadership Capability Gap is structural, not personal.",
   "Sponsorship is a capability, not a title.",
@@ -21,149 +50,197 @@ const insights = [
   "Capability must change decisions and behavior in live work.",
 ];
 
-const reading = [
-  { title: "The Leadership Economy by Samia Waqar", url: "https://samiawaqar.com/book", desc: null },
-  { title: "The Leadership Economy concept", url: "https://samiawaqar.com/leadership-economy", desc: "The broader thinking behind RAPL™'s approach to leadership and value." },
-  { title: "SnS Coaching and Consulting Services", url: "https://snsccs.com/", desc: null },
+const readings = [
+  {
+    title: "The Leadership Economy by Samia Waqar",
+    desc: "The broader thinking behind RAPL™'s approach to leadership and value.",
+    url: "https://samiawaqar.com/book",
+  },
+  {
+    title: "The Leadership Economy concept",
+    desc: "The broader thinking behind RAPL™'s approach to leadership and value.",
+    url: "https://samiawaqar.com/leadership-economy",
+  },
+  {
+    title: "SnS Coaching & Consulting Services",
+    desc: "The broader thinking behind RAPL™'s approach to leadership and value.",
+    url: "https://snsccs.com/",
+  },
 ];
 ---
 
 <BaseLayout
-  title="Resources and Insights"
-  description="Approved RAPL™ briefs and decision aids, grounded in the RAPL™ Leadership Framework, to diagnose leadership demand, sharpen strategic choices, strengthen sponsorship, govern AI and keep value visible after delivery."
+  title="Resources and Insights — RAPL™"
+  description="RAPL™ briefs, decision aids and applied thinking for senior leaders. Grounded in the RAPL™ Leadership Framework to diagnose demand, sharpen choices, and govern AI."
 >
-  <section class="page-hero page-hero--paper">
-    <div class="site-shell page-hero-grid reveal-on-scroll">
-      <div class="eyebrow page-hero-eyebrow">Resources and Insights</div>
-      <h1>RAPL™ briefs, decision aids and applied thinking for senior leaders.</h1>
-      <p class="lede">
-        Use approved RAPL™ briefs and decision aids, grounded in the
-        <a href="/framework" style="color: var(--ink); font-weight: 600;">RAPL™ Leadership Framework</a>,
-        to diagnose leadership demand, sharpen strategic choices, strengthen
-        sponsorship, govern AI and keep value visible after delivery.
-      </p>
-      <div class="button-row">
-        <a class="button primary" href="https://samiawaqar.com/book#join">
-          Subscribe to the briefing
-          <span class="arrow" aria-hidden="true">→</span>
-        </a>
-        <a class="button ghost" href="/framework">See the framework</a>
+  <!-- ==================== 1. HERO SECTION (Figma Node 6195:10285) ==================== -->
+  <section class="page-hero page-hero--resources">
+    <div class="site-shell">
+      <div class="resources-hero-copy reveal-on-scroll">
+        <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; letter-spacing: 0.08em; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem;">
+          RESOURCES AND INSIGHTS
+        </div>
+        <h1 class="resources-hero-title">
+          RAPL™ briefs, decision aids and applied thinking for senior leaders.
+        </h1>
+        <p class="resources-hero-lede">
+          Use approved RAPL™ briefs and decision aids, grounded in the <a href="/framework" style="color: #755436; font-weight: 700; text-decoration: underline; text-underline-offset: 3px;">RAPL™ Leadership Framework</a>, to diagnose leadership demand, sharpen strategic choices, strengthen sponsorship, govern AI and keep value visible after delivery.
+        </p>
+        <div class="button-row">
+          <a class="button primary" href="#briefing-updates" style="background: #755436; color: #ffffff; border: 1px solid #755436; border-radius: 4px; font-size: 0.95rem; font-weight: 700; padding: 0.7rem 1.5rem; text-decoration: none;">
+            Subscribe to the briefing→
+          </a>
+          <a class="button" href="/framework" style="background: transparent; color: #4C4747; border: 1.5px solid #4C4747; border-radius: 4px; font-size: 0.95rem; font-weight: 700; padding: 0.7rem 1.5rem; text-decoration: none;">
+            See the framework
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <!-- ==================== 2. FEATURED DOWNLOADS ==================== -->
+  <section class="section section--resources-downloads">
     <div class="site-shell">
-      <div style="max-width: 64rem;" class="reveal-on-scroll">
-        <div class="eyebrow">Featured downloads</div>
-        <h2 class="display-title">Decision aids, briefs and tools.</h2>
-        <p class="lede" style="margin-top: 1rem;">
-          Each resource is grounded in the RAPL™ Leadership Framework and tied to the
-          entry point that makes most sense for what you are trying to do.
+      <div style="max-width: 68rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+          FEATURED DOWNLOADS
+        </div>
+        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 24ch;">
+          Decision aids, briefs &amp; tools.
+        </h2>
+        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.6; margin-top: 1.25rem; max-width: 62ch;">
+          Each resource is grounded in the RAPL™ Leadership Framework and tied to the entry point that makes most sense for what you are trying to do.
         </p>
       </div>
-      <div class="grid-3" style="margin-top: 3rem;">
+
+      <div class="resources-downloads-grid reveal-on-scroll">
         {downloads.map((d) => (
-          <div class="card card--feature reveal-on-scroll" style="display: flex; flex-direction: column; height: 100%;">
-            <div class="pill" style="font-size: 0.7rem; align-self: flex-start;">{d.meta}</div>
-            <h3 style="font-size: 1.15rem; margin-top: 0.75rem;">{d.title}</h3>
-            <p style="font-size: 0.9rem; line-height: 1.55; color: var(--graphite); margin-top: 0.5rem; flex: 1;">{d.desc}</p>
-            <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid rgba(16, 32, 43, 0.08);">
-              {d.link ? (
-                <a href={d.link} style="color: var(--annotation); font-weight: 600; font-size: 0.9rem;">{d.cta} <span class="arrow" aria-hidden="true">→</span></a>
-              ) : (
-                <a href="#download" style="color: var(--annotation); font-weight: 600; font-size: 0.9rem;">{d.cta} <span class="arrow" aria-hidden="true">↓</span></a>
-              )}
-            </div>
+          <div class="resource-download-card">
+            <span class="resource-download-tag">{d.tag}</span>
+            <h3 class="resource-download-title">{d.title}</h3>
+            <p class="resource-download-desc">{d.desc}</p>
+            <a class="resource-download-link" href={d.href}>
+              {d.cta}
+            </a>
           </div>
         ))}
       </div>
-      <p style="font-size: 0.78rem; color: var(--graphite); margin-top: 1.5rem; font-style: italic; max-width: 80ch;">
-        All RAPL™ decision aids are provided for use in live strategic, AI and transformation work. Where a download requires contact information, your details are used only to share the requested resource and relevant research updates.
-      </p>
     </div>
   </section>
 
-  <section class="section section--bond-deep">
+  <!-- ==================== 3. APPLIED THINKING (8 PROPOSITIONS) ==================== -->
+  <section class="section section--resources-applied">
     <div class="site-shell">
-      <div class="split-layout">
-        <div class="reveal-on-scroll">
-          <div class="eyebrow">Applied thinking</div>
-          <h2 class="section-title" style="margin-top: 0.5rem;">Eight working propositions for executive leaders.</h2>
-          <p class="lede" style="margin-top: 1rem;">
-            These are the working propositions that shape RAPL™'s approach. They are
-            not slogans — they are tested against live strategic, AI and transformation
-            work.
+      <div class="split-layout reveal-on-scroll" style="align-items: flex-start; gap: 4rem;">
+        <div>
+          <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+            APPLIED THINKING
+          </div>
+          <h2 style="color: #4C4747; font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 700; line-height: 1.1; margin-top: 0.75rem; max-width: 18ch;">
+            Eight working propositions for executive leaders.
+          </h2>
+          <p style="font-size: 1.2rem; line-height: 1.65; color: #4C4747; margin-top: 1.5rem; max-width: 48ch;">
+            These are the working propositions that shape RAPL™'s approach. They are not slogans — they are tested against live strategic, AI and transformation work.
           </p>
         </div>
-        <div class="reveal-on-scroll">
-          <ol class="prose-list" style="list-style: none; padding: 0;">
-            {insights.map((i, idx) => (
-              <li style="counter-increment: rapl; position: relative; padding-left: 3rem; margin-bottom: 1rem; line-height: 1.5; font-size: 1rem; color: var(--graphite);">
-                <span style="position: absolute; left: 0; top: 0; color: var(--brass); font-weight: 600; font-size: 0.9rem;">{String(idx + 1).padStart(2, "0")}</span>
-                {i}
-              </li>
-            ))}
-          </ol>
+
+        <div class="resources-applied-list">
+          {propositions.map((p, idx) => (
+            <div class="resources-applied-item">
+              <span class="resources-applied-num">{String(idx + 1).padStart(2, "0")}</span>
+              <span>{p}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <!-- ==================== 4. CONNECTED READING ==================== -->
+  <section class="section section--resources-reading">
     <div class="site-shell">
-      <div style="max-width: 64rem;" class="reveal-on-scroll">
-        <div class="eyebrow">Connected reading</div>
-        <h2 class="display-title">Adjacent thinking and broader context.</h2>
-        <p class="lede" style="margin-top: 1rem;">
-          RAPL™ sits inside a wider set of ideas about leadership and value. The
-          resources below are the most direct extensions.
+      <div style="max-width: 68rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+          CONNECTED READING
+        </div>
+        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 24ch;">
+          Adjacent thinking and broader context.
+        </h2>
+        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.6; margin-top: 1.25rem; max-width: 62ch;">
+          RAPL™ sits inside a wider set of ideas about leadership and value. The resources below are the most direct extensions.
         </p>
       </div>
-      <div class="grid-3" style="margin-top: 3rem;">
-        {reading.map((r) => (
-          <a class="card unstyled reveal-on-scroll" href={r.url} target="_blank" rel="noreferrer">
-            <h3 style="font-size: 1.1rem;">{r.title}</h3>
-            {r.desc && <p style="font-size: 0.9rem; line-height: 1.55; color: var(--graphite); margin-top: 0.5rem;">{r.desc}</p>}
-            <span style="color: var(--annotation); font-weight: 600; font-size: 0.9rem; display: inline-block; margin-top: 1rem;">Visit ↗</span>
+
+      <div class="resources-reading-grid reveal-on-scroll">
+        {readings.map((r) => (
+          <a class="resource-reading-card" href={r.url} target="_blank" rel="noreferrer">
+            <h3 class="resource-reading-title">{r.title}</h3>
+            <p class="resource-reading-desc">{r.desc}</p>
+            <span class="resource-reading-link">
+              Visit ↗
+            </span>
           </a>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section" style="background: #F6F4F2; border-top: 1px solid rgba(15, 30, 49, 0.08);">
+  <!-- ==================== 5. BRIEFING AND UPDATES ==================== -->
+  <section class="section section--resources-briefing" id="briefing-updates">
     <div class="site-shell">
-      <div class="split-layout">
-        <div class="reveal-on-scroll">
-          <div class="eyebrow" style="color: #CDA367; font-weight: 700;">Briefing and updates</div>
-          <h2 class="display-title" style="color: #0F1E31;">Join the Leadership Economy Briefing.</h2>
-          <p style="font-size: 1.15rem; line-height: 1.7; color: #1F2937; margin-top: 1rem;">
-            Selected book, research, RAPL™ and event updates — including new resources,
-            research findings and Executive Certificate cohort dates. One email,
-            occasional, useful.
+      <div class="split-layout reveal-on-scroll" style="align-items: center; gap: 4rem;">
+        <div>
+          <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+            BRIEFING AND UPDATES
+          </div>
+          <h2 style="color: #4C4747; font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 700; line-height: 1.1; margin-top: 0.75rem; max-width: 18ch;">
+            Join the Leadership Economy Briefing.
+          </h2>
+          <p style="font-size: 1.2rem; line-height: 1.65; color: #4C4747; margin-top: 1.5rem; max-width: 48ch;">
+            Selected book, research, RAPL™ and event updates — including new resources, research findings and Executive Certificate cohort dates. One email, occasional, useful.
           </p>
         </div>
-        <div class="reveal-on-scroll">
-          <form class="form" style="background: var(--paper); color: var(--ink);" onsubmit="event.preventDefault();">
-            <div class="eyebrow">Subscribe</div>
-            <label for="briefing-email" style="margin-top: 1rem;">Your work email</label>
-            <input id="briefing-email" type="email" placeholder="leader@organization.com" />
-            <div class="button-row" style="margin-top: 1.25rem;">
-              <button type="submit" class="button primary">Join the briefing <span class="arrow" aria-hidden="true">→</span></button>
+
+        <div class="resource-briefing-box">
+          <h3 style="color: #4C4747; font-size: 2.25rem; font-weight: 700; line-height: 1.1; margin: 0 0 1.5rem 0;">Subscribe</h3>
+          <form onsubmit="event.preventDefault();" style="display: flex; flex-direction: column; gap: 1.25rem;">
+            <div>
+              <label for="briefing-email" style="display: block; font-size: 1.15rem; font-weight: 700; color: #4C4747; margin-bottom: 0.5rem;">Your Work Email</label>
+              <input id="briefing-email" type="email" placeholder="name@organization.com" required style="width: 100%; background: #ECE7E3; border: 1.5px solid #4C4747; border-radius: 4px; padding: 0.85rem 1.25rem; font-size: 1.1rem; color: #4C4747; outline: none;" />
             </div>
-            <p style="font-size: 0.78rem; color: var(--graphite); margin-top: 1rem;">We use your email only to send the briefing. Unsubscribe in one click.</p>
+            <button type="submit" style="background: #4C4747; color: #ffffff; border: none; border-radius: 4px; padding: 0.95rem 1.75rem; font-size: 1.15rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;">
+              Join the briefing→
+            </button>
+            <p style="font-size: 0.9rem; color: #4C4747; line-height: 1.5; margin: 0;">
+              We use your email only to send the briefing. Unsubscribe in one click.
+            </p>
           </form>
         </div>
       </div>
     </div>
   </section>
 
-  <CTA
-    eyebrow="Take the next step"
-    title="Move from insight to action."
-    description="The briefs and decision aids are the lightest on-ramp. The diagnostic, the certificate and the organizational engagement are where they translate into capability."
-    primary={{ label: "Run the diagnostic", href: "/assessment" }}
-    secondary={{ label: "See the framework", href: "/framework" }}
-  />
+  <!-- ==================== 6. TAKE THE NEXT STEP CTA BANNER ==================== -->
+  <section class="section" id="take-next-step" style="background: #F6F3EA; padding-block: clamp(5rem, 9vw, 8rem); border-top: 1px solid rgba(15, 30, 49, 0.08);">
+    <div class="site-shell reveal-on-scroll">
+      <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem;">
+        TAKE THE NEXT STEP
+      </div>
+      <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; max-width: 28ch;">
+        Move from insight to action.
+      </h2>
+      <p style="color: #4C4747; font-size: 1.25rem; margin-top: 1.5rem; max-width: 58ch; line-height: 1.5;">
+        The briefs and decision aids are the lightest on-ramp. The diagnostic, the certificate and the organizational engagement are where they translate into capability.
+      </p>
+      <div class="button-row" style="margin-top: 2.5rem; gap: 1rem;">
+        <a class="button primary" href="/assessment" style="background: #755436; color: #ffffff; border: 1px solid #755436; font-weight: 700; border-radius: 7px; padding: 0.75rem 1.75rem; text-decoration: none;">
+          Run the diagnostic→
+        </a>
+        <a class="button" href="/framework" style="background: transparent; border: 1.5px solid #755436; color: #755436; font-weight: 700; border-radius: 7px; padding: 0.75rem 1.75rem; text-decoration: none;">
+          See the framework
+        </a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+

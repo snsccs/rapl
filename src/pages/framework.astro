@@ -303,17 +303,17 @@ const conceptCards = [
         <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.1; margin-top: 0.5rem;">
           Four views of one model.
         </h2>
-        <p class="lede" style="margin-top: 1.25rem; font-size: 1.2rem; color: #000000; line-height: 1.55; max-width: 56ch;">
+        <p class="lede" style="margin-top: 1.25rem; font-size: 1.2rem; color: #4C4747; line-height: 1.55; max-width: 56ch;">
           RAPL™ can be read as four different things at once — depending on what the work needs from you.
         </p>
       </div>
 
-      <div class="grid-4 reveal-on-scroll" style="margin-top: 3.5rem; gap: 2rem;">
+      <div class="framework-views-grid reveal-on-scroll">
         {views.map((v) => (
-          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-            <div style="color: #755436; font-size: 1.65rem; font-weight: 700;">{v.num}</div>
-            <h3 style="color: #4C4747; font-size: 1.35rem; font-weight: 700; margin: 0;">{v.title}</h3>
-            <p style="color: #000000; font-size: 1.05rem; line-height: 1.55; margin: 0.25rem 0 0;">{v.desc}</p>
+          <div class="framework-view-card">
+            <div class="framework-view-num">{v.num}</div>
+            <h3 class="framework-view-title">{v.title}</h3>
+            <p class="framework-view-desc">{v.desc}</p>
           </div>
         ))}
       </div>
@@ -385,28 +385,28 @@ const conceptCards = [
   <!-- ==================== 7. 3 CONCEPT CARDS (EXTERNAL / INTERNAL) ==================== -->
   <section class="section section--framework-concepts">
     <div class="site-shell">
-      <div class="grid-3 reveal-on-scroll" style="gap: 2rem;">
+      <div class="framework-concepts-grid reveal-on-scroll">
         {conceptCards.map((c) => (
           <a
-            class="card unstyled"
+            class="framework-concept-card"
             href={c.href}
             target={c.isExternal ? "_blank" : undefined}
             rel={c.isExternal ? "noopener noreferrer" : undefined}
-            style="background: #ffffff; padding: 2.25rem; border-radius: 4px; border: 1px solid rgba(15, 30, 49, 0.08); box-shadow: 0 6px 24px rgba(15, 30, 49, 0.04); display: flex; flex-direction: column; justify-content: space-between;"
           >
             <div>
-              <div style="color: #755436; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;">
+              <div class="framework-concept-eyebrow">
                 {c.eyebrow}
               </div>
-              <h3 style="font-size: 1.45rem; font-weight: 700; color: #4C4747; margin: 0.6rem 0 0.85rem; line-height: 1.2;">
+              <h3 class="framework-concept-title">
                 {c.title}
               </h3>
-              <p style="color: #000000; font-size: 1.05rem; line-height: 1.55; margin: 0;">
+              <p class="framework-concept-desc">
                 {c.desc}
               </p>
             </div>
-            <span style="color: #000000; font-weight: 600; font-size: 1.05rem; margin-top: 1.5rem; display: inline-flex; align-items: center; gap: 0.35rem;">
-              {c.linkText}
+            <span class="framework-concept-link">
+              <span class="framework-concept-arrow" aria-hidden="true">→</span>
+              <span class="framework-concept-text">{c.linkText}</span>
             </span>
           </a>
         ))}

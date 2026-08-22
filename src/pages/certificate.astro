@@ -8,39 +8,19 @@ const format = [
   { value: "Live", label: "CAPSTONE", note: "Real strategic work, not a simulation" },
 ];
 
-const phases = [
-  {
-    phase: "DEFINE",
-    modules: [
-      { name: "Diagnose the Work" },
-      { name: "Choose the Work" },
-      { name: "Translate the Work" },
-    ],
-  },
-  {
-    phase: "GOVERN",
-    modules: [
-      { name: "Select the Shape" },
-      { name: "Integrate the System" },
-      { name: "Sponsor Delivery" },
-    ],
-  },
-  {
-    phase: "PROTECT",
-    modules: [
-      { name: "Protect Value and Risk" },
-      { name: "Align Stakeholders" },
-      { name: "Govern Investment" },
-    ],
-  },
-  {
-    phase: "LAND",
-    modules: [
-      { name: "Optimize in Flight" },
-      { name: "Drive Adoption" },
-      { name: "Sustain Benefits" },
-    ],
-  },
+const allModules = [
+  { num: "01", name: "Diagnose the Work", phase: "DEFINE" },
+  { num: "02", name: "Choose the Work", phase: "DEFINE" },
+  { num: "03", name: "Translate the Work", phase: "DEFINE" },
+  { num: "04", name: "Select the Shape", phase: "GOVERN" },
+  { num: "05", name: "Integrate the System", phase: "GOVERN" },
+  { num: "06", name: "Sponsor Delivery", phase: "GOVERN" },
+  { num: "07", name: "Protect Value and Risk", phase: "PROTECT" },
+  { num: "08", name: "Align Stakeholders", phase: "PROTECT" },
+  { num: "09", name: "Govern Investment", phase: "PROTECT" },
+  { num: "10", name: "Optimize in Flight", phase: "LAND" },
+  { num: "11", name: "Drive Adoption", phase: "LAND" },
+  { num: "12", name: "Sustain Benefits", phase: "LAND" },
 ];
 
 const outcomes = [
@@ -84,6 +64,13 @@ const steps = [
   },
 ];
 
+const whoItIsFor = [
+  "CEOs, COOs and business-unit leaders accountable for strategic outcomes.",
+  "CIOs, CHROs, CFOs and chief transformation officers who sponsor, govern or enable strategic work.",
+  "PMO, delivery and execution-office leaders bridging strategy and operations.",
+  "Senior leaders in functions that shape, enable or depend on AI and transformation initiatives.",
+];
+
 const isNotList = [
   "Project management training for executives.",
   "A replacement for PMO, change or delivery specialists.",
@@ -121,18 +108,31 @@ const isNotList = [
   </section>
 
   <!-- ==================== 2. WHO IT'S FOR ==================== -->
-  <section class="section" style="background: #F2EEEB; padding-block: clamp(4.5rem, 7.5vw, 6.5rem);">
+  <section class="section" style="background: #F2EEEB; padding-block: clamp(5rem, 8vw, 7.5rem);">
     <div class="site-shell">
-      <div class="reveal-on-scroll" style="max-width: 60rem;">
-        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-          WHO IT’S FOR
+      <div class="cert-who-split reveal-on-scroll">
+        <div class="cert-who-left">
+          <div class="eyebrow" style="color: #755436; font-size: 1.35rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem;">
+            WHO IT’S FOR
+          </div>
+          <h2 style="color: #4C4747; font-size: clamp(2.4rem, 4.5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0; margin-bottom: 1.5rem; max-width: 18ch;">
+            Senior leaders accountable for strategic work they don't personally deliver
+          </h2>
+          <p style="font-size: 1.25rem; line-height: 1.6; color: #4C4747; margin: 0; max-width: 48ch;">
+            RAPL™ is not project management training for executives. It develops the executive judgment, governance capability, integration skill, sponsorship discipline &amp; value leadership senior leaders need.
+          </p>
         </div>
-        <h2 style="color: #4C4747; font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 700; line-height: 1.1; margin-top: 0.75rem; max-width: 22ch;">
-          Senior leaders accountable for strategic work they don't personally deliver
-        </h2>
-        <p style="font-size: 1.2rem; line-height: 1.65; color: #4C4747; margin-top: 1.5rem; max-width: 54ch;">
-          RAPL™ is not project management training for executives. It develops the executive judgment, governance capability, integration skill, sponsorship discipline &amp; value leadership senior leaders need.
-        </p>
+
+        <div class="cert-who-right">
+          <ul class="cert-who-list">
+            {whoItIsFor.map((item) => (
+              <li class="cert-who-item">
+                <span class="cert-who-dot" aria-hidden="true">·</span>
+                <span class="cert-who-text">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -167,22 +167,14 @@ const isNotList = [
         </p>
       </div>
 
-      <div class="cert-modules-matrix reveal-on-scroll">
-        {phases.map((p) => (
-          <div>
-            <div style="margin-bottom: 0.85rem;">
-              <span style="display: inline-block; background: #755436; color: #ffffff; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.35rem 0.9rem; border-radius: 4px; text-transform: uppercase;">
-                {p.phase}
-              </span>
+      <div class="cert-modules-grid reveal-on-scroll">
+        {allModules.map((m) => (
+          <div class="cert-module-card">
+            <div class="cert-module-header">
+              <span class="cert-module-num">{m.num}</span>
+              <span class="cert-module-badge">{m.phase}</span>
             </div>
-            <div class="cert-phase-row">
-              {p.modules.map((m) => (
-                <div class="cert-module-card">
-                  <span class="cert-module-badge">{p.phase}</span>
-                  <h3 class="cert-module-title">{m.name}</h3>
-                </div>
-              ))}
-            </div>
+            <h3 class="cert-module-title">{m.name}</h3>
           </div>
         ))}
       </div>
