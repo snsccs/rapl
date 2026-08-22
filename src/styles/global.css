@@ -809,28 +809,29 @@ img {
 .cert-outcomes-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
+  gap: 2.75rem 4.5rem;
+  margin-top: 3.5rem;
 }
 
 .cert-outcome-item {
   display: flex;
   align-items: flex-start;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 .cert-outcome-num {
   color: #755436;
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   line-height: 1;
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   flex-shrink: 0;
+  min-width: 2.75rem;
 }
 
 .cert-outcome-text {
   color: #4C4747;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   line-height: 1.55;
   margin: 0;
 }
@@ -838,6 +839,7 @@ img {
 @media (max-width: 768px) {
   .cert-outcomes-grid {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }
 
@@ -874,7 +876,7 @@ img {
 
 .cert-step-desc {
   color: #4C4747;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   line-height: 1.55;
   margin: 0;
 }
