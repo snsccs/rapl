@@ -728,11 +728,7 @@ img {
 
 .section--cert-sns {
   background-color: #EDE8E5;
-  background-image: url("/Artboard_2_3.png");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  padding-block: clamp(5rem, 8vw, 7.5rem);
+  padding-block: clamp(5.5rem, 8vw, 8rem);
 }
 
 .section--cert-curriculum {
