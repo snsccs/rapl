@@ -748,16 +748,18 @@ img {
 }
 
 .cert-module-card {
+  position: relative;
   background: #FAF8F5;
   border: 1.5px solid #8C6D4F;
   border-radius: 12px;
-  padding: 1.85rem 2rem 2.25rem 2rem;
+  padding: 1.75rem 2rem 2.25rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 145px;
   box-shadow: 0 4px 16px rgba(140, 109, 79, 0.08), 0 1px 3px rgba(0, 0, 0, 0.03);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
 }
 
 .cert-module-card:hover {
@@ -767,8 +769,7 @@ img {
 
 .cert-module-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 1.5rem;
 }
 
@@ -780,19 +781,23 @@ img {
 }
 
 .cert-module-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
   background: #8C6D4F;
   color: #ffffff;
   font-size: 0.95rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  padding: 0.45rem 1.15rem;
-  border-radius: 6px;
+  letter-spacing: 0.08em;
+  padding: 0.65rem 1.4rem;
+  border-bottom-left-radius: 16px;
+  border-top-right-radius: 10px;
   text-transform: uppercase;
   line-height: 1;
 }
 
 .cert-module-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: 1.45rem;
   font-weight: 700;
   line-height: 1.25;
