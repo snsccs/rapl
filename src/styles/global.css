@@ -31,8 +31,8 @@
   --bg-cream-4: #f6f3ea;
   --bg-ink: #0f1e31;
 
-  --max-width: 1360px;
-  --shell-padding: clamp(20px, 3vw, 40px);
+  --max-width: 1920px;
+  --shell-padding: clamp(20px, 7.34vw, 141px);
   --radius: 2px;
 
   --font-display: "Fraunces Variable", "Fraunces", Georgia, serif;
