@@ -2,18 +2,20 @@
 import BaseLayout from "../components/BaseLayout.astro";
 import CTA from "../components/CTA.astro";
 
-const principles = [
-  { title: "Applied", desc: "Capability must change decisions and behaviour in live work — not just assessment scores." },
-  { title: "Accountable", desc: "Decision rights, risk ownership, adoption, benefits and consequences remain visible, the standard the Leadership Capability Alignment Diagnostic is built to measure." },
-  { title: "Role-agnostic", desc: "Capability follows the work, not the job title — the depth required varies by seat and consequence." },
-  { title: "Refreshable", desc: "A capability system that can be assessed, developed, applied, evidenced and refreshed over time." },
-  { title: "Testable", desc: "The framework is offered for expert review, role-demand research, organizational testing and refinement — examined transparently in the research agenda." },
+const domainsRow1 = [
+  "Business analysis",
+  "Delivery sponsorship",
+  "Portfolio and program leadership",
+  "Risk",
+  "Strategy",
 ];
 
-const domains = [
-  "Business analysis", "Strategy", "Portfolio and program leadership",
-  "Delivery sponsorship", "Risk", "Stakeholder alignment",
-  "Execution-office governance", "AI", "Change and adoption", "Benefits sustainment",
+const domainsRow2 = [
+  "Execution-office governance",
+  "Change and adoption",
+  "Stakeholder alignment",
+  "Benefits sustainment",
+  "AI",
 ];
 ---
 
@@ -21,184 +23,170 @@ const domains = [
   title="About RAPL™"
   description="A leadership framework for the work leaders are already expected to govern. Created by Samia Waqar and delivered through SnS Coaching and Consulting Services."
 >
-  <section class="page-hero page-hero--paper">
-    <div class="site-shell page-hero-grid reveal-on-scroll">
-      <div class="eyebrow page-hero-eyebrow">About RAPL™</div>
-      <h1>A leadership framework for the work leaders are already expected to govern.</h1>
-      <p style="font-size: 1.1rem; line-height: 1.7; color: var(--graphite);">
-        RAPL™ was developed to address a recurring organizational question: are
-        leaders being prepared for the AI-enabled, project-shaped strategic work
-        they are already accountable for?
-      </p>
-      <p style="font-size: 1.1rem; line-height: 1.7; color: var(--graphite); margin-top: 1rem;">
-        The <a href="/framework" style="color: var(--ink); font-weight: 600;">RAPL™ Leadership Framework</a> brings together leadership acts drawn from
-        business analysis, strategy, portfolio and program leadership, delivery
-        sponsorship, risk, stakeholder alignment, execution-office governance, AI,
-        change, adoption and benefits sustainment.
-      </p>
-      <div class="button-row">
-        <a class="button primary" href="/framework">
-          Explore the framework
-          <span class="arrow" aria-hidden="true">→</span>
-        </a>
-        <a class="button ghost" href="/research">Read the research</a>
+  <!-- ==================== 1. HERO (Figma Node 6197:10350) ==================== -->
+  <section class="page-hero page-hero--about">
+    <div class="site-shell">
+      <div class="about-hero-content reveal-on-scroll">
+        <div class="eyebrow about-hero-eyebrow">ABOUT RAPL™</div>
+        <h1 class="about-hero-title">
+          A leadership framework for the work leaders are already expected to govern.
+        </h1>
+        <p class="about-hero-lede">
+          RAPL™ was developed to address a recurring organizational question: are
+          leaders being prepared for the AI-enabled, project-shaped strategic work
+          they are already accountable for?
+        </p>
+        <p class="about-hero-lede" style="margin-top: 1.25rem;">
+          The <a href="/framework">RAPL™ Leadership Framework</a> brings together leadership acts drawn from
+          business analysis, strategy, portfolio and program leadership, delivery
+          sponsorship, risk, stakeholder alignment, execution-office governance, AI,
+          change, adoption and benefits sustainment.
+        </p>
+        <div class="about-hero-buttons">
+          <a class="about-btn-primary" href="/framework">
+            Explore the framework→
+          </a>
+          <a class="about-btn-secondary" href="/research">
+            Read the research
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <!-- ==================== 2. WHY RAPL™ EXISTS (Figma Node 6372:10097) ==================== -->
+  <section class="section section--about-why">
     <div class="site-shell">
-      <div class="split-layout">
-        <div class="reveal-on-scroll">
-          <div class="eyebrow">Why RAPL™ exists</div>
-          <h2 class="section-title" style="margin-top: 0.5rem;">Strategic work has changed. Leadership development hasn't kept up.</h2>
+      <div class="about-why-grid reveal-on-scroll">
+        <div>
+          <div class="eyebrow about-why-eyebrow">WHY RAPL™ EXISTS</div>
+          <h2 class="about-why-title">
+            Strategic work has changed. Leadership development hasn't kept up.
+          </h2>
         </div>
-        <div class="reveal-on-scroll">
-          <p style="font-size: 1.05rem; line-height: 1.7; color: var(--graphite);">
+        <div>
+          <p class="about-why-text">
             Organizations increasingly create value through temporary, cross-functional
             and change-intensive work. Senior leaders are expected to choose the right
             work, govern competing investment, sponsor delivery, lead through
             uncertainty, scale AI, build adoption and sustain benefits — often without
             a shared system for developing that judgment.
           </p>
-          <p style="font-size: 1.05rem; line-height: 1.7; color: var(--graphite); margin-top: 1rem;">
+          <p class="about-why-text">
             RAPL™ makes those responsibilities visible as one value cycle rather than a
-            collection of disconnected specialisms — <a href="/" style="color: var(--ink); font-weight: 600;">the same gap explored in more depth on the RAPL™ home page</a>.
+            collection of disconnected specialisms — <a href="/">the same gap explored in more depth on the RAPL™ home page</a>.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--tight section--bond-deep">
-    <div class="site-shell" style="text-align: center;">
-      <div class="eyebrow reveal-on-scroll">What RAPL™ integrates</div>
-      <h2 class="display-title reveal-on-scroll" style="max-width: 26ch; margin: 0.5rem auto 2rem;">Ten established practice domains — translated into one executive value cycle.</h2>
-      <div class="chip-row reveal-on-scroll" style="justify-content: center; max-width: 56rem; margin: 0 auto;">
-        {domains.map((d) => <span class="pill pill--ink">{d}</span>)}
+  <!-- ==================== 3. WHAT RAPL™ INTEGRATES (Figma Node 6374:10100) ==================== -->
+  <section class="section section--about-integrates">
+    <div class="site-shell">
+      <div class="about-integrates-header reveal-on-scroll">
+        <div class="eyebrow about-integrates-eyebrow">WHAT RAPL™ INTEGRATES</div>
+        <h2 class="about-integrates-title">
+          Ten established practice domains — translated into one executive value cycle.
+        </h2>
+      </div>
+
+      <div class="about-domains-container reveal-on-scroll">
+        <div class="about-domains-row">
+          {domainsRow1.map((d) => (
+            <span class="about-domain-pill">{d}</span>
+          ))}
+        </div>
+        <div class="about-domains-row">
+          {domainsRow2.map((d) => (
+            <span class="about-domain-pill">{d}</span>
+          ))}
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <!-- ==================== 4. DELIVERED THROUGH (Figma Node 6375:10148) ==================== -->
+  <section class="section section--about-delivered">
     <div class="site-shell">
-      <div style="max-width: 64rem;" class="reveal-on-scroll">
-        <div class="eyebrow">RAPL™ principles</div>
-        <h2 class="display-title">Five principles the framework holds itself to.</h2>
-        <p class="lede" style="margin-top: 1rem;">
-          These are not aspirations. They are the test we apply when a new engagement,
-          resource or capability claim enters the framework.
-        </p>
-      </div>
-      <div class="stack-6" style="margin-top: 3rem;">
-        {principles.map((p, i) => (
-          <div class="card reveal-on-scroll" style="display: grid; grid-template-columns: 80px 1fr; gap: 1.5rem; align-items: start;">
-            <div style="color: var(--brass); font-size: 2.5rem; font-weight: 700; line-height: 1;">{String(i + 1).padStart(2, "0")}</div>
-            <div>
-              <h3 style="font-size: 1.4rem;">{p.title}</h3>
-              <p style="font-size: 1.02rem; line-height: 1.6; color: var(--graphite); margin-top: 0.5rem;">{p.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--bond-deep">
-    <div class="site-shell">
-      <div class="split-layout">
-        <div class="reveal-on-scroll">
-          <div class="eyebrow">Delivered through</div>
-          <h2 class="section-title" style="margin-top: 0.5rem;">SnS Coaching and Consulting Services.</h2>
-          <p class="lede" style="margin-top: 1rem;">
-            The <a href="/certificate" style="color: var(--ink); font-weight: 600;">Executive Certificate</a> and
-            <a href="/organizations" style="color: var(--ink); font-weight: 600;">organizational RAPL™ engagements</a>
-            are delivered through <a href="https://snsccs.com/" class="footer-external" style="color: var(--ink); font-weight: 600;">SnS Coaching and Consulting Services</a>,
+      <div class="about-delivered-grid reveal-on-scroll">
+        <div>
+          <div class="eyebrow about-delivered-eyebrow">DELIVERED THROUGH</div>
+          <h2 class="about-delivered-title">
+            SnS Coaching and Consulting Services.
+          </h2>
+          <p class="about-delivered-lede">
+            The <a href="/certificate">Executive Certificate</a> and
+            <a href="/organizations">organizational RAPL™ engagements</a>
+            are delivered through <a href="https://snsccs.com/" target="_blank" rel="noreferrer">SnS Coaching and Consulting Services</a>,
             scoped against the strategic work, the seats involved, and the system we
             need to influence.
           </p>
         </div>
-        <div class="callout-card reveal-on-scroll">
-          <div class="eyebrow">Three things to know</div>
-          <ul class="check-list" style="margin-top: 1rem;">
-            <li>RAPL™ is created by Samia Waqar.</li>
-            <li>Delivered through SnS Coaching and Consulting Services.</li>
-            <li>Examined transparently in a published research agenda.</li>
+
+        <div class="about-dark-card">
+          <h3 class="about-dark-card-title">Three things to know</h3>
+          <ul class="about-dark-card-list">
+            <li>1. RAPL™ is created by Samia Waqar.</li>
+            <li>2. Delivered through SnS Coaching and Consulting Services.</li>
+            <li>3. Examined transparently in a published research agenda.</li>
           </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <!-- ==================== 5. ABOUT THE CREATOR (Figma Node 6377:10057) ==================== -->
+  <section class="section section--about-creator">
     <div class="site-shell">
-      <div class="split-layout">
-        <div class="reveal-on-scroll">
-          <div class="eyebrow">Evidence and validation</div>
-          <h2 class="section-title" style="margin-top: 0.5rem;">Theory-grounded, practice-informed and examined transparently.</h2>
-        </div>
-        <div class="reveal-on-scroll">
-          <p style="font-size: 1.05rem; line-height: 1.7; color: var(--graphite);">
-            RAPL™ is theory-grounded and practice-informed. The literature supports the
-            need for the capabilities it integrates, but it does not yet establish
-            RAPL™ as a fully validated intervention. The framework is therefore offered
-            for application, expert review, role-demand research, organizational testing
-            and refinement.
-          </p>
-          <p style="font-size: 1.05rem; line-height: 1.7; color: var(--graphite); margin-top: 1rem;">
-            That boundary is the starting point of the research agenda — not a disclaimer.
-          </p>
-          <div class="button-row" style="margin-top: 1.5rem;">
-            <a class="button primary" href="/research">
-              Read the research position
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      <div class="about-creator-layout reveal-on-scroll">
+        <!-- Left spacer for the photo of Samia Waqar in the background image -->
+        <div class="about-creator-spacer" aria-hidden="true"></div>
 
-  <section class="section section--bond-deep">
-    <div class="site-shell">
-      <div class="split-layout" style="grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);">
-        <div class="reveal-on-scroll">
-          <div class="eyebrow">About the creator</div>
-          <h2 class="section-title" style="margin-top: 0.5rem;">Samia Waqar.</h2>
-          <p class="lede" style="margin-top: 1rem;">
+        <!-- Right column with all text, CTAs and Quote card -->
+        <div class="about-creator-content">
+          <div class="eyebrow about-creator-eyebrow">ABOUT THE CREATER</div>
+          <h2 class="about-creator-title">
+            Samia Waqar
+          </h2>
+          <p class="about-creator-text">
             Samia Waqar is the creator of RAPL™ and the founder of SnS Coaching and
             Consulting Services. Her work sits at the intersection of leadership
             development, AI-enabled transformation and the discipline required to land
             strategic value in operations.
           </p>
-          <p class="lede" style="margin-top: 1rem;">
-            She is also the author of <a href="https://samiawaqar.com/book" class="footer-external" style="color: var(--ink); font-weight: 600;">The Leadership Economy</a> — the broader thinking behind RAPL™'s approach to leadership and value.
+          <p class="about-creator-text">
+            She is also the author of <a href="https://samiawaqar.com/book" target="_blank" rel="noreferrer">The Leadership Economy</a> — the broader thinking behind RAPL™'s approach to leadership and value.
           </p>
-          <div class="button-row">
-            <a class="button ghost" href="https://samiawaqar.com/about">About Samia Waqar ↗</a>
-            <a class="button primary" href="/contact">Get in touch</a>
+          <div class="about-creator-buttons">
+            <a class="about-btn-primary" href="https://samiawaqar.com/about" target="_blank" rel="noreferrer">
+              About Samia Waqar ↗
+            </a>
+            <a class="about-btn-outline" href="/contact">
+              Get in touch
+            </a>
           </div>
-        </div>
-        <div class="callout-card callout-card--ink reveal-on-scroll">
-          <p style="font-family: var(--font-display); font-size: 4rem; color: var(--brass-light); line-height: 0.8; margin: 0;">"</p>
-          <p style="font-size: 1.1rem; line-height: 1.6; color: rgba(241, 240, 236, 0.9); margin-top: 0.5rem;">
-            Strategic work has changed faster than the leadership systems that
-            prepare executives for it. RAPL™ exists to make that gap visible, and
-            to give senior leaders a structured way to close it.
-          </p>
-          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(241, 240, 236, 0.14);">
-            <p style="font-size: 1rem; color: var(--paper); font-weight: 600;">Samia Waqar</p>
-            <p style="font-size: 0.85rem; color: rgba(241, 240, 236, 0.65);">Creator, RAPL™</p>
+
+          <div class="about-quote-card">
+            <p class="about-quote-text">
+              “Strategic work has changed faster than the leadership systems that
+              prepare executives for it. RAPL™ exists to make that gap visible, and
+              to give senior leaders a structured way to close it.”
+            </p>
+            <hr class="about-quote-divider" />
+            <h4 class="about-quote-author">Samia Waqar</h4>
+            <p class="about-quote-role">Creator, RAPL™</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ==================== 6. BEGIN / CTA BANNER (Figma Node 6377:10072) ==================== -->
   <CTA
-    eyebrow="Begin"
+    eyebrow="BEGIN"
     title="Explore the framework, discuss the Executive Certificate or begin an organizational diagnostic."
-    primary={{ label: "Explore the framework", href: "/framework" }}
+    primary={{ label: "Explore the framework→", href: "/framework" }}
     secondary={{ label: "Start the Diagnostic", href: "/assessment" }}
   />
 </BaseLayout>
