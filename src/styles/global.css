@@ -1490,10 +1490,7 @@ img {
 
 .section--diag-heatmap {
   background-color: #EDE8E5;
-  background-image: url("/Artboard_1__2__1.png");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background: radial-gradient(circle at 10% 85%, #E2D9D0 0%, transparent 45%), radial-gradient(circle at 90% 15%, #E5DDD5 0%, transparent 45%), #EDE8E5;
   padding-block: clamp(5.5rem, 8vw, 8.5rem);
 }
 
@@ -1529,12 +1526,12 @@ img {
 .diag-heatmap-table {
   width: 100%;
   border-collapse: separate;
-  border-spacing: clamp(0.5rem, 1vw, 1rem) clamp(0.5rem, 0.8vw, 0.85rem);
+  border-spacing: clamp(0.6rem, 1vw, 1rem) clamp(0.5rem, 0.75vw, 0.85rem);
   margin: 0;
 }
 
 .diag-heatmap-table th {
-  padding: 0.75rem 0.5rem;
+  padding: 0.75rem 0.5rem 1rem;
   text-align: center;
   font-size: clamp(1.15rem, 1.35vw, 1.6rem);
   font-weight: 700;
@@ -1545,7 +1542,7 @@ img {
 
 .diag-heatmap-table th:first-child {
   text-align: left;
-  width: 15%;
+  width: 16%;
   min-width: 120px;
 }
 
@@ -1560,20 +1557,21 @@ img {
   font-weight: 700;
   font-size: clamp(1.2rem, 1.35vw, 1.55rem);
   color: #4C4747;
+  padding-left: 0.25rem;
 }
 
 .diag-heatmap-block {
   width: 100%;
-  min-height: clamp(48px, 4.2vw, 68px);
+  min-height: clamp(52px, 4.2vw, 68px);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(1rem, 1.25vw, 1.45rem);
+  font-size: clamp(1.05rem, 1.2vw, 1.35rem);
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .diag-heatmap-block--low {
