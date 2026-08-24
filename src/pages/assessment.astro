@@ -43,12 +43,12 @@ const outputs = [
 ];
 
 const heatmapRows = [
-  { seat: "CEO", define: "MED", govern: "LOW", protect: "MED", land: "LOW" },
-  { seat: "CIO", define: "LOW", govern: "HIGH", protect: "HIGH", land: "MED" },
+  { seat: "CEO", define: "LOW", govern: "MED", protect: "LOW", land: "MED" },
+  { seat: "CIO", define: "MED", govern: "HIGH", protect: "HIGH", land: "LOW" },
   { seat: "CHRO", define: "LOW", govern: "MED", protect: "LOW", land: "LOW" },
-  { seat: "CFO", define: "LOW", govern: "MED", protect: "MED", land: "LOW" },
+  { seat: "CFO", define: "MED", govern: "LOW", protect: "MED", land: "LOW" },
   { seat: "COO", define: "MED", govern: "MED", protect: "MED", land: "MED" },
-  { seat: "CxO Trans", define: "LOW", govern: "HIGH", protect: "HIGH", land: "LOW" },
+  { seat: "CxO Trans", define: "HIGH", govern: "HIGH", protect: "LOW", land: "LOW" },
 ];
 ---
 
@@ -195,47 +195,32 @@ const heatmapRows = [
     </div>
   </section>
 
-  <!-- ==================== 4. DELIVERABLES (WHAT YOU GET) ==================== -->
-  <section class="section section--diag-deliverables">
+  <!-- ==================== 4. DELIVERABLES / CAPABILITY OUTPUTS BANNER (Figma Node 6286:10149) ==================== -->
+  <section class="section section--diag-deliverables" aria-label="Diagnostic Outputs">
     <div class="site-shell">
-      <div style="max-width: 72rem;" class="reveal-on-scroll">
-        <div class="eyebrow" style="color: #4C4747; font-size: 1.35rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem;">
-          WHAT YOU GET
-        </div>
-        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 26ch;">
-          A diagnostic you can act on, not a report that sits on a shelf.
-        </h2>
-      </div>
-
-      <div class="diag-deliverables-box reveal-on-scroll">
-        <div class="diag-deliverables-list">
+      <div class="diag-deliverables-wrap reveal-on-scroll">
+        <ul class="diag-deliverables-bullets">
           {outputs.map((o) => (
-            <div class="diag-deliverable-item">
-              <span class="diag-deliverable-check" aria-hidden="true">✓</span>
-              <span>{o}</span>
-            </div>
+            <li class="diag-deliverables-bullet-item">{o}</li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- ==================== 5. ILLUSTRATIVE HEATMAP ==================== -->
+  <!-- ==================== 5. ILLUSTRATIVE HEATMAP (Figma Node 6289:10155) ==================== -->
   <section class="section section--diag-heatmap">
     <div class="site-shell">
-      <div style="max-width: 72rem;" class="reveal-on-scroll">
-        <div class="eyebrow" style="color: #4C4747; font-size: 1.35rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem;">
+      <div class="diag-heatmap-header reveal-on-scroll">
+        <div class="diag-heatmap-eyebrow">
           WHAT A HEATMAP LOOKS LIKE
         </div>
-        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 26ch;">
+        <h2 class="diag-heatmap-title">
           The gap, made visible.
         </h2>
-        <p style="color: #4C4747; font-size: 1.25rem; line-height: 1.6; margin-top: 1.25rem; max-width: 58ch;">
-          Illustrative example only — actual heatmaps are generated for each organization from the diagnostic engagement.
-        </p>
       </div>
 
-      <div class="diag-heatmap-card reveal-on-scroll">
+      <div class="diag-heatmap-container reveal-on-scroll">
         <table class="diag-heatmap-table">
           <thead>
             <tr>
@@ -250,27 +235,33 @@ const heatmapRows = [
             {heatmapRows.map((r) => (
               <tr>
                 <td>{r.seat}</td>
-                <td><span class={`diag-pill diag-pill--${r.define.toLowerCase()}`}>{r.define}</span></td>
-                <td><span class={`diag-pill diag-pill--${r.govern.toLowerCase()}`}>{r.govern}</span></td>
-                <td><span class={`diag-pill diag-pill--${r.protect.toLowerCase()}`}>{r.protect}</span></td>
-                <td><span class={`diag-pill diag-pill--${r.land.toLowerCase()}`}>{r.land}</span></td>
+                <td><div class={`diag-heatmap-block diag-heatmap-block--${r.define.toLowerCase()}`}>{r.define}</div></td>
+                <td><div class={`diag-heatmap-block diag-heatmap-block--${r.govern.toLowerCase()}`}>{r.govern}</div></td>
+                <td><div class={`diag-heatmap-block diag-heatmap-block--${r.protect.toLowerCase()}`}>{r.protect}</div></td>
+                <td><div class={`diag-heatmap-block diag-heatmap-block--${r.land.toLowerCase()}`}>{r.land}</div></td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
 
-        <div style="display: flex; gap: 2rem; align-items: center; justify-content: flex-end; margin-top: 2rem; flex-wrap: wrap;">
-          <div style="display: flex; align-items: center; gap: 0.6rem;">
-            <span class="diag-pill diag-pill--low" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">LOW</span>
-            <span style="font-size: 0.95rem; color: #4C4747;">Low Demand / Capability</span>
+      <div class="diag-heatmap-footer reveal-on-scroll">
+        <p class="diag-heatmap-footnote">
+          Illustrative example only — actual heatmaps are generated for each organization from the diagnostic engagement.
+        </p>
+
+        <div class="diag-heatmap-legend">
+          <div class="diag-heatmap-legend-item">
+            <span class="diag-heatmap-swatch diag-heatmap-swatch--low" aria-hidden="true"></span>
+            <span>Low</span>
           </div>
-          <div style="display: flex; align-items: center; gap: 0.6rem;">
-            <span class="diag-pill diag-pill--med" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">MED</span>
-            <span style="font-size: 0.95rem; color: #4C4747;">Moderate Demand / Gap</span>
+          <div class="diag-heatmap-legend-item">
+            <span class="diag-heatmap-swatch diag-heatmap-swatch--med" aria-hidden="true"></span>
+            <span>Medium</span>
           </div>
-          <div style="display: flex; align-items: center; gap: 0.6rem;">
-            <span class="diag-pill diag-pill--high" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">HIGH</span>
-            <span style="font-size: 0.95rem; color: #4C4747;">High Consequence Gap</span>
+          <div class="diag-heatmap-legend-item">
+            <span class="diag-heatmap-swatch diag-heatmap-swatch--high" aria-hidden="true"></span>
+            <span>High</span>
           </div>
         </div>
       </div>

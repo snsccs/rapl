@@ -1415,51 +1415,77 @@ img {
 }
 
 .section--diag-deliverables {
-  background-color: #EDE8E5;
+  background-color: #FFFFFF;
   background-image: url("/Gemini_Generated_Image_h5oqb3h5oqb3h5oq_1.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  padding-block: clamp(5rem, 8vw, 7.5rem);
+  padding-block: clamp(4.5rem, 7vw, 6.5rem);
+  border-top: 1px solid rgba(15, 30, 49, 0.06);
+  border-bottom: 1px solid rgba(15, 30, 49, 0.06);
+  position: relative;
+  overflow: hidden;
 }
 
-.diag-deliverables-box {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(15, 30, 49, 0.08);
-  border-radius: 6px;
-  padding: 2.5rem;
-  box-shadow: 0 6px 24px rgba(15, 30, 49, 0.04);
-  margin-top: 3rem;
+.diag-deliverables-wrap {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
 }
 
-.diag-deliverables-list {
+.diag-deliverables-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 52rem;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: clamp(0.75rem, 1.2vw, 1.25rem);
 }
 
-.diag-deliverable-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  font-size: 1.2rem;
+.diag-deliverables-bullet-item {
+  position: relative;
+  padding-left: 2rem;
+  font-family: var(--font-body, "Inria Sans", sans-serif);
+  font-size: clamp(1.15rem, 1.45vw, 1.75rem);
+  font-weight: 400;
   color: #4C4747;
   line-height: 1.5;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(15, 30, 49, 0.08);
+  letter-spacing: 0;
 }
 
-.diag-deliverable-item:last-child {
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-.diag-deliverable-check {
-  color: #755436;
+.diag-deliverables-bullet-item::before {
+  content: "·";
+  position: absolute;
+  left: 0.5rem;
+  top: -0.1em;
+  font-size: 1.8em;
   font-weight: 700;
-  font-size: 1.3rem;
+  color: #4C4747;
   line-height: 1;
+}
+
+@media (max-width: 900px) {
+  .diag-deliverables-wrap {
+    justify-content: flex-start;
+  }
+
+  .diag-deliverables-bullets {
+    max-width: 100%;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 1.75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(15, 30, 49, 0.06);
+  }
+
+  .diag-deliverables-bullet-item {
+    font-size: clamp(1.05rem, 3.5vw, 1.35rem);
+    padding-left: 1.6rem;
+  }
 }
 
 .section--diag-heatmap {
@@ -1468,30 +1494,49 @@ img {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  padding-block: clamp(5rem, 8vw, 7.5rem);
+  padding-block: clamp(5.5rem, 8vw, 8.5rem);
 }
 
-.diag-heatmap-card {
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(8px);
-  border-radius: 8px;
-  border: 1px solid rgba(15, 30, 49, 0.08);
-  padding: 2.5rem;
-  box-shadow: 0 10px 30px rgba(15, 30, 49, 0.05);
-  margin-top: 3rem;
+.diag-heatmap-header {
+  text-align: center;
+  margin-inline: auto;
+  max-width: 80rem;
+}
+
+.diag-heatmap-eyebrow {
+  color: #4C4747;
+  font-size: clamp(1.2rem, 1.5vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.diag-heatmap-title {
+  color: #4C4747;
+  font-size: clamp(2.6rem, 5vw, 5.75rem);
+  font-weight: 700;
+  line-height: 1.05;
+  margin: 0.25rem auto 3.5rem auto;
+  letter-spacing: -0.01em;
+}
+
+.diag-heatmap-container {
+  width: 100%;
   overflow-x: auto;
 }
 
 .diag-heatmap-table {
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0 0.75rem;
+  border-spacing: clamp(0.5rem, 1vw, 1rem) clamp(0.5rem, 0.8vw, 0.85rem);
+  margin: 0;
 }
 
 .diag-heatmap-table th {
-  padding: 0.75rem 1.25rem;
+  padding: 0.75rem 0.5rem;
   text-align: center;
-  font-size: 1.05rem;
+  font-size: clamp(1.15rem, 1.35vw, 1.6rem);
   font-weight: 700;
   color: #4C4747;
   letter-spacing: 0.04em;
@@ -1500,54 +1545,101 @@ img {
 
 .diag-heatmap-table th:first-child {
   text-align: left;
+  width: 15%;
+  min-width: 120px;
 }
 
 .diag-heatmap-table td {
-  padding: 1rem 1.25rem;
+  padding: 0;
   text-align: center;
-  background: #FAFAFA;
-  border-top: 1px solid rgba(15, 30, 49, 0.04);
-  border-bottom: 1px solid rgba(15, 30, 49, 0.04);
+  vertical-align: middle;
 }
 
 .diag-heatmap-table td:first-child {
   text-align: left;
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: clamp(1.2rem, 1.35vw, 1.55rem);
   color: #4C4747;
-  background: #F4F2EF;
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
 }
 
-.diag-heatmap-table td:last-child {
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-}
-
-.diag-pill {
-  display: inline-block;
-  padding: 0.4rem 1.25rem;
-  border-radius: 4px;
+.diag-heatmap-block {
+  width: 100%;
+  min-height: clamp(48px, 4.2vw, 68px);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1rem, 1.25vw, 1.45rem);
   font-weight: 700;
-  font-size: 0.95rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-.diag-pill--low {
-  background: #EAE5DF;
+.diag-heatmap-block--low {
+  background: #D5C7BA;
   color: #4C4747;
 }
 
-.diag-pill--med {
-  background: #755436;
-  color: #ffffff;
+.diag-heatmap-block--med {
+  background: #9B7A57;
+  color: #FFFFFF;
 }
 
-.diag-pill--high {
-  background: #3C3B3B;
-  color: #ffffff;
+.diag-heatmap-block--high {
+  background: #413C37;
+  color: #FFFFFF;
+}
+
+.diag-heatmap-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 3.5rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.diag-heatmap-footnote {
+  color: #4C4747;
+  font-size: clamp(1.1rem, 1.2vw, 1.35rem);
+  line-height: 1.55;
+  max-width: 54ch;
+  margin: 0;
+}
+
+.diag-heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 2vw, 2.5rem);
+  flex-wrap: wrap;
+}
+
+.diag-heatmap-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: clamp(1.05rem, 1.2vw, 1.35rem);
+  font-weight: 700;
+  color: #4C4747;
+}
+
+.diag-heatmap-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+}
+
+.diag-heatmap-swatch--low {
+  background: #D5C7BA;
+}
+
+.diag-heatmap-swatch--med {
+  background: #9B7A57;
+}
+
+.diag-heatmap-swatch--high {
+  background: #413C37;
 }
 
 /* Research Page Styles (Figma node 6188:10242) */
