@@ -6,26 +6,31 @@ const steps = [
     num: "01",
     title: "Define the strategic work",
     desc: "Identify the initiatives, portfolios and AI-enabled change the senior leadership team is accountable for in the next 12–24 months.",
+    icon: "target",
   },
   {
     num: "02",
     title: "Map the seats against the work",
     desc: "Identify which RAPL™ capabilities each senior role is expected to exercise, and at what depth, in this work.",
+    icon: "users",
   },
   {
     num: "03",
     title: "Baseline current capability",
     desc: "Assess current leadership capability against the twelve RAPL™ capabilities, using evidence beyond self-report where possible.",
+    icon: "chart",
   },
   {
     num: "04",
     title: "Surface the gap as a heatmap",
     desc: "Compare role demand and current capability in a visible, role-by-role, capability-by-capability heatmap.",
+    icon: "search",
   },
   {
     num: "05",
     title: "Prioritize the development",
     desc: "Use the heatmap to target the highest-consequence gaps first — through cohort programs, targeted modules, coaching and governance work.",
+    icon: "badge",
   },
 ];
 
@@ -107,31 +112,85 @@ const heatmapRows = [
     </div>
   </section>
 
-  <!-- ==================== 3. FIVE STEPS OF THE DIAGNOSTIC ==================== -->
+  <!-- ==================== 3. FIVE STEPS OF THE DIAGNOSTIC (Figma Node 6285:10115) ==================== -->
   <section class="section section--diag-steps">
     <div class="site-shell">
       <div style="max-width: 68rem;" class="reveal-on-scroll">
-        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-          HOW IT WORKS
+        <div class="eyebrow" style="color: #4C4747; font-size: 1.35rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem;">
+          THE DIAGNOSTIC PROCESS
         </div>
-        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 24ch;">
-          Five steps from context to heatmap.
+        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.08; margin-top: 0; margin-bottom: 1.25rem; max-width: 24ch;">
+          Five steps from work to action.
         </h2>
-        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.6; margin-top: 1.25rem; max-width: 58ch;">
+        <p style="color: #4C4747; font-size: 1.25rem; line-height: 1.6; max-width: 58ch; margin: 0;">
           The diagnostic moves from defining the work, through mapping seats and baseline, to a visible heatmap and prioritized development plan.
         </p>
       </div>
 
-      <div class="diag-steps-stack reveal-on-scroll">
-        {steps.map((s) => (
-          <div class="diag-step-card">
-            <div class="diag-step-num">{s.num}</div>
-            <div class="diag-step-content">
-              <h3 class="diag-step-title">{s.title}</h3>
-              <p class="diag-step-desc">{s.desc}</p>
+      <div class="diag-process-wrapper reveal-on-scroll">
+        <div class="diag-process-dots" aria-hidden="true">
+          <div class="diag-process-dot"></div>
+          <div class="diag-process-dot"></div>
+          <div class="diag-process-dot"></div>
+          <div class="diag-process-dot"></div>
+          <div class="diag-process-dot"></div>
+        </div>
+
+        <div class="diag-process-table">
+          {steps.map((s) => (
+            <div class="diag-process-row">
+              <div class="diag-process-num-block">{s.num}</div>
+              <div class="diag-process-content">
+                <div class="diag-process-icon-disc">
+                  {s.icon === "target" && (
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <circle cx="12" cy="12" r="6"></circle>
+                      <circle cx="12" cy="12" r="2"></circle>
+                      <line x1="12" y1="2" x2="12" y2="4"></line>
+                      <line x1="12" y1="20" x2="12" y2="22"></line>
+                      <line x1="2" y1="12" x2="4" y2="12"></line>
+                      <line x1="20" y1="12" x2="22" y2="12"></line>
+                    </svg>
+                  )}
+                  {s.icon === "users" && (
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="9" cy="7" r="4"></circle>
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                  )}
+                  {s.icon === "chart" && (
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" y1="20" x2="18" y2="10"></line>
+                      <line x1="12" y1="20" x2="12" y2="4"></line>
+                      <line x1="6" y1="20" x2="6" y2="14"></line>
+                      <line x1="2" y1="20" x2="22" y2="20"></line>
+                    </svg>
+                  )}
+                  {s.icon === "search" && (
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="11" cy="11" r="8"></circle>
+                      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                  )}
+                  {s.icon === "badge" && (
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="8" r="7"></circle>
+                      <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                    </svg>
+                  )}
+                </div>
+                <div class="diag-process-text-group">
+                  <h3 class="diag-process-item-title">{s.title}</h3>
+                  <p class="diag-process-item-desc">{s.desc}</p>
+                </div>
+                <div class="diag-process-arrow" aria-hidden="true">→</div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   </section>
