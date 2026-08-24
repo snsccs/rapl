@@ -1167,10 +1167,74 @@ img {
   gap: 1rem;
 }
 
+.section--diag-what {
+  background: #FFFFFF;
+  padding-block: clamp(5rem, 8vw, 7.5rem);
+  border-bottom: 1px solid rgba(15, 30, 49, 0.06);
+}
+
+.diag-what-split {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: flex-start;
+}
+
+.diag-what-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.diag-what-title {
+  color: #4C4747;
+  font-size: clamp(2.2rem, 4.2vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+  max-width: 18ch;
+}
+
+.diag-what-right {
+  background: #F8F6F4;
+  border-radius: 8px;
+  padding: clamp(2rem, 3.5vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.diag-what-text {
+  color: #4C4747;
+  font-size: clamp(1.15rem, 1.3vw, 1.25rem);
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+}
+
+.diag-what-text:last-of-type {
+  margin-bottom: 2rem;
+}
+
+.diag-what-pills {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.diag-what-pill {
+  border: 1px solid rgba(15, 30, 49, 0.25);
+  border-radius: 20px;
+  padding: 0.45rem 1.15rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #4C4747;
+  background: transparent;
+  line-height: 1;
+}
+
 @media (max-width: 980px) {
-  .page-hero--diagnostic {
-    background: linear-gradient(180deg, rgba(246, 244, 242, 0.94) 0%, rgba(246, 244, 242, 0.98) 100%), url("/Gemini_Generated_Image_ti28b6ti28b6ti28_1.png") center top / cover no-repeat;
-    padding-block: clamp(3.5rem, 8vw, 5.5rem);
+  .diag-what-split {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
 }
 
