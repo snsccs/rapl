@@ -28,7 +28,7 @@ const propositions = [
   {
     tag: "P1",
     title: "Role–Capability Fit",
-    desc: "The capability demand of a senior leadership seat is a function of the strategic work it governs, not its generic job description. Measuring capability against generic competencies rather than role demand leaves the Leadership Capability Gap unaddressed.",
+    desc: "Leadership seats that align capability development with strategic role demand show stronger decision quality than seats that do not.",
   },
   {
     tag: "P2",
@@ -91,17 +91,41 @@ const participation = [
     </div>
   </section>
 
-  <!-- ==================== 2. FOUR VALIDATION QUESTIONS ==================== -->
-  <section class="section section--research-questions">
+  <!-- ==================== 2. THE EVIDENCE POSITION (Figma Node 6295:10083) ==================== -->
+  <section class="section section--evidence-position" id="evidence-position">
     <div class="site-shell">
-      <div style="max-width: 68rem;" class="reveal-on-scroll">
-        <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+      <div class="evidence-position-grid reveal-on-scroll">
+        <div class="evidence-position-left">
+          <div class="eyebrow evidence-position-eyebrow">
+            THE EVIDENCE POSITION
+          </div>
+          <h2 class="evidence-position-title">
+            The literature supports the problem. It does not yet establish RAPL&trade; as a fully validated intervention.
+          </h2>
+        </div>
+        <div class="evidence-position-card">
+          <p class="evidence-position-text">
+            Existing research and professional practice support the changing nature of work, the difficulty of strategy execution, leadership-development transfer problems, benefits-realization gaps, AI scaling barriers, dynamic capability and the increasing relevance of project and transformation capability to senior leadership.
+          </p>
+          <p class="evidence-position-text">
+            They do not yet directly prove the complete RAPL&trade; intervention as validated across roles and organizations. That boundary should remain visible &mdash; and it is precisely what this research agenda is designed to close.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 3. FOUR VALIDATION QUESTIONS (Figma Node 6297:10105) ==================== -->
+  <section class="section section--research-questions" id="questions">
+    <div class="site-shell">
+      <div class="research-questions-header-card reveal-on-scroll">
+        <div class="eyebrow research-questions-eyebrow">
           THE RESEARCH QUESTIONS
         </div>
-        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 24ch;">
+        <h2 class="research-questions-title">
           Four validation questions.
         </h2>
-        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.6; margin-top: 1.25rem; max-width: 62ch;">
+        <p class="research-questions-lede">
           The research agenda is organized around four questions. Each connects to a method, a sample, &amp; an expected outcome.
         </p>
       </div>
@@ -109,34 +133,10 @@ const participation = [
       <div class="research-questions-grid reveal-on-scroll">
         {questions.map((q) => (
           <div class="research-question-card">
-            <div class="research-question-num">{q.num}</div>
-            <h3 class="research-question-title">{q.title}</h3>
-            <p class="research-question-desc">{q.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== 3. FIVE RESEARCH PROPOSITIONS ==================== -->
-  <section class="section section--research-propositions">
-    <div class="site-shell">
-      <div style="max-width: 68rem;" class="reveal-on-scroll">
-        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-          FIVE RESEARCH PROPOSITIONS
-        </div>
-        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 24ch;">
-          Five testable propositions.
-        </h2>
-      </div>
-
-      <div class="research-propositions-stack reveal-on-scroll">
-        {propositions.map((p) => (
-          <div class="research-prop-card">
-            <div class="research-prop-tag">{p.tag}</div>
-            <div class="research-prop-content">
-              <h3 class="research-prop-title">{p.title}</h3>
-              <p class="research-prop-desc">{p.desc}</p>
+            <span class="research-question-num">{q.num}</span>
+            <div class="research-question-content">
+              <h3 class="research-question-title">{q.title}</h3>
+              <p class="research-question-desc">{q.desc}</p>
             </div>
           </div>
         ))}
@@ -144,67 +144,92 @@ const participation = [
     </div>
   </section>
 
-  <!-- ==================== 4. SIX WAYS TO PARTICIPATE ==================== -->
-  <section class="section section--research-participate">
+  <!-- ==================== 4. TESTABLE PROPOSITIONS (Figma Node 6299:10127) ==================== -->
+  <section class="section section--research-propositions" id="propositions">
     <div class="site-shell">
-      <div class="split-layout reveal-on-scroll" style="align-items: flex-start; gap: 4rem;">
-        <div>
-          <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+      <div class="research-propositions-header reveal-on-scroll">
+        <div class="eyebrow research-propositions-eyebrow">
+          TESTABLE PROPOSITIONS
+        </div>
+        <h2 class="research-propositions-title">
+          Five propositions the framework proposes.
+        </h2>
+        <p class="research-propositions-lede">
+          The framework is built on a set of explicit, testable claims about how leadership capability shows up in strategic work &mdash; and what changes when it is deliberately developed.
+        </p>
+      </div>
+
+      <div class="research-propositions-stack reveal-on-scroll">
+        {propositions.map((p, i) => (
+          <div class={`research-prop-row ${i % 2 === 0 ? "research-prop-row--beige" : "research-prop-row--white"}`}>
+            <div class="research-prop-tag">{p.tag}</div>
+            <div class="research-prop-title">{p.title}</div>
+            <p class="research-prop-desc">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 5. SIX WAYS TO PARTICIPATE (Figma Node 6299:10159) ==================== -->
+  <section class="section section--research-participate" id="participate">
+    <div class="site-shell">
+      <div class="research-participate-grid reveal-on-scroll">
+        <div class="research-participate-left">
+          <div class="eyebrow research-participate-eyebrow">
             WHAT YOU GET
           </div>
-          <h2 style="color: #4C4747; font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 700; line-height: 1.1; margin-top: 0.75rem; max-width: 16ch;">
+          <h2 class="research-participate-title">
             Six ways to participate.
           </h2>
-          <p style="font-size: 1.2rem; line-height: 1.65; color: #4C4747; margin-top: 1.5rem; max-width: 48ch;">
+          <p class="research-participate-lede">
             If your work touches leadership development, senior-team capability, or the evidence base behind AI-enabled transformation, there is likely a structured way to participate.
           </p>
         </div>
 
-        <div class="research-participate-box">
-          <div class="research-participate-list">
-            {participation.map((item) => (
-              <div class="research-participate-item">
-                <span class="research-participate-check" aria-hidden="true">✓</span>
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
+        <div class="research-participate-text-list">
+          {participation.map((item) => (
+            <p class="research-participate-text-item">{item}</p>
+          ))}
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== 5. METHODOLOGICAL HONESTY ==================== -->
-  <section class="section" style="background: #FFFFFF; padding-block: clamp(4.5rem, 8vw, 7rem);">
-    <div class="site-shell reveal-on-scroll">
-      <div style="max-width: 68rem;">
-        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+  <!-- ==================== 6. METHODOLOGICAL HONESTY (Figma Node 6299:10182) ==================== -->
+  <section class="section section--methodological-honesty" id="honesty">
+    <div class="site-shell">
+      <div class="methodological-honesty-wrap reveal-on-scroll">
+        <div class="eyebrow methodological-honesty-eyebrow">
           METHODOLOGICAL HONESTY
         </div>
-        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.1; margin-top: 0.75rem; max-width: 24ch;">
+        <h2 class="methodological-honesty-title">
           The objective is not to defend a framework.
         </h2>
-        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.65; margin-top: 1.5rem; max-width: 62ch;">
-          The objective is not to defend the RAPL™ Leadership Framework at all costs. It is to examine the problem, test the model's twelve capabilities &amp; improve both the framework &amp; the intervention when evidence requires it. That is the standard the research agenda holds itself to — and the standard we ask collaborators, reviewers and pilot organizations to hold it to as well.
+        <p class="methodological-honesty-desc">
+          The objective is not to defend the RAPL™ Leadership Framework at all costs. It is to examine the problem, test the model's twelve capabilities &amp; improve both the framework &amp; the intervention when evidence requires it.
+        </p>
+        <p class="methodological-honesty-desc">
+          That is the standard the research agenda holds itself to &mdash; and the standard we ask collaborators, reviewers and pilot organizations to hold it to as well.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- ==================== 6. HELP SHAPE THE NEXT STAGE CTA BANNER ==================== -->
-  <section class="section" id="shape-next-stage" style="background: #F6F3EA; padding-block: clamp(5rem, 9vw, 8rem); border-top: 1px solid rgba(15, 30, 49, 0.08);">
+  <!-- ==================== 7. HELP SHAPE THE NEXT STAGE CTA BANNER (Figma Node 6299:10197) ==================== -->
+  <section class="section section--research-cta" id="shape-next-stage">
     <div class="site-shell reveal-on-scroll">
-      <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem;">
+      <div class="eyebrow research-cta-eyebrow">
         HELP SHAPE THE NEXT STAGE
       </div>
-      <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; max-width: 28ch;">
+      <h2 class="research-cta-title">
         Discuss expert review, organizational participation or academic collaboration and help shape the next stage of the RAPL™ Leadership Framework.
       </h2>
-      <div class="button-row" style="margin-top: 2.5rem; gap: 1rem;">
-        <a class="button primary" href="/contact?interest=research" style="background: #755436; color: #ffffff; border: 1px solid #755436; font-weight: 700; border-radius: 7px; padding: 0.75rem 1.75rem; text-decoration: none;">
+      <div class="research-cta-buttons">
+        <a class="research-cta-btn-primary" href="/contact?interest=research">
           Start the conversation→
         </a>
-        <a class="button" href="/framework" style="background: transparent; border: 1.5px solid #755436; color: #755436; font-weight: 700; border-radius: 7px; padding: 0.75rem 1.75rem; text-decoration: none;">
+        <a class="research-cta-btn-outline" href="/framework">
           See the framework
         </a>
       </div>

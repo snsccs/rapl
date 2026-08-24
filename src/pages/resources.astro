@@ -3,20 +3,23 @@ import BaseLayout from "../components/BaseLayout.astro";
 
 const downloads = [
   {
+    icon: "document",
     tag: "PDF · 8 pages",
     title: "The Leadership Capability Gap — Executive Brief",
     desc: "A concise explanation of the gap, the RAPL™ response and how the framework's phases and capabilities address it.",
-    cta: "Download brief →",
+    cta: "Download brief",
     href: "/contact?interest=brief",
   },
   {
+    icon: "map",
     tag: "PDF · 1 page",
     title: "RAPL™ in One Page",
     desc: "A single-page value-cycle map summarizing the model, built for executive discussion and leadership development.",
-    cta: "Download map →",
+    cta: "Download map",
     href: "/contact?interest=map",
   },
   {
+    icon: "shield",
     tag: "PDF · 1 page",
     title: "Executive Sponsorship Health Check",
     desc: "A milestone-based check of sponsor presence, value articulation, decision rights, adoption readiness, risk escalation, benefits ownership and sustainment — the sponsorship capability developed through the Executive Certificate.",
@@ -24,17 +27,19 @@ const downloads = [
     href: "/certificate",
   },
   {
+    icon: "brain",
     tag: "Decision gate · 9 criteria",
     title: "AI Go-or-No-Go Gate",
     desc: "A value-protection gate covering business need, AI justification, data readiness, human oversight, sponsor accountability, workflow redesign, adoption risk, benefits ownership and post-deployment monitoring — the governance discipline organizations embed through structured application.",
-    cta: "Open the gate →",
+    cta: "Open the gate",
     href: "/organizations",
   },
   {
+    icon: "chart",
     tag: "PDF · 6 pages",
     title: "Research Participation Brief",
     desc: "An overview of the Leadership Capability Alignment Study, research questions, participation options and data-use principles — part of the RAPL™ research and validation agenda.",
-    cta: "Download brief →",
+    cta: "Download brief",
     href: "/research",
   },
 ];
@@ -53,7 +58,7 @@ const propositions = [
 const readings = [
   {
     title: "The Leadership Economy by Samia Waqar",
-    desc: "The broader thinking behind RAPL™'s approach to leadership and value.",
+    desc: "",
     url: "https://samiawaqar.com/book",
   },
   {
@@ -63,7 +68,7 @@ const readings = [
   },
   {
     title: "SnS Coaching & Consulting Services",
-    desc: "The broader thinking behind RAPL™'s approach to leadership and value.",
+    desc: "",
     url: "https://snsccs.com/",
   },
 ];
@@ -77,20 +82,21 @@ const readings = [
   <section class="page-hero page-hero--resources">
     <div class="site-shell">
       <div class="resources-hero-copy reveal-on-scroll">
-        <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; letter-spacing: 0.08em; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem;">
+        <div class="eyebrow resources-hero-eyebrow">
           RESOURCES AND INSIGHTS
         </div>
         <h1 class="resources-hero-title">
-          RAPL™ briefs, decision aids and applied thinking for senior leaders.
+          <span class="resources-hero-title-dark">RAPL™ briefs,<br />decision aids and</span><br />
+          <span class="resources-hero-title-brown">applied thinking for<br />senior leaders.</span>
         </h1>
         <p class="resources-hero-lede">
-          Use approved RAPL™ briefs and decision aids, grounded in the <a href="/framework" style="color: #755436; font-weight: 700; text-decoration: underline; text-underline-offset: 3px;">RAPL™ Leadership Framework</a>, to diagnose leadership demand, sharpen strategic choices, strengthen sponsorship, govern AI and keep value visible after delivery.
+          Use approved RAPL™ briefs and decision aids, grounded in the <a href="/framework" class="resources-hero-link">RAPL™ Leadership Framework</a>, to diagnose leadership demand, sharpen strategic choices, strengthen sponsorship, govern AI and keep value visible after delivery.
         </p>
-        <div class="button-row">
-          <a class="button primary" href="#briefing-updates" style="background: #755436; color: #ffffff; border: 1px solid #755436; border-radius: 4px; font-size: 0.95rem; font-weight: 700; padding: 0.7rem 1.5rem; text-decoration: none;">
+        <div class="button-row resources-hero-buttons">
+          <a class="button resources-hero-btn-primary" href="#briefing-updates">
             Subscribe to the briefing→
           </a>
-          <a class="button" href="/framework" style="background: transparent; color: #4C4747; border: 1.5px solid #4C4747; border-radius: 4px; font-size: 0.95rem; font-weight: 700; padding: 0.7rem 1.5rem; text-decoration: none;">
+          <a class="button resources-hero-btn-outline" href="/framework">
             See the framework
           </a>
         </div>
@@ -101,14 +107,14 @@ const readings = [
   <!-- ==================== 2. FEATURED DOWNLOADS ==================== -->
   <section class="section section--resources-downloads">
     <div class="site-shell">
-      <div style="max-width: 68rem;" class="reveal-on-scroll">
-        <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+      <div class="resources-downloads-header reveal-on-scroll">
+        <div class="eyebrow resources-downloads-eyebrow">
           FEATURED DOWNLOADS
         </div>
-        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 24ch;">
+        <h2 class="resources-downloads-title">
           Decision aids, briefs &amp; tools.
         </h2>
-        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.6; margin-top: 1.25rem; max-width: 62ch;">
+        <p class="resources-downloads-lede">
           Each resource is grounded in the RAPL™ Leadership Framework and tied to the entry point that makes most sense for what you are trying to do.
         </p>
       </div>
@@ -116,30 +122,74 @@ const readings = [
       <div class="resources-downloads-grid reveal-on-scroll">
         {downloads.map((d) => (
           <div class="resource-download-card">
-            <span class="resource-download-tag">{d.tag}</span>
-            <h3 class="resource-download-title">{d.title}</h3>
-            <p class="resource-download-desc">{d.desc}</p>
-            <a class="resource-download-link" href={d.href}>
-              {d.cta}
-            </a>
+            <div>
+              <div class="resource-download-top">
+                <div class="resource-download-icon-wrap">
+                  {d.icon === "document" && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <line x1="16" y1="13" x2="8" y2="13"></line>
+                      <line x1="16" y1="17" x2="8" y2="17"></line>
+                      <line x1="10" y1="9" x2="8" y2="9"></line>
+                    </svg>
+                  )}
+                  {d.icon === "map" && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+                      <line x1="8" y1="2" x2="8" y2="18"></line>
+                      <line x1="16" y1="6" x2="16" y2="22"></line>
+                    </svg>
+                  )}
+                  {d.icon === "shield" && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                      <polyline points="9 12 11 14 15 10"></polyline>
+                    </svg>
+                  )}
+                  {d.icon === "brain" && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04z"></path>
+                      <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"></path>
+                    </svg>
+                  )}
+                  {d.icon === "chart" && (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" y1="20" x2="18" y2="10"></line>
+                      <line x1="12" y1="20" x2="12" y2="4"></line>
+                      <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                  )}
+                </div>
+                <span class="resource-download-tag">{d.tag}</span>
+              </div>
+              <h3 class="resource-download-title">{d.title}</h3>
+              <p class="resource-download-desc">{d.desc}</p>
+            </div>
+            <div class="resource-download-bottom">
+              <a class="resource-download-link" href={d.href}>
+                {d.cta}
+              </a>
+              <span class="resource-download-arrow" aria-hidden="true">→</span>
+            </div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ==================== 3. APPLIED THINKING (8 PROPOSITIONS) ==================== -->
-  <section class="section section--resources-applied">
+  <!-- ==================== 3. APPLIED THINKING (8 PROPOSITIONS) (Figma Node 6341:10089) ==================== -->
+  <section class="section section--resources-applied" id="applied-thinking">
     <div class="site-shell">
-      <div class="split-layout reveal-on-scroll" style="align-items: flex-start; gap: 4rem;">
-        <div>
-          <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+      <div class="resources-applied-grid reveal-on-scroll">
+        <div class="resources-applied-left">
+          <div class="eyebrow resources-applied-eyebrow">
             APPLIED THINKING
           </div>
-          <h2 style="color: #4C4747; font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 700; line-height: 1.1; margin-top: 0.75rem; max-width: 18ch;">
-            Eight working propositions for executive leaders.
+          <h2 class="resources-applied-title">
+            Eight working<br />propositions for<br />executive leaders.
           </h2>
-          <p style="font-size: 1.2rem; line-height: 1.65; color: #4C4747; margin-top: 1.5rem; max-width: 48ch;">
+          <p class="resources-applied-lede">
             These are the working propositions that shape RAPL™'s approach. They are not slogans — they are tested against live strategic, AI and transformation work.
           </p>
         </div>
@@ -147,8 +197,8 @@ const readings = [
         <div class="resources-applied-list">
           {propositions.map((p, idx) => (
             <div class="resources-applied-item">
-              <span class="resources-applied-num">{String(idx + 1).padStart(2, "0")}</span>
-              <span>{p}</span>
+              <span class="resources-applied-num">{idx + 1}.</span>
+              <span class="resources-applied-text">{p}</span>
             </div>
           ))}
         </div>
@@ -156,17 +206,17 @@ const readings = [
     </div>
   </section>
 
-  <!-- ==================== 4. CONNECTED READING ==================== -->
-  <section class="section section--resources-reading">
+  <!-- ==================== 4. CONNECTED READING (Figma Node 6341:10118) ==================== -->
+  <section class="section section--resources-reading" id="connected-reading">
     <div class="site-shell">
-      <div style="max-width: 68rem;" class="reveal-on-scroll">
-        <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+      <div class="resources-reading-header reveal-on-scroll">
+        <div class="eyebrow resources-reading-eyebrow">
           CONNECTED READING
         </div>
-        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 24ch;">
-          Adjacent thinking and broader context.
+        <h2 class="resources-reading-title">
+          Adjacent thinking and<br />broader context.
         </h2>
-        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.6; margin-top: 1.25rem; max-width: 62ch;">
+        <p class="resources-reading-lede">
           RAPL™ sits inside a wider set of ideas about leadership and value. The resources below are the most direct extensions.
         </p>
       </div>
@@ -174,8 +224,10 @@ const readings = [
       <div class="resources-reading-grid reveal-on-scroll">
         {readings.map((r) => (
           <a class="resource-reading-card" href={r.url} target="_blank" rel="noreferrer">
-            <h3 class="resource-reading-title">{r.title}</h3>
-            <p class="resource-reading-desc">{r.desc}</p>
+            <div>
+              <h3 class="resource-reading-title">{r.title}</h3>
+              {r.desc && <p class="resource-reading-desc">{r.desc}</p>}
+            </div>
             <span class="resource-reading-link">
               Visit ↗
             </span>

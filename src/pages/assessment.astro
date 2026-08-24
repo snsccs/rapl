@@ -6,26 +6,31 @@ const steps = [
     num: "01",
     title: "Define the strategic work",
     desc: "Identify the initiatives, portfolios and AI-enabled change the senior leadership team is accountable for in the next 12–24 months.",
+    icon: "target",
   },
   {
     num: "02",
     title: "Map the seats against the work",
     desc: "Identify which RAPL™ capabilities each senior role is expected to exercise, and at what depth, in this work.",
+    icon: "users",
   },
   {
     num: "03",
     title: "Baseline current capability",
     desc: "Assess current leadership capability against the twelve RAPL™ capabilities, using evidence beyond self-report where possible.",
+    icon: "chart",
   },
   {
     num: "04",
     title: "Surface the gap as a heatmap",
     desc: "Compare role demand and current capability in a visible, role-by-role, capability-by-capability heatmap.",
+    icon: "search",
   },
   {
     num: "05",
     title: "Prioritize the development",
     desc: "Use the heatmap to target the highest-consequence gaps first — through cohort programs, targeted modules, coaching and governance work.",
+    icon: "badge",
   },
 ];
 
@@ -38,12 +43,12 @@ const outputs = [
 ];
 
 const heatmapRows = [
-  { seat: "CEO", define: "MED", govern: "LOW", protect: "MED", land: "LOW" },
-  { seat: "CIO", define: "LOW", govern: "HIGH", protect: "HIGH", land: "MED" },
+  { seat: "CEO", define: "LOW", govern: "MED", protect: "LOW", land: "MED" },
+  { seat: "CIO", define: "MED", govern: "HIGH", protect: "HIGH", land: "LOW" },
   { seat: "CHRO", define: "LOW", govern: "MED", protect: "LOW", land: "LOW" },
-  { seat: "CFO", define: "LOW", govern: "MED", protect: "MED", land: "LOW" },
+  { seat: "CFO", define: "MED", govern: "LOW", protect: "MED", land: "LOW" },
   { seat: "COO", define: "MED", govern: "MED", protect: "MED", land: "MED" },
-  { seat: "CxO Trans", define: "LOW", govern: "HIGH", protect: "HIGH", land: "LOW" },
+  { seat: "CxO Trans", define: "HIGH", govern: "HIGH", protect: "LOW", land: "LOW" },
 ];
 ---
 
@@ -55,20 +60,20 @@ const heatmapRows = [
   <section class="page-hero page-hero--diagnostic">
     <div class="site-shell">
       <div class="diag-hero-copy reveal-on-scroll">
-        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; letter-spacing: 0.08em; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem;">
+        <div class="eyebrow" style="color: #000000; font-size: 1.35rem; letter-spacing: 0.04em; font-weight: 700; text-transform: uppercase; margin-bottom: 1rem;">
           LEADERSHIP CAPABILITY ALIGNMENT DIAGNOSTIC
         </div>
         <h1 class="diag-hero-title">
-          Make the leadership capability gap visible by seat, by capability, by consequence.
+          Make the <span style="color: #8C6D4F;">leadership capability gap</span> visible by seat, by capability, by consequence.
         </h1>
         <p class="diag-hero-lede">
           A structured way to compare what senior roles require with what leadership and talent systems develop, assess and reward. The diagnostic is the entry point to every RAPL™ engagement.
         </p>
         <div class="button-row">
-          <a class="button primary" href="/contact?interest=diagnostic" style="background: #755436; color: #ffffff; border: 1px solid #755436; border-radius: 4px; font-size: 0.95rem; font-weight: 700; padding: 0.7rem 1.5rem; text-decoration: none;">
+          <a class="button primary" href="/contact?interest=diagnostic" style="background: #755436; color: #ffffff; border: 1px solid #755436; border-radius: 7px; font-size: 1.05rem; font-weight: 700; padding: 0.85rem 1.85rem; text-decoration: none;">
             Request the diagnostic→
           </a>
-          <a class="button" href="/framework" style="background: transparent; color: #3C3B3B; border: 1.5px solid #3C3B3B; border-radius: 4px; font-size: 0.95rem; font-weight: 700; padding: 0.7rem 1.5rem; text-decoration: none;">
+          <a class="button" href="/framework" style="background: transparent; color: #3C3B3B; border: 1.5px solid #3C3B3B; border-radius: 7px; font-size: 1.05rem; font-weight: 700; padding: 0.85rem 1.85rem; text-decoration: none;">
             See the framework
           </a>
         </div>
@@ -76,53 +81,113 @@ const heatmapRows = [
     </div>
   </section>
 
-  <!-- ==================== 2. FIVE STEPS OF THE DIAGNOSTIC ==================== -->
-  <section class="section section--diag-steps">
+  <!-- ==================== 2. WHAT THE DIAGNOSTIC DOES (Figma Node 6281:10081) ==================== -->
+  <section class="section section--diag-what">
     <div class="site-shell">
-      <div style="max-width: 68rem;" class="reveal-on-scroll">
-        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-          HOW IT WORKS
-        </div>
-        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 24ch;">
-          Five steps from context to heatmap.
-        </h2>
-        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.6; margin-top: 1.25rem; max-width: 58ch;">
-          The diagnostic moves from defining the work, through mapping seats and baseline, to a visible heatmap and prioritized development plan.
-        </p>
-      </div>
-
-      <div class="diag-steps-stack reveal-on-scroll">
-        {steps.map((s) => (
-          <div class="diag-step-card">
-            <div class="diag-step-num">{s.num}</div>
-            <div class="diag-step-content">
-              <h3 class="diag-step-title">{s.title}</h3>
-              <p class="diag-step-desc">{s.desc}</p>
-            </div>
+      <div class="diag-what-split reveal-on-scroll">
+        <div class="diag-what-left">
+          <div class="eyebrow" style="color: #755436; font-size: 1.35rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem;">
+            WHAT THE DIAGNOSTIC DOES
           </div>
-        ))}
+          <h2 class="diag-what-title">
+            It compares what the work demands with what the leadership system actually develops.
+          </h2>
+        </div>
+
+        <div class="diag-what-right">
+          <p class="diag-what-text">
+            The Leadership Capability Alignment Diagnostic makes the gap between strategic work and leadership systems visible — not as an abstract idea, but as a concrete comparison you can act on.
+          </p>
+          <p class="diag-what-text">
+            It looks at each senior seat, the work it is expected to govern, the capability the work requires, and the capability the talent system actually develops, assesses and rewards. Where the two don't match, the gap is named — and prioritized.
+          </p>
+          <div class="diag-what-pills">
+            <span class="diag-what-pill">Seat profiles</span>
+            <span class="diag-what-pill">Role demand</span>
+            <span class="diag-what-pill">Capability baseline</span>
+            <span class="diag-what-pill">Gap heatmap</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== 3. DELIVERABLES ==================== -->
-  <section class="section section--diag-deliverables">
+  <!-- ==================== 3. FIVE STEPS OF THE DIAGNOSTIC (Figma Node 6285:10115) ==================== -->
+  <section class="section section--diag-steps">
     <div class="site-shell">
-      <div style="max-width: 68rem;" class="reveal-on-scroll">
-        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-          DELIVERABLES
+      <div class="diag-process-header reveal-on-scroll">
+        <div class="diag-process-eyebrow">
+          THE DIAGNOSTIC PROCESS
         </div>
-        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 26ch;">
-          What the diagnostic delivers.
+        <h2 class="diag-process-title">
+          Five steps from work to action.
         </h2>
+        <p class="diag-process-lede">
+          The diagnostic moves from defining the work, through mapping seats and baseline, to a visible heatmap and prioritized development plan.
+        </p>
       </div>
 
-      <div class="diag-deliverables-box reveal-on-scroll">
-        <div class="diag-deliverables-list">
-          {outputs.map((o) => (
-            <div class="diag-deliverable-item">
-              <span class="diag-deliverable-check" aria-hidden="true">✓</span>
-              <span>{o}</span>
+      <div class="diag-process-wrapper reveal-on-scroll">
+        <div class="diag-process-dots" aria-hidden="true">
+          <div class="diag-process-dot"></div>
+          <div class="diag-process-dot"></div>
+          <div class="diag-process-dot"></div>
+          <div class="diag-process-dot"></div>
+          <div class="diag-process-dot"></div>
+        </div>
+
+        <div class="diag-process-table">
+          {steps.map((s) => (
+            <div class="diag-process-row">
+              <div class="diag-process-num-block">{s.num}</div>
+              <div class="diag-process-content">
+                <div class="diag-process-icon-disc">
+                  {s.icon === "target" && (
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <circle cx="12" cy="12" r="6"></circle>
+                      <circle cx="12" cy="12" r="2"></circle>
+                      <line x1="12" y1="2" x2="12" y2="4"></line>
+                      <line x1="12" y1="20" x2="12" y2="22"></line>
+                      <line x1="2" y1="12" x2="4" y2="12"></line>
+                      <line x1="20" y1="12" x2="22" y2="12"></line>
+                    </svg>
+                  )}
+                  {s.icon === "users" && (
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="9" cy="7" r="4"></circle>
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                  )}
+                  {s.icon === "chart" && (
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" y1="20" x2="18" y2="10"></line>
+                      <line x1="12" y1="20" x2="12" y2="4"></line>
+                      <line x1="6" y1="20" x2="6" y2="14"></line>
+                      <line x1="2" y1="20" x2="22" y2="20"></line>
+                    </svg>
+                  )}
+                  {s.icon === "search" && (
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="11" cy="11" r="8"></circle>
+                      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                  )}
+                  {s.icon === "badge" && (
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="8" r="7"></circle>
+                      <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                    </svg>
+                  )}
+                </div>
+                <div class="diag-process-text-group">
+                  <h3 class="diag-process-item-title">{s.title}</h3>
+                  <p class="diag-process-item-desc">{s.desc}</p>
+                </div>
+                <div class="diag-process-arrow" aria-hidden="true">→</div>
+              </div>
             </div>
           ))}
         </div>
@@ -130,68 +195,116 @@ const heatmapRows = [
     </div>
   </section>
 
-  <!-- ==================== 4. ILLUSTRATIVE HEATMAP ==================== -->
+  <!-- ==================== 4. DELIVERABLES / CAPABILITY OUTPUTS BANNER (Figma Node 6286:10149) ==================== -->
+  <section class="section section--diag-deliverables" aria-label="Diagnostic Outputs">
+    <div class="site-shell">
+      <div class="diag-deliverables-wrap reveal-on-scroll">
+        <ul class="diag-deliverables-bullets">
+          {outputs.map((o) => (
+            <li class="diag-deliverables-bullet-item">{o}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 5. ILLUSTRATIVE HEATMAP (Figma Node 6289:10155) ==================== -->
   <section class="section section--diag-heatmap">
     <div class="site-shell">
-      <div style="max-width: 68rem;" class="reveal-on-scroll">
-        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-          HEATMAP
+      <div class="diag-heatmap-header reveal-on-scroll">
+        <div class="diag-heatmap-eyebrow">
+          WHAT A HEATMAP LOOKS LIKE
         </div>
-        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 26ch;">
-          An illustrative heatmap.
+        <h2 class="diag-heatmap-title">
+          The gap, made visible.
         </h2>
-        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.6; margin-top: 1.25rem; max-width: 58ch;">
-          Illustrative example only — actual heatmaps are generated for each organization from the diagnostic engagement.
-        </p>
       </div>
 
-      <div class="diag-heatmap-card reveal-on-scroll">
+      <div class="diag-heatmap-container reveal-on-scroll">
         <table class="diag-heatmap-table">
           <thead>
             <tr>
-              <th>Role / Seat</th>
-              <th>Phase 1: Define</th>
-              <th>Phase 2: Govern</th>
-              <th>Phase 3: Protect</th>
-              <th>Phase 4: Land</th>
+              <th>SEAT</th>
+              <th>DEFINE</th>
+              <th>GOVERN</th>
+              <th>PROTECT</th>
+              <th>LAND</th>
             </tr>
           </thead>
           <tbody>
             {heatmapRows.map((r) => (
               <tr>
                 <td>{r.seat}</td>
-                <td><span class={`diag-pill diag-pill--${r.define.toLowerCase()}`}>{r.define}</span></td>
-                <td><span class={`diag-pill diag-pill--${r.govern.toLowerCase()}`}>{r.govern}</span></td>
-                <td><span class={`diag-pill diag-pill--${r.protect.toLowerCase()}`}>{r.protect}</span></td>
-                <td><span class={`diag-pill diag-pill--${r.land.toLowerCase()}`}>{r.land}</span></td>
+                <td><div class={`diag-heatmap-block diag-heatmap-block--${r.define.toLowerCase()}`}>{r.define}</div></td>
+                <td><div class={`diag-heatmap-block diag-heatmap-block--${r.govern.toLowerCase()}`}>{r.govern}</div></td>
+                <td><div class={`diag-heatmap-block diag-heatmap-block--${r.protect.toLowerCase()}`}>{r.protect}</div></td>
+                <td><div class={`diag-heatmap-block diag-heatmap-block--${r.land.toLowerCase()}`}>{r.land}</div></td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
 
-        <div style="display: flex; gap: 2rem; align-items: center; justify-content: flex-end; margin-top: 2rem; flex-wrap: wrap;">
-          <div style="display: flex; align-items: center; gap: 0.6rem;">
-            <span class="diag-pill diag-pill--low" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">LOW</span>
-            <span style="font-size: 0.95rem; color: #4C4747;">Low Demand / Capability</span>
+      <div class="diag-heatmap-footer reveal-on-scroll">
+        <p class="diag-heatmap-footnote">
+          Illustrative example only — actual heatmaps are generated for each organization from the diagnostic engagement.
+        </p>
+
+        <div class="diag-heatmap-legend">
+          <div class="diag-heatmap-legend-item">
+            <span class="diag-heatmap-swatch diag-heatmap-swatch--low" aria-hidden="true"></span>
+            <span>Low</span>
           </div>
-          <div style="display: flex; align-items: center; gap: 0.6rem;">
-            <span class="diag-pill diag-pill--med" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">MED</span>
-            <span style="font-size: 0.95rem; color: #4C4747;">Moderate Demand / Gap</span>
+          <div class="diag-heatmap-legend-item">
+            <span class="diag-heatmap-swatch diag-heatmap-swatch--med" aria-hidden="true"></span>
+            <span>Medium</span>
           </div>
-          <div style="display: flex; align-items: center; gap: 0.6rem;">
-            <span class="diag-pill diag-pill--high" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">HIGH</span>
-            <span style="font-size: 0.95rem; color: #4C4747;">High Consequence Gap</span>
+          <div class="diag-heatmap-legend-item">
+            <span class="diag-heatmap-swatch diag-heatmap-swatch--high" aria-hidden="true"></span>
+            <span>High</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== 5. BEGIN THE DIAGNOSTIC CTA BANNER ==================== -->
+  <!-- ==================== 6. WHO USES THE DIAGNOSTIC (3 DARK CARDS - Figma 6289:10194) ==================== -->
+  <section class="section" style="background: #F6F4F2; padding-block: clamp(5rem, 8vw, 7.5rem);">
+    <div class="site-shell">
+      <div class="cert-steps-grid reveal-on-scroll" style="margin-top: 0;">
+        <div class="cert-step-card">
+          <h3 style="color: #FFFFFF; font-size: 1.85rem; font-weight: 700; margin: 0 0 1.25rem; line-height: 1.2;">
+            Boards and CEOs
+          </h3>
+          <p style="color: #FFFFFF; font-size: 1.2rem; line-height: 1.6; margin: 0;">
+            Sanity-check whether the senior team has the leadership capability the strategic agenda actually requires.
+          </p>
+        </div>
+        <div class="cert-step-card">
+          <h3 style="color: #FFFFFF; font-size: 1.85rem; font-weight: 700; margin: 0 0 1.25rem; line-height: 1.2;">
+            CHROs and PMOs
+          </h3>
+          <p style="color: #FFFFFF; font-size: 1.2rem; line-height: 1.6; margin: 0;">
+            Target development and succession investment where the gap is highest and the consequences are greatest.
+          </p>
+        </div>
+        <div class="cert-step-card">
+          <h3 style="color: #FFFFFF; font-size: 1.85rem; font-weight: 700; margin: 0 0 1.25rem; line-height: 1.2;">
+            Transformation leaders
+          </h3>
+          <p style="color: #FFFFFF; font-size: 1.2rem; line-height: 1.6; margin: 0;">
+            Identify which leadership seats need strengthening before the next wave of AI and transformation work.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 7. BEGIN THE DIAGNOSTIC CTA BANNER ==================== -->
   <section class="section" id="begin-diagnostic" style="background: #F6F3EA; padding-block: clamp(5rem, 9vw, 8rem); border-top: 1px solid rgba(15, 30, 49, 0.08);">
     <div class="site-shell reveal-on-scroll">
       <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem;">
-        BEGIN THE DIAGNOSTIC
+        NEXT STEP
       </div>
       <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; max-width: 26ch;">
         Make the gap visible. Then close it.
@@ -203,8 +316,8 @@ const heatmapRows = [
         <a class="button primary" href="/contact?interest=diagnostic" style="background: #755436; color: #ffffff; border: 1px solid #755436; font-weight: 700; border-radius: 7px; padding: 0.75rem 1.75rem; text-decoration: none;">
           Request the diagnostic→
         </a>
-        <a class="button" href="/research" style="background: transparent; border: 1.5px solid #755436; color: #755436; font-weight: 700; border-radius: 7px; padding: 0.75rem 1.75rem; text-decoration: none;">
-          Read the research
+        <a class="button" href="/framework" style="background: transparent; border: 1.5px solid #755436; color: #755436; font-weight: 700; border-radius: 7px; padding: 0.75rem 1.75rem; text-decoration: none;">
+          See the framework
         </a>
       </div>
     </div>
