@@ -4,18 +4,46 @@ import CTA from "../components/CTA.astro";
 
 const domainsRow1 = [
   "Business analysis",
-  "Delivery sponsorship",
-  "Portfolio and program leadership",
-  "Risk",
   "Strategy",
+  "Portfolio and program leadership",
+  "Delivery sponsorship",
+  "Risk",
 ];
 
 const domainsRow2 = [
-  "Execution-office governance",
-  "Change and adoption",
   "Stakeholder alignment",
-  "Benefits sustainment",
+  "Execution-office governance",
   "AI",
+  "Change and adoption",
+  "Benefits sustainment",
+];
+
+const principles = [
+  {
+    num: "01",
+    title: "Applied",
+    desc: "Capability must change decisions and behaviour in live work — not just assessment scores.",
+  },
+  {
+    num: "02",
+    title: "Accountable",
+    desc: "Decision rights, risk ownership, adoption, benefits and consequences remain visible, the standard the Leadership Capability Alignment Diagnostic is built to measure.",
+  },
+  {
+    num: "03",
+    title: "Role-agnostic",
+    desc: "Capability follows the work, not the job title — the depth required varies by seat and consequence.",
+  },
+  {
+    num: "04",
+    title: "Refreshable",
+    desc: "A capability system that can be assessed, developed, applied, evidenced and refreshed over time.",
+  },
+  {
+    num: "05",
+    title: "Testable",
+    desc: "The framework is offered for expert review, role-demand research, organizational testing and refinement — examined transparently in the research agenda.",
+  },
 ];
 ---
 
@@ -87,7 +115,7 @@ const domainsRow2 = [
       <div class="about-integrates-header reveal-on-scroll">
         <div class="eyebrow about-integrates-eyebrow">WHAT RAPL™ INTEGRATES</div>
         <h2 class="about-integrates-title">
-          Ten established practice domains — translated into one executive value cycle.
+          Ten established practice<br />domains — translated into<br /><span class="about-integrates-title-brown">one executive value cycle.</span>
         </h2>
       </div>
 
@@ -106,7 +134,32 @@ const domainsRow2 = [
     </div>
   </section>
 
-  <!-- ==================== 4. DELIVERED THROUGH (Figma Node 6375:10148) ==================== -->
+  <!-- ==================== 4. RAPL™ PRINCIPLES (Figma Node 6375:10127) ==================== -->
+  <section class="section section--about-principles">
+    <div class="site-shell">
+      <div class="about-principles-header reveal-on-scroll">
+        <div class="eyebrow about-principles-eyebrow">RAPL™ PRINCIPLES</div>
+        <h2 class="about-principles-title">
+          Five principles the<br />framework holds itself to.
+        </h2>
+        <p class="about-principles-lede">
+          These are not aspirations. They are the test we apply when a new engagement, resource or capability claim enters the framework.
+        </p>
+      </div>
+
+      <div class="about-principles-stack reveal-on-scroll">
+        {principles.map((p, idx) => (
+          <div class={`about-principle-card ${idx % 2 === 0 ? "about-principle-card--beige" : "about-principle-card--white"}`}>
+            <div class="about-principle-num">{p.num}</div>
+            <div class="about-principle-title">{p.title}</div>
+            <div class="about-principle-desc">{p.desc}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 5. DELIVERED THROUGH (Figma Node 6375:10148) ==================== -->
   <section class="section section--about-delivered">
     <div class="site-shell">
       <div class="about-delivered-grid reveal-on-scroll">
