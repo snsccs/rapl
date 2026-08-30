@@ -5758,8 +5758,8 @@ img {
 }
 
 .contact-hero-eyebrow {
-  color: #4C4747;
-  font-size: clamp(1rem, 1.25vw, 1.25rem);
+  color: #000000;
+  font-size: clamp(1.25rem, 1.67vw, 2rem);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -5767,7 +5767,7 @@ img {
 }
 
 .contact-hero-title {
-  color: #3C3B3B;
+  color: #060606;
   font-size: clamp(3.125rem, 5.21vw, 6.25rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -5777,9 +5777,9 @@ img {
 }
 
 .contact-hero-lede {
-  color: #4C4747;
+  color: #000000;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
-  font-size: clamp(1.125rem, 1.25vw, 1.5rem);
+  font-size: clamp(1.125rem, 1.46vw, 1.75rem);
   line-height: 1.55;
   margin-top: 1.25rem;
   margin-left: auto;
