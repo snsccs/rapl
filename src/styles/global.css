@@ -2705,6 +2705,10 @@ img {
   text-align: left;
 }
 
+.page-hero--figma .hero-title-accent {
+  color: #755436;
+}
+
 .page-hero--figma .page-hero-eyebrow {
   color: #4C4747;
   font-size: 1.25rem;
