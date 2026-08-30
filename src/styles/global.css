@@ -106,16 +106,16 @@ h4 {
 }
 
 h1 {
-  /* Figma hero: 100px on desktop, scaled down on mobile */
-  font-size: clamp(2.6rem, 7.5vw, 6.25rem);
+  /* Figma hero: 100px on desktop, ~80px at 1440px so it never overlaps images */
+  font-size: clamp(2.4rem, 5.2vw, 6.25rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.04;
 }
 
 h2 {
-  /* Figma section H2: 96px on desktop */
-  font-size: clamp(2rem, 5.5vw, 6rem);
+  /* Figma section H2: 96px on desktop, ~65px at 1440px */
+  font-size: clamp(1.9rem, 4.2vw, 6rem);
   line-height: 1.04;
   letter-spacing: -0.02em;
 }
@@ -170,8 +170,8 @@ img {
 }
 
 .eyebrow {
-  /* Figma eyebrow: 32px Bold, charcoal #4c4646 (NOT brass) */
-  font-size: clamp(1.1rem, 1.4vw, 2rem);
+  /* Figma eyebrow: 32px Bold on desktop, ~22px at 1440px */
+  font-size: clamp(1rem, 1.5vw, 2rem);
   letter-spacing: 0.04em;
   text-transform: uppercase;
   font-weight: 700;
@@ -195,7 +195,7 @@ img {
 
 .display-title {
   font-family: var(--font-sans);
-  font-size: clamp(2.4rem, 5.5vw, 6rem);
+  font-size: clamp(2rem, 4.5vw, 6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.04;
@@ -212,14 +212,14 @@ img {
 }
 
 .lede {
-  font-size: clamp(1.15rem, 1.4vw, 1.5rem);
+  font-size: clamp(1rem, 1.3vw, 1.5rem);
   line-height: 1.45;
   color: var(--graphite);
   max-width: 60ch;
 }
 
 .body-text {
-  font-size: 1.1rem;
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
   line-height: 1.55;
   color: var(--graphite);
 }
@@ -321,31 +321,34 @@ img {
 }
 
 .page-hero--framework .framework-hero-copy {
-  max-width: 860px;
+  max-width: 720px;
   margin-left: 0;
   margin-right: auto;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
+  padding-right: 2rem;
 }
 
 .page-hero--framework .framework-hero-title {
   color: #4C4747;
-  font-size: clamp(2.6rem, 5vw, 4.75rem);
+  /* Figma: 100px on desktop, ~75px at 1440px, ~42px at 1021px — never overlaps the hero image */
+  font-size: clamp(1.9rem, 4.1vw, 6.25rem);
   font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1.08;
-  max-width: 20ch;
+  line-height: 1.04;
+  max-width: 18ch;
   margin-block: 0.5rem 1.5rem;
   text-align: left;
 }
 
 .page-hero--framework .framework-hero-lede {
   color: #4C4747;
-  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
-  line-height: 1.6;
-  max-width: 54ch;
+  /* Figma: 28px on desktop, ~21px at 1440px, ~17px at 1021px */
+  font-size: clamp(0.95rem, 1.2vw, 1.75rem);
+  line-height: 1.45;
+  max-width: 50ch;
   text-align: left;
   margin: 0;
 }
@@ -371,6 +374,18 @@ img {
   background-size: cover;
   background-repeat: no-repeat;
   padding-block: clamp(5rem, 8vw, 7.5rem);
+}
+
+/* CSS card overlay for the A Clear Distinction section — text fits inside */
+.framework-distinction-card {
+  background: linear-gradient(180deg, #F5EFE6 0%, #EDE3D2 100%);
+  border: 1.5px solid #C9A875;
+  border-radius: 4px;
+  padding: clamp(2.5rem, 5vw, 4.5rem) clamp(2rem, 4vw, 4rem);
+  max-width: 95rem;
+  margin-inline: auto;
+  text-align: center;
+  box-shadow: 0 20px 50px -20px rgba(40, 25, 10, 0.5);
 }
 
 .section--framework-views {
@@ -403,7 +418,8 @@ img {
 
 .framework-view-num {
   color: #755436;
-  font-size: 1.75rem;
+  /* Figma: 32px / 700 on desktop, ~24px at 1440px */
+  font-size: clamp(1.5rem, 1.7vw, 2rem);
   font-weight: 700;
   line-height: 1;
   font-family: var(--font-sans);
@@ -412,16 +428,18 @@ img {
 
 .framework-view-title {
   color: #4C4747;
-  font-size: 1.35rem;
+  /* Figma: 32px / 700 on desktop, ~24px at 1440px */
+  font-size: clamp(1.4rem, 1.7vw, 2rem);
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.15;
   margin: 0 0 0.5rem 0;
 }
 
 .framework-view-desc {
   color: #4C4747;
-  font-size: 1.05rem;
-  line-height: 1.55;
+  /* Figma: 28px / 400 on desktop, ~21px at 1440px */
+  font-size: clamp(1.15rem, 1.45vw, 1.75rem);
+  line-height: 1.45;
   margin: 0;
 }
 
@@ -474,33 +492,38 @@ img {
 
 .framework-concept-eyebrow {
   color: #755436;
-  font-size: 1.45rem;
+  /* Figma: 48px / 700 on desktop, ~36px at 1440px */
+  font-size: clamp(2.2rem, 2.4vw, 3rem);
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   margin-bottom: 1.25rem;
+  line-height: 1.1;
 }
 
 .framework-concept-title {
-  font-size: 1.6rem;
+  /* Figma: 36px / 700 on desktop, ~27px at 1440px */
+  font-size: clamp(1.7rem, 1.9vw, 2.25rem);
   font-weight: 700;
-  color: #3C3B3B;
+  color: #4C4646;
   margin: 0 0 1rem 0;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 
 .framework-concept-desc {
   color: #000000;
-  font-size: 1.2rem;
-  line-height: 1.6;
+  /* Figma: 32px / 400 on desktop, ~22px at 1440px */
+  font-size: clamp(1.35rem, 1.55vw, 2rem);
+  line-height: 1.45;
   margin: 0 0 2.5rem 0;
   flex: 1;
 }
 
 .framework-concept-link {
   color: #000000;
-  font-weight: 600;
-  font-size: 1.2rem;
+  /* Figma: 32px / 400 on desktop, ~22px at 1440px */
+  font-weight: 400;
+  font-size: clamp(1.35rem, 1.55vw, 2rem);
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
@@ -536,7 +559,8 @@ img {
   justify-content: center;
   padding: 0.35rem 0.85rem;
   border-radius: 999px;
-  font-size: 0.85rem;
+  /* Figma: 16px / 700 on desktop, ~14px at 1440px */
+  font-size: clamp(0.85rem, 1.1vw, 1rem);
   font-weight: 700;
   letter-spacing: 0.02em;
   border: 1.5px solid currentColor;
@@ -3884,21 +3908,25 @@ img {
 
 .capability-number {
   color: var(--brass);
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
+  /* Figma: 24px / 400 on desktop, ~18px at 1440px */
+  font-weight: 400;
+  font-size: clamp(1.1rem, 1.25vw, 1.5rem);
+  letter-spacing: 0.04em;
 }
 
 .capability h3 {
   margin: 0.5rem 0 0.6rem;
-  font-size: 1.3rem;
+  /* Figma: 28px / 700 on desktop, ~21px at 1440px */
+  font-size: clamp(1.3rem, 1.45vw, 1.75rem);
   font-weight: 700;
   letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
 .capability p {
-  font-size: 0.95rem;
-  line-height: 1.6;
+  /* Figma: 23px / 400 on desktop, ~17px at 1440px */
+  font-size: clamp(1.05rem, 1.2vw, 1.4375rem);
+  line-height: 1.5;
   color: var(--graphite);
 }
 
@@ -3914,7 +3942,8 @@ img {
 
 .phase h3 {
   color: var(--ink);
-  font-size: 1.85rem;
+  /* Figma: 32px / 700 on desktop, ~24px at 1440px */
+  font-size: clamp(1.5rem, 1.7vw, 2rem);
   margin: 0.35rem 0 0.5rem;
   font-weight: 700;
   line-height: 1.15;
@@ -3923,7 +3952,7 @@ img {
 .phase .phase-eyebrow {
   /* Figma PHASE label: 24px weight 400 charcoal, not bold */
   color: var(--graphite);
-  font-size: 1.5rem;
+  font-size: clamp(1.1rem, 1.25vw, 1.5rem);
   letter-spacing: 0.04em;
   text-transform: uppercase;
   font-weight: 400;
@@ -3932,9 +3961,10 @@ img {
 
 .phase .phase-tagline {
   color: var(--graphite);
-  font-size: 0.98rem;
+  /* Figma: 24px / 400 on desktop, ~18px at 1440px */
+  font-size: clamp(1.1rem, 1.25vw, 1.5rem);
   margin-top: 0.5rem;
-  line-height: 1.45;
+  line-height: 1.4;
   max-width: 56ch;
 }
 
@@ -3985,12 +4015,17 @@ img {
 
 .phase-grid .capability h3 {
   color: var(--ink);
+  /* Figma: 28px / 700 on desktop, ~21px at 1440px */
   margin: 0.4rem 0 0.4rem;
+  font-size: clamp(1.3rem, 1.45vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .phase-grid .capability p {
   color: var(--graphite);
-  font-size: 0.92rem;
+  /* Figma: 23px / 400 on desktop, ~17px at 1440px */
+  font-size: clamp(1.05rem, 1.2vw, 1.4375rem);
   line-height: 1.5;
 }
 
@@ -5698,6 +5733,12 @@ img {
   position: relative;
 }
 
+/* Push right column further right so text sits with ~90px margin from viewport
+   (matches Figma where "TM" and "." of the title are at x≈1830 on a 1920 canvas) */
+.page-hero--contact .site-shell {
+  padding-right: clamp(20px, 3vw, 50px);
+}
+
 .contact-hero-layout {
   display: grid;
   grid-template-columns: minmax(280px, 0.85fr) minmax(520px, 1.15fr);
@@ -5710,12 +5751,15 @@ img {
 }
 
 .contact-hero-content {
-  max-width: 680px;
+  max-width: 760px;
+  justify-self: end;
+  text-align: right;
+  padding-right: clamp(1.5rem, 3vw, 3rem);
 }
 
 .contact-hero-eyebrow {
-  color: #4C4747;
-  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  color: #000000;
+  font-size: clamp(1.25rem, 1.67vw, 2rem);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -5723,20 +5767,23 @@ img {
 }
 
 .contact-hero-title {
-  color: #3C3B3B;
-  font-size: clamp(2.6rem, 5.2vw, 5rem);
+  color: #060606;
+  font-size: clamp(3.125rem, 5.21vw, 6.25rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.05;
   margin: 0;
+  max-width: 100%;
 }
 
 .contact-hero-lede {
-  color: #4C4747;
+  color: #000000;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
-  font-size: clamp(1.1rem, 1.35vw, 1.35rem);
+  font-size: clamp(1.125rem, 1.46vw, 1.75rem);
   line-height: 1.55;
   margin-top: 1.25rem;
+  margin-left: auto;
+  max-width: 100%;
 }
 
 /* Main Discussion & Form Section */
