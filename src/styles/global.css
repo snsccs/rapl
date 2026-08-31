@@ -750,7 +750,10 @@ img {
 }
 
 .site-shell--wide {
-  max-width: 1600px;
+  /* No hardcoded max-width — let it match .site-shell so the content
+     aligns with the rest of the page instead of being letterboxed
+     with 160px+ of white space on each side at 1920px. */
+  max-width: var(--max-width);
 }
 
 .cert-who-split {
