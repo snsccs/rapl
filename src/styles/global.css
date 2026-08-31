@@ -6260,6 +6260,15 @@ img {
   .page-hero--figma .page-hero-copy { max-width: 1500px; }
   .page-hero--figma .page-hero-copy h1 { max-width: none; }
   .page-hero-grid { max-width: 110rem; }
+
+  /* Certificate page hero + "Who it's for" — same column-widening fix as 8K */
+  .page-hero--certificate .cert-hero-copy { max-width: 1700px; }
+  .page-hero--certificate .cert-hero-title {
+    max-width: none;
+    font-size: clamp(2.4rem, 3.2vw, 7rem);
+  }
+  .page-hero--certificate .cert-hero-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .site-shell--wide { max-width: 5000px; }
 }
 
 @media (min-width: 7680px) {
@@ -6282,4 +6291,20 @@ img {
   .page-hero--figma .page-hero-copy h1 { max-width: none; }
   .page-hero--figma .hero-image { max-width: 4800px; }
   .page-hero-grid { max-width: 110rem; }
+
+  /* Certificate page: widen hero copy column so the title doesn't 1-word-per-line.
+     Default is max-width:820px + 20ch on h1 — too narrow when 36px html
+     font-size scales the title up. */
+  .page-hero--certificate .cert-hero-copy { max-width: 2400px; }
+  .page-hero--certificate .cert-hero-title {
+    max-width: none;
+    font-size: clamp(3rem, 2.8vw, 8rem);
+  }
+  .page-hero--certificate .cert-hero-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+
+  /* Certificate "Who it's for" section: site-shell--wide is hardcoded to
+     1600px which becomes a tiny column at 8K. Lift it so the 1fr 1fr grid
+     actually has room for the title + bullet list. */
+  .site-shell--wide { max-width: 6400px; }
+  .cert-who-split { grid-template-columns: 1.1fr 0.9fr; gap: clamp(4rem, 4vw, 8rem); }
 }
