@@ -3495,6 +3495,14 @@ img {
   padding: 0.5rem 0.95rem;
   letter-spacing: 0;
   transition: color 0.18s ease;
+  white-space: nowrap;
+}
+
+@media (max-width: 1440px) and (min-width: 1201px) {
+  /* Tighten nav padding/font between 1200-1440 so 1280/1366 laptops
+     don't wrap "For Organizations" to a second line */
+  .nav { gap: 0.15rem; }
+  .nav a { font-size: 0.85rem; padding: 0.5rem 0.6rem; }
 }
 
 .nav a:hover,
@@ -3540,7 +3548,9 @@ img {
   color: #0F1E31;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1200px) {
+  /* Hide full nav at ≤1200px so 1024px tablet, 1100-1200px laptops, and
+     1280px (where "For Organizations" wraps) all get a clean hamburger */
   .nav { display: none; }
   .header-action { display: none; }
   .nav-toggle { display: inline-block; }
@@ -6043,6 +6053,30 @@ img {
   }
   .page-hero--contact {
     background-position: center;
+  }
+  /* Switch contact hero text to left-aligned on tablet/mobile so it
+     doesn't push against the right edge after the spacer is removed */
+  .contact-hero-content {
+    justify-self: stretch;
+    text-align: left;
+    padding-right: 0;
+  }
+  .contact-hero-lede {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Further shrink the contact hero title at very small viewports
+     so it doesn't wrap awkwardly and stays within the page */
+  .contact-hero-title {
+    font-size: clamp(2.25rem, 9vw, 3.125rem);
+  }
+  .contact-hero-eyebrow {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+  }
+  .contact-hero-lede {
+    font-size: clamp(1rem, 3.8vw, 1.25rem);
   }
 }
 
