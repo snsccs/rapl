@@ -6508,6 +6508,50 @@ img {
   .diag-heatmap-header { max-width: none; }
   .diag-heatmap-title { font-size: clamp(2.4rem, 3vw, 7.5rem); }
   .diag-heatmap-table th { font-size: clamp(1.3rem, 0.9vw, 1.9rem); }
+
+  /* Research page — same column-widening fix as 8K. Every cap below is a
+     hardcoded px/ch value that becomes a narrow column once html hits 28px:
+     the hero copy is pinned to 940px, the question grid to 1400px, the
+     proposition rows to a literal 240px tag column. */
+  .page-hero--research .research-hero-copy { max-width: 1700px; }
+  .page-hero--research .research-hero-title {
+    max-width: none;
+    font-size: clamp(2.4rem, 3.2vw, 7.5rem);
+  }
+  .page-hero--research .research-hero-lede {
+    font-size: clamp(1rem, 0.9vw, 1.7rem);
+  }
+  .evidence-position-title { font-size: clamp(2.2rem, 2.8vw, 6.5rem); }
+  .evidence-position-text { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .research-questions-header-card { max-width: 3000px; }
+  .research-questions-title { font-size: clamp(2.4rem, 3vw, 7rem); }
+  .research-questions-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .research-questions-grid { max-width: 3400px; }
+  .research-question-title { font-size: clamp(1.4rem, 1.2vw, 2.6rem); }
+  .research-question-desc { font-size: clamp(1rem, 0.85vw, 1.6rem); }
+  .research-propositions-header { max-width: 3000px; }
+  .research-propositions-title {
+    max-width: none;
+    font-size: clamp(2.4rem, 3vw, 7rem);
+  }
+  .research-propositions-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .research-propositions-stack { max-width: 3400px; }
+  /* rem so the tag + name columns track the scaled html font-size */
+  .research-prop-row { grid-template-columns: 4rem 16rem 1fr; }
+  .research-prop-desc { font-size: clamp(1rem, 0.85vw, 1.6rem); }
+  .research-participate-title {
+    max-width: none;
+    font-size: clamp(2.4rem, 3vw, 7rem);
+  }
+  .research-participate-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .research-participate-text-item { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .methodological-honesty-wrap { max-width: 3400px; }
+  .methodological-honesty-title {
+    max-width: none;
+    font-size: clamp(2.4rem, 3vw, 7rem);
+  }
+  .methodological-honesty-desc { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .research-cta-title { max-width: none; font-size: clamp(2.4rem, 3vw, 7.5rem); }
 }
 
 @media (min-width: 7680px) {
@@ -6596,4 +6640,47 @@ img {
     font-size: clamp(3rem, 2.6vw, 8.5rem);
   }
   .diag-heatmap-table th { font-size: clamp(1.5rem, 1vw, 2.4rem); padding: 1.25rem 0.75rem 1.5rem; }
+
+  /* Research page: the hardcoded caps leave the hero title on 6 lines for 8
+     words, the proposition name on 3 lines for 2 words (240px tag column) and
+     the question description on 12 lines for 19 words (307px column). */
+  .page-hero--research .research-hero-copy { max-width: 2400px; }
+  .page-hero--research .research-hero-title {
+    max-width: none;
+    font-size: clamp(3rem, 2.8vw, 9rem);
+  }
+  .page-hero--research .research-hero-lede {
+    font-size: clamp(1.2rem, 0.9vw, 2rem);
+  }
+  .evidence-position-title { font-size: clamp(2.8rem, 2.5vw, 7.5rem); }
+  .evidence-position-card { padding: clamp(3rem, 3vw, 5rem); }
+  .evidence-position-text { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .research-questions-header-card { max-width: 4200px; }
+  .research-questions-title { font-size: clamp(3rem, 2.6vw, 8rem); }
+  .research-questions-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .research-questions-grid { max-width: 4800px; }
+  .research-question-title { font-size: clamp(1.8rem, 1.1vw, 3.2rem); }
+  .research-question-desc { font-size: clamp(1.2rem, 0.85vw, 1.9rem); }
+  .research-propositions-header { max-width: 4200px; }
+  .research-propositions-title {
+    max-width: none;
+    font-size: clamp(3rem, 2.6vw, 8rem);
+  }
+  .research-propositions-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .research-propositions-stack { max-width: 5000px; }
+  .research-prop-row { grid-template-columns: 4rem 16rem 1fr; }
+  .research-prop-desc { font-size: clamp(1.2rem, 0.85vw, 1.9rem); }
+  .research-participate-title {
+    max-width: none;
+    font-size: clamp(3rem, 2.6vw, 8rem);
+  }
+  .research-participate-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .research-participate-text-item { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .methodological-honesty-wrap { max-width: 4800px; }
+  .methodological-honesty-title {
+    max-width: none;
+    font-size: clamp(3rem, 2.6vw, 8.5rem);
+  }
+  .methodological-honesty-desc { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .research-cta-title { max-width: none; font-size: clamp(3rem, 2.6vw, 8.5rem); }
 }
