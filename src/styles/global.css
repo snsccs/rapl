@@ -486,6 +486,23 @@ img {
   }
 }
 
+/* "What role-agnostic means" is two-tone in Figma: the base plate is #FAF7F5
+   full-bleed, with a second plate #F2EEEB covering the right-hand column from
+   x=812 of the 1920 frame (42.29%) to the right edge. Hard-stop gradient so the
+   boundary lands exactly where Figma puts it, and stays left of the right
+   column's text at every width down to the 880px stack point. */
+.section--framework-role-agnostic {
+  background: linear-gradient(90deg, #FAF7F5 0 42.29%, #F2EEEB 42.29% 100%);
+}
+
+/* Below 880px .split-layout collapses to one column, so a vertical seam would
+   cut through the copy — fall back to the base plate only. */
+@media (max-width: 880px) {
+  .section--framework-role-agnostic {
+    background: #FAF7F5;
+  }
+}
+
 .section--framework-distinction {
   background-color: #EDE8E5;
   background-image: url("/ChatGPT_Image_Aug_16__2026__11_03_24_PM_1.png");
@@ -495,10 +512,13 @@ img {
   padding-block: clamp(5rem, 8vw, 7.5rem);
 }
 
-/* CSS card overlay for the A Clear Distinction section — text fits inside */
+/* CSS card overlay for the A Clear Distinction section — text fits inside.
+   Figma bakes this panel into the section image; we redraw it in CSS so the
+   copy can never drift off the plate as the image is cropped. Colours sampled
+   from the Figma image: panel #E1D2C3 → #DED0BE, hairline border #A5917A. */
 .framework-distinction-card {
-  background: linear-gradient(180deg, #F5EFE6 0%, #EDE3D2 100%);
-  border: 1.5px solid #C9A875;
+  background: linear-gradient(180deg, #E2D3C3 0%, #DED0BE 100%);
+  border: 1.5px solid #A5917A;
   border-radius: 4px;
   padding: clamp(2.5rem, 5vw, 4.5rem) clamp(2rem, 4vw, 4rem);
   max-width: 95rem;
@@ -523,13 +543,15 @@ img {
   margin-top: 3.5rem;
 }
 
+/* Figma bakes these four plates into the section image; we redraw them in CSS
+   so the copy can never drift off a plate as the image is cropped. Plate
+   colour #EBE4DF sampled from the Figma image. */
 .framework-view-card {
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(15, 30, 49, 0.08);
+  background: #EBE4DF;
+  border: 1px solid rgba(74, 60, 48, 0.10);
   border-radius: 6px;
   padding: 2.25rem 1.75rem;
-  box-shadow: 0 6px 24px rgba(15, 30, 49, 0.04);
+  box-shadow: 0 6px 24px rgba(74, 60, 48, 0.07);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -555,7 +577,7 @@ img {
 }
 
 .framework-view-desc {
-  color: #4C4747;
+  color: #000000;
   /* Figma: 28px / 400 on desktop, ~21px at 1440px */
   font-size: clamp(1.15rem, 1.45vw, 1.75rem);
   line-height: 1.45;
@@ -589,8 +611,10 @@ img {
   gap: 2.25rem;
 }
 
+/* Plate colour #F3EEEB sampled from the Figma section image (Artboard 1 1),
+   which bakes these three cards in; redrawn in CSS for the same reason. */
 .framework-concept-card {
-  background: #FAF8F5;
+  background: #F3EEEB;
   border: 1px solid rgba(15, 30, 49, 0.06);
   border-left: 4px solid #8C6D4F;
   border-radius: 0;
@@ -624,7 +648,7 @@ img {
   /* Figma: 36px / 700 on desktop, ~27px at 1440px */
   font-size: clamp(1.7rem, 1.9vw, 2.25rem);
   font-weight: 700;
-  color: #4C4646;
+  color: #4C4747;
   margin: 0 0 1rem 0;
   line-height: 1.2;
 }
@@ -1109,9 +1133,13 @@ img {
   }
 }
 
+/* The Figma source image bakes in the five taupe stage bars. Live copy can
+   never line up with a `cover`-cropped image, so the bars are painted out
+   (org_sequence_clean_bg.png = the same image, bars removed) and redrawn as
+   .org-stage-card below in the bar colour sampled from the original: #C0AE98. */
 .section--org-sequence {
   background-color: #EDE8E5;
-  background-image: url("/Gemini_Generated_Image_hdzn1hdzn1hdzn1h_1.png");
+  background-image: url("/org_sequence_clean_bg.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -1126,15 +1154,14 @@ img {
 }
 
 .org-stage-card {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(15, 30, 49, 0.08);
+  background: #C0AE98;
+  border: 1px solid rgba(74, 60, 48, 0.12);
   border-radius: 6px;
   padding: 2rem 2.5rem;
   display: flex;
   gap: 2.5rem;
   align-items: flex-start;
-  box-shadow: 0 4px 20px rgba(15, 30, 49, 0.04);
+  box-shadow: 0 4px 20px rgba(74, 60, 48, 0.10);
 }
 
 .org-stage-num {
@@ -1385,7 +1412,8 @@ img {
 }
 
 .section--diag-steps {
-  background-color: #FAF8F5;
+  /* Figma node 6285:10115 — sampled avg #F5F2ED */
+  background-color: #F5F2ED;
   padding-block: clamp(5.5rem, 8vw, 8.5rem);
 }
 
@@ -1635,8 +1663,10 @@ img {
 }
 
 .section--diag-heatmap {
-  background-color: #EDE8E5;
-  background: radial-gradient(circle at 10% 85%, #E2D9D0 0%, transparent 45%), radial-gradient(circle at 90% 15%, #E5DDD5 0%, transparent 45%), #EDE8E5;
+  /* Figma node 6289:10153 — sampled bg #EBE8E1 with subtle curves
+     (lighter cream tones #E7DBD5 / #E8E1DE in the corner areas). */
+  background-color: #EBE8E1;
+  background: radial-gradient(circle at 10% 85%, #E7DBD5 0%, transparent 45%), radial-gradient(circle at 90% 15%, #E8E1DE 0%, transparent 45%), #EBE8E1;
   padding-block: clamp(5.5rem, 8vw, 8.5rem);
 }
 
@@ -1913,7 +1943,7 @@ img {
 
 /* ============ 3. Four Validation Questions (Figma node 6297:10105) ============ */
 .section--research-questions {
-  background-color: #EDE8E5;
+  background-color: #FFFFFF;
   background-image: url("/research_questions_clean_bg.png");
   background-position: center;
   background-size: cover;
@@ -1942,7 +1972,7 @@ img {
 }
 
 .research-questions-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.4rem, 4.8vw, 4.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -1967,7 +1997,7 @@ img {
 }
 
 .research-question-card {
-  background: #DDD7CE;
+  background: #CFC6BF;
   border-radius: 12px;
   padding: clamp(1.75rem, 2.5vw, 2.5rem) clamp(1.75rem, 2.5vw, 2.5rem);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
@@ -1998,7 +2028,7 @@ img {
 }
 
 .research-question-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(1.25rem, 1.55vw, 1.65rem);
   font-weight: 700;
   line-height: 1.2;
@@ -2006,7 +2036,7 @@ img {
 }
 
 .research-question-desc {
-  color: #2B2A2A;
+  color: #000000;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   font-size: clamp(1rem, 1.2vw, 1.25rem);
   line-height: 1.55;
@@ -2022,7 +2052,7 @@ img {
 
 /* ============ 4. Testable Propositions (Figma node 6299:10127) ============ */
 .section--research-propositions {
-  background-color: #F7F5F2;
+  background-color: #EDEAE5;
   background-image: url("/research_propositions_clean_bg.png");
   background-position: center;
   background-size: cover;
@@ -2045,7 +2075,7 @@ img {
 }
 
 .research-propositions-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.4rem, 4.8vw, 4.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -2087,12 +2117,12 @@ img {
 }
 
 .research-prop-row--beige {
-  background: #E5DDD3;
+  background: #D9C9BC;
   border: 1px solid rgba(117, 84, 54, 0.35);
 }
 
 .research-prop-row--white {
-  background: #FFFFFF;
+  background: #EDEAE5;
   border: 1px solid rgba(117, 84, 54, 0.25);
 }
 
@@ -2114,7 +2144,7 @@ img {
 }
 
 .research-prop-desc {
-  color: #3C3B3B;
+  color: #4C4747;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   font-size: clamp(0.95rem, 1.1vw, 1.15rem);
   line-height: 1.5;
@@ -2131,7 +2161,7 @@ img {
 
 /* ============ 5. Six Ways to Participate (Figma node 6299:10159) ============ */
 .section--research-participate {
-  background-color: #EDE8E5;
+  background-color: #FFFFFF;
   background-image: url("/Gemini_Generated_Image_h5oqb3h5oqb3h5oq_1.png");
   background-position: center;
   background-size: cover;
