@@ -1073,9 +1073,15 @@ img {
 }
 
 /* Organizations Page Styles (Figma node 6182:10126) */
+/* The source hero image (Gemini_Generated_Image_jvm91ojvm91ojvm9_1.png) has two
+   placeholder buttons baked into its lower left. Figma hides them behind
+   Rectangle 2749 (980x144, #F1EAE4); a CSS mask at that position would drift as
+   the image is `cover`-cropped, so they are painted out of the image instead —
+   org_hero_clean_bg.png is that image with the region Figma masks filled back in
+   as wall. The real buttons are the .button-row below the lede. */
 .page-hero--organizations {
   background-color: #F6F4F2;
-  background-image: url("/Gemini_Generated_Image_jvm91ojvm91ojvm9_1.png");
+  background-image: url("/org_hero_clean_bg.png");
   background-position: center right;
   background-size: cover;
   background-repeat: no-repeat;
@@ -1128,77 +1134,155 @@ img {
 
 @media (max-width: 980px) {
   .page-hero--organizations {
-    background: linear-gradient(180deg, rgba(246, 244, 242, 0.94) 0%, rgba(246, 244, 242, 0.98) 100%), url("/Gemini_Generated_Image_jvm91ojvm91ojvm9_1.png") center top / cover no-repeat;
+    background: linear-gradient(180deg, rgba(246, 244, 242, 0.94) 0%, rgba(246, 244, 242, 0.98) 100%), url("/org_hero_clean_bg.png") center top / cover no-repeat;
     padding-block: clamp(3.5rem, 8vw, 5.5rem);
   }
 }
 
-/* The Figma source image bakes in the five taupe stage bars. Live copy can
-   never line up with a `cover`-cropped image, so the bars are painted out
-   (org_sequence_clean_bg.png = the same image, bars removed) and redrawn as
-   .org-stage-card below in the bar colour sampled from the original: #C0AE98. */
+/* ============ Implementation Sequence (Figma node 6182:10126) ============
+   Geometry taken from the Figma frame at 1920px wide. The source image bakes in
+   the five taupe stage bars; live copy can never line up with a `cover`-cropped
+   image, so the bars are painted out (org_sequence_clean_bg.png) and redrawn as
+   .org-stage-card in the bar colour sampled from the original: #C0AE98.
+
+   Figma measurements (frame = 1920px):
+     section        y 1030..2562 -> padding 65px top / 52px bottom
+     eyebrow        32px/700  lh 38  ls 0  #8C725A
+     h2             96px/700  lh 99  ls 0  #4C4747   box w 1107
+     lede           28px/400  lh 42  ls 0  #000000   box w 1133
+     card block     x 221..1693 -> 1472 wide, centred in the 1632 content column
+     card           h 144, radius ~13px, 40px gap (184px pitch)
+     number         40px/700  lh 48  #755436  x 259 -> 38px from card left
+     title          32px/700  lh 38  #755436  x 324 -> 103px from card left
+     desc           24px/400  lh 31  #4C4747  x 336, w 1296 -> 61px right pad
+   Figma indents the title 12px less than its own description (324 vs 336);
+   that reads as drafting noise, so both share one content column here. */
 .section--org-sequence {
   background-color: #EDE8E5;
   background-image: url("/org_sequence_clean_bg.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  padding-block: clamp(5rem, 8vw, 7.5rem);
+  padding-top: clamp(2.5rem, 3.4vw, 4rem);
+  padding-bottom: clamp(2rem, 2.7vw, 3.25rem);
+}
+
+/* Figma places this image at frame x -366 with width 2745 on a 1920 frame:
+   142.97% wide, offset -19.06% of the width. A percentage background-position
+   resolves to P x (container - image), and container - image = -42.97% of the
+   width, so P = 19.06/42.97 = 44.362% reproduces that offset proportionally --
+   unlike `cover`, which scales by height and lands the skyline and connector
+   line-art ~32px left of Figma.
+   Only applied from 1760px up: that is where the card block reaches its 1472px
+   max-width (1472 + 2x144 shell padding), and where this sizing still covers the
+   section vertically (image height = 79.8% of viewport width). Below it, `cover`
+   keeps the artwork filling the section. */
+@media (min-width: 1760px) {
+  .section--org-sequence {
+    background-position: 44.362% 0;
+    background-size: 142.97% auto;
+  }
+}
+
+.org-sequence-header {
+  max-width: 1140px;
+}
+
+.org-sequence-eyebrow {
+  color: #8C725A;
+  font-size: clamp(1.25rem, 1.7vw, 2rem);
+  font-weight: 700;
+  line-height: 1.19;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.org-sequence-title {
+  color: #4C4747;
+  font-size: clamp(2.4rem, 5vw, 6rem);
+  font-weight: 700;
+  line-height: 1.03;
+  letter-spacing: 0;
+  max-width: 23ch;
+  margin: 0;
+}
+
+.org-sequence-lede {
+  color: #000000;
+  font-size: clamp(1.15rem, 1.5vw, 1.75rem);
+  line-height: 1.5;
+  letter-spacing: 0;
+  max-width: 1133px;
+  margin-top: clamp(1.25rem, 1.8vw, 1.8rem);
 }
 
 .org-sequence-stack {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
-  margin-top: 3.5rem;
+  gap: clamp(1.25rem, 2.1vw, 2.5rem);
+  max-width: 1472px;
+  margin: clamp(2rem, 2.5vw, 3rem) auto 0;
 }
 
 .org-stage-card {
   background: #C0AE98;
-  border: 1px solid rgba(74, 60, 48, 0.12);
-  border-radius: 6px;
-  padding: 2rem 2.5rem;
+  border-radius: 13px;
+  padding: 0.875rem clamp(1.5rem, 3.2vw, 3.8rem) clamp(1rem, 1.15vw, 1.375rem) clamp(1.25rem, 2vw, 2.375rem);
   display: flex;
-  gap: 2.5rem;
-  align-items: flex-start;
+  gap: clamp(0.75rem, 0.7vw, 0.8125rem);
+  align-items: center;
   box-shadow: 0 4px 20px rgba(74, 60, 48, 0.10);
 }
 
 .org-stage-num {
   color: #755436;
-  font-size: 2.5rem;
+  font-size: clamp(1.75rem, 2.1vw, 2.5rem);
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.2;
   font-family: var(--font-sans);
-  flex-shrink: 0;
+  flex: 0 0 auto;
+  min-width: 52px;
 }
 
 .org-stage-content {
   display: flex;
+  flex: 1;
+  min-width: 0;
   flex-direction: column;
   gap: 0.5rem;
 }
 
 .org-stage-title {
   color: #755436;
-  font-size: 1.5rem;
+  font-size: clamp(1.35rem, 1.7vw, 2rem);
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.19;
+  letter-spacing: 0;
   margin: 0;
 }
 
 .org-stage-desc {
   color: #4C4747;
-  font-size: 1.1rem;
-  line-height: 1.6;
+  font-size: clamp(1rem, 1.25vw, 1.5rem);
+  line-height: 1.29;
+  letter-spacing: 0;
+  /* clears the global `p { max-width: 68ch }`, which capped this at 1000px;
+     Figma gives the description the full 1296px content column */
+  max-width: none;
   margin: 0;
 }
 
 @media (max-width: 768px) {
   .org-stage-card {
     flex-direction: column;
-    gap: 1rem;
-    padding: 1.5rem;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+
+  .org-stage-num {
+    min-width: 0;
   }
 }
 
@@ -1283,6 +1367,76 @@ img {
 @media (max-width: 768px) {
   .org-reinforce-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ============ Research and Validation band (Figma node 6276:10171) ============
+   A short band between System Reinforcement and the CTA — #FAF7F5 ground, copy
+   on the left, dark pill button right-aligned against the shell edge. Type sizes
+   follow this page's existing eyebrow/lede scale rather than Figma's raw px, so
+   the band reads as part of the page. */
+.section--org-research {
+  background-color: #FAF7F5;
+  padding-block: clamp(2.25rem, 3.2vw, 3rem);
+}
+
+.org-research-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.org-research-copy {
+  max-width: 84ch;
+}
+
+.org-research-eyebrow {
+  color: #755436;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+}
+
+.org-research-text {
+  color: #000000;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.org-research-btn {
+  background: #3C3B3B;
+  color: #FFFFFF;
+  border: 1px solid #3C3B3B;
+  border-radius: 7px;
+  padding: 0.7rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.org-research-btn:hover {
+  background: #262525;
+  color: #FFFFFF;
+}
+
+@media (max-width: 860px) {
+  .org-research-band {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .org-research-btn {
+    white-space: normal;
   }
 }
 
@@ -2470,7 +2624,7 @@ img {
 }
 
 .section--resources-downloads {
-  background-color: #F7F5F2;
+  background-color: #F4F3EF;
   padding-block: clamp(5rem, 8vw, 7.5rem);
 }
 
@@ -2488,7 +2642,7 @@ img {
 }
 
 .resources-downloads-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.4rem, 4.8vw, 4.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -2555,7 +2709,7 @@ img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #F3EAE0;
+  background: #C5A893;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2564,7 +2718,7 @@ img {
 }
 
 .resource-download-tag {
-  background: #ECEAE4;
+  background: #F4F3EF;
   border-radius: 20px;
   padding: 0.3rem 0.85rem;
   font-size: 0.8rem;
@@ -2574,7 +2728,7 @@ img {
 }
 
 .resource-download-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(1.2rem, 1.4vw, 1.45rem);
   font-weight: 700;
   line-height: 1.2;
@@ -2633,7 +2787,7 @@ img {
 }
 
 .section--resources-applied {
-  background-color: #F7F5F2;
+  background-color: #F3ECDC;
   background-image: url("/Gemini_Generated_Image_ribnqiribnqiribn-_1__1.png");
   background-position: center;
   background-size: cover;
@@ -2665,7 +2819,7 @@ img {
 }
 
 .resources-applied-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.4rem, 4.8vw, 4.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -2698,7 +2852,7 @@ img {
   display: flex;
   align-items: baseline;
   gap: 0.6rem;
-  color: #3C3B3B;
+  color: #4C4747;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   font-size: clamp(1.05rem, 1.25vw, 1.3rem);
   line-height: 1.45;
@@ -2707,7 +2861,7 @@ img {
 }
 
 .resources-applied-num {
-  color: #3C3B3B;
+  color: #4C4747;
   font-weight: 700;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   flex-shrink: 0;
@@ -2715,7 +2869,7 @@ img {
 }
 
 .resources-applied-text {
-  color: #3C3B3B;
+  color: #4C4747;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
 }
 
@@ -2727,7 +2881,7 @@ img {
 }
 
 .section--resources-reading {
-  background-color: #F7F5F2;
+  background-color: #F6F4F2;
   padding-block: clamp(5.5rem, 8.5vw, 8rem);
 }
 
@@ -2747,7 +2901,7 @@ img {
 }
 
 .resources-reading-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.4rem, 4.8vw, 4.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -2791,7 +2945,7 @@ img {
 }
 
 .resource-reading-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(1.25rem, 1.5vw, 1.55rem);
   font-weight: 700;
   line-height: 1.2;
@@ -2808,7 +2962,7 @@ img {
 }
 
 .resource-reading-link {
-  color: #755436;
+  color: #4C4747;
   font-size: 1.05rem;
   font-weight: 700;
   text-decoration: underline;
@@ -2840,7 +2994,7 @@ img {
 }
 
 .resource-briefing-box {
-  background: rgba(255, 255, 255, 0.94);
+  background: linear-gradient(180deg, #CFBEAC 0%, #C5B4A3 100%);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(15, 30, 49, 0.08);
   border-radius: 6px;
@@ -4340,72 +4494,69 @@ img {
 
 /* ============ CTA Banner (Light cream matching Figma) ============ */
 
+/* Shared BEGIN / next-step banner. Figma uses identical values on every RAPL
+   page that has one (framework, organizations, research, resources, about,
+   contact): #F6F3EA ground, #4C4747 eyebrow + heading, #000000 body, #755436
+   primary, #755436 outline. This replaces the pre-redesign navy palette
+   (#0F1E31 on #F5F0EA). */
 .cta-banner {
-  background: #F5F0EA;
-  color: #1F2937;
+  background: #F6F3EA;
+  color: #000000;
   padding-block: clamp(4rem, 7vw, 6.5rem);
   position: relative;
-  border-top: 1px solid rgba(15, 30, 49, 0.08);
 }
 
 .cta-banner h2,
 .cta-banner h3 {
-  color: #0F1E31;
-  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  color: #4C4747;
+  font-size: clamp(2.4rem, 5vw, 6rem);
   font-weight: 700;
-  line-height: 1.12;
-  max-width: 24ch;
+  line-height: 1.03;
+  letter-spacing: 0;
+  max-width: 28ch;
 }
 
 .cta-banner p {
-  color: #374151;
-  font-size: 1.2rem;
-  max-width: 60ch;
-  line-height: 1.55;
+  color: #000000;
+  font-size: clamp(1.15rem, 1.5vw, 1.75rem);
+  line-height: 1.5;
 }
 
 .cta-banner .eyebrow {
-  color: #0F1E31;
-  font-size: 1rem;
-  letter-spacing: 0.12em;
+  color: #4C4747;
+  font-size: clamp(1.25rem, 1.7vw, 2rem);
   font-weight: 700;
+  letter-spacing: 0;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
 }
 
 .cta-banner .button.brass {
-  background: #0F1E31;
+  background: #755436;
+  border: 1px solid #755436;
   color: #ffffff;
-  border: 1.5px solid #0F1E31;
-  border-radius: 4px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  border-radius: 7px;
+  font-weight: 700;
 }
 
 .cta-banner .button.brass:hover {
-  background: #233957;
-  border-color: #233957;
+  background: #5D4229;
+  color: #ffffff;
 }
 
 .cta-banner .button.ghost-light {
   background: transparent;
-  color: #0F1E31;
-  border: 1.5px solid #0F1E31;
-  border-radius: 4px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  border: 1.5px solid #755436;
+  color: #755436;
+  border-radius: 7px;
+  font-weight: 700;
 }
 
 .cta-banner .button.ghost-light:hover {
-  background: #0F1E31;
+  background: #755436;
   color: #ffffff;
 }
 
-/* ============ Heatmap mock ============ */
 
 .heatmap {
   background: var(--paper);
@@ -5367,7 +5518,7 @@ img {
 }
 
 .about-hero-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.4rem, 4.8vw, 4.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -5384,7 +5535,7 @@ img {
 }
 
 .about-hero-lede a {
-  color: #3C3B3B;
+  color: #4C4747;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -5418,7 +5569,7 @@ img {
 }
 
 .about-btn-secondary {
-  background: #755436 !important;
+  background: #6F5436 !important;
   color: #FFFFFF !important;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   font-size: 1.05rem;
@@ -5432,12 +5583,24 @@ img {
 }
 
 .about-btn-secondary:hover {
-  background: #5A3E24 !important;
+  background: #573F27 !important;
 }
 
 /* Section 2: Why RAPL Exists */
+/* Figma gives the About hero's primary button #4C4747 (Rectangle 2709) while the
+   creator-section primary is #755436 (Rectangle 2768); both share
+   .about-btn-primary, so the hero takes a modifier. */
+.about-btn-primary--dark {
+  background: #4C4747 !important;
+  border-color: #4C4747 !important;
+}
+
+.about-btn-primary--dark:hover {
+  background: #3A3636 !important;
+}
+
 .section--about-why {
-  background-color: #FFFFFF;
+  background-color: #F2F1ED;
   padding-block: clamp(4.5rem, 7vw, 6.5rem);
   border-top: 1px solid rgba(76, 71, 71, 0.15);
   border-bottom: 1px solid rgba(76, 71, 71, 0.15);
@@ -5462,7 +5625,7 @@ img {
 }
 
 .about-why-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.2rem, 4.2vw, 3.8rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -5471,7 +5634,7 @@ img {
 }
 
 .about-why-text {
-  color: #4C4747;
+  color: #000000;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   font-size: clamp(1.05rem, 1.25vw, 1.25rem);
   line-height: 1.6;
@@ -5483,7 +5646,7 @@ img {
 }
 
 .about-why-text a {
-  color: #3C3B3B;
+  color: #000000;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -5515,7 +5678,7 @@ img {
 }
 
 .about-integrates-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.4rem, 4.8vw, 4.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -5525,7 +5688,7 @@ img {
 }
 
 .about-integrates-title-brown {
-  color: #755436;
+  color: #6F5436;
 }
 
 .about-domains-container {
@@ -5546,10 +5709,10 @@ img {
 }
 
 .about-domain-pill {
-  background: rgba(255, 255, 255, 0.15);
+  background: transparent;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(76, 71, 71, 0.6);
+  border: 1px solid #4C4747;
   border-radius: 9999px;
   padding: 0.35rem 1.15rem;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
@@ -5585,7 +5748,7 @@ img {
 }
 
 .about-principles-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.4rem, 4.8vw, 4.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -5628,11 +5791,11 @@ img {
 }
 
 .about-principle-card--beige {
-  background: #E2D7CC;
+  background: #D9C9BC;
 }
 
 .about-principle-card--white {
-  background: #FFFFFF;
+  background: #EDEAE5;
 }
 
 .about-principle-num {
@@ -5644,7 +5807,7 @@ img {
 }
 
 .about-principle-title {
-  color: #3C3B3B;
+  color: #755436;
   font-size: clamp(1.2rem, 1.4vw, 1.45rem);
   font-weight: 700;
   line-height: 1.2;
@@ -5713,7 +5876,7 @@ img {
 }
 
 .about-delivered-lede {
-  color: #4C4747;
+  color: #000000;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   font-size: clamp(1.05rem, 1.25vw, 1.25rem);
   line-height: 1.6;
@@ -5722,7 +5885,7 @@ img {
 }
 
 .about-delivered-lede a {
-  color: #3C3B3B;
+  color: #000000;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -5756,7 +5919,7 @@ img {
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   font-size: clamp(1.05rem, 1.25vw, 1.3rem);
   line-height: 1.45;
-  color: rgba(255, 255, 255, 0.95);
+  color: #FFFFFF;
 }
 
 /* Section 5: About the Creator */
@@ -5819,7 +5982,7 @@ img {
 }
 
 .about-creator-text a {
-  color: #3C3B3B;
+  color: #4C4747;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -5855,8 +6018,8 @@ img {
 }
 
 .about-quote-card {
-  background: #FFFFFF;
-  border-radius: 16px;
+  background: #FFFDFD;
+  border-radius: 32px;
   padding: clamp(2rem, 3vw, 2.75rem);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   text-align: left;
@@ -5879,7 +6042,7 @@ img {
 }
 
 .about-quote-author {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: 1.35rem;
   font-weight: 700;
   margin: 0;
@@ -5927,13 +6090,8 @@ img {
 
 /* Push right column further right so text sits with ~90px margin from viewport
    (matches Figma where "TM" and "." of the title are at x≈1830 on a 1920 canvas) */
-.page-hero--contact .site-shell {
-  padding-right: clamp(20px, 3vw, 50px);
-}
-
 .contact-hero-layout {
-  display: grid;
-  grid-template-columns: minmax(280px, 0.85fr) minmax(520px, 1.15fr);
+  display: block;
   gap: clamp(2rem, 4vw, 4rem);
   align-items: center;
 }
@@ -5943,10 +6101,10 @@ img {
 }
 
 .contact-hero-content {
-  max-width: 760px;
-  justify-self: end;
-  text-align: right;
-  padding-right: clamp(1.5rem, 3vw, 3rem);
+  max-width: 1200px;
+  margin-inline: auto;
+  text-align: center;
+  padding-right: 0;
 }
 
 .contact-hero-eyebrow {
@@ -5974,13 +6132,13 @@ img {
   font-size: clamp(1.125rem, 1.46vw, 1.75rem);
   line-height: 1.55;
   margin-top: 1.25rem;
-  margin-left: auto;
-  max-width: 100%;
+  margin-inline: auto;
+  max-width: 600px;
 }
 
 /* Main Discussion & Form Section */
 .section--contact-main {
-  background-color: #F7F5F2;
+  background-color: #EEE9E6;
   padding-block: clamp(5rem, 8vw, 7.5rem);
   border-top: 1px solid rgba(76, 71, 71, 0.12);
 }
@@ -5988,12 +6146,13 @@ img {
 .contact-main-header {
   max-width: 1250px;
   margin-inline: auto;
+  text-align: center;
   margin-bottom: 3.5rem;
 }
 
 .contact-main-title {
-  color: #3C3B3B;
-  font-size: clamp(2.4rem, 4.8vw, 4.6rem);
+  color: #030301;
+  font-size: clamp(2.4rem, 5vw, 6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.05;
@@ -6001,12 +6160,13 @@ img {
 }
 
 .contact-main-subtitle {
-  color: #4C4747;
+  color: #000000;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
-  font-size: clamp(1.1rem, 1.3vw, 1.3rem);
+  font-size: clamp(1.15rem, 1.5vw, 1.75rem);
   line-height: 1.55;
-  max-width: 68ch;
+  max-width: 1293px;
   margin-top: 1rem;
+  margin-inline: auto;
 }
 
 .contact-split-grid {
@@ -6027,8 +6187,8 @@ img {
 
 .contact-topic-card {
   background: #FFFFFF;
-  border: 1px solid rgba(76, 71, 71, 0.18);
-  border-radius: 6px;
+  border: 1px solid transparent;
+  border-radius: 0;
   padding: 1.35rem 1.65rem;
   cursor: pointer;
   text-align: left;
@@ -6052,8 +6212,8 @@ img {
 }
 
 .contact-topic-title {
-  color: #3C3B3B;
-  font-size: clamp(1.25rem, 1.45vw, 1.5rem);
+  color: #4C4747;
+  font-size: clamp(1.3rem, 1.9vw, 2.25rem);
   font-weight: 700;
   line-height: 1.2;
   margin: 0;
@@ -6066,7 +6226,7 @@ img {
 .contact-topic-hint {
   color: #4C4747;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
-  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  font-size: clamp(1rem, 1.25vw, 1.5rem);
   line-height: 1.45;
   margin-top: 0.35rem;
 }
@@ -6074,7 +6234,7 @@ img {
 /* Right Column: Contact Form */
 .contact-form-card {
   background: #FFFFFF;
-  border-radius: 8px;
+  border-radius: 35px;
   padding: clamp(2rem, 3.5vw, 3.25rem);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(76, 71, 71, 0.12);
@@ -6085,8 +6245,8 @@ img {
 }
 
 .contact-form-title {
-  color: #3C3B3B;
-  font-size: clamp(1.4rem, 1.7vw, 1.75rem);
+  color: #4C4747;
+  font-size: clamp(1.3rem, 1.9vw, 2.25rem);
   font-weight: 700;
   line-height: 1.2;
   margin: 0;
@@ -6095,7 +6255,7 @@ img {
 .contact-form-desc {
   color: #4C4747;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
-  font-size: clamp(1rem, 1.15vw, 1.15rem);
+  font-size: clamp(1rem, 1.25vw, 1.5rem);
   margin-top: 0.35rem;
 }
 
@@ -6118,10 +6278,10 @@ img {
 }
 
 .contact-form-field label {
-  color: #3C3B3B;
+  color: #040404;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: clamp(0.95rem, 1.1vw, 1.3125rem);
+  font-weight: 400;
 }
 
 .contact-form-field input,
@@ -6129,8 +6289,8 @@ img {
 .contact-form-field textarea {
   width: 100%;
   padding: 0.85rem 1rem;
-  background: #FFFFFF;
-  border: 1.5px solid rgba(117, 84, 54, 0.4);
+  background: #F8F4F0;
+  border: 1.5px solid rgba(115, 82, 0, 0.53);
   border-radius: 8px;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   font-size: 1rem;
@@ -6164,7 +6324,7 @@ img {
 .contact-privacy-note {
   color: #4C4747;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
-  font-size: 0.92rem;
+  font-size: clamp(1rem, 1.25vw, 1.5rem);
   line-height: 1.45;
   margin: 0;
   max-width: 42ch;
@@ -6236,15 +6396,9 @@ img {
   .page-hero--contact {
     background-position: center;
   }
-  /* Switch contact hero text to left-aligned on tablet/mobile so it
-     doesn't push against the right edge after the spacer is removed */
+  /* Hero copy stays centred at every width, matching Figma */
   .contact-hero-content {
-    justify-self: stretch;
-    text-align: left;
-    padding-right: 0;
-  }
-  .contact-hero-lede {
-    margin-left: 0;
+    max-width: 100%;
   }
 }
 
