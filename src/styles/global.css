@@ -380,6 +380,11 @@ img {
 .section--cream-2 { background: var(--bg-cream-2); }
 .section--cream-3 { background: var(--bg-cream-3); }
 .section--cream-4 { background: var(--bg-cream-4); }
+/* On the home page, "Four ways to engage" (section--cream-3 wrapper)
+   uses #F6F3EA per Figma node 6130:10156 — not the default cream-3.
+   Apply via inline var override on the section element in index.astro
+   if needed; here we leave the class default and let the inline style
+   on the home section take precedence. */
 
 /* Figma hero — centered text layout with full-height right-side building image background */
 /* Figma hero — centered text layout with full-height right-side building image background */
@@ -3124,9 +3129,12 @@ img {
   }
 }
 
-/* Section 5: RAPL Framework Detail Section (Exact Figma Matching) */
+/* Section 5: RAPL Framework Detail Section (Exact Figma Matching)
+   Figma places the framework wheel directly on the page background
+   (no colored section behind it), so this section also uses the
+   page bg — white — to match. */
 .section--framework-detail {
-  background: #FDFBF7;
+  background: #FFFFFF;
   padding-block: clamp(4.5rem, 8vw, 7rem);
 }
 
@@ -4841,9 +4849,9 @@ img {
   border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-/* Section: Evidence Position (light cream bg, maroon heading — Figma match) */
+/* Section: Evidence Position (Figma node 6127:10079 — bg #F9F8F4) */
 .section--evidence {
-  background: #F5F0EA;
+  background: #F9F8F4;
   padding-block: clamp(4.5rem, 8vw, 7rem);
 }
 
@@ -5254,9 +5262,10 @@ img {
   .engage-grid-2x2 { grid-template-columns: 1fr; }
 }
 
-/* Section: Next Step CTA (light cream bg, dark text — Figma match) */
+/* Section: Next Step CTA (Figma node 6130:10156 — bg #F6F3EA, same as
+   "Four ways to engage" which is in the same Figma section) */
 .section--nextstep {
-  background: #F5F0EA;
+  background: #F6F3EA;
   padding-block: clamp(5rem, 9vw, 8rem);
   border-top: 1px solid rgba(15, 30, 49, 0.08);
 }
