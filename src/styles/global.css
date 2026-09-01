@@ -6552,6 +6552,70 @@ img {
   }
   .methodological-honesty-desc { font-size: clamp(1rem, 0.9vw, 1.7rem); }
   .research-cta-title { max-width: none; font-size: clamp(2.4rem, 3vw, 7.5rem); }
+
+  /* Resources page — the three card grids are capped in px (1200/1280/1350),
+     so the columns get *narrower* as the type scales up: download and reading
+     cards fall to ~277px at 4K, putting titles on 4 lines. */
+  .resources-downloads-header { max-width: 3000px; }
+  .resources-downloads-title { max-width: none; font-size: clamp(2.4rem, 3vw, 7rem); }
+  .resources-downloads-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .resources-downloads-grid { max-width: 3400px; }
+  .resource-download-title { font-size: clamp(1.4rem, 1.2vw, 2.6rem); }
+  .resource-download-desc { font-size: clamp(1rem, 0.85vw, 1.6rem); }
+  .resources-applied-grid { max-width: 3400px; }
+  .resources-applied-title { max-width: none; font-size: clamp(2.4rem, 3vw, 7rem); }
+  .resources-applied-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .resources-applied-text { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .resources-reading-header { max-width: 3000px; }
+  .resources-reading-title { max-width: none; font-size: clamp(2.4rem, 3vw, 7rem); }
+  .resources-reading-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .resources-reading-grid { max-width: 3400px; }
+  .resource-reading-title { font-size: clamp(1.4rem, 1.2vw, 2.6rem); }
+  .resource-reading-desc { font-size: clamp(1rem, 0.85vw, 1.6rem); }
+
+  /* About page — hero copy is pinned to 900px and the why / delivered / creator
+     grids to 1350-1400px, so .about-why-text collapses to a 363px column. */
+  .about-hero-content { max-width: 1700px; }
+  .about-hero-title { max-width: none; font-size: clamp(2.4rem, 3.2vw, 7.5rem); }
+  .about-hero-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .about-why-grid { max-width: 3400px; }
+  .about-why-title { max-width: none; font-size: clamp(2.2rem, 2.8vw, 6.5rem); }
+  .about-why-text { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .about-integrates-header { max-width: 3000px; }
+  .about-integrates-title { font-size: clamp(2.4rem, 3vw, 7rem); }
+  .about-domains-container { max-width: 3000px; }
+  .about-principles-header { max-width: 3000px; }
+  .about-principles-title { max-width: none; font-size: clamp(2.4rem, 3vw, 7rem); }
+  .about-principles-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .about-principles-stack { max-width: 3400px; }
+  .about-principle-title { font-size: clamp(1.4rem, 1.2vw, 2.6rem); }
+  .about-principle-desc { font-size: clamp(1rem, 0.85vw, 1.6rem); }
+  .about-delivered-grid { max-width: 3400px; }
+  .about-delivered-title { max-width: none; font-size: clamp(2.2rem, 2.8vw, 6.5rem); }
+  .about-delivered-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .about-dark-card { padding: clamp(2.5rem, 2.5vw, 4rem); }
+  .about-dark-card-title { font-size: clamp(1.6rem, 1.3vw, 3rem); }
+  .about-dark-card-list li { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .about-creator-layout { max-width: 3400px; }
+  .about-creator-content { max-width: 1600px; }
+  .about-creator-title { font-size: clamp(2.4rem, 3vw, 7rem); }
+  .about-creator-text { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .about-quote-text { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+
+  /* Contact page — the split grid is capped at 1250px, which squeezes the form
+     column to ~455px. The hero lede (600px) and section lede (1293px) are the
+     exact Figma box widths, so they are re-expressed in ch here to scale. */
+  .contact-hero-lede { max-width: 43ch; }
+  .contact-main-header { max-width: 3000px; }
+  .contact-main-title { font-size: clamp(2.4rem, 3vw, 7rem); }
+  .contact-main-subtitle { max-width: 92ch; font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .contact-split-grid { max-width: 3400px; }
+  .contact-topic-title { font-size: clamp(1.4rem, 1.2vw, 2.6rem); }
+  .contact-topic-hint { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .contact-form-title { font-size: clamp(1.4rem, 1.2vw, 2.6rem); }
+  .contact-form-desc { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .contact-form-field label { font-size: clamp(0.95rem, 0.8vw, 1.5rem); }
+  .contact-privacy-note { font-size: clamp(1rem, 0.85vw, 1.6rem); }
 }
 
 @media (min-width: 7680px) {
@@ -6683,4 +6747,66 @@ img {
   }
   .methodological-honesty-desc { font-size: clamp(1.2rem, 0.9vw, 2rem); }
   .research-cta-title { max-width: none; font-size: clamp(3rem, 2.6vw, 8.5rem); }
+
+  /* Resources page: same px-capped grids — cards fall to ~235px at 8K, which
+     puts download titles on 6 lines for 7 words. */
+  .resources-downloads-header { max-width: 4200px; }
+  .resources-downloads-title { max-width: none; font-size: clamp(3rem, 2.6vw, 8rem); }
+  .resources-downloads-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .resources-downloads-grid { max-width: 5000px; }
+  .resource-download-title { font-size: clamp(1.8rem, 1.1vw, 3.2rem); }
+  .resource-download-desc { font-size: clamp(1.2rem, 0.85vw, 1.9rem); }
+  .resources-applied-grid { max-width: 5000px; }
+  .resources-applied-title { max-width: none; font-size: clamp(3rem, 2.6vw, 8rem); }
+  .resources-applied-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .resources-applied-text { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .resources-reading-header { max-width: 4200px; }
+  .resources-reading-title { max-width: none; font-size: clamp(3rem, 2.6vw, 8rem); }
+  .resources-reading-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .resources-reading-grid { max-width: 5000px; }
+  .resource-reading-title { font-size: clamp(1.8rem, 1.1vw, 3.2rem); }
+  .resource-reading-desc { font-size: clamp(1.2rem, 0.85vw, 1.9rem); }
+
+  /* About page: hero title sits on 7 lines for 12 words at 900px, and the dark
+     card list drops to a 274px column. */
+  .about-hero-content { max-width: 2400px; }
+  .about-hero-title { max-width: none; font-size: clamp(3rem, 2.8vw, 9rem); }
+  .about-hero-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .about-why-grid { max-width: 5000px; }
+  .about-why-title { max-width: none; font-size: clamp(2.8rem, 2.5vw, 7.5rem); }
+  .about-why-text { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .about-integrates-header { max-width: 4200px; }
+  .about-integrates-title { font-size: clamp(3rem, 2.6vw, 8rem); }
+  .about-domains-container { max-width: 4200px; }
+  .about-principles-header { max-width: 4200px; }
+  .about-principles-title { max-width: none; font-size: clamp(3rem, 2.6vw, 8rem); }
+  .about-principles-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .about-principles-stack { max-width: 5000px; }
+  .about-principle-title { font-size: clamp(1.8rem, 1.1vw, 3.2rem); }
+  .about-principle-desc { font-size: clamp(1.2rem, 0.85vw, 1.9rem); }
+  .about-delivered-grid { max-width: 5000px; }
+  .about-delivered-title { max-width: none; font-size: clamp(2.8rem, 2.5vw, 7.5rem); }
+  .about-delivered-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .about-dark-card { padding: clamp(3rem, 2.5vw, 5rem); }
+  .about-dark-card-title { font-size: clamp(2rem, 1.2vw, 3.6rem); }
+  .about-dark-card-list li { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .about-creator-layout { max-width: 5000px; }
+  .about-creator-content { max-width: 2200px; }
+  .about-creator-title { font-size: clamp(3rem, 2.6vw, 8rem); }
+  .about-creator-text { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .about-quote-text { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+
+  /* Contact page: form column squeezes to ~382px at 8K. Hero + section ledes
+     re-expressed in ch (from the Figma 600px / 1293px boxes) so they scale. */
+  .contact-hero-lede { max-width: 43ch; }
+  .contact-main-header { max-width: 4200px; }
+  .contact-main-title { font-size: clamp(3rem, 2.6vw, 8rem); }
+  .contact-main-subtitle { max-width: 92ch; font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .contact-split-grid { max-width: 5000px; }
+  .contact-topic-title { font-size: clamp(1.8rem, 1.1vw, 3.2rem); }
+  .contact-topic-hint { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .contact-form-title { font-size: clamp(1.8rem, 1.1vw, 3.2rem); }
+  .contact-form-desc { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .contact-form-field label { font-size: clamp(1.1rem, 0.8vw, 1.8rem); }
+  .contact-privacy-note { font-size: clamp(1.2rem, 0.85vw, 1.9rem); }
 }
