@@ -3161,9 +3161,22 @@ img {
   }
 }
 
-/* Section 3: Forthcoming Book section (Figma Screenshot 4 Matching) */
+/* Section 3: Forthcoming Book section.
+   Figma (home frame 6113:10059) makes this a single full-bleed 1920x969 image
+   ("49 6") with the book baked into its left side and the copy sitting on the
+   right at x=949. book-cover.png IS that image at 2x (3840x1938, same 1.98
+   aspect) -- not a cover crop. It was previously rendered as a 480px <img> in
+   the left grid cell over a separate navy gradient, which read as a lighter
+   floating panel with hard edges and a shrunken book.
+   `auto 100%` fits the image to the section height so the book is never
+   vertically cropped; background-color is the image's own right-edge tone
+   (#01091C) so the fill past the image has no seam. */
 .section--book {
-  background: linear-gradient(135deg, #0d2138 0%, #061120 100%);
+  background-color: #01091C;
+  background-image: url("/book-cover.png");
+  background-position: left center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
   color: #ffffff;
   padding-block: clamp(4.5rem, 8vw, 7rem);
 }
@@ -3182,10 +3195,10 @@ img {
 }
 
 .book-cover-img {
+  display: none; /* desktop: the book comes from the section background image */
   width: 100%;
   max-width: 480px;
   height: auto;
-  display: block;
   filter: drop-shadow(0 25px 40px rgba(0, 0, 0, 0.4));
 }
 
@@ -3269,9 +3282,21 @@ img {
     justify-content: center;
   }
 
+  /* Stacked: a full-bleed left-anchored image would sit behind the centred
+     copy, so fall back to the flat navy and show the book inline, cropped to
+     the book itself (it occupies x 13-38%, y 13-84% of the source image). */
+  .section--book {
+    background-image: none;
+    background: linear-gradient(135deg, #0d2138 0%, #061120 100%);
+  }
+
   .book-cover-img {
+    display: block;
     max-width: 320px;
     width: 80%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: 19% center;
     height: auto;
     margin: 0 auto;
   }
