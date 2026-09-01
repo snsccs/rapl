@@ -6465,6 +6465,22 @@ img {
   }
   .page-hero--certificate .cert-hero-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
   .site-shell--wide { max-width: 5000px; }
+
+  /* Organizations page — same column-widening fix as 8K */
+  .page-hero--organizations .org-hero-copy { max-width: 1700px; }
+  .page-hero--organizations .org-hero-title {
+    max-width: none;
+    font-size: clamp(2.4rem, 3.2vw, 7.5rem);
+  }
+  .page-hero--organizations .org-hero-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .org-sequence-header { max-width: 1700px; }
+  .org-sequence-title {
+    max-width: none;
+    font-size: clamp(2.2rem, 2.8vw, 6.5rem);
+  }
+  .org-sequence-lede { max-width: none; font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .org-sequence-stack { max-width: 4500px; }
+  .section--org-reinforcement h2 { max-width: none; font-size: clamp(2rem, 2.5vw, 5.5rem); }
 }
 
 @media (min-width: 7680px) {
@@ -6503,4 +6519,23 @@ img {
      actually has room for the title + bullet list. */
   .site-shell--wide { max-width: 6400px; }
   .cert-who-split { grid-template-columns: 1.1fr 0.9fr; gap: clamp(4rem, 4vw, 8rem); }
+
+  /* Organizations page: hero + implementation-sequence titles get the same
+     1-word-per-line wrap treatment at 8K as certificate/framework did. */
+  .page-hero--organizations .org-hero-copy { max-width: 2400px; }
+  .page-hero--organizations .org-hero-title {
+    max-width: none;
+    font-size: clamp(3rem, 2.8vw, 9rem);
+  }
+  .page-hero--organizations .org-hero-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .org-sequence-header { max-width: 2400px; }
+  .org-sequence-title {
+    max-width: none;
+    font-size: clamp(2.8rem, 2.5vw, 7.5rem);
+  }
+  .org-sequence-lede { max-width: none; font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .org-sequence-stack { max-width: 5800px; }
+  /* Inline h2 in system reinforcement section: lift the 18ch cap and scale
+     the font so it doesn't single-word-wrap. */
+  .section--org-reinforcement h2 { max-width: none; font-size: clamp(2.6rem, 2.3vw, 7rem); }
 }
