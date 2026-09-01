@@ -115,11 +115,19 @@ const engage = [
           <span style="color: #3B3A3A; font-weight: 700;">✓</span> Designed to be tested
         </p>
       </div>
+      <!-- Mobile/tablet only: image as separate element below text (avoids text overlapping cropped background image) -->
+      <img
+        class="hero-image-mobile reveal-on-scroll"
+        src="/hero-architecture.png"
+        alt="Classical architecture columns representing leadership structure"
+        loading="eager"
+        decoding="async"
+      />
     </div>
   </section>
 
   <!-- ============== RAPL IN ONE PAGE — 4-phase grid (Figma Screenshot 3 Matching) ============== -->
-  <section class="section section--cream-1" id="one-page" style="background: #F9F8F6; padding-block: clamp(4rem, 7vw, 6.5rem);">
+  <section class="section section--cream-1" id="one-page">
     <div class="site-shell">
       <div style="max-width: 58rem;" class="reveal-on-scroll">
         <div class="eyebrow" style="color: #4C4747; font-size: 1.25rem; letter-spacing: 0.06em; font-weight: 700; margin-bottom: 0.5rem;">THE MODEL AT A GLANCE</div>
@@ -297,7 +305,7 @@ const engage = [
   </section>
 
   <!-- ============== HOW TO ENGAGE (2x2 White Cards with Icon Badges) ============== -->
-  <section class="section section--cream-3" id="engage">
+  <section class="section section--cream-3" id="engage" style="background: #F6F3EA;">
     <div class="site-shell">
       <div style="max-width: 64rem;" class="reveal-on-scroll">
         <div class="eyebrow">HOW TO ENGAGE</div>
@@ -389,7 +397,7 @@ const engage = [
   </section>
 
   <!-- ============== CREATED AND DELIVERED ============== -->
-  <section class="section section--tight" style="background: #F5F0EA; border-top: 1px solid rgba(15, 30, 49, 0.08);">
+  <section class="section section--tight" style="background: #EDE8E5; border-top: 1px solid rgba(15, 30, 49, 0.08);">
     <div class="site-shell">
       <div class="split-layout align-center">
         <div>

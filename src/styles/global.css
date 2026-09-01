@@ -161,6 +161,97 @@ img {
   width: 100%;
 }
 
+/* ============ TV / large-display scaling ============ */
+/* Figma was designed at 1920px. On 4K/8K TVs the site content (capped
+   at 1920px wide) only fills 25-50% of the screen, leaving huge empty
+   bands on each side and making text hard to read from TV-viewing
+   distance.
+
+   Strategy:
+   1. Bump `html { font-size }` so every `rem` value scales automatically
+      (1.125x on QHD, 1.5x on 4K, 2x on 8K).
+   2. Widen `--max-width` so the layout container uses more of the screen.
+   3. Raise the explicit `clamp()` max values on hero/heading classes
+      that would otherwise cap at the Figma size (100px, 96px) and
+      look microscopic on a 4K/8K display.
+   4. Lift hardcoded component max-widths (e.g. .contact-hero-content at
+      760px, .framework-hero-content at 1280px) so columns grow too. */
+
+/* QHD / 27" iMac / 32" 1440p monitor: 1.25x scale */
+@media (min-width: 2560px) and (max-width: 3839px) {
+  html { font-size: 20px; }  /* 1.25x default 16px */
+  :root {
+    --max-width: 2800px;
+    --shell-padding: clamp(60px, 4vw, 160px);
+  }
+  h1 { font-size: clamp(2.6rem, 3.8vw, 8rem); }
+  h2 { font-size: clamp(2rem, 3.2vw, 7.5rem); }
+  h3 { font-size: clamp(1.5rem, 1.5vw, 2.6rem); }
+  body { font-size: clamp(1rem, 0.9vw, 1.35rem); }
+
+  .contact-hero-content { max-width: 1100px; }
+  .framework-hero-content { max-width: 1600px; }
+  .is-not-container { max-width: 2400px; }
+}
+
+/* 4K TV (3840x2160) and 32:9 ultra-wide: 1.75x scale */
+@media (min-width: 3840px) and (max-width: 7679px) {
+  html { font-size: 28px; }  /* 1.75x */
+  :root {
+    --max-width: 5800px;     /* ~75% of 4K, ~50% of 8K but with html scaling filling it */
+    --shell-padding: clamp(80px, 2.5vw, 200px);
+  }
+  h1 { font-size: clamp(3rem, 3vw, 11rem); }
+  h2 { font-size: clamp(2.4rem, 2.6vw, 9rem); }
+  h3 { font-size: clamp(1.6rem, 1.3vw, 3.5rem); }
+  body { font-size: clamp(1.1rem, 0.6vw, 1.7rem); }
+
+  .contact-hero-content { max-width: 1600px; }
+  .contact-hero-title { font-size: clamp(3.125rem, 4.2vw, 9rem); }
+  .contact-hero-eyebrow { font-size: clamp(1.25rem, 1.3vw, 2.6rem); }
+  .contact-hero-lede { font-size: clamp(1.125rem, 1.1vw, 2.4rem); }
+  .framework-hero-content { max-width: 2400px; }
+  .framework-hero-title { font-size: clamp(2.4rem, 3.2vw, 7.5rem); }
+  .framework-hero-eyebrow { font-size: clamp(1rem, 1vw, 1.8rem); }
+  .framework-hero-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .page-hero-title { font-size: clamp(2.4rem, 3.2vw, 8.5rem); }
+  .page-hero-eyebrow { font-size: clamp(1rem, 1vw, 1.8rem); }
+  .page-hero-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .is-not-container { max-width: 5000px; }
+}
+
+/* True 8K TV (7680x4320) and beyond: 2.25x scale */
+@media (min-width: 7680px) {
+  html { font-size: 36px; }  /* 2.25x */
+  :root {
+    --max-width: 7200px;
+    --shell-padding: clamp(120px, 2vw, 280px);
+  }
+  h1 { font-size: clamp(3.5rem, 2.4vw, 14rem); }
+  h2 { font-size: clamp(2.8rem, 2vw, 11.5rem); }
+  h3 { font-size: clamp(1.8rem, 1vw, 4.2rem); }
+  body { font-size: clamp(1.2rem, 0.5vw, 2rem); }
+
+  .contact-hero-content { max-width: 2400px; }
+  .contact-hero-title { font-size: clamp(3.5rem, 3.5vw, 12rem); }
+  .contact-hero-eyebrow { font-size: clamp(1.5rem, 1.1vw, 3rem); }
+  .contact-hero-lede { font-size: clamp(1.25rem, 0.9vw, 2.8rem); }
+  .framework-hero-content { max-width: 3600px; }
+  .framework-hero-title { font-size: clamp(3rem, 2.8vw, 9rem); }
+  .framework-hero-eyebrow { font-size: clamp(1.2rem, 0.9vw, 2.2rem); }
+  .framework-hero-lede { font-size: clamp(1.2rem, 0.8vw, 2rem); }
+  .page-hero-title { font-size: clamp(3rem, 2.8vw, 10.5rem); }
+  .page-hero-eyebrow { font-size: clamp(1.2rem, 0.9vw, 2.2rem); }
+  .page-hero-lede { font-size: clamp(1.2rem, 0.8vw, 2rem); }
+  .is-not-container { max-width: 6400px; }
+
+  /* Home page hero: widen copy column so the title fits on 4 lines like Figma */
+  .page-hero--figma .page-hero-copy { max-width: 2200px; }
+  .page-hero--figma .page-hero-copy h1 { max-width: none; }
+  .page-hero--figma .hero-image { max-width: 4800px; }
+  .page-hero-grid { max-width: 110rem; }
+}
+
 .utility {
   font-size: 0.78rem;
   letter-spacing: 0.18em;
@@ -289,6 +380,11 @@ img {
 .section--cream-2 { background: var(--bg-cream-2); }
 .section--cream-3 { background: var(--bg-cream-3); }
 .section--cream-4 { background: var(--bg-cream-4); }
+/* On the home page, "Four ways to engage" (section--cream-3 wrapper)
+   uses #F6F3EA per Figma node 6130:10156 — not the default cream-3.
+   Apply via inline var override on the section element in index.astro
+   if needed; here we leave the class default and let the inline style
+   on the home section take precedence. */
 
 /* Figma hero — centered text layout with full-height right-side building image background */
 /* Figma hero — centered text layout with full-height right-side building image background */
@@ -331,6 +427,12 @@ img {
   padding-right: 2rem;
 }
 
+/* Mobile/tablet hero image: shown only at ≤980px, hidden on desktop
+   (where the section background-image is used instead) */
+.page-hero--framework .framework-hero-image-mobile {
+  display: none;
+}
+
 .page-hero--framework .framework-hero-title {
   color: #4C4747;
   /* Figma: 100px on desktop, ~75px at 1440px, ~42px at 1021px — never overlaps the hero image */
@@ -361,9 +463,43 @@ img {
 }
 
 @media (max-width: 980px) {
+  /* Drop the background image so the text isn't fighting a cropped image
+     behind a thin gradient. Use a solid cream background and reveal the
+     dedicated <img> element below the text. */
   .page-hero--framework {
-    background: linear-gradient(180deg, rgba(246, 244, 242, 0.94) 0%, rgba(246, 244, 242, 0.98) 100%), url("/ChatGPT_Image_Aug_16__2026__09_32_46_PM_1.png") center top / cover no-repeat;
-    padding-block: clamp(3.5rem, 8vw, 5.5rem);
+    background: #F6F4F2;
+    background-image: none;
+    padding-block: clamp(3rem, 7vw, 4.5rem) clamp(2rem, 5vw, 3rem);
+  }
+  .page-hero--framework .framework-hero-copy {
+    max-width: none;
+    padding-right: 0;
+  }
+  .page-hero--framework .framework-hero-image-mobile {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: clamp(2rem, 5vw, 3rem);
+    border-radius: 4px;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* "What role-agnostic means" is two-tone in Figma: the base plate is #FAF7F5
+   full-bleed, with a second plate #F2EEEB covering the right-hand column from
+   x=812 of the 1920 frame (42.29%) to the right edge. Hard-stop gradient so the
+   boundary lands exactly where Figma puts it, and stays left of the right
+   column's text at every width down to the 880px stack point. */
+.section--framework-role-agnostic {
+  background: linear-gradient(90deg, #FAF7F5 0 42.29%, #F2EEEB 42.29% 100%);
+}
+
+/* Below 880px .split-layout collapses to one column, so a vertical seam would
+   cut through the copy — fall back to the base plate only. */
+@media (max-width: 880px) {
+  .section--framework-role-agnostic {
+    background: #FAF7F5;
   }
 }
 
@@ -376,10 +512,13 @@ img {
   padding-block: clamp(5rem, 8vw, 7.5rem);
 }
 
-/* CSS card overlay for the A Clear Distinction section — text fits inside */
+/* CSS card overlay for the A Clear Distinction section — text fits inside.
+   Figma bakes this panel into the section image; we redraw it in CSS so the
+   copy can never drift off the plate as the image is cropped. Colours sampled
+   from the Figma image: panel #E1D2C3 → #DED0BE, hairline border #A5917A. */
 .framework-distinction-card {
-  background: linear-gradient(180deg, #F5EFE6 0%, #EDE3D2 100%);
-  border: 1.5px solid #C9A875;
+  background: linear-gradient(180deg, #E2D3C3 0%, #DED0BE 100%);
+  border: 1.5px solid #A5917A;
   border-radius: 4px;
   padding: clamp(2.5rem, 5vw, 4.5rem) clamp(2rem, 4vw, 4rem);
   max-width: 95rem;
@@ -404,13 +543,15 @@ img {
   margin-top: 3.5rem;
 }
 
+/* Figma bakes these four plates into the section image; we redraw them in CSS
+   so the copy can never drift off a plate as the image is cropped. Plate
+   colour #EBE4DF sampled from the Figma image. */
 .framework-view-card {
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(15, 30, 49, 0.08);
+  background: #EBE4DF;
+  border: 1px solid rgba(74, 60, 48, 0.10);
   border-radius: 6px;
   padding: 2.25rem 1.75rem;
-  box-shadow: 0 6px 24px rgba(15, 30, 49, 0.04);
+  box-shadow: 0 6px 24px rgba(74, 60, 48, 0.07);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -436,7 +577,7 @@ img {
 }
 
 .framework-view-desc {
-  color: #4C4747;
+  color: #000000;
   /* Figma: 28px / 400 on desktop, ~21px at 1440px */
   font-size: clamp(1.15rem, 1.45vw, 1.75rem);
   line-height: 1.45;
@@ -470,8 +611,10 @@ img {
   gap: 2.25rem;
 }
 
+/* Plate colour #F3EEEB sampled from the Figma section image (Artboard 1 1),
+   which bakes these three cards in; redrawn in CSS for the same reason. */
 .framework-concept-card {
-  background: #FAF8F5;
+  background: #F3EEEB;
   border: 1px solid rgba(15, 30, 49, 0.06);
   border-left: 4px solid #8C6D4F;
   border-radius: 0;
@@ -505,7 +648,7 @@ img {
   /* Figma: 36px / 700 on desktop, ~27px at 1440px */
   font-size: clamp(1.7rem, 1.9vw, 2.25rem);
   font-weight: 700;
-  color: #4C4646;
+  color: #4C4747;
   margin: 0 0 1rem 0;
   line-height: 1.2;
 }
@@ -636,7 +779,10 @@ img {
 }
 
 .site-shell--wide {
-  max-width: 1600px;
+  /* No hardcoded max-width — let it match .site-shell so the content
+     aligns with the rest of the page instead of being letterboxed
+     with 160px+ of white space on each side at 1920px. */
+  max-width: var(--max-width);
 }
 
 .cert-who-split {
@@ -927,9 +1073,15 @@ img {
 }
 
 /* Organizations Page Styles (Figma node 6182:10126) */
+/* The source hero image (Gemini_Generated_Image_jvm91ojvm91ojvm9_1.png) has two
+   placeholder buttons baked into its lower left. Figma hides them behind
+   Rectangle 2749 (980x144, #F1EAE4); a CSS mask at that position would drift as
+   the image is `cover`-cropped, so they are painted out of the image instead —
+   org_hero_clean_bg.png is that image with the region Figma masks filled back in
+   as wall. The real buttons are the .button-row below the lede. */
 .page-hero--organizations {
   background-color: #F6F4F2;
-  background-image: url("/Gemini_Generated_Image_jvm91ojvm91ojvm9_1.png");
+  background-image: url("/org_hero_clean_bg.png");
   background-position: center right;
   background-size: cover;
   background-repeat: no-repeat;
@@ -982,74 +1134,155 @@ img {
 
 @media (max-width: 980px) {
   .page-hero--organizations {
-    background: linear-gradient(180deg, rgba(246, 244, 242, 0.94) 0%, rgba(246, 244, 242, 0.98) 100%), url("/Gemini_Generated_Image_jvm91ojvm91ojvm9_1.png") center top / cover no-repeat;
+    background: linear-gradient(180deg, rgba(246, 244, 242, 0.94) 0%, rgba(246, 244, 242, 0.98) 100%), url("/org_hero_clean_bg.png") center top / cover no-repeat;
     padding-block: clamp(3.5rem, 8vw, 5.5rem);
   }
 }
 
+/* ============ Implementation Sequence (Figma node 6182:10126) ============
+   Geometry taken from the Figma frame at 1920px wide. The source image bakes in
+   the five taupe stage bars; live copy can never line up with a `cover`-cropped
+   image, so the bars are painted out (org_sequence_clean_bg.png) and redrawn as
+   .org-stage-card in the bar colour sampled from the original: #C0AE98.
+
+   Figma measurements (frame = 1920px):
+     section        y 1030..2562 -> padding 65px top / 52px bottom
+     eyebrow        32px/700  lh 38  ls 0  #8C725A
+     h2             96px/700  lh 99  ls 0  #4C4747   box w 1107
+     lede           28px/400  lh 42  ls 0  #000000   box w 1133
+     card block     x 221..1693 -> 1472 wide, centred in the 1632 content column
+     card           h 144, radius ~13px, 40px gap (184px pitch)
+     number         40px/700  lh 48  #755436  x 259 -> 38px from card left
+     title          32px/700  lh 38  #755436  x 324 -> 103px from card left
+     desc           24px/400  lh 31  #4C4747  x 336, w 1296 -> 61px right pad
+   Figma indents the title 12px less than its own description (324 vs 336);
+   that reads as drafting noise, so both share one content column here. */
 .section--org-sequence {
   background-color: #EDE8E5;
-  background-image: url("/Gemini_Generated_Image_hdzn1hdzn1hdzn1h_1.png");
+  background-image: url("/org_sequence_clean_bg.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  padding-block: clamp(5rem, 8vw, 7.5rem);
+  padding-top: clamp(2.5rem, 3.4vw, 4rem);
+  padding-bottom: clamp(2rem, 2.7vw, 3.25rem);
+}
+
+/* Figma places this image at frame x -366 with width 2745 on a 1920 frame:
+   142.97% wide, offset -19.06% of the width. A percentage background-position
+   resolves to P x (container - image), and container - image = -42.97% of the
+   width, so P = 19.06/42.97 = 44.362% reproduces that offset proportionally --
+   unlike `cover`, which scales by height and lands the skyline and connector
+   line-art ~32px left of Figma.
+   Only applied from 1760px up: that is where the card block reaches its 1472px
+   max-width (1472 + 2x144 shell padding), and where this sizing still covers the
+   section vertically (image height = 79.8% of viewport width). Below it, `cover`
+   keeps the artwork filling the section. */
+@media (min-width: 1760px) {
+  .section--org-sequence {
+    background-position: 44.362% 0;
+    background-size: 142.97% auto;
+  }
+}
+
+.org-sequence-header {
+  max-width: 1140px;
+}
+
+.org-sequence-eyebrow {
+  color: #8C725A;
+  font-size: clamp(1.25rem, 1.7vw, 2rem);
+  font-weight: 700;
+  line-height: 1.19;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.org-sequence-title {
+  color: #4C4747;
+  font-size: clamp(2.4rem, 5vw, 6rem);
+  font-weight: 700;
+  line-height: 1.03;
+  letter-spacing: 0;
+  max-width: 23ch;
+  margin: 0;
+}
+
+.org-sequence-lede {
+  color: #000000;
+  font-size: clamp(1.15rem, 1.5vw, 1.75rem);
+  line-height: 1.5;
+  letter-spacing: 0;
+  max-width: 1133px;
+  margin-top: clamp(1.25rem, 1.8vw, 1.8rem);
 }
 
 .org-sequence-stack {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
-  margin-top: 3.5rem;
+  gap: clamp(1.25rem, 2.1vw, 2.5rem);
+  max-width: 1472px;
+  margin: clamp(2rem, 2.5vw, 3rem) auto 0;
 }
 
 .org-stage-card {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(15, 30, 49, 0.08);
-  border-radius: 6px;
-  padding: 2rem 2.5rem;
+  background: #C0AE98;
+  border-radius: 13px;
+  padding: 0.875rem clamp(1.5rem, 3.2vw, 3.8rem) clamp(1rem, 1.15vw, 1.375rem) clamp(1.25rem, 2vw, 2.375rem);
   display: flex;
-  gap: 2.5rem;
-  align-items: flex-start;
-  box-shadow: 0 4px 20px rgba(15, 30, 49, 0.04);
+  gap: clamp(0.75rem, 0.7vw, 0.8125rem);
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(74, 60, 48, 0.10);
 }
 
 .org-stage-num {
   color: #755436;
-  font-size: 2.5rem;
+  font-size: clamp(1.75rem, 2.1vw, 2.5rem);
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.2;
   font-family: var(--font-sans);
-  flex-shrink: 0;
+  flex: 0 0 auto;
+  min-width: 52px;
 }
 
 .org-stage-content {
   display: flex;
+  flex: 1;
+  min-width: 0;
   flex-direction: column;
   gap: 0.5rem;
 }
 
 .org-stage-title {
   color: #755436;
-  font-size: 1.5rem;
+  font-size: clamp(1.35rem, 1.7vw, 2rem);
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.19;
+  letter-spacing: 0;
   margin: 0;
 }
 
 .org-stage-desc {
   color: #4C4747;
-  font-size: 1.1rem;
-  line-height: 1.6;
+  font-size: clamp(1rem, 1.25vw, 1.5rem);
+  line-height: 1.29;
+  letter-spacing: 0;
+  /* clears the global `p { max-width: 68ch }`, which capped this at 1000px;
+     Figma gives the description the full 1296px content column */
+  max-width: none;
   margin: 0;
 }
 
 @media (max-width: 768px) {
   .org-stage-card {
     flex-direction: column;
-    gap: 1rem;
-    padding: 1.5rem;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+
+  .org-stage-num {
+    min-width: 0;
   }
 }
 
@@ -1134,6 +1367,76 @@ img {
 @media (max-width: 768px) {
   .org-reinforce-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ============ Research and Validation band (Figma node 6276:10171) ============
+   A short band between System Reinforcement and the CTA — #FAF7F5 ground, copy
+   on the left, dark pill button right-aligned against the shell edge. Type sizes
+   follow this page's existing eyebrow/lede scale rather than Figma's raw px, so
+   the band reads as part of the page. */
+.section--org-research {
+  background-color: #FAF7F5;
+  padding-block: clamp(2.25rem, 3.2vw, 3rem);
+}
+
+.org-research-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.org-research-copy {
+  max-width: 84ch;
+}
+
+.org-research-eyebrow {
+  color: #755436;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+}
+
+.org-research-text {
+  color: #000000;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.org-research-btn {
+  background: #3C3B3B;
+  color: #FFFFFF;
+  border: 1px solid #3C3B3B;
+  border-radius: 7px;
+  padding: 0.7rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.org-research-btn:hover {
+  background: #262525;
+  color: #FFFFFF;
+}
+
+@media (max-width: 860px) {
+  .org-research-band {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .org-research-btn {
+    white-space: normal;
   }
 }
 
@@ -1263,7 +1566,8 @@ img {
 }
 
 .section--diag-steps {
-  background-color: #FAF8F5;
+  /* Figma node 6285:10115 — sampled avg #F5F2ED */
+  background-color: #F5F2ED;
   padding-block: clamp(5.5rem, 8vw, 8.5rem);
 }
 
@@ -1513,8 +1817,10 @@ img {
 }
 
 .section--diag-heatmap {
-  background-color: #EDE8E5;
-  background: radial-gradient(circle at 10% 85%, #E2D9D0 0%, transparent 45%), radial-gradient(circle at 90% 15%, #E5DDD5 0%, transparent 45%), #EDE8E5;
+  /* Figma node 6289:10153 — sampled bg #EBE8E1 with subtle curves
+     (lighter cream tones #E7DBD5 / #E8E1DE in the corner areas). */
+  background-color: #EBE8E1;
+  background: radial-gradient(circle at 10% 85%, #E7DBD5 0%, transparent 45%), radial-gradient(circle at 90% 15%, #E8E1DE 0%, transparent 45%), #EBE8E1;
   padding-block: clamp(5.5rem, 8vw, 8.5rem);
 }
 
@@ -1791,7 +2097,7 @@ img {
 
 /* ============ 3. Four Validation Questions (Figma node 6297:10105) ============ */
 .section--research-questions {
-  background-color: #EDE8E5;
+  background-color: #FFFFFF;
   background-image: url("/research_questions_clean_bg.png");
   background-position: center;
   background-size: cover;
@@ -1820,7 +2126,7 @@ img {
 }
 
 .research-questions-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.4rem, 4.8vw, 4.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -1845,7 +2151,7 @@ img {
 }
 
 .research-question-card {
-  background: #DDD7CE;
+  background: #CFC6BF;
   border-radius: 12px;
   padding: clamp(1.75rem, 2.5vw, 2.5rem) clamp(1.75rem, 2.5vw, 2.5rem);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
@@ -1876,7 +2182,7 @@ img {
 }
 
 .research-question-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(1.25rem, 1.55vw, 1.65rem);
   font-weight: 700;
   line-height: 1.2;
@@ -1884,7 +2190,7 @@ img {
 }
 
 .research-question-desc {
-  color: #2B2A2A;
+  color: #000000;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   font-size: clamp(1rem, 1.2vw, 1.25rem);
   line-height: 1.55;
@@ -1900,7 +2206,7 @@ img {
 
 /* ============ 4. Testable Propositions (Figma node 6299:10127) ============ */
 .section--research-propositions {
-  background-color: #F7F5F2;
+  background-color: #EDEAE5;
   background-image: url("/research_propositions_clean_bg.png");
   background-position: center;
   background-size: cover;
@@ -1923,7 +2229,7 @@ img {
 }
 
 .research-propositions-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.4rem, 4.8vw, 4.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -1965,12 +2271,12 @@ img {
 }
 
 .research-prop-row--beige {
-  background: #E5DDD3;
+  background: #D9C9BC;
   border: 1px solid rgba(117, 84, 54, 0.35);
 }
 
 .research-prop-row--white {
-  background: #FFFFFF;
+  background: #EDEAE5;
   border: 1px solid rgba(117, 84, 54, 0.25);
 }
 
@@ -1992,7 +2298,7 @@ img {
 }
 
 .research-prop-desc {
-  color: #3C3B3B;
+  color: #4C4747;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   font-size: clamp(0.95rem, 1.1vw, 1.15rem);
   line-height: 1.5;
@@ -2009,7 +2315,7 @@ img {
 
 /* ============ 5. Six Ways to Participate (Figma node 6299:10159) ============ */
 .section--research-participate {
-  background-color: #EDE8E5;
+  background-color: #FFFFFF;
   background-image: url("/Gemini_Generated_Image_h5oqb3h5oqb3h5oq_1.png");
   background-position: center;
   background-size: cover;
@@ -2318,7 +2624,7 @@ img {
 }
 
 .section--resources-downloads {
-  background-color: #F7F5F2;
+  background-color: #F4F3EF;
   padding-block: clamp(5rem, 8vw, 7.5rem);
 }
 
@@ -2336,7 +2642,7 @@ img {
 }
 
 .resources-downloads-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.4rem, 4.8vw, 4.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -2403,7 +2709,7 @@ img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #F3EAE0;
+  background: #C5A893;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2412,7 +2718,7 @@ img {
 }
 
 .resource-download-tag {
-  background: #ECEAE4;
+  background: #F4F3EF;
   border-radius: 20px;
   padding: 0.3rem 0.85rem;
   font-size: 0.8rem;
@@ -2422,7 +2728,7 @@ img {
 }
 
 .resource-download-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(1.2rem, 1.4vw, 1.45rem);
   font-weight: 700;
   line-height: 1.2;
@@ -2481,7 +2787,7 @@ img {
 }
 
 .section--resources-applied {
-  background-color: #F7F5F2;
+  background-color: #F3ECDC;
   background-image: url("/Gemini_Generated_Image_ribnqiribnqiribn-_1__1.png");
   background-position: center;
   background-size: cover;
@@ -2513,7 +2819,7 @@ img {
 }
 
 .resources-applied-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.4rem, 4.8vw, 4.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -2546,7 +2852,7 @@ img {
   display: flex;
   align-items: baseline;
   gap: 0.6rem;
-  color: #3C3B3B;
+  color: #4C4747;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   font-size: clamp(1.05rem, 1.25vw, 1.3rem);
   line-height: 1.45;
@@ -2555,7 +2861,7 @@ img {
 }
 
 .resources-applied-num {
-  color: #3C3B3B;
+  color: #4C4747;
   font-weight: 700;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   flex-shrink: 0;
@@ -2563,7 +2869,7 @@ img {
 }
 
 .resources-applied-text {
-  color: #3C3B3B;
+  color: #4C4747;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
 }
 
@@ -2575,7 +2881,7 @@ img {
 }
 
 .section--resources-reading {
-  background-color: #F7F5F2;
+  background-color: #F6F4F2;
   padding-block: clamp(5.5rem, 8.5vw, 8rem);
 }
 
@@ -2595,7 +2901,7 @@ img {
 }
 
 .resources-reading-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.4rem, 4.8vw, 4.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -2639,7 +2945,7 @@ img {
 }
 
 .resource-reading-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(1.25rem, 1.5vw, 1.55rem);
   font-weight: 700;
   line-height: 1.2;
@@ -2656,7 +2962,7 @@ img {
 }
 
 .resource-reading-link {
-  color: #755436;
+  color: #4C4747;
   font-size: 1.05rem;
   font-weight: 700;
   text-decoration: underline;
@@ -2688,7 +2994,7 @@ img {
 }
 
 .resource-briefing-box {
-  background: rgba(255, 255, 255, 0.94);
+  background: linear-gradient(180deg, #CFBEAC 0%, #C5B4A3 100%);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(15, 30, 49, 0.08);
   border-radius: 6px;
@@ -2778,6 +3084,13 @@ img {
   transition: all 0.2s ease;
 }
 
+/* Hero image as a separate <img> element: shown only on mobile/tablet.
+   On desktop the same image is the section background, so the <img>
+   would double-render. We hide it by default and reveal at ≤980px. */
+.page-hero--figma .hero-image-mobile {
+  display: none;
+}
+
 .page-hero--figma .button.primary:hover {
   background: #1F1E1E;
   border-color: #1F1E1E;
@@ -2796,9 +3109,19 @@ img {
 }
 
 @media (max-width: 980px) {
+  /* Drop the background image entirely so the text isn't fighting a
+     cropped image behind a too-thin gradient. Use a solid cream background
+     and show the dedicated <img class="hero-image-mobile"> below the text. */
   .page-hero--figma {
-    background: linear-gradient(180deg, rgba(246, 244, 242, 0.92) 0%, rgba(246, 244, 242, 0.98) 100%), url("/hero-architecture.png") center top / cover no-repeat;
-    padding-block: clamp(3.5rem, 8vw, 5.5rem);
+    background: #F6F4F2;
+    background-image: none;
+    padding-block: clamp(3rem, 7vw, 4.5rem) clamp(2rem, 5vw, 3rem);
+  }
+  .page-hero--figma .site-shell {
+    display: block; /* stack copy + image vertically */
+  }
+  .page-hero--figma .page-hero-copy {
+    max-width: none;
   }
   .page-hero--figma .page-hero-copy h1 {
     font-size: clamp(2.2rem, 6.5vw, 3.8rem);
@@ -2807,6 +3130,15 @@ img {
   .page-hero--figma .lede {
     font-size: 1.1rem;
     max-width: none;
+  }
+  .page-hero--figma .hero-image-mobile {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: clamp(2rem, 5vw, 3rem);
+    border-radius: 4px;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
   }
 }
 
@@ -2829,9 +3161,22 @@ img {
   }
 }
 
-/* Section 3: Forthcoming Book section (Figma Screenshot 4 Matching) */
+/* Section 3: Forthcoming Book section.
+   Figma (home frame 6113:10059) makes this a single full-bleed 1920x969 image
+   ("49 6") with the book baked into its left side and the copy sitting on the
+   right at x=949. book-cover.png IS that image at 2x (3840x1938, same 1.98
+   aspect) -- not a cover crop. It was previously rendered as a 480px <img> in
+   the left grid cell over a separate navy gradient, which read as a lighter
+   floating panel with hard edges and a shrunken book.
+   `auto 100%` fits the image to the section height so the book is never
+   vertically cropped; background-color is the image's own right-edge tone
+   (#01091C) so the fill past the image has no seam. */
 .section--book {
-  background: linear-gradient(135deg, #0d2138 0%, #061120 100%);
+  background-color: #01091C;
+  background-image: url("/book-cover.png");
+  background-position: left center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
   color: #ffffff;
   padding-block: clamp(4.5rem, 8vw, 7rem);
 }
@@ -2850,10 +3195,10 @@ img {
 }
 
 .book-cover-img {
+  display: none; /* desktop: the book comes from the section background image */
   width: 100%;
   max-width: 480px;
   height: auto;
-  display: block;
   filter: drop-shadow(0 25px 40px rgba(0, 0, 0, 0.4));
 }
 
@@ -2937,9 +3282,21 @@ img {
     justify-content: center;
   }
 
+  /* Stacked: a full-bleed left-anchored image would sit behind the centred
+     copy, so fall back to the flat navy and show the book inline, cropped to
+     the book itself (it occupies x 13-38%, y 13-84% of the source image). */
+  .section--book {
+    background-image: none;
+    background: linear-gradient(135deg, #0d2138 0%, #061120 100%);
+  }
+
   .book-cover-img {
+    display: block;
     max-width: 320px;
     width: 80%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: 19% center;
     height: auto;
     margin: 0 auto;
   }
@@ -2981,9 +3338,12 @@ img {
   }
 }
 
-/* Section 5: RAPL Framework Detail Section (Exact Figma Matching) */
+/* Section 5: RAPL Framework Detail Section (Exact Figma Matching)
+   Figma places the framework wheel directly on the page background
+   (no colored section behind it), so this section also uses the
+   page bg — white — to match. */
 .section--framework-detail {
-  background: #FDFBF7;
+  background: #FFFFFF;
   padding-block: clamp(4.5rem, 8vw, 7rem);
 }
 
@@ -3495,6 +3855,14 @@ img {
   padding: 0.5rem 0.95rem;
   letter-spacing: 0;
   transition: color 0.18s ease;
+  white-space: nowrap;
+}
+
+@media (max-width: 1440px) and (min-width: 1201px) {
+  /* Tighten nav padding/font between 1200-1440 so 1280/1366 laptops
+     don't wrap "For Organizations" to a second line */
+  .nav { gap: 0.15rem; }
+  .nav a { font-size: 0.85rem; padding: 0.5rem 0.6rem; }
 }
 
 .nav a:hover,
@@ -3540,7 +3908,9 @@ img {
   color: #0F1E31;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1200px) {
+  /* Hide full nav at ≤1200px so 1024px tablet, 1100-1200px laptops, and
+     1280px (where "For Organizations" wraps) all get a clean hamburger */
   .nav { display: none; }
   .header-action { display: none; }
   .nav-toggle { display: inline-block; }
@@ -4149,72 +4519,69 @@ img {
 
 /* ============ CTA Banner (Light cream matching Figma) ============ */
 
+/* Shared BEGIN / next-step banner. Figma uses identical values on every RAPL
+   page that has one (framework, organizations, research, resources, about,
+   contact): #F6F3EA ground, #4C4747 eyebrow + heading, #000000 body, #755436
+   primary, #755436 outline. This replaces the pre-redesign navy palette
+   (#0F1E31 on #F5F0EA). */
 .cta-banner {
-  background: #F5F0EA;
-  color: #1F2937;
+  background: #F6F3EA;
+  color: #000000;
   padding-block: clamp(4rem, 7vw, 6.5rem);
   position: relative;
-  border-top: 1px solid rgba(15, 30, 49, 0.08);
 }
 
 .cta-banner h2,
 .cta-banner h3 {
-  color: #0F1E31;
-  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  color: #4C4747;
+  font-size: clamp(2.4rem, 5vw, 6rem);
   font-weight: 700;
-  line-height: 1.12;
-  max-width: 24ch;
+  line-height: 1.03;
+  letter-spacing: 0;
+  max-width: 28ch;
 }
 
 .cta-banner p {
-  color: #374151;
-  font-size: 1.2rem;
-  max-width: 60ch;
-  line-height: 1.55;
+  color: #000000;
+  font-size: clamp(1.15rem, 1.5vw, 1.75rem);
+  line-height: 1.5;
 }
 
 .cta-banner .eyebrow {
-  color: #0F1E31;
-  font-size: 1rem;
-  letter-spacing: 0.12em;
+  color: #4C4747;
+  font-size: clamp(1.25rem, 1.7vw, 2rem);
   font-weight: 700;
+  letter-spacing: 0;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
 }
 
 .cta-banner .button.brass {
-  background: #0F1E31;
+  background: #755436;
+  border: 1px solid #755436;
   color: #ffffff;
-  border: 1.5px solid #0F1E31;
-  border-radius: 4px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  border-radius: 7px;
+  font-weight: 700;
 }
 
 .cta-banner .button.brass:hover {
-  background: #233957;
-  border-color: #233957;
+  background: #5D4229;
+  color: #ffffff;
 }
 
 .cta-banner .button.ghost-light {
   background: transparent;
-  color: #0F1E31;
-  border: 1.5px solid #0F1E31;
-  border-radius: 4px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  border: 1.5px solid #755436;
+  color: #755436;
+  border-radius: 7px;
+  font-weight: 700;
 }
 
 .cta-banner .button.ghost-light:hover {
-  background: #0F1E31;
+  background: #755436;
   color: #ffffff;
 }
 
-/* ============ Heatmap mock ============ */
 
 .heatmap {
   background: var(--paper);
@@ -4688,9 +5055,9 @@ img {
   border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-/* Section: Evidence Position (light cream bg, maroon heading — Figma match) */
+/* Section: Evidence Position (Figma node 6127:10079 — bg #F9F8F4) */
 .section--evidence {
-  background: #F5F0EA;
+  background: #F9F8F4;
   padding-block: clamp(4.5rem, 8vw, 7rem);
 }
 
@@ -5101,9 +5468,10 @@ img {
   .engage-grid-2x2 { grid-template-columns: 1fr; }
 }
 
-/* Section: Next Step CTA (light cream bg, dark text — Figma match) */
+/* Section: Next Step CTA (Figma node 6130:10156 — bg #F6F3EA, same as
+   "Four ways to engage" which is in the same Figma section) */
 .section--nextstep {
-  background: #F5F0EA;
+  background: #F6F3EA;
   padding-block: clamp(5rem, 9vw, 8rem);
   border-top: 1px solid rgba(15, 30, 49, 0.08);
 }
@@ -5175,7 +5543,7 @@ img {
 }
 
 .about-hero-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.4rem, 4.8vw, 4.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -5192,7 +5560,7 @@ img {
 }
 
 .about-hero-lede a {
-  color: #3C3B3B;
+  color: #4C4747;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -5226,7 +5594,7 @@ img {
 }
 
 .about-btn-secondary {
-  background: #755436 !important;
+  background: #6F5436 !important;
   color: #FFFFFF !important;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   font-size: 1.05rem;
@@ -5240,12 +5608,24 @@ img {
 }
 
 .about-btn-secondary:hover {
-  background: #5A3E24 !important;
+  background: #573F27 !important;
 }
 
 /* Section 2: Why RAPL Exists */
+/* Figma gives the About hero's primary button #4C4747 (Rectangle 2709) while the
+   creator-section primary is #755436 (Rectangle 2768); both share
+   .about-btn-primary, so the hero takes a modifier. */
+.about-btn-primary--dark {
+  background: #4C4747 !important;
+  border-color: #4C4747 !important;
+}
+
+.about-btn-primary--dark:hover {
+  background: #3A3636 !important;
+}
+
 .section--about-why {
-  background-color: #FFFFFF;
+  background-color: #F2F1ED;
   padding-block: clamp(4.5rem, 7vw, 6.5rem);
   border-top: 1px solid rgba(76, 71, 71, 0.15);
   border-bottom: 1px solid rgba(76, 71, 71, 0.15);
@@ -5270,7 +5650,7 @@ img {
 }
 
 .about-why-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.2rem, 4.2vw, 3.8rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -5279,7 +5659,7 @@ img {
 }
 
 .about-why-text {
-  color: #4C4747;
+  color: #000000;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   font-size: clamp(1.05rem, 1.25vw, 1.25rem);
   line-height: 1.6;
@@ -5291,7 +5671,7 @@ img {
 }
 
 .about-why-text a {
-  color: #3C3B3B;
+  color: #000000;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -5323,7 +5703,7 @@ img {
 }
 
 .about-integrates-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.4rem, 4.8vw, 4.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -5333,7 +5713,7 @@ img {
 }
 
 .about-integrates-title-brown {
-  color: #755436;
+  color: #6F5436;
 }
 
 .about-domains-container {
@@ -5354,10 +5734,10 @@ img {
 }
 
 .about-domain-pill {
-  background: rgba(255, 255, 255, 0.15);
+  background: transparent;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(76, 71, 71, 0.6);
+  border: 1px solid #4C4747;
   border-radius: 9999px;
   padding: 0.35rem 1.15rem;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
@@ -5393,7 +5773,7 @@ img {
 }
 
 .about-principles-title {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: clamp(2.4rem, 4.8vw, 4.6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -5436,11 +5816,11 @@ img {
 }
 
 .about-principle-card--beige {
-  background: #E2D7CC;
+  background: #D9C9BC;
 }
 
 .about-principle-card--white {
-  background: #FFFFFF;
+  background: #EDEAE5;
 }
 
 .about-principle-num {
@@ -5452,7 +5832,7 @@ img {
 }
 
 .about-principle-title {
-  color: #3C3B3B;
+  color: #755436;
   font-size: clamp(1.2rem, 1.4vw, 1.45rem);
   font-weight: 700;
   line-height: 1.2;
@@ -5521,7 +5901,7 @@ img {
 }
 
 .about-delivered-lede {
-  color: #4C4747;
+  color: #000000;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   font-size: clamp(1.05rem, 1.25vw, 1.25rem);
   line-height: 1.6;
@@ -5530,7 +5910,7 @@ img {
 }
 
 .about-delivered-lede a {
-  color: #3C3B3B;
+  color: #000000;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -5564,7 +5944,7 @@ img {
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   font-size: clamp(1.05rem, 1.25vw, 1.3rem);
   line-height: 1.45;
-  color: rgba(255, 255, 255, 0.95);
+  color: #FFFFFF;
 }
 
 /* Section 5: About the Creator */
@@ -5627,7 +6007,7 @@ img {
 }
 
 .about-creator-text a {
-  color: #3C3B3B;
+  color: #4C4747;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -5663,8 +6043,8 @@ img {
 }
 
 .about-quote-card {
-  background: #FFFFFF;
-  border-radius: 16px;
+  background: #FFFDFD;
+  border-radius: 32px;
   padding: clamp(2rem, 3vw, 2.75rem);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   text-align: left;
@@ -5687,7 +6067,7 @@ img {
 }
 
 .about-quote-author {
-  color: #3C3B3B;
+  color: #4C4747;
   font-size: 1.35rem;
   font-weight: 700;
   margin: 0;
@@ -5735,13 +6115,8 @@ img {
 
 /* Push right column further right so text sits with ~90px margin from viewport
    (matches Figma where "TM" and "." of the title are at x≈1830 on a 1920 canvas) */
-.page-hero--contact .site-shell {
-  padding-right: clamp(20px, 3vw, 50px);
-}
-
 .contact-hero-layout {
-  display: grid;
-  grid-template-columns: minmax(280px, 0.85fr) minmax(520px, 1.15fr);
+  display: block;
   gap: clamp(2rem, 4vw, 4rem);
   align-items: center;
 }
@@ -5751,10 +6126,10 @@ img {
 }
 
 .contact-hero-content {
-  max-width: 760px;
-  justify-self: end;
-  text-align: right;
-  padding-right: clamp(1.5rem, 3vw, 3rem);
+  max-width: 1200px;
+  margin-inline: auto;
+  text-align: center;
+  padding-right: 0;
 }
 
 .contact-hero-eyebrow {
@@ -5782,13 +6157,13 @@ img {
   font-size: clamp(1.125rem, 1.46vw, 1.75rem);
   line-height: 1.55;
   margin-top: 1.25rem;
-  margin-left: auto;
-  max-width: 100%;
+  margin-inline: auto;
+  max-width: 600px;
 }
 
 /* Main Discussion & Form Section */
 .section--contact-main {
-  background-color: #F7F5F2;
+  background-color: #EEE9E6;
   padding-block: clamp(5rem, 8vw, 7.5rem);
   border-top: 1px solid rgba(76, 71, 71, 0.12);
 }
@@ -5796,12 +6171,13 @@ img {
 .contact-main-header {
   max-width: 1250px;
   margin-inline: auto;
+  text-align: center;
   margin-bottom: 3.5rem;
 }
 
 .contact-main-title {
-  color: #3C3B3B;
-  font-size: clamp(2.4rem, 4.8vw, 4.6rem);
+  color: #030301;
+  font-size: clamp(2.4rem, 5vw, 6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.05;
@@ -5809,12 +6185,13 @@ img {
 }
 
 .contact-main-subtitle {
-  color: #4C4747;
+  color: #000000;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
-  font-size: clamp(1.1rem, 1.3vw, 1.3rem);
+  font-size: clamp(1.15rem, 1.5vw, 1.75rem);
   line-height: 1.55;
-  max-width: 68ch;
+  max-width: 1293px;
   margin-top: 1rem;
+  margin-inline: auto;
 }
 
 .contact-split-grid {
@@ -5835,8 +6212,8 @@ img {
 
 .contact-topic-card {
   background: #FFFFFF;
-  border: 1px solid rgba(76, 71, 71, 0.18);
-  border-radius: 6px;
+  border: 1px solid transparent;
+  border-radius: 0;
   padding: 1.35rem 1.65rem;
   cursor: pointer;
   text-align: left;
@@ -5860,8 +6237,8 @@ img {
 }
 
 .contact-topic-title {
-  color: #3C3B3B;
-  font-size: clamp(1.25rem, 1.45vw, 1.5rem);
+  color: #4C4747;
+  font-size: clamp(1.3rem, 1.9vw, 2.25rem);
   font-weight: 700;
   line-height: 1.2;
   margin: 0;
@@ -5874,7 +6251,7 @@ img {
 .contact-topic-hint {
   color: #4C4747;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
-  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  font-size: clamp(1rem, 1.25vw, 1.5rem);
   line-height: 1.45;
   margin-top: 0.35rem;
 }
@@ -5882,7 +6259,7 @@ img {
 /* Right Column: Contact Form */
 .contact-form-card {
   background: #FFFFFF;
-  border-radius: 8px;
+  border-radius: 35px;
   padding: clamp(2rem, 3.5vw, 3.25rem);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(76, 71, 71, 0.12);
@@ -5893,8 +6270,8 @@ img {
 }
 
 .contact-form-title {
-  color: #3C3B3B;
-  font-size: clamp(1.4rem, 1.7vw, 1.75rem);
+  color: #4C4747;
+  font-size: clamp(1.3rem, 1.9vw, 2.25rem);
   font-weight: 700;
   line-height: 1.2;
   margin: 0;
@@ -5903,7 +6280,7 @@ img {
 .contact-form-desc {
   color: #4C4747;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
-  font-size: clamp(1rem, 1.15vw, 1.15rem);
+  font-size: clamp(1rem, 1.25vw, 1.5rem);
   margin-top: 0.35rem;
 }
 
@@ -5926,10 +6303,10 @@ img {
 }
 
 .contact-form-field label {
-  color: #3C3B3B;
+  color: #040404;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: clamp(0.95rem, 1.1vw, 1.3125rem);
+  font-weight: 400;
 }
 
 .contact-form-field input,
@@ -5937,8 +6314,8 @@ img {
 .contact-form-field textarea {
   width: 100%;
   padding: 0.85rem 1rem;
-  background: #FFFFFF;
-  border: 1.5px solid rgba(117, 84, 54, 0.4);
+  background: #F8F4F0;
+  border: 1.5px solid rgba(115, 82, 0, 0.53);
   border-radius: 8px;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
   font-size: 1rem;
@@ -5972,7 +6349,7 @@ img {
 .contact-privacy-note {
   color: #4C4747;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
-  font-size: 0.92rem;
+  font-size: clamp(1rem, 1.25vw, 1.5rem);
   line-height: 1.45;
   margin: 0;
   max-width: 42ch;
@@ -6044,6 +6421,24 @@ img {
   .page-hero--contact {
     background-position: center;
   }
+  /* Hero copy stays centred at every width, matching Figma */
+  .contact-hero-content {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Further shrink the contact hero title at very small viewports
+     so it doesn't wrap awkwardly and stays within the page */
+  .contact-hero-title {
+    font-size: clamp(2.25rem, 9vw, 3.125rem);
+  }
+  .contact-hero-eyebrow {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+  }
+  .contact-hero-lede {
+    font-size: clamp(1rem, 3.8vw, 1.25rem);
+  }
 }
 
 @media (max-width: 600px) {
@@ -6051,4 +6446,414 @@ img {
   .contact-info-cards {
     grid-template-columns: 1fr;
   }
+}
+
+/* ============ TV / large-display element-specific overrides ============ */
+/* Placed at the END of the file so they win the cascade over the base
+   component rules (e.g. .page-hero--figma .page-hero-copy { max-width:
+   820px } declared mid-file). Only element overrides here; the html
+   font-size / --max-width / generic h1-h3 rules are in the top
+   "TV / large-display scaling" block. */
+
+@media (min-width: 2560px) and (max-width: 3839px) {
+  .contact-hero-content { max-width: 1100px; }
+  .page-hero--framework .framework-hero-copy { max-width: 1100px; }
+  .page-hero--framework .framework-hero-title { max-width: none; }
+  .is-not-container { max-width: 2400px; }
+}
+
+@media (min-width: 3840px) and (max-width: 7679px) {
+  .contact-hero-content { max-width: 1600px; }
+  .contact-hero-title { font-size: clamp(3.125rem, 4.2vw, 9rem); }
+  .contact-hero-eyebrow { font-size: clamp(1.25rem, 1.3vw, 2.6rem); }
+  .contact-hero-lede { font-size: clamp(1.125rem, 1.1vw, 2.4rem); }
+  .page-hero--framework .framework-hero-copy { max-width: 1700px; }
+  .page-hero--framework .framework-hero-title { max-width: none; }
+  .framework-hero-title { font-size: clamp(2.4rem, 3.2vw, 7.5rem); }
+  .framework-hero-eyebrow { font-size: clamp(1rem, 1vw, 1.8rem); }
+  .framework-hero-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .page-hero-title { font-size: clamp(3rem, 3.2vw, 8.5rem); }
+  .page-hero-eyebrow { font-size: clamp(1rem, 1vw, 1.8rem); }
+  .page-hero-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .is-not-container { max-width: 5000px; }
+
+  /* Home page hero: widen copy column so the title fits on 4 lines */
+  .page-hero--figma .page-hero-copy { max-width: 1500px; }
+  .page-hero--figma .page-hero-copy h1 { max-width: none; }
+  .page-hero-grid { max-width: 110rem; }
+
+  /* Certificate page hero + "Who it's for" — same column-widening fix as 8K */
+  .page-hero--certificate .cert-hero-copy { max-width: 1700px; }
+  .page-hero--certificate .cert-hero-title {
+    max-width: none;
+    font-size: clamp(2.4rem, 3.2vw, 7rem);
+  }
+  .page-hero--certificate .cert-hero-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .site-shell--wide { max-width: 5000px; }
+
+  /* Organizations page — same column-widening fix as 8K */
+  .page-hero--organizations .org-hero-copy { max-width: 1700px; }
+  .page-hero--organizations .org-hero-title {
+    max-width: none;
+    font-size: clamp(2.4rem, 3.2vw, 7.5rem);
+  }
+  .page-hero--organizations .org-hero-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .org-sequence-header { max-width: 1700px; }
+  .org-sequence-title {
+    max-width: none;
+    font-size: clamp(2.2rem, 2.8vw, 6.5rem);
+  }
+  .org-sequence-lede { max-width: none; font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .org-sequence-stack { max-width: 4500px; }
+  .section--org-reinforcement h2 { max-width: none; font-size: clamp(2rem, 2.5vw, 5.5rem); }
+
+  /* Assessment / diagnostic page — same column-widening fix as 8K */
+  .page-hero--diagnostic .diag-hero-copy { max-width: 1700px; }
+  .page-hero--diagnostic .diag-hero-title {
+    max-width: none;
+    font-size: clamp(2.6rem, 3.2vw, 7.5rem);
+  }
+  .page-hero--diagnostic .diag-hero-lede {
+    max-width: none;
+    font-size: clamp(1.1rem, 1vw, 1.8rem);
+  }
+  .diag-what-title {
+    max-width: none;
+    font-size: clamp(2.2rem, 2.8vw, 6rem);
+  }
+  .diag-process-header { max-width: none; }
+  .diag-process-title {
+    max-width: none;
+    font-size: clamp(2.4rem, 3vw, 7rem);
+  }
+  .diag-process-lede {
+    max-width: none;
+    font-size: clamp(1.1rem, 1vw, 1.8rem);
+  }
+  .diag-heatmap-header { max-width: none; }
+  .diag-heatmap-title { font-size: clamp(2.4rem, 3vw, 7.5rem); }
+  .diag-heatmap-table th { font-size: clamp(1.3rem, 0.9vw, 1.9rem); }
+
+  /* Research page — same column-widening fix as 8K. Every cap below is a
+     hardcoded px/ch value that becomes a narrow column once html hits 28px:
+     the hero copy is pinned to 940px, the question grid to 1400px, the
+     proposition rows to a literal 240px tag column. */
+  .page-hero--research .research-hero-copy { max-width: 1700px; }
+  .page-hero--research .research-hero-title {
+    max-width: none;
+    font-size: clamp(2.4rem, 3.2vw, 7.5rem);
+  }
+  .page-hero--research .research-hero-lede {
+    font-size: clamp(1rem, 0.9vw, 1.7rem);
+  }
+  .evidence-position-title { font-size: clamp(2.2rem, 2.8vw, 6.5rem); }
+  .evidence-position-text { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .research-questions-header-card { max-width: 3000px; }
+  .research-questions-title { font-size: clamp(2.4rem, 3vw, 7rem); }
+  .research-questions-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .research-questions-grid { max-width: 3400px; }
+  .research-question-title { font-size: clamp(1.4rem, 1.2vw, 2.6rem); }
+  .research-question-desc { font-size: clamp(1rem, 0.85vw, 1.6rem); }
+  .research-propositions-header { max-width: 3000px; }
+  .research-propositions-title {
+    max-width: none;
+    font-size: clamp(2.4rem, 3vw, 7rem);
+  }
+  .research-propositions-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .research-propositions-stack { max-width: 3400px; }
+  /* rem so the tag + name columns track the scaled html font-size */
+  .research-prop-row { grid-template-columns: 4rem 16rem 1fr; }
+  .research-prop-desc { font-size: clamp(1rem, 0.85vw, 1.6rem); }
+  .research-participate-title {
+    max-width: none;
+    font-size: clamp(2.4rem, 3vw, 7rem);
+  }
+  .research-participate-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .research-participate-text-item { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .methodological-honesty-wrap { max-width: 3400px; }
+  .methodological-honesty-title {
+    max-width: none;
+    font-size: clamp(2.4rem, 3vw, 7rem);
+  }
+  .methodological-honesty-desc { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .research-cta-title { max-width: none; font-size: clamp(2.4rem, 3vw, 7.5rem); }
+
+  /* Home page — .framework-cta-card is capped at 460px, so its label drops to
+     3 lines at 4K. (Outside the resources/about/contact pass, but same defect.) */
+  .framework-cta-card { max-width: 900px; }
+  .framework-cta-card span.title { font-size: clamp(1.15rem, 1vw, 2rem); }
+
+  /* Resources page hero — .resources-hero-copy is pinned to 820px, so the
+     <br>-split title (4 intended lines) collapses to 6 at 4K / 9 at 8K. */
+  .page-hero--resources .resources-hero-copy { max-width: 1700px; }
+  .page-hero--resources .resources-hero-title { font-size: clamp(2.4rem, 3.2vw, 7.5rem); }
+  .page-hero--resources .resources-hero-eyebrow { font-size: clamp(1rem, 1vw, 1.8rem); }
+  .page-hero--resources .resources-hero-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+
+  /* Resources page — the three card grids are capped in px (1200/1280/1350),
+     so the columns get *narrower* as the type scales up: download and reading
+     cards fall to ~277px at 4K, putting titles on 4 lines. */
+  .resources-downloads-header { max-width: 3000px; }
+  .resources-downloads-title { max-width: none; font-size: clamp(2.4rem, 3vw, 7rem); }
+  .resources-downloads-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .resources-downloads-grid { max-width: 3400px; }
+  .resource-download-title { font-size: clamp(1.4rem, 1.2vw, 2.6rem); }
+  .resource-download-desc { font-size: clamp(1rem, 0.85vw, 1.6rem); }
+  .resources-applied-grid { max-width: 3400px; }
+  .resources-applied-title { max-width: none; font-size: clamp(2.4rem, 3vw, 7rem); }
+  .resources-applied-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .resources-applied-text { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .resources-reading-header { max-width: 3000px; }
+  .resources-reading-title { max-width: none; font-size: clamp(2.4rem, 3vw, 7rem); }
+  .resources-reading-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .resources-reading-grid { max-width: 3400px; }
+  .resource-reading-title { font-size: clamp(1.4rem, 1.2vw, 2.6rem); }
+  .resource-reading-desc { font-size: clamp(1rem, 0.85vw, 1.6rem); }
+
+  /* About page — hero copy is pinned to 900px and the why / delivered / creator
+     grids to 1350-1400px, so .about-why-text collapses to a 363px column. */
+  .about-hero-content { max-width: 1700px; }
+  .about-hero-title { max-width: none; font-size: clamp(2.4rem, 3.2vw, 7.5rem); }
+  .about-hero-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .about-why-grid { max-width: 3400px; }
+  .about-why-title { max-width: none; font-size: clamp(2.2rem, 2.8vw, 6.5rem); }
+  .about-why-text { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .about-integrates-header { max-width: 3000px; }
+  .about-integrates-title { font-size: clamp(2.4rem, 3vw, 7rem); }
+  .about-domains-container { max-width: 3000px; }
+  .about-principles-header { max-width: 3000px; }
+  .about-principles-title { max-width: none; font-size: clamp(2.4rem, 3vw, 7rem); }
+  .about-principles-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .about-principles-stack { max-width: 3400px; }
+  .about-principle-title { font-size: clamp(1.4rem, 1.2vw, 2.6rem); }
+  .about-principle-desc { font-size: clamp(1rem, 0.85vw, 1.6rem); }
+  .about-delivered-grid { max-width: 3400px; }
+  .about-delivered-title { max-width: none; font-size: clamp(2.2rem, 2.8vw, 6.5rem); }
+  .about-delivered-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .about-dark-card { padding: clamp(2.5rem, 2.5vw, 4rem); }
+  .about-dark-card-title { font-size: clamp(1.6rem, 1.3vw, 3rem); }
+  .about-dark-card-list li { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .about-creator-layout { max-width: 3400px; }
+  .about-creator-content { max-width: 1600px; }
+  .about-creator-title { font-size: clamp(2.4rem, 3vw, 7rem); }
+  .about-creator-text { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .about-quote-text { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+
+  /* Contact page — the split grid is capped at 1250px, which squeezes the form
+     column to ~455px. The hero lede (600px) and section lede (1293px) are the
+     exact Figma box widths, so they are re-expressed in ch here to scale. */
+  .contact-hero-lede { max-width: 43ch; }
+  .contact-main-header { max-width: 3000px; }
+  .contact-main-title { font-size: clamp(2.4rem, 3vw, 7rem); }
+  .contact-main-subtitle { max-width: 92ch; font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .contact-split-grid { max-width: 3400px; }
+  .contact-topic-title { font-size: clamp(1.4rem, 1.2vw, 2.6rem); }
+  .contact-topic-hint { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .contact-form-title { font-size: clamp(1.4rem, 1.2vw, 2.6rem); }
+  .contact-form-desc { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+  .contact-form-field label { font-size: clamp(0.95rem, 0.8vw, 1.5rem); }
+  .contact-privacy-note { font-size: clamp(1rem, 0.85vw, 1.6rem); }
+}
+
+@media (min-width: 7680px) {
+  .contact-hero-content { max-width: 2400px; }
+  .contact-hero-title { font-size: clamp(3.5rem, 3.5vw, 12rem); }
+  .contact-hero-eyebrow { font-size: clamp(1.5rem, 1.1vw, 3rem); }
+  .contact-hero-lede { font-size: clamp(1.25rem, 0.9vw, 2.8rem); }
+  .page-hero--framework .framework-hero-copy { max-width: 2400px; }
+  .page-hero--framework .framework-hero-title { max-width: none; }
+  .framework-hero-title { font-size: clamp(3rem, 2.8vw, 9rem); }
+  .framework-hero-eyebrow { font-size: clamp(1.2rem, 0.9vw, 2.2rem); }
+  .framework-hero-lede { font-size: clamp(1.2rem, 0.8vw, 2rem); }
+  .page-hero-title { font-size: clamp(3rem, 2.8vw, 10.5rem); }
+  .page-hero-eyebrow { font-size: clamp(1.2rem, 0.9vw, 2.2rem); }
+  .page-hero-lede { font-size: clamp(1.2rem, 0.8vw, 2rem); }
+  .is-not-container { max-width: 6400px; }
+
+  /* Home page hero: widen copy column so the title fits on 4 lines like Figma */
+  .page-hero--figma .page-hero-copy { max-width: 2200px; }
+  .page-hero--figma .page-hero-copy h1 { max-width: none; }
+  .page-hero--figma .hero-image { max-width: 4800px; }
+  .page-hero-grid { max-width: 110rem; }
+
+  /* Certificate page: widen hero copy column so the title doesn't 1-word-per-line.
+     Default is max-width:820px + 20ch on h1 — too narrow when 36px html
+     font-size scales the title up. */
+  .page-hero--certificate .cert-hero-copy { max-width: 2400px; }
+  .page-hero--certificate .cert-hero-title {
+    max-width: none;
+    font-size: clamp(3rem, 2.8vw, 8rem);
+  }
+  .page-hero--certificate .cert-hero-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+
+  /* Certificate "Who it's for" section: site-shell--wide is hardcoded to
+     1600px which becomes a tiny column at 8K. Lift it so the 1fr 1fr grid
+     actually has room for the title + bullet list. */
+  .site-shell--wide { max-width: 6400px; }
+  .cert-who-split { grid-template-columns: 1.1fr 0.9fr; gap: clamp(4rem, 4vw, 8rem); }
+
+  /* Organizations page: hero + implementation-sequence titles get the same
+     1-word-per-line wrap treatment at 8K as certificate/framework did. */
+  .page-hero--organizations .org-hero-copy { max-width: 2400px; }
+  .page-hero--organizations .org-hero-title {
+    max-width: none;
+    font-size: clamp(3rem, 2.8vw, 9rem);
+  }
+  .page-hero--organizations .org-hero-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .org-sequence-header { max-width: 2400px; }
+  .org-sequence-title {
+    max-width: none;
+    font-size: clamp(2.8rem, 2.5vw, 7.5rem);
+  }
+  .org-sequence-lede { max-width: none; font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .org-sequence-stack { max-width: 5800px; }
+  /* Inline h2 in system reinforcement section: lift the 18ch cap and scale
+     the font so it doesn't single-word-wrap. */
+  .section--org-reinforcement h2 { max-width: none; font-size: clamp(2.6rem, 2.3vw, 7rem); }
+
+  /* Assessment / diagnostic page: hero + section titles have the same
+     hardcoded column caps that 1-word-wrap at 8K. */
+  .page-hero--diagnostic .diag-hero-copy { max-width: 2400px; }
+  .page-hero--diagnostic .diag-hero-title {
+    max-width: none;
+    font-size: clamp(3rem, 2.8vw, 9rem);
+  }
+  .page-hero--diagnostic .diag-hero-lede {
+    max-width: none;
+    font-size: clamp(1.2rem, 0.9vw, 2rem);
+  }
+  .diag-what-title {
+    max-width: none;
+    font-size: clamp(2.8rem, 2.5vw, 7.5rem);
+  }
+  .diag-what-right { padding: clamp(3rem, 3vw, 5rem); }
+  .diag-process-header { max-width: none; }
+  .diag-process-title {
+    max-width: none;
+    font-size: clamp(3rem, 2.6vw, 8rem);
+  }
+  .diag-process-lede {
+    max-width: none;
+    font-size: clamp(1.2rem, 0.9vw, 2rem);
+  }
+  .diag-heatmap-header { max-width: none; }
+  .diag-heatmap-title {
+    font-size: clamp(3rem, 2.6vw, 8.5rem);
+  }
+  .diag-heatmap-table th { font-size: clamp(1.5rem, 1vw, 2.4rem); padding: 1.25rem 0.75rem 1.5rem; }
+
+  /* Research page: the hardcoded caps leave the hero title on 6 lines for 8
+     words, the proposition name on 3 lines for 2 words (240px tag column) and
+     the question description on 12 lines for 19 words (307px column). */
+  .page-hero--research .research-hero-copy { max-width: 2400px; }
+  .page-hero--research .research-hero-title {
+    max-width: none;
+    font-size: clamp(3rem, 2.8vw, 9rem);
+  }
+  .page-hero--research .research-hero-lede {
+    font-size: clamp(1.2rem, 0.9vw, 2rem);
+  }
+  .evidence-position-title { font-size: clamp(2.8rem, 2.5vw, 7.5rem); }
+  .evidence-position-card { padding: clamp(3rem, 3vw, 5rem); }
+  .evidence-position-text { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .research-questions-header-card { max-width: 4200px; }
+  .research-questions-title { font-size: clamp(3rem, 2.6vw, 8rem); }
+  .research-questions-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .research-questions-grid { max-width: 4800px; }
+  .research-question-title { font-size: clamp(1.8rem, 1.1vw, 3.2rem); }
+  .research-question-desc { font-size: clamp(1.2rem, 0.85vw, 1.9rem); }
+  .research-propositions-header { max-width: 4200px; }
+  .research-propositions-title {
+    max-width: none;
+    font-size: clamp(3rem, 2.6vw, 8rem);
+  }
+  .research-propositions-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .research-propositions-stack { max-width: 5000px; }
+  .research-prop-row { grid-template-columns: 4rem 16rem 1fr; }
+  .research-prop-desc { font-size: clamp(1.2rem, 0.85vw, 1.9rem); }
+  .research-participate-title {
+    max-width: none;
+    font-size: clamp(3rem, 2.6vw, 8rem);
+  }
+  .research-participate-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .research-participate-text-item { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .methodological-honesty-wrap { max-width: 4800px; }
+  .methodological-honesty-title {
+    max-width: none;
+    font-size: clamp(3rem, 2.6vw, 8.5rem);
+  }
+  .methodological-honesty-desc { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .research-cta-title { max-width: none; font-size: clamp(3rem, 2.6vw, 8.5rem); }
+
+  /* Home page — 460px cap puts the CTA-card label on 4 lines at 8K. */
+  .framework-cta-card { max-width: 1300px; }
+  .framework-cta-card span.title { font-size: clamp(1.4rem, 0.9vw, 2.4rem); }
+
+  /* Resources page hero: 820px column puts the title on 9 lines for 8 words. */
+  .page-hero--resources .resources-hero-copy { max-width: 2400px; }
+  .page-hero--resources .resources-hero-title { font-size: clamp(3rem, 2.8vw, 9rem); }
+  .page-hero--resources .resources-hero-eyebrow { font-size: clamp(1.2rem, 0.9vw, 2.2rem); }
+  .page-hero--resources .resources-hero-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+
+  /* Resources page: same px-capped grids — cards fall to ~235px at 8K, which
+     puts download titles on 6 lines for 7 words. */
+  .resources-downloads-header { max-width: 4200px; }
+  .resources-downloads-title { max-width: none; font-size: clamp(3rem, 2.6vw, 8rem); }
+  .resources-downloads-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .resources-downloads-grid { max-width: 5000px; }
+  .resource-download-title { font-size: clamp(1.8rem, 1.1vw, 3.2rem); }
+  .resource-download-desc { font-size: clamp(1.2rem, 0.85vw, 1.9rem); }
+  .resources-applied-grid { max-width: 5000px; }
+  .resources-applied-title { max-width: none; font-size: clamp(3rem, 2.6vw, 8rem); }
+  .resources-applied-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .resources-applied-text { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .resources-reading-header { max-width: 4200px; }
+  .resources-reading-title { max-width: none; font-size: clamp(3rem, 2.6vw, 8rem); }
+  .resources-reading-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .resources-reading-grid { max-width: 5000px; }
+  .resource-reading-title { font-size: clamp(1.8rem, 1.1vw, 3.2rem); }
+  .resource-reading-desc { font-size: clamp(1.2rem, 0.85vw, 1.9rem); }
+
+  /* About page: hero title sits on 7 lines for 12 words at 900px, and the dark
+     card list drops to a 274px column. */
+  .about-hero-content { max-width: 2400px; }
+  .about-hero-title { max-width: none; font-size: clamp(3rem, 2.8vw, 9rem); }
+  .about-hero-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .about-why-grid { max-width: 5000px; }
+  .about-why-title { max-width: none; font-size: clamp(2.8rem, 2.5vw, 7.5rem); }
+  .about-why-text { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .about-integrates-header { max-width: 4200px; }
+  .about-integrates-title { font-size: clamp(3rem, 2.6vw, 8rem); }
+  .about-domains-container { max-width: 4200px; }
+  .about-principles-header { max-width: 4200px; }
+  .about-principles-title { max-width: none; font-size: clamp(3rem, 2.6vw, 8rem); }
+  .about-principles-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .about-principles-stack { max-width: 5000px; }
+  .about-principle-title { font-size: clamp(1.8rem, 1.1vw, 3.2rem); }
+  .about-principle-desc { font-size: clamp(1.2rem, 0.85vw, 1.9rem); }
+  .about-delivered-grid { max-width: 5000px; }
+  .about-delivered-title { max-width: none; font-size: clamp(2.8rem, 2.5vw, 7.5rem); }
+  .about-delivered-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .about-dark-card { padding: clamp(3rem, 2.5vw, 5rem); }
+  .about-dark-card-title { font-size: clamp(2rem, 1.2vw, 3.6rem); }
+  .about-dark-card-list li { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .about-creator-layout { max-width: 5000px; }
+  .about-creator-content { max-width: 2200px; }
+  .about-creator-title { font-size: clamp(3rem, 2.6vw, 8rem); }
+  .about-creator-text { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .about-quote-text { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+
+  /* Contact page: form column squeezes to ~382px at 8K. Hero + section ledes
+     re-expressed in ch (from the Figma 600px / 1293px boxes) so they scale. */
+  .contact-hero-lede { max-width: 43ch; }
+  .contact-main-header { max-width: 4200px; }
+  .contact-main-title { font-size: clamp(3rem, 2.6vw, 8rem); }
+  .contact-main-subtitle { max-width: 92ch; font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .contact-split-grid { max-width: 5000px; }
+  .contact-topic-title { font-size: clamp(1.8rem, 1.1vw, 3.2rem); }
+  .contact-topic-hint { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .contact-form-title { font-size: clamp(1.8rem, 1.1vw, 3.2rem); }
+  .contact-form-desc { font-size: clamp(1.2rem, 0.9vw, 2rem); }
+  .contact-form-field label { font-size: clamp(1.1rem, 0.8vw, 1.8rem); }
+  .contact-privacy-note { font-size: clamp(1.2rem, 0.85vw, 1.9rem); }
 }
