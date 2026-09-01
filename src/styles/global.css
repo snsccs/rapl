@@ -6481,6 +6481,33 @@ img {
   .org-sequence-lede { max-width: none; font-size: clamp(1rem, 0.9vw, 1.7rem); }
   .org-sequence-stack { max-width: 4500px; }
   .section--org-reinforcement h2 { max-width: none; font-size: clamp(2rem, 2.5vw, 5.5rem); }
+
+  /* Assessment / diagnostic page — same column-widening fix as 8K */
+  .page-hero--diagnostic .diag-hero-copy { max-width: 1700px; }
+  .page-hero--diagnostic .diag-hero-title {
+    max-width: none;
+    font-size: clamp(2.6rem, 3.2vw, 7.5rem);
+  }
+  .page-hero--diagnostic .diag-hero-lede {
+    max-width: none;
+    font-size: clamp(1.1rem, 1vw, 1.8rem);
+  }
+  .diag-what-title {
+    max-width: none;
+    font-size: clamp(2.2rem, 2.8vw, 6rem);
+  }
+  .diag-process-header { max-width: none; }
+  .diag-process-title {
+    max-width: none;
+    font-size: clamp(2.4rem, 3vw, 7rem);
+  }
+  .diag-process-lede {
+    max-width: none;
+    font-size: clamp(1.1rem, 1vw, 1.8rem);
+  }
+  .diag-heatmap-header { max-width: none; }
+  .diag-heatmap-title { font-size: clamp(2.4rem, 3vw, 7.5rem); }
+  .diag-heatmap-table th { font-size: clamp(1.3rem, 0.9vw, 1.9rem); }
 }
 
 @media (min-width: 7680px) {
@@ -6538,4 +6565,35 @@ img {
   /* Inline h2 in system reinforcement section: lift the 18ch cap and scale
      the font so it doesn't single-word-wrap. */
   .section--org-reinforcement h2 { max-width: none; font-size: clamp(2.6rem, 2.3vw, 7rem); }
+
+  /* Assessment / diagnostic page: hero + section titles have the same
+     hardcoded column caps that 1-word-wrap at 8K. */
+  .page-hero--diagnostic .diag-hero-copy { max-width: 2400px; }
+  .page-hero--diagnostic .diag-hero-title {
+    max-width: none;
+    font-size: clamp(3rem, 2.8vw, 9rem);
+  }
+  .page-hero--diagnostic .diag-hero-lede {
+    max-width: none;
+    font-size: clamp(1.2rem, 0.9vw, 2rem);
+  }
+  .diag-what-title {
+    max-width: none;
+    font-size: clamp(2.8rem, 2.5vw, 7.5rem);
+  }
+  .diag-what-right { padding: clamp(3rem, 3vw, 5rem); }
+  .diag-process-header { max-width: none; }
+  .diag-process-title {
+    max-width: none;
+    font-size: clamp(3rem, 2.6vw, 8rem);
+  }
+  .diag-process-lede {
+    max-width: none;
+    font-size: clamp(1.2rem, 0.9vw, 2rem);
+  }
+  .diag-heatmap-header { max-width: none; }
+  .diag-heatmap-title {
+    font-size: clamp(3rem, 2.6vw, 8.5rem);
+  }
+  .diag-heatmap-table th { font-size: clamp(1.5rem, 1vw, 2.4rem); padding: 1.25rem 0.75rem 1.5rem; }
 }
