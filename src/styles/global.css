@@ -6553,6 +6553,18 @@ img {
   .methodological-honesty-desc { font-size: clamp(1rem, 0.9vw, 1.7rem); }
   .research-cta-title { max-width: none; font-size: clamp(2.4rem, 3vw, 7.5rem); }
 
+  /* Home page — .framework-cta-card is capped at 460px, so its label drops to
+     3 lines at 4K. (Outside the resources/about/contact pass, but same defect.) */
+  .framework-cta-card { max-width: 900px; }
+  .framework-cta-card span.title { font-size: clamp(1.15rem, 1vw, 2rem); }
+
+  /* Resources page hero — .resources-hero-copy is pinned to 820px, so the
+     <br>-split title (4 intended lines) collapses to 6 at 4K / 9 at 8K. */
+  .page-hero--resources .resources-hero-copy { max-width: 1700px; }
+  .page-hero--resources .resources-hero-title { font-size: clamp(2.4rem, 3.2vw, 7.5rem); }
+  .page-hero--resources .resources-hero-eyebrow { font-size: clamp(1rem, 1vw, 1.8rem); }
+  .page-hero--resources .resources-hero-lede { font-size: clamp(1rem, 0.9vw, 1.7rem); }
+
   /* Resources page — the three card grids are capped in px (1200/1280/1350),
      so the columns get *narrower* as the type scales up: download and reading
      cards fall to ~277px at 4K, putting titles on 4 lines. */
@@ -6747,6 +6759,16 @@ img {
   }
   .methodological-honesty-desc { font-size: clamp(1.2rem, 0.9vw, 2rem); }
   .research-cta-title { max-width: none; font-size: clamp(3rem, 2.6vw, 8.5rem); }
+
+  /* Home page — 460px cap puts the CTA-card label on 4 lines at 8K. */
+  .framework-cta-card { max-width: 1300px; }
+  .framework-cta-card span.title { font-size: clamp(1.4rem, 0.9vw, 2.4rem); }
+
+  /* Resources page hero: 820px column puts the title on 9 lines for 8 words. */
+  .page-hero--resources .resources-hero-copy { max-width: 2400px; }
+  .page-hero--resources .resources-hero-title { font-size: clamp(3rem, 2.8vw, 9rem); }
+  .page-hero--resources .resources-hero-eyebrow { font-size: clamp(1.2rem, 0.9vw, 2.2rem); }
+  .page-hero--resources .resources-hero-lede { font-size: clamp(1.2rem, 0.9vw, 2rem); }
 
   /* Resources page: same px-capped grids — cards fall to ~235px at 8K, which
      puts download titles on 6 lines for 7 words. */
