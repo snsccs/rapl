@@ -25,7 +25,10 @@ const {
   ogImageAlt = "RAPL™ — Role-Agnostic Project Leadership Framework",
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://raplleadership.com");
+// Strip the trailing slash so the canonical matches the URL Google crawls
+// (the host serves both /framework and /framework/ with no redirect).
+const canonicalPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const canonical = new URL(canonicalPath, Astro.site ?? "https://raplleadership.com");
 
 const orgJsonLd = {
   "@context": "https://schema.org",
