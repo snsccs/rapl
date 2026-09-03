@@ -305,12 +305,14 @@ const engage = [
   </section>
 
   <!-- ============== HOW TO ENGAGE (2x2 White Cards with Icon Badges) ============== -->
-  <section class="section section--cream-3" id="engage" style="background: #F6F3EA;">
+  <!-- Figma node 6126:10065 (bg image "1 235" baking in the card panels/accent
+       bars/icon badges): section bg #F2EEEB, eyebrow+h2 #4C4747, lede #000000. -->
+  <section class="section section--cream-3" id="engage" style="background: #F2EEEB;">
     <div class="site-shell">
       <div style="max-width: 64rem;" class="reveal-on-scroll">
-        <div class="eyebrow">HOW TO ENGAGE</div>
-        <h2>Four ways to engage with RAPL™.</h2>
-        <p class="lede" style="margin-top: 1.5rem; font-size: 1.35rem;">
+        <div class="eyebrow" style="color: #4C4747; font-size: clamp(1.25rem, 1.667vw, 2rem);">HOW TO ENGAGE</div>
+        <h2 style="color: #4C4747; font-size: clamp(1.9rem, 5vw, 6rem);">Four ways to engage with RAPL™.</h2>
+        <p class="lede" style="margin-top: 1.5rem; font-size: clamp(1rem, 1.4583vw, 1.75rem); color: #000000;">
           Whether you are an individual senior leader, an organization, or a researcher there is a structured on-ramp to the framework.
         </p>
       </div>
@@ -401,15 +403,15 @@ const engage = [
     <div class="site-shell">
       <div class="split-layout align-center">
         <div>
-          <div class="nextstep-eyebrow" style="color: #CDA367;">CREATED AND DELIVERED</div>
-          <p style="font-size: 1.25rem; color: #1F2937; margin-top: 0.75rem; max-width: 60ch; line-height: 1.5;">
-            RAPL™ was created by <a href="/about" style="color: #0F1E31; font-weight: 700; text-decoration: underline; text-underline-offset: 3px;">Samia Waqar</a> and
-            delivered through <a href="https://snsccs.com/" style="color: #0F1E31; font-weight: 700; text-decoration: underline; text-underline-offset: 3px;">SnS Coaching and Consulting Services</a>.
+          <div class="nextstep-eyebrow" style="color: #755436; font-size: clamp(1.25rem, 1.667vw, 2rem);">CREATED AND DELIVERED</div>
+          <p style="font-size: clamp(1rem, 1.4583vw, 1.75rem); color: #000000; margin-top: 0.75rem; max-width: 60ch; line-height: 1.5;">
+            RAPL™ was created by <a href="/about" style="color: inherit; font-weight: inherit; text-decoration: underline; text-underline-offset: 3px;">Samia Waqar</a> and
+            delivered through <a href="https://snsccs.com/" style="color: inherit; font-weight: inherit; text-decoration: underline; text-underline-offset: 3px;">SnS Coaching and Consulting Services</a>.
           </p>
         </div>
         <div class="button-row" style="justify-content: flex-end;">
-          <a class="nextstep-btn" href="/about">About RAPL™</a>
-          <a class="nextstep-btn" href="/certificate">Executive Certificate</a>
+          <a class="createddelivered-btn createddelivered-btn--outline" href="/about">About RAPL™</a>
+          <a class="createddelivered-btn createddelivered-btn--solid" href="/certificate">Executive Certificate</a>
         </div>
       </div>
     </div>
@@ -422,10 +424,10 @@ const engage = [
       <h2 class="nextstep-heading">Explore the framework, discuss the Executive Certificate or begin an organizational diagnostic.</h2>
       <p class="nextstep-sub">Choose the on-ramp that matches your role, organization or research interest.</p>
       <div class="button-row" style="margin-top: 2rem;">
-        <a class="button nextstep-btn" href="/framework">
+        <a class="button nextstep-btn nextstep-btn--solid" href="/framework">
           Explore the RAPL™ Framework→
         </a>
-        <a class="button nextstep-btn" href="/contact">Contact RAPL™ Leadership</a>
+        <a class="button nextstep-btn nextstep-btn--outline" href="/contact">Contact RAPL™ Leadership</a>
       </div>
     </div>
   </section>
