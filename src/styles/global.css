@@ -2457,14 +2457,13 @@ img {
 
 /* ============ 7. Help Shape the Next Stage Banner (Figma node 6299:10197) ============ */
 .section--research-cta {
-  background-color: #F6F3EA;
+  background-color: #F2EEEB;
   padding-block: clamp(5rem, 8vw, 8rem);
-  border-top: 1px solid rgba(15, 30, 49, 0.08);
 }
 
 .research-cta-eyebrow {
   color: #4C4747;
-  font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+  font-size: clamp(1.25rem, 1.667vw, 2rem);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -2473,7 +2472,7 @@ img {
 
 .research-cta-title {
   color: #4C4747;
-  font-size: clamp(2.4rem, 4.8vw, 4.8rem);
+  font-size: clamp(2.4rem, 5vw, 6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.05;
@@ -2494,7 +2493,7 @@ img {
   border: 1px solid #755436;
   font-size: 0.95rem;
   font-weight: 700;
-  border-radius: 4px;
+  border-radius: 7px;
   padding: 0.75rem 1.75rem;
   text-decoration: none;
   display: inline-flex;
@@ -2514,7 +2513,7 @@ img {
   color: #755436;
   font-size: 0.95rem;
   font-weight: 700;
-  border-radius: 4px;
+  border-radius: 7px;
   padding: 0.75rem 1.75rem;
   text-decoration: none;
   display: inline-flex;
@@ -3775,20 +3774,19 @@ img {
   color: var(--brass);
 }
 
-/* ============ Header (Figma: Solid White Top Bar) ============ */
+/* ============ Header (Figma: Solid White Top Bar, node 6113:10061) ============ */
 
 .site-header {
   position: sticky;
   top: 0;
   z-index: 50;
   background: #ffffff;
-  border-bottom: 1px solid rgba(15, 30, 49, 0.08);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .site-header.scrolled {
   background: #ffffff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
 .header-bar {
@@ -3796,148 +3794,172 @@ img {
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  height: 72px;
+  height: 73px;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 8px;
   text-decoration: none;
-  color: var(--ink);
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: -0.01em;
+  flex-shrink: 0;
 }
 
 .brand-mark {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: var(--ink);
-  color: var(--paper);
-  font-family: var(--font-display);
+  width: 50px;
+  height: 46px;
+  background: #0d0149;
+  color: #ffffff;
+  font-family: "Inknut Antiqua", Georgia, serif;
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 36px;
   line-height: 1;
   border-radius: 2px;
 }
 
-/* Figma-style brand mark: deep indigo bg, white R, taller proportions */
+/* Figma brand mark (node 6553:10063 & 6553:10064):
+   Rectangle 2708: 37x34, #755436 (brand brown)
+   R: Inknut Antiqua 30px Bold, white */
 .brand-mark--figma {
-  background: #0B132B;
+  background: #755436;
   color: #ffffff;
-  width: 42px;
-  height: 42px;
-  font-family: var(--font-sans);
-  font-size: 1.6rem;
+  width: 37px;
+  height: 34px;
+  font-family: "Inknut Antiqua", Georgia, serif;
+  font-size: 30px;
   font-weight: 700;
-  letter-spacing: -0.02em;
-  border-radius: 4px;
+  line-height: 1;
+  letter-spacing: 0;
+  border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .brand-name {
   display: inline-flex;
   flex-direction: column;
-  line-height: 1.1;
+  line-height: 1;
+  justify-content: center;
 }
 
+/* Figma node 6553:10060: RAPL Inria Sans 20px Bold #000000, letter-spacing 1.4px */
 .brand-name-main {
+  font-family: "Inria Sans", sans-serif;
   font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: -0.01em;
-  color: #0F1E31;
+  font-size: 20px;
+  letter-spacing: 1.4px;
+  color: #000000;
+  line-height: 1.2;
 }
 
-.brand-name-sub {
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--graphite);
-  font-weight: 500;
-  margin-top: 2px;
-}
-
-.brand-name sup {
-  font-size: 0.55em;
-  color: var(--brass);
-  margin-left: 1px;
-  font-weight: 600;
+/* Figma node 6113:10075: TM Inria Sans 6px Bold #000000, letter-spacing 0.42px */
+.brand-name-main sup {
+  font-family: "Inria Sans", sans-serif;
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 0.42px;
+  color: #000000;
+  margin-left: 2px;
   top: -0.5em;
 }
 
+/* Figma node 6553:10061: Role-Agnostic Leadership Inria Sans 9px Bold #000000, letter-spacing 0.81px */
+.brand-name-sub {
+  font-family: "Inria Sans", sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.81px;
+  text-transform: none;
+  color: #000000;
+  margin-top: 1px;
+}
+
+/* Figma nodes 6113:10063-10077: Inria Sans 16px Bold #000000, line-height 24px.
+   Link gaps average ~81px at the 1920px reference width (63-102px per pair,
+   varying with each label's own side-bearing) -- was clamped to a 61px
+   preferred value (3.2vw), visibly tighter than Figma. */
 .nav {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: clamp(1rem, 4.22vw, 5.5rem);
 }
 
 .nav a {
   text-decoration: none;
-  color: #4C4747;
-  font-weight: 600;
-  font-size: 0.95rem;
-  padding: 0.5rem 0.95rem;
+  color: #000000;
+  font-family: "Inria Sans", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
   letter-spacing: 0;
-  transition: color 0.18s ease;
+  padding: 0.25rem 0;
+  transition: opacity 0.18s ease;
   white-space: nowrap;
 }
 
 @media (max-width: 1440px) and (min-width: 1201px) {
-  /* Tighten nav padding/font between 1200-1440 so 1280/1366 laptops
-     don't wrap "For Organizations" to a second line */
-  .nav { gap: 0.15rem; }
-  .nav a { font-size: 0.85rem; padding: 0.5rem 0.6rem; }
+  .nav { gap: clamp(0.75rem, 2.4vw, 3.3rem); }
+  .nav a { font-size: 15px; }
 }
 
 .nav a:hover,
 .nav a[aria-current="page"] {
-  color: #0F1E31;
+  color: #000000;
+  opacity: 0.7;
 }
 
 .nav-toggle {
   display: none;
   background: transparent;
   border: 1px solid rgba(16, 32, 43, 0.2);
-  border-radius: 2px;
+  border-radius: 4px;
   padding: 0.5rem 0.6rem;
   cursor: pointer;
-  color: var(--ink);
+  color: #000000;
 }
 
 .nav-toggle-bar {
   display: block;
-  width: 18px;
-  height: 1.5px;
-  background: var(--ink);
+  width: 20px;
+  height: 2px;
+  background: #000000;
   margin: 4px 0;
   transition: transform 0.18s ease, opacity 0.18s ease;
 }
 
+/* Figma node 6113:10069 & 6113:10070:
+   Rectangle 2300: 102x42, #D9D9D9, cornerRadius 7px
+   CONTACT: Inika 15px Bold #000000 */
 .header-action {
   display: inline-flex;
   align-items: center;
-  padding: 0.6rem 1.25rem;
-  background: #E5E7EB;
-  color: #3B3A3A;
+  justify-content: center;
+  width: 102px;
+  height: 42px;
+  background: #d9d9d9;
+  color: #000000;
   text-decoration: none;
+  font-family: "Inika", "Inria Sans", sans-serif;
   font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.04em;
-  border-radius: 6px;
-  transition: background 0.18s ease, color 0.18s ease;
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: 0;
+  border-radius: 7px;
+  transition: background 0.18s ease, opacity 0.18s ease;
+  flex-shrink: 0;
 }
 
 .header-action:hover {
-  background: #D1D5DB;
-  color: #0F1E31;
+  background: #c8c8c8;
+  color: #000000;
 }
 
 @media (max-width: 1200px) {
-  /* Hide full nav at ≤1200px so 1024px tablet, 1100-1200px laptops, and
-     1280px (where "For Organizations" wraps) all get a clean hamburger */
   .nav { display: none; }
   .header-action { display: none; }
   .nav-toggle { display: inline-block; }
@@ -3945,12 +3967,12 @@ img {
   .nav-open .nav {
     display: flex;
     position: absolute;
-    top: 72px;
+    top: 73px;
     left: 0;
     right: 0;
     flex-direction: column;
     background: #ffffff;
-    border-bottom: 1px solid rgba(15, 30, 49, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
     padding: 1.25rem var(--shell-padding);
     align-items: stretch;
@@ -3960,10 +3982,10 @@ img {
 
   .nav-open .nav a {
     padding: 0.85rem 0.5rem;
-    border-bottom: 1px solid rgba(15, 30, 49, 0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     font-size: 1.05rem;
     font-weight: 700;
-    color: #0F1E31;
+    color: #000000;
   }
 
   .nav-open .nav a:last-child {
@@ -4552,7 +4574,7 @@ img {
    primary, #755436 outline. This replaces the pre-redesign navy palette
    (#0F1E31 on #F5F0EA). */
 .cta-banner {
-  background: #F6F3EA;
+  background: #F2EEEB;
   color: #000000;
   padding-block: clamp(4rem, 7vw, 6.5rem);
   position: relative;
@@ -5159,7 +5181,7 @@ img {
 
 /* Footer — Figma uses light cream background with dark text */
 .site-footer {
-  background: #F5F0EA;
+  background: #F6F3EA;
   color: #1F2937;
   padding-block: clamp(3rem, 5vw, 5rem);
   font-size: 0.95rem;
@@ -5535,9 +5557,8 @@ img {
 /* Section: Next Step CTA (Figma node 6130:10156 — bg #F6F3EA, same as
    "Four ways to engage" which is in the same Figma section) */
 .section--nextstep {
-  background: #F6F3EA;
+  background: #F2EEEB;
   padding-block: clamp(5rem, 9vw, 8rem);
-  border-top: 1px solid rgba(15, 30, 49, 0.08);
 }
 
 .nextstep-eyebrow {
@@ -7015,10 +7036,6 @@ img {
   background: transparent;
   color: #755436;
   border: 1.5px solid #755436;
-}
-
-.site-footer {
-  border-top: 1px solid #afafaf;
 }
 
 .site-footer h4 {
