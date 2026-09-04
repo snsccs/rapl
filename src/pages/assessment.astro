@@ -198,7 +198,11 @@ const heatmapRows = [
   <!-- ==================== 4. DELIVERABLES / CAPABILITY OUTPUTS BANNER (Figma Node 6286:10149) ==================== -->
   <section class="section section--diag-deliverables" aria-label="Diagnostic Outputs">
     <div class="site-shell">
-      <div class="diag-deliverables-wrap reveal-on-scroll">
+      <div class="diag-deliverables-split reveal-on-scroll">
+        <div class="diag-deliverables-left">
+          <div class="diag-deliverables-eyebrow">WHAT YOU GET</div>
+          <h2 class="diag-deliverables-title">A diagnostic you can act on, not a report that sits on a shelf.</h2>
+        </div>
         <ul class="diag-deliverables-bullets">
           {outputs.map((o) => (
             <li class="diag-deliverables-bullet-item">{o}</li>
