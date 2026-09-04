@@ -1782,11 +1782,35 @@ img {
   overflow: hidden;
 }
 
-.diag-deliverables-wrap {
-  display: flex;
-  justify-content: flex-end;
+.diag-deliverables-split {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(3rem, 6vw, 6rem);
   align-items: center;
   width: 100%;
+}
+
+.diag-deliverables-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.diag-deliverables-eyebrow {
+  color: #4C4747;
+  font-size: clamp(1.2rem, 1.5vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.diag-deliverables-title {
+  color: #4C4747;
+  font-size: clamp(2.2rem, 4vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0;
+  max-width: 16ch;
 }
 
 .diag-deliverables-bullets {
@@ -1823,8 +1847,9 @@ img {
 }
 
 @media (max-width: 900px) {
-  .diag-deliverables-wrap {
-    justify-content: flex-start;
+  .diag-deliverables-split {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
   .diag-deliverables-bullets {
