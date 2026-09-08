@@ -304,9 +304,11 @@ const engage = [
     </div>
   </section>
 
-  <!-- ============== HOW TO ENGAGE (2x2 White Cards with Icon Badges) ============== -->
-  <!-- Figma node 6126:10065 (bg image "1 235" baking in the card panels/accent
-       bars/icon badges): section bg #F2EEEB, eyebrow+h2 #4C4747, lede #000000. -->
+  <!-- ============== HOW TO ENGAGE (2x2 cards, collapsible) ============== -->
+  <!-- Figma "Slide 16:9 - 3" (node 6113:10059), engage block at y5925:
+       section bg #F2EEEB; eyebrow + h2 #4C4747; lede #000000.
+       Card 795x380 #FBF8F6 r13; 28x90 corner bar #755436; 69px icon circle
+       (1px #755436); title 32/700 #4C4747; desc 24/400 #000; cta 28/400. -->
   <section class="section section--cream-3" id="engage" style="background: #F2EEEB;">
     <div class="site-shell">
       <div style="max-width: 64rem;" class="reveal-on-scroll">
@@ -317,54 +319,82 @@ const engage = [
         </p>
       </div>
 
-      <div class="engage-grid-2x2 reveal-on-scroll" style="margin-top: 3rem;">
-        <a class="engage-card" href="/certificate">
-          <div class="engage-card__badge" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      <div class="engage-grid-2x2 reveal-on-scroll">
+        <details class="engage-card" open>
+          <summary class="engage-card__head">
+            <span class="engage-card__badge" aria-hidden="true">
+              <img src="/1_237.png" alt="" width="44" height="52" loading="lazy" />
+            </span>
+            <h3 class="engage-card__title">Executive Certificate</h3>
+            <span class="engage-card__chevron" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </summary>
+          <div class="engage-card__body">
+            <p class="engage-card__desc">A personalized, fifty-hour executive development program built around twelve RAPL™ modules and an integrated capstone.</p>
+            <a class="engage-card__cta" href="/certificate">
+              Explore the Executive Certificate
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
           </div>
-          <h3 class="engage-card__title">Executive Certificate</h3>
-          <p class="engage-card__desc">A personalized, fifty-hour executive development program built around twelve RAPL™ modules and an integrated capstone.</p>
-          <span class="engage-card__cta">
-            Explore the Executive Certificate
-            <span class="arrow" aria-hidden="true">→</span>
-          </span>
-        </a>
+        </details>
 
-        <a class="engage-card" href="/organizations">
-          <div class="engage-card__badge" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>
+        <details class="engage-card" open>
+          <summary class="engage-card__head">
+            <span class="engage-card__badge" aria-hidden="true">
+              <img src="/2_31.png" alt="" width="46" height="52" loading="lazy" />
+            </span>
+            <h3 class="engage-card__title">For Organizations</h3>
+            <span class="engage-card__chevron" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </summary>
+          <div class="engage-card__body">
+            <p class="engage-card__desc">Seat profiles, capability baselines, gap heatmaps, targeted development and governance integration.</p>
+            <a class="engage-card__cta" href="/organizations">
+              Explore Organizational Application
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
           </div>
-          <h3 class="engage-card__title">For Organizations</h3>
-          <p class="engage-card__desc">Seat profiles, capability baselines, gap heatmaps, targeted development and governance integration.</p>
-          <span class="engage-card__cta">
-            Explore Organizational Application
-            <span class="arrow" aria-hidden="true">→</span>
-          </span>
-        </a>
+        </details>
 
-        <a class="engage-card" href="/diagnostic">
-          <div class="engage-card__badge" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        <details class="engage-card" open>
+          <summary class="engage-card__head">
+            <span class="engage-card__badge" aria-hidden="true">
+              <img src="/3_6.png" alt="" width="48" height="51" loading="lazy" />
+            </span>
+            <h3 class="engage-card__title">Alignment Diagnostic</h3>
+            <span class="engage-card__chevron" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </summary>
+          <div class="engage-card__body">
+            <p class="engage-card__desc">A structured way to compare what senior roles require with what leadership and talent systems develop, assess and reward.</p>
+            <a class="engage-card__cta" href="/diagnostic">
+              Explore the Diagnostic
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
           </div>
-          <h3 class="engage-card__title">Alignment Diagnostic</h3>
-          <p class="engage-card__desc">A structured way to compare what senior roles require with what leadership and talent systems develop, assess and reward.</p>
-          <span class="engage-card__cta">
-            Explore the Diagnostic
-            <span class="arrow" aria-hidden="true">→</span>
-          </span>
-        </a>
+        </details>
 
-        <a class="engage-card" href="/research">
-          <div class="engage-card__badge" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <details class="engage-card" open>
+          <summary class="engage-card__head">
+            <span class="engage-card__badge" aria-hidden="true">
+              <img src="/4_10.png" alt="" width="49" height="47" loading="lazy" />
+            </span>
+            <h3 class="engage-card__title">Research and Validation</h3>
+            <span class="engage-card__chevron" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </summary>
+          <div class="engage-card__body">
+            <p class="engage-card__desc">A transparent research agenda testing content validity, role demand, talent-system alignment and intervention effectiveness.</p>
+            <a class="engage-card__cta" href="/research">
+              Explore the Research
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
           </div>
-          <h3 class="engage-card__title">Research and Validation</h3>
-          <p class="engage-card__desc">A transparent research agenda testing content validity, role demand, talent-system alignment and intervention effectiveness.</p>
-          <span class="engage-card__cta">
-            Explore the Research
-            <span class="arrow" aria-hidden="true">→</span>
-          </span>
-        </a>
+        </details>
       </div>
     </div>
   </section>

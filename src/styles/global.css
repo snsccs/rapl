@@ -189,7 +189,7 @@ img {
   h3 { font-size: clamp(1.5rem, 1.5vw, 2.6rem); }
   body { font-size: clamp(1rem, 0.9vw, 1.35rem); }
 
-  .contact-hero-content { max-width: 1100px; }
+  .contact-hero-content { max-width: 587px; }
   .framework-hero-content { max-width: 1600px; }
   .is-not-container { max-width: 2400px; }
 }
@@ -206,7 +206,7 @@ img {
   h3 { font-size: clamp(1.6rem, 1.3vw, 3.5rem); }
   body { font-size: clamp(1.1rem, 0.6vw, 1.7rem); }
 
-  .contact-hero-content { max-width: 1600px; }
+  .contact-hero-content { max-width: 853px; }
   .contact-hero-title { font-size: clamp(3.125rem, 4.2vw, 9rem); }
   .contact-hero-eyebrow { font-size: clamp(1.25rem, 1.3vw, 2.6rem); }
   .contact-hero-lede { font-size: clamp(1.125rem, 1.1vw, 2.4rem); }
@@ -232,7 +232,7 @@ img {
   h3 { font-size: clamp(1.8rem, 1vw, 4.2rem); }
   body { font-size: clamp(1.2rem, 0.5vw, 2rem); }
 
-  .contact-hero-content { max-width: 2400px; }
+  .contact-hero-content { max-width: 1280px; }
   .contact-hero-title { font-size: clamp(3.5rem, 3.5vw, 12rem); }
   .contact-hero-eyebrow { font-size: clamp(1.5rem, 1.1vw, 3rem); }
   .contact-hero-lede { font-size: clamp(1.25rem, 0.9vw, 2.8rem); }
@@ -3830,78 +3830,33 @@ img {
   flex-shrink: 0;
 }
 
-.brand-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 46px;
-  background: #0d0149;
-  color: #ffffff;
-  font-family: "Inknut Antiqua", Georgia, serif;
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 1;
-  border-radius: 2px;
-}
-
-/* Figma brand mark (node 6553:10063 & 6553:10064):
-   Rectangle 2708: 37x34, #755436 (brand brown)
-   R: Inknut Antiqua 30px Bold, white */
-.brand-mark--figma {
-  background: #755436;
-  color: #ffffff;
-  width: 37px;
-  height: 34px;
-  font-family: "Inknut Antiqua", Georgia, serif;
-  font-size: 30px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0;
-  border-radius: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+/* Figma node 6664:10057 ("123 5"): the RAPL globe logo, 69x69, sitting in the
+   73px header bar. Replaces the old brown "R" block mark. */
+/* RAPL globe logo. Figma header node 6664:10059 is 65x65, footer node
+   6666:10161 is 86x86 — same image fill, square, no corner radius. The asset
+   is opaque (its own blue background is part of the artwork), so it must not
+   be rounded or made transparent. */
+.brand-logo {
+  width: 65px;
+  height: 65px;
   flex-shrink: 0;
+  border-radius: 0;
 }
 
-.brand-name {
-  display: inline-flex;
-  flex-direction: column;
-  line-height: 1;
-  justify-content: center;
+.site-footer .brand-logo {
+  width: 86px;
+  height: 86px;
 }
 
-/* Figma node 6553:10060: RAPL Inria Sans 20px Bold #000000, letter-spacing 1.4px */
-.brand-name-main {
-  font-family: "Inria Sans", sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: 1.4px;
-  color: #000000;
-  line-height: 1.2;
-}
-
-/* Figma node 6113:10075: TM Inria Sans 6px Bold #000000, letter-spacing 0.42px */
-.brand-name-main sup {
-  font-family: "Inria Sans", sans-serif;
-  font-size: 6px;
-  font-weight: 700;
-  letter-spacing: 0.42px;
-  color: #000000;
-  margin-left: 2px;
-  top: -0.5em;
-}
-
-/* Figma node 6553:10061: Role-Agnostic Leadership Inria Sans 9px Bold #000000, letter-spacing 0.81px */
-.brand-name-sub {
-  font-family: "Inria Sans", sans-serif;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.81px;
-  text-transform: none;
-  color: #000000;
-  margin-top: 1px;
+@media (max-width: 760px) {
+  .brand-logo {
+    width: 52px;
+    height: 52px;
+  }
+  .site-footer .brand-logo {
+    width: 64px;
+    height: 64px;
+  }
 }
 
 /* Figma nodes 6113:10063-10077: Inria Sans 16px Bold #000000, line-height 24px.
@@ -4976,78 +4931,6 @@ img {
   }
 }
 
-/* Engage cards 2x2 grid (Four ways to engage) */
-.engage-grid-2x2 {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem;
-  margin-top: 3rem;
-}
-
-.engage-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  padding: 1.75rem 1.75rem 1.5rem;
-  background: var(--paper);
-  border: 1px solid rgba(15, 30, 49, 0.08);
-  border-left: 3px solid var(--annotation);
-  border-radius: 0;
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-}
-
-.engage-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 40px -20px rgba(15, 30, 49, 0.25);
-  border-left-color: var(--annotation);
-  color: inherit;
-}
-
-.engage-card__title {
-  font-size: 1.85rem;
-  font-weight: 700;
-  line-height: 1.15;
-  color: var(--ink);
-  margin: 0;
-}
-
-.engage-card__desc {
-  color: var(--graphite);
-  font-size: 1rem;
-  line-height: 1.55;
-  margin: 0;
-}
-
-.engage-card__cta {
-  margin-top: 0.5rem;
-  color: var(--annotation);
-  font-weight: 600;
-  font-size: 0.95rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  text-decoration: underline;
-  text-decoration-color: rgba(120, 18, 34, 0.4);
-  text-underline-offset: 0.2em;
-}
-
-.engage-card__cta .arrow {
-  transition: transform 0.18s ease;
-}
-
-.engage-card:hover .engage-card__cta .arrow {
-  transform: translateX(3px);
-}
-
-@media (max-width: 760px) {
-  .engage-grid-2x2 {
-    grid-template-columns: 1fr;
-  }
-  .engage-card__title { font-size: 1.5rem; }
-}
-
 /* "What RAPL is / is not" two-column with red & blue rules */
 .is-not-grid {
   display: grid;
@@ -5231,14 +5114,6 @@ img {
 
 .site-footer a:hover {
   color: #0F1E31;
-}
-
-.site-footer .brand-name-main {
-  color: #0F1E31;
-}
-
-.site-footer .brand-name-sub {
-  color: #4B5563;
 }
 
 .site-footer .footer-brand-bio {
@@ -5497,86 +5372,147 @@ img {
   }
 }
 
-/* Section 4: Engage Cards (Four ways to engage) */
+/* Section 4: Engage Cards (Four ways to engage)
+   Figma "Slide 16:9 - 3" (6113:10059), engage block at y5925. Design width
+   1920px, so vw values are px/1920*100. Each card is a <details> so it can
+   collapse; open by default, which renders identically to the Figma frame.
+   Card  795x380  #FBF8F6  radius 13   (nodes 6553:10258-10261)
+   Bar    28x90   #755436  top-left    (nodes 6553:10263-10266)
+   Circle 69x69   1px #755436          (nodes 6553:10267-10270)
+   Title  32/700  #4C4747  lh 38
+   Desc   24/400  #000000  lh 36
+   CTA    28/400  #4C4747  lh 34 */
 .engage-grid-2x2 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.75rem;
-  margin-top: 3rem;
+  column-gap: clamp(1rem, 1.71875vw, 33px);
+  row-gap: clamp(1.5rem, 2.8125vw, 54px);
+  margin-top: clamp(2rem, 3.75vw, 72px);
+  align-items: start;
 }
 
 .engage-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  padding: 2.25rem;
-  /* Figma node 6126:10065 (background image "1 235", sampled): card panel
-     #F9F8F6, left accent bar and icon stroke #781120 (matches --annotation). */
-  background: #f9f8f6;
-  border: 1px solid rgba(15, 30, 49, 0.08);
-  border-left: 4px solid var(--annotation);
-  border-radius: 4px;
-  text-decoration: none;
-  color: inherit;
-  box-shadow: 0 6px 24px rgba(15, 30, 49, 0.04);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
   position: relative;
+  overflow: hidden;
+  background: #fbf8f6;
+  border-radius: clamp(8px, 0.677vw, 13px);
+  padding: clamp(10px, 0.677vw, 13px) clamp(20px, 2.03125vw, 39px)
+    clamp(24px, 2.55vw, 49px);
 }
 
-.engage-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 40px -15px rgba(15, 30, 49, 0.15);
+/* Figma's card is 380px tall; hold that height while open, let it collapse. */
+.engage-card[open] {
+  min-height: clamp(280px, 19.79vw, 380px);
+}
+
+/* 28x90 brown block anchored to the card's top-left corner. */
+.engage-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: clamp(16px, 1.4583vw, 28px);
+  height: clamp(52px, 4.6875vw, 90px);
+  background: #755436;
+}
+
+.engage-card__head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  column-gap: clamp(0.5rem, 1vw, 1rem);
+  row-gap: 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.engage-card__head::-webkit-details-marker,
+.engage-card__head::marker {
+  display: none;
+  content: "";
 }
 
 .engage-card__badge {
-  display: inline-flex;
+  grid-column: 1;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: clamp(48px, 3.59375vw, 69px);
+  height: clamp(48px, 3.59375vw, 69px);
+  border: 1px solid #755436;
   border-radius: 50%;
-  /* Figma's badge is an outline-only circle (thin stroke, no fill), not a
-     filled/tinted disc. */
   background: transparent;
-  border: 1.5px solid var(--annotation);
-  color: var(--annotation);
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
+}
+
+.engage-card__badge img {
+  width: auto;
+  height: clamp(24px, 2.7vw, 52px);
+  object-fit: contain;
 }
 
 .engage-card__title {
-  /* Figma: Inria Sans Bold 32px, #4C4747 — not --ink (dark navy). */
-  font-size: 2rem;
+  grid-column: 1;
+  /* Figma: Inria Sans Bold 32px #4C4747, indented 24px past the badge. */
+  margin: clamp(1.25rem, 2.24vw, 43px) 0 0 clamp(0px, 1.25vw, 24px);
+  font-size: clamp(1.25rem, 1.667vw, 2rem);
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1.1875;
   color: #4c4747;
-  margin: 0;
+}
+
+.engage-card__chevron {
+  grid-column: 2;
+  grid-row: 1;
+  display: inline-flex;
+  color: #755436;
+  transition: transform 0.2s ease;
+}
+
+.engage-card[open] .engage-card__chevron {
+  transform: rotate(180deg);
+}
+
+.engage-card__body {
+  margin-left: clamp(0px, 1.25vw, 24px);
 }
 
 .engage-card__desc {
-  /* Figma: Inria Sans Regular 24px, #000000 (pure black, not --graphite). */
+  /* Figma: Inria Sans Regular 24px #000000, lh 36. */
+  margin: clamp(0.25rem, 0.3125vw, 6px) 0 0;
   color: #000000;
-  font-size: 1.5rem;
-  line-height: 1.55;
-  margin: 0;
+  font-size: clamp(0.95rem, 1.25vw, 1.5rem);
+  line-height: 1.5;
 }
 
 .engage-card__cta {
-  margin-top: 0.75rem;
-  /* Figma: the "Explore ... →" link is Inria Sans Regular 28px in the same
-     neutral #4C4747 as the heading — not bold, not the maroon accent color. */
-  color: #4c4747;
-  font-weight: 400;
-  font-size: 1.75rem;
+  /* Figma: Inria Sans Regular 28px #4C4747, lh 34 — not bold, not maroon. */
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  margin-top: clamp(0.5rem, 0.3125vw, 6px);
+  color: #4c4747;
+  font-weight: 400;
+  font-size: clamp(1rem, 1.4583vw, 1.75rem);
+  line-height: 1.2143;
   text-decoration: underline;
   text-underline-offset: 0.2em;
 }
 
+.engage-card__cta .arrow {
+  transition: transform 0.18s ease;
+}
+
+.engage-card__cta:hover .arrow {
+  transform: translateX(3px);
+}
+
 @media (max-width: 760px) {
-  .engage-grid-2x2 { grid-template-columns: 1fr; }
+  .engage-grid-2x2 {
+    grid-template-columns: 1fr;
+  }
+  .engage-card[open] {
+    min-height: 0;
+  }
 }
 
 /* Section: Next Step CTA (Figma node 6130:10156 — bg #F6F3EA, same as
@@ -6213,60 +6149,85 @@ img {
    ========================================================================== */
 
 /* Hero Section */
+/* Contact hero — Figma "Frame 313971" (6379:10095), hero band y73-674 of the
+   1920px design. Background image node 6667:10190 (1964x601, scaleMode FILL);
+   copy is white and sits in a left-hand column, centre-aligned within it. */
 .page-hero--contact {
-  background-color: #F7F5F2;
-  background-image: url("/Gemini_Generated_Image_dpoxu5dpoxu5dpox_1.png");
-  background-position: center right;
+  background-color: #9f7e60;
+  background-image: url("/contact-hero-bg.jpg");
+  /* Figma anchors the 1964px-wide fill at x=-1 of the 1920 frame, i.e. flush
+     left — centring it shifts the photo ~22px and misaligns the composition. */
+  background-position: left center;
   background-size: cover;
   background-repeat: no-repeat;
-  padding-block: clamp(5.5rem, 8.5vw, 8.5rem);
+  padding-top: clamp(3rem, 3.698vw, 71px);
+  padding-bottom: clamp(3rem, 5.104vw, 98px);
   position: relative;
 }
 
-/* Push right column further right so text sits with ~90px margin from viewport
-   (matches Figma where "TM" and "." of the title are at x≈1830 on a 1920 canvas) */
+/* Figma node 6667:10189: a 1288x601 linear-gradient scrim over the left of the
+   hero, opaque warm brown at the left edge fading out to the right, so the
+   white copy stays legible against the photograph. Gradient handles run
+   right-to-left, which puts the stops at -5.28% / 34.22% / 76.07%. */
+.page-hero--contact::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 67.08%;
+  background: linear-gradient(
+    to left,
+    rgba(172, 119, 35, 0) -5.28%,
+    rgba(94, 70, 29, 0.8) 34.22%,
+    rgb(159, 126, 96) 76.07%
+  );
+  pointer-events: none;
+}
+
+.page-hero--contact .site-shell {
+  position: relative;
+  z-index: 1;
+}
+
 .contact-hero-layout {
   display: block;
-  gap: clamp(2rem, 4vw, 4rem);
-  align-items: center;
 }
 
-.contact-hero-spacer {
-  min-height: 120px;
-}
-
+/* Figma centres the copy on x≈460 of 1920 — i.e. a ~640px column pinned to the
+   left shell gutter, not centred in the viewport. */
 .contact-hero-content {
-  max-width: 1200px;
-  margin-inline: auto;
+  max-width: 640px;
+  margin-inline: 0;
   text-align: center;
-  padding-right: 0;
 }
 
 .contact-hero-eyebrow {
-  color: #000000;
-  font-size: clamp(1.25rem, 1.67vw, 2rem);
+  /* Figma 6380:10225: Inria Sans 700 32px, #FFFFFF */
+  color: #ffffff;
+  font-size: clamp(1.25rem, 1.667vw, 2rem);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 0.75rem;
+  margin-bottom: clamp(0.5rem, 0.99vw, 19px);
 }
 
 .contact-hero-title {
-  color: #060606;
+  /* Figma 6380:10226: Inria Sans 700 100px, lh 103, #FFFFFF */
+  color: #ffffff;
   font-size: clamp(3.125rem, 5.21vw, 6.25rem);
   font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1.05;
+  line-height: 1.03;
   margin: 0;
   max-width: 100%;
 }
 
 .contact-hero-lede {
-  color: #000000;
+  /* Figma 6380:10227: Inria Sans 400 28px, lh 42, #FFFFFF, 600px box */
+  color: #ffffff;
   font-family: var(--font-sans, "Inria Sans", sans-serif);
-  font-size: clamp(1.125rem, 1.46vw, 1.75rem);
-  line-height: 1.55;
-  margin-top: 1.25rem;
+  font-size: clamp(1.125rem, 1.4583vw, 1.75rem);
+  line-height: 1.5;
+  margin-top: clamp(1rem, 2.396vw, 46px);
   margin-inline: auto;
   max-width: 600px;
 }
@@ -6525,15 +6486,22 @@ img {
   .contact-split-grid {
     grid-template-columns: 1fr;
   }
-  .contact-hero-spacer {
-    display: none;
-  }
   .page-hero--contact {
     background-position: center;
   }
-  /* Hero copy stays centred at every width, matching Figma */
+  /* Copy goes full width here, so the scrim must cover the whole hero to keep
+     the white text legible over the photograph. */
+  .page-hero--contact::before {
+    width: 100%;
+    background: linear-gradient(
+      to left,
+      rgba(94, 70, 29, 0.72) 0%,
+      rgb(159, 126, 96) 85%
+    );
+  }
   .contact-hero-content {
     max-width: 100%;
+    text-align: center;
   }
 }
 
@@ -6566,14 +6534,14 @@ img {
    "TV / large-display scaling" block. */
 
 @media (min-width: 2560px) and (max-width: 3839px) {
-  .contact-hero-content { max-width: 1100px; }
+  .contact-hero-content { max-width: 587px; }
   .page-hero--framework .framework-hero-copy { max-width: 1100px; }
   .page-hero--framework .framework-hero-title { max-width: none; }
   .is-not-container { max-width: 2400px; }
 }
 
 @media (min-width: 3840px) and (max-width: 7679px) {
-  .contact-hero-content { max-width: 1600px; }
+  .contact-hero-content { max-width: 853px; }
   .contact-hero-title { font-size: clamp(3.125rem, 4.2vw, 9rem); }
   .contact-hero-eyebrow { font-size: clamp(1.25rem, 1.3vw, 2.6rem); }
   .contact-hero-lede { font-size: clamp(1.125rem, 1.1vw, 2.4rem); }
@@ -6766,7 +6734,7 @@ img {
 }
 
 @media (min-width: 7680px) {
-  .contact-hero-content { max-width: 2400px; }
+  .contact-hero-content { max-width: 1280px; }
   .contact-hero-title { font-size: clamp(3.5rem, 3.5vw, 12rem); }
   .contact-hero-eyebrow { font-size: clamp(1.5rem, 1.1vw, 3rem); }
   .contact-hero-lede { font-size: clamp(1.25rem, 0.9vw, 2.8rem); }
@@ -7078,11 +7046,6 @@ img {
 }
 
 .site-footer .footer-brand-bio {
-  color: #000000;
-}
-
-.site-footer .brand-name-main,
-.site-footer .brand-name-sub {
   color: #000000;
 }
 
