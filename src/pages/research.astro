@@ -97,15 +97,17 @@ const participation = [
         </div>
       </div>
 
-      <a
-        href="/poll"
-        class="research-poll-qr reveal-on-scroll"
-        aria-label="Scan or click to take the RAPL audience poll"
-      >
-        <p class="research-poll-qr-label">Scan the QR code to take the poll</p>
-        <div class="research-poll-qr-code" aria-hidden="true" set:html={pollQrSvg} />
-        <span class="research-poll-qr-link">raplleadership.com/poll</span>
-      </a>
+      <div class="research-poll-qr-wrap reveal-on-scroll">
+        <a
+          href="/poll"
+          class="research-poll-qr"
+          aria-label="Scan or click to take the RAPL audience poll"
+        >
+          <p class="research-poll-qr-label">Scan the QR code to take the poll</p>
+          <div class="research-poll-qr-code" aria-hidden="true" set:html={pollQrSvg} />
+          <span class="research-poll-qr-link">raplleadership.com/poll</span>
+        </a>
+      </div>
     </div>
   </section>
 

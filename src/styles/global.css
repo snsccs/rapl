@@ -2246,13 +2246,25 @@ img {
   word-break: break-word;
 }
 
+/* The card also carries .reveal-on-scroll for its fade-in, and that class's
+   .is-visible rule unconditionally sets `transform`, which would silently
+   clobber any transform used here (e.g. a translateY-based vertical center)
+   regardless of specificity or source order. Center with flexbox on a
+   separate, transform-free wrapper instead, so the two never fight. */
 @media (min-width: 1600px) {
-  .research-poll-qr {
+  .research-poll-qr-wrap {
     position: absolute;
-    top: 50%;
+    top: 0;
+    bottom: 0;
     right: var(--shell-padding);
-    transform: translateY(-50%);
-    margin: 0;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+  }
+
+  .research-poll-qr {
+    pointer-events: auto;
+    margin: 0 0 40px;
     width: clamp(140px, 11vw, 200px);
   }
 }
@@ -7310,10 +7322,45 @@ img {
   top: 6rem;
 }
 
+.poll-results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
 .poll-total-responses {
   color: #4C4747;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin: 0;
+}
+
+.poll-refresh-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: 1.5px solid rgba(115, 82, 0, 0.4);
+  border-radius: 6px;
+  padding: 0.4rem 0.75rem;
+  color: #755436;
+  font-family: var(--font-sans, "Inria Sans", sans-serif);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.poll-refresh-btn:hover {
+  background: rgba(117, 84, 54, 0.08);
+  border-color: #755436;
+}
+
+.poll-refresh-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
 }
 
 .poll-result-block {

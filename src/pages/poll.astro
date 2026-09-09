@@ -88,7 +88,12 @@ import BaseLayout from "../components/BaseLayout.astro";
             View Poll Results
           </button>
           <div id="poll-results" hidden style="margin-top: 1.5rem;">
-            <p class="poll-total-responses"></p>
+            <div class="poll-results-header">
+              <p class="poll-total-responses"></p>
+              <button type="button" class="poll-refresh-btn" id="poll-refresh-results-btn">
+                ↻ Refresh
+              </button>
+            </div>
             <div id="poll-results-charts"></div>
           </div>
         </div>
@@ -124,6 +129,7 @@ import BaseLayout from "../components/BaseLayout.astro";
   const thanksEl = document.getElementById("poll-thanks");
   const errorEl = document.getElementById("poll-error");
   const resultsBtn = document.getElementById("poll-view-results-btn") as HTMLButtonElement | null;
+  const refreshBtn = document.getElementById("poll-refresh-results-btn") as HTMLButtonElement | null;
   const resultsPanel = document.getElementById("poll-results");
   const resultsCharts = document.getElementById("poll-results-charts");
   const totalResponsesEl = document.querySelector<HTMLParagraphElement>(".poll-total-responses");
@@ -324,6 +330,14 @@ import BaseLayout from "../components/BaseLayout.astro";
     });
   };
 
+  const fetchResults = async (): Promise<{ totalResponses: number; questions: PollResultsQuestion[] } | null> => {
+    if (!activeSlug) return null;
+    const res = await fetch(`${API_BASE}/${activeSlug}/results`);
+    const json = await res.json();
+    if (!res.ok || !json.success) throw new Error(json.message || "Unable to load results");
+    return json.data;
+  };
+
   resultsBtn?.addEventListener("click", async () => {
     if (!activeSlug || !resultsPanel || !resultsBtn) return;
 
@@ -331,17 +345,38 @@ import BaseLayout from "../components/BaseLayout.astro";
     resultsBtn.textContent = "Loading…";
 
     try {
-      const res = await fetch(`${API_BASE}/${activeSlug}/results`);
-      const json = await res.json();
-      if (!res.ok || !json.success) throw new Error(json.message || "Unable to load results");
-
-      renderResults(json.data);
+      const data = await fetchResults();
+      if (data) renderResults(data);
       resultsPanel.removeAttribute("hidden");
       resultsBtn.style.display = "none";
     } catch (err) {
       resultsBtn.textContent = "View Poll Results";
       resultsBtn.disabled = false;
     }
+  });
+
+  refreshBtn?.addEventListener("click", async () => {
+    if (!activeSlug || !refreshBtn) return;
+
+    refreshBtn.disabled = true;
+    const originalLabel = refreshBtn.textContent;
+    refreshBtn.textContent = "Refreshing…";
+
+    try {
+      const data = await fetchResults();
+      if (data) renderResults(data);
+    } catch (err) {
+      // Keep the last-good results on screen; briefly note the refresh failed.
+      refreshBtn.textContent = "Refresh failed";
+      setTimeout(() => {
+        if (refreshBtn) refreshBtn.textContent = originalLabel;
+      }, 2000);
+      return;
+    } finally {
+      refreshBtn.disabled = false;
+    }
+
+    refreshBtn.textContent = originalLabel;
   });
 
   loadActivePoll();
