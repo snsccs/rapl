@@ -7184,3 +7184,143 @@ img {
 .site-footer .footer-meta-cell a {
   color: #000000;
 }
+
+/* ============ RAPL Audience Poll page (/poll) ============ */
+.page-hero--poll {
+  background-color: #F6F4F2;
+  padding-block: clamp(4rem, 7vw, 6.5rem);
+  text-align: left;
+}
+
+.page-hero--poll .site-shell {
+  display: block;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.poll-hero-copy {
+  max-width: 820px;
+}
+
+.poll-hero-title {
+  color: #3C3B3B;
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-block: 1rem;
+}
+
+.poll-hero-lede {
+  color: #4C4747;
+  font-size: clamp(1.05rem, 1.3vw, 1.35rem);
+  line-height: 1.6;
+  max-width: 65ch;
+  margin: 0;
+}
+
+.poll-loading {
+  color: #4C4747;
+  font-style: italic;
+}
+
+.poll-options,
+.poll-scale {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.poll-option,
+.poll-scale-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #F8F4F0;
+  border: 1.5px solid rgba(115, 82, 0, 0.53);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #3C3B3B;
+}
+
+.poll-results-panel {
+  position: sticky;
+  top: 6rem;
+}
+
+.poll-total-responses {
+  color: #4C4747;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.poll-result-block {
+  margin-bottom: 1.75rem;
+}
+
+.poll-result-block:last-child {
+  margin-bottom: 0;
+}
+
+.poll-result-question {
+  color: #3C3B3B;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.poll-result-average {
+  color: #755436;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.poll-bar-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr 5rem;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.poll-bar-label {
+  color: #3C3B3B;
+  font-size: 0.9rem;
+}
+
+.poll-bar-track {
+  background: rgba(115, 82, 54, 0.12);
+  border-radius: 999px;
+  height: 0.6rem;
+  overflow: hidden;
+}
+
+.poll-bar-fill {
+  background: #755436;
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.poll-bar-count {
+  color: #4C4747;
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+@media (max-width: 880px) {
+  .poll-results-panel {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .poll-bar-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+  .poll-bar-count {
+    text-align: left;
+  }
+}
