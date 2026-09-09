@@ -2197,6 +2197,21 @@ img {
   }
 }
 
+/* 981-1599px: the QR card stacks in normal flow below the hero copy here
+   (it only floats via position:absolute at 1600px+, see .research-poll-qr
+   below), which pushes the hero taller than its designed height. The base
+   rule's background-size (110.68% auto) is width-locked — its height
+   follows the image's own aspect ratio, not the container — so past a
+   certain height the image runs out and the plain background-color shows
+   through right where the card sits. Cover it instead, only in this range,
+   so the base rule (used above 1600px, where the card is absolute and
+   never inflates the height) stays exactly as designed. */
+@media (min-width: 981px) and (max-width: 1599px) {
+  .page-hero.page-hero--research {
+    background-size: cover;
+  }
+}
+
 /* Research hero: QR code linking to the audience poll. Stacked centered
    below the copy by default (safe at every width); only floats beside the
    text once the shell is wide enough that the 1110px copy column and the
