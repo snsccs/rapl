@@ -89,7 +89,6 @@ const integration = [
 
   <!-- ==================== 2. IMPLEMENTATION SEQUENCE ==================== -->
   <section class="section section--org-sequence">
-    <img src="/org_sequence_skyline.png" alt="" class="org-sequence-skyline" aria-hidden="true" />
     <div class="site-shell">
       <div class="org-sequence-header reveal-on-scroll">
         <div class="eyebrow org-sequence-eyebrow">
@@ -104,13 +103,21 @@ const integration = [
       </div>
 
       <div class="org-sequence-stack reveal-on-scroll">
-        {sequence.map((s) => (
+        {sequence.map((s, i) => (
           <div class="org-stage-card">
             <div class="org-stage-num">{s.num}</div>
             <div class="org-stage-content">
               <h3 class="org-stage-title">{s.title}</h3>
               <p class="org-stage-desc">{s.desc}</p>
             </div>
+            {i < sequence.length - 1 && (
+              <img
+                src="/org_sequence_connector.png"
+                alt=""
+                aria-hidden="true"
+                class={`org-stage-connector ${i % 2 === 0 ? "org-stage-connector--right" : "org-stage-connector--left"}`}
+              />
+            )}
           </div>
         ))}
       </div>
