@@ -134,6 +134,13 @@ const structuredData = [
       if (event.key === "Escape") setOpen(false);
     });
 
+    document.addEventListener("click", (event) => {
+      if (!header.classList.contains("nav-open")) return;
+      const target = event.target;
+      if (target instanceof Node && (nav.contains(target) || toggle.contains(target))) return;
+      setOpen(false);
+    });
+
     window.addEventListener("resize", () => {
       if (window.innerWidth > 980) setOpen(false);
     });
