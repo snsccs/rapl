@@ -248,7 +248,7 @@ import BaseLayout from "../components/BaseLayout.astro";
         throw new Error(message);
       }
 
-      form.hidden = true;
+      form.style.display = "none";
       thanksEl?.removeAttribute("hidden");
     } catch (err) {
       if (errorEl) {
@@ -337,7 +337,7 @@ import BaseLayout from "../components/BaseLayout.astro";
 
       renderResults(json.data);
       resultsPanel.removeAttribute("hidden");
-      resultsBtn.hidden = true;
+      resultsBtn.style.display = "none";
     } catch (err) {
       resultsBtn.textContent = "View Poll Results";
       resultsBtn.disabled = false;
