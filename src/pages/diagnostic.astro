@@ -128,14 +128,6 @@ const heatmapRows = [
       </div>
 
       <div class="diag-process-wrapper reveal-on-scroll">
-        <div class="diag-process-dots" aria-hidden="true">
-          <div class="diag-process-dot"></div>
-          <div class="diag-process-dot"></div>
-          <div class="diag-process-dot"></div>
-          <div class="diag-process-dot"></div>
-          <div class="diag-process-dot"></div>
-        </div>
-
         <div class="diag-process-table">
           {steps.map((s) => (
             <div class="diag-process-row">
@@ -273,32 +265,20 @@ const heatmapRows = [
   </section>
 
   <!-- ==================== 6. WHO USES THE DIAGNOSTIC (3 DARK CARDS - Figma 6289:10194) ==================== -->
-  <section class="section" style="background: #F6F4F2; padding-block: clamp(5rem, 8vw, 7.5rem);">
+  <section class="section" style="background: #F6F4F2; padding-top: clamp(3rem, 4.0625vw, 78px); padding-bottom: clamp(3rem, 4.2708vw, 82px);">
     <div class="site-shell">
-      <div class="cert-steps-grid reveal-on-scroll" style="margin-top: 0;">
-        <div class="cert-step-card">
-          <h3 style="color: #FFFFFF; font-size: 1.85rem; font-weight: 700; margin: 0 0 1.25rem; line-height: 1.2;">
-            Boards and CEOs
-          </h3>
-          <p style="color: #FFFFFF; font-size: 1.2rem; line-height: 1.6; margin: 0;">
-            Sanity-check whether the senior team has the leadership capability the strategic agenda actually requires.
-          </p>
+      <div class="diag-who-grid reveal-on-scroll">
+        <div class="diag-who-card">
+          <h3 class="diag-who-card__title">Boards and CEOs</h3>
+          <p class="diag-who-card__body">Sanity-check whether the senior team has the leadership capability the strategic agenda actually requires.</p>
         </div>
-        <div class="cert-step-card">
-          <h3 style="color: #FFFFFF; font-size: 1.85rem; font-weight: 700; margin: 0 0 1.25rem; line-height: 1.2;">
-            CHROs and PMOs
-          </h3>
-          <p style="color: #FFFFFF; font-size: 1.2rem; line-height: 1.6; margin: 0;">
-            Target development and succession investment where the gap is highest and the consequences are greatest.
-          </p>
+        <div class="diag-who-card">
+          <h3 class="diag-who-card__title">CHROs and PMOs</h3>
+          <p class="diag-who-card__body">Target development and succession investment where the gap is highest and the consequences are greatest.</p>
         </div>
-        <div class="cert-step-card">
-          <h3 style="color: #FFFFFF; font-size: 1.85rem; font-weight: 700; margin: 0 0 1.25rem; line-height: 1.2;">
-            Transformation leaders
-          </h3>
-          <p style="color: #FFFFFF; font-size: 1.2rem; line-height: 1.6; margin: 0;">
-            Identify which leadership seats need strengthening before the next wave of AI and transformation work.
-          </p>
+        <div class="diag-who-card">
+          <h3 class="diag-who-card__title">Transformation leaders</h3>
+          <p class="diag-who-card__body">Identify which leadership seats need strengthening before the next wave of AI and transformation work.</p>
         </div>
       </div>
     </div>

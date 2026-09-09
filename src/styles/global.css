@@ -1025,6 +1025,46 @@ img {
   gap: 2rem;
 }
 
+/* Diagnostic "who uses it" cards — Figma 6289:10194 section (1920x476) with
+   cards 6289:10195-10197. Card 515x316 #3C3B3B, no radius, shadow 3/3/6/1.
+   Title Inria Sans 700 36px lh 37; body 400 28px lh 42 in a 410px column.
+   Padding 36 top / 39 bottom and a 68px right inset reproduce Figma's text
+   column, so the natural height lands on 316px — no min-height, which is what
+   left dead space under the old shared .cert-step-card rule. */
+.diag-who-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 1.875vw, 36px);
+}
+
+.diag-who-card {
+  background: #3c3b3b;
+  border-radius: 0;
+  padding: clamp(1.5rem, 1.875vw, 36px) clamp(1.5rem, 3.5417vw, 68px)
+    clamp(1.5rem, 2.03125vw, 39px) clamp(1.25rem, 1.8229vw, 35px);
+  box-shadow: 3px 3px 6px 1px rgba(28, 28, 28, 0.35);
+}
+
+.diag-who-card__title {
+  color: #ffffff;
+  font-size: clamp(1.35rem, 1.875vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.03;
+  margin: 0 0 clamp(1rem, 1.875vw, 36px);
+}
+
+.diag-who-card__body {
+  color: #ffffff;
+  font-size: clamp(1rem, 1.4583vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 980px) {
+  .diag-who-grid { grid-template-columns: 1fr; }
+}
+
 .cert-step-card {
   background: #3C3B3B;
   border-radius: 4px;
@@ -1140,73 +1180,49 @@ img {
 }
 
 /* ============ Implementation Sequence (Figma node 6182:10126) ============
-   Geometry taken from the Figma frame at 1920px wide. The source image bakes in
-   the five taupe stage bars; live copy can never line up with a `cover`-cropped
-   image, so the bars are painted out (org_sequence_clean_bg.png) and redrawn as
-   .org-stage-card in the bar colour sampled from the original: #C0AE98.
+   Geometry taken from the Figma frame at 1920px wide.
 
-   Figma measurements (frame = 1920px):
-     section        y 1030..2562 -> padding 65px top / 52px bottom
-     eyebrow        32px/700  lh 38  ls 0  #8C725A
-     h2             96px/700  lh 99  ls 0  #4C4747   box w 1107
-     lede           28px/400  lh 42  ls 0  #000000   box w 1133
-     card block     x 221..1693 -> 1472 wide, centred in the 1632 content column
-     card           h 144, radius ~13px, 40px gap (184px pitch)
-     number         40px/700  lh 48  #755436  x 259 -> 38px from card left
-     title          32px/700  lh 38  #755436  x 324 -> 103px from card left
-     desc           24px/400  lh 31  #4C4747  x 336, w 1296 -> 61px right pad
+   Figma measurements (frame = 1920px, section band y1030..2562):
+     section        1532 tall -> padding 65px top / 28px bottom
+     eyebrow        32px/700  lh 38  #8C725A   y 65
+     h2             96px/700  lh 99  #4C4747   y 118, box w 1107
+     lede           28px/400  lh 42  #000000   y 461, box w 1133
+     card block     1449 wide, centred -> x 236..1685
+     card           1449x165, radius 13, #C1AF99, 188px pitch (23px gap)
+     number         40px/700  #755436  x 259, 47px below the card top
+     title          32px/700  #755436  x 324, 22px below the card top
+     desc           24px/400  #4C4747  x 336, w 1296
    Figma indents the title 12px less than its own description (324 vs 336);
-   that reads as drafting noise, so both share one content column here. */
+   that reads as drafting noise, so both share one content column here.
+
+   The stage bars are live .org-stage-card elements rather than part of the
+   artwork, so the copy can reflow; the backing plate carries only the skyline
+   and the connectors are their own elements. */
+/* Implementation sequence — Figma frame 6182:10126, section band y1030-2562.
+   The backing plate (node 6505:10056) is 2724x1532 at frame x=-303, so it is
+   141.875% of the 1920 frame and bleeds 303px off the left. It carries only the
+   skyline; the four connectors are separate nodes (6505:10063-10066) drawn as
+   real elements below, so they can line up with the cards instead of being
+   baked into the background at a fixed offset.
+   A percentage background-position resolves to P x (container - image); here
+   container - image = -41.875% of the width, so P = 15.78/41.875 = 37.684%
+   reproduces Figma's -303px offset at any width. */
 .section--org-sequence {
   position: relative;
   overflow: hidden;
-  background-color: #EDE8E5;
-  background-image: url("/org_sequence_clean_bg.png");
-  background-position: center;
-  background-size: cover;
+  /* The plate is a flat #FAFAFA field with the skyline in its top-right, so the
+     section ground matches it: where the plate stops short the seam is invisible. */
+  background-color: #FAFAFA;
+  background-image: url("/org_sequence_plate.png");
+  background-position: 37.684% 0;
+  /* Sized by HEIGHT, capped at Figma's 1532px. Sizing by width (141.875%) let
+     the plate grow past 1920 -- at 2227px it stood 1777 tall, which pushed the
+     skyline's ground line from y456 down to y529, straight through the lede at
+     y461. Capping the height keeps that line where Figma puts it at any width. */
+  background-size: auto min(79.792vw, 1532px);
   background-repeat: no-repeat;
-  padding-top: clamp(2.5rem, 3.4vw, 4rem);
-  padding-bottom: clamp(2rem, 2.7vw, 3.25rem);
-}
-
-.org-sequence-skyline {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: clamp(380px, 42vw, 750px);
-  height: auto;
-  pointer-events: none;
-  z-index: 1;
-}
-
-@media (max-width: 980px) {
-  .org-sequence-skyline {
-    width: clamp(260px, 36vw, 380px);
-    opacity: 0.35;
-  }
-}
-
-@media (max-width: 640px) {
-  .org-sequence-skyline {
-    display: none;
-  }
-}
-
-/* Figma places this image at frame x -366 with width 2745 on a 1920 frame:
-   142.97% wide, offset -19.06% of the width. A percentage background-position
-   resolves to P x (container - image), and container - image = -42.97% of the
-   width, so P = 19.06/42.97 = 44.362% reproduces that offset proportionally --
-   unlike `cover`, which scales by height and lands the skyline and connector
-   line-art ~32px left of Figma.
-   Only applied from 1760px up: that is where the card block reaches its 1472px
-   max-width (1472 + 2x144 shell padding), and where this sizing still covers the
-   section vertically (image height = 79.8% of viewport width). Below it, `cover`
-   keeps the artwork filling the section. */
-@media (min-width: 1760px) {
-  .section--org-sequence {
-    background-position: 44.362% 0;
-    background-size: 142.97% auto;
-  }
+  padding-top: clamp(2.5rem, 3.385vw, 65px);
+  padding-bottom: clamp(2rem, 1.458vw, 28px);
 }
 
 .org-sequence-header {
@@ -1222,7 +1238,7 @@ img {
   line-height: 1.19;
   letter-spacing: 0;
   text-transform: uppercase;
-  margin-bottom: 0.75rem;
+  margin-bottom: clamp(0.5rem, 0.781vw, 15px);
 }
 
 .org-sequence-title {
@@ -1231,7 +1247,12 @@ img {
   font-weight: 700;
   line-height: 1.03;
   letter-spacing: 0;
-  max-width: 23ch;
+  /* Figma 6269:10095 box is 1107px wide on a 1920 frame. `23ch` was not
+     proportional, so below ~1700px this wrapped to two long lines instead of
+     three: the copy rose ~110px while the plate kept its aspect, and the
+     skyline crossed the text. Keeping the box proportional keeps the wrap, and
+     therefore the whole section, in step with the artwork. */
+  max-width: min(1107px, 57.656vw);
   margin: 0;
 }
 
@@ -1240,29 +1261,73 @@ img {
   font-size: clamp(1.15rem, 1.5vw, 1.75rem);
   line-height: 1.5;
   letter-spacing: 0;
-  max-width: 1133px;
-  margin-top: clamp(1.25rem, 1.8vw, 1.8rem);
+  max-width: min(1133px, 59.01vw);
+  /* Figma 6269:10096 sits at y461 of the section: high enough to clear the
+     skyline's ground line, which the old 1.8vw gap ran straight through. */
+  margin-top: clamp(1.25rem, 2.396vw, 46px);
 }
 
 .org-sequence-stack {
   display: flex;
   flex-direction: column;
-  gap: clamp(1.25rem, 2.1vw, 2.5rem);
-  max-width: 1472px;
-  margin: clamp(2rem, 2.5vw, 3rem) auto 0;
+  /* Figma: cards 1449x165 on a 188px pitch -> a 23px gap. */
+  gap: clamp(0.75rem, 1.198vw, 23px);
+  max-width: 1449px;
+  margin: clamp(1.5rem, 2.083vw, 40px) auto 0;
 }
 
 .org-stage-card {
-  background: #C0AE98;
+  /* Figma 6505:10058-10062: 1449x165, #C1AF99, radius 13. */
+  position: relative;
+  background: #C1AF99;
   border-radius: 13px;
-  padding: 0.875rem clamp(1.5rem, 3.2vw, 3.8rem) clamp(1rem, 1.15vw, 1.375rem) clamp(1.25rem, 2vw, 2.375rem);
+  min-height: clamp(120px, 8.594vw, 165px);
+  padding: clamp(0.75rem, 1.146vw, 22px) clamp(1.5rem, 3.2vw, 3.8rem)
+    clamp(0.75rem, 1.198vw, 23px) clamp(1rem, 1.198vw, 23px);
   display: flex;
-  gap: clamp(0.75rem, 0.7vw, 0.8125rem);
-  align-items: center;
+  gap: clamp(0.75rem, 0.885vw, 17px);
+  align-items: flex-start;
   box-shadow: 0 4px 20px rgba(74, 60, 48, 0.10);
 }
 
+/* Connectors — Figma nodes 6505:10063-10066, which alternate right / left
+   between the cards. All four share one image and the left-hand pair is that
+   artwork mirrored, so they are flipped in CSS rather than shipped twice.
+   The source plate is 258x145 with wide transparent margins; measuring its
+   alpha box against Figma puts the actual line-art at 70x130, starting flush
+   with the card edge (x1684.3 vs the card's 1685) and reaching 70px past it,
+   centred 1.5px below the card's bottom edge. The asset is trimmed to that
+   box, so the 70px overhang is all that has to fit in the gutter -- the
+   untrimmed plate needed 175px, which overflowed and got clipped by the
+   section's overflow:hidden at anything under ~1770px wide. */
+.org-stage-connector {
+  position: absolute;
+  width: clamp(44px, 3.646vw, 70px);
+  height: auto;
+  bottom: clamp(-66px, -3.438vw, -41px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.org-stage-connector--right {
+  left: 100%;
+}
+
+.org-stage-connector--left {
+  right: 100%;
+  transform: scaleX(-1);
+}
+
+@media (max-width: 980px) {
+  .org-stage-connector {
+    display: none;
+  }
+}
+
 .org-stage-num {
+  /* Figma 6269:10099: the numeral sits 25px below the title, not flush
+     with it. */
+  margin-top: clamp(0px, 1.302vw, 25px);
   color: #755436;
   font-size: clamp(1.75rem, 2.1vw, 2.5rem);
   font-weight: 700;
@@ -1630,31 +1695,53 @@ img {
   margin: 0;
 }
 
+/* Step rail — Figma node 6285:10115 bakes this into its plate: a light 2px
+   vertical line spanning the row stack, with a 9px dot centred on each
+   numbered block. Measured off the plate: line #E6DFD8, dots #A57B53.
+   The rail used to be a separate 5-cell column spaced with `space-around`,
+   which had no line and drifted up to 7px off the rows because its cells were
+   equal while the rows are not. Drawing it from the table and rows themselves
+   pins each dot to its own row's centre at any row height. */
 .diag-process-wrapper {
-  display: flex;
-  align-items: stretch;
-  gap: clamp(1rem, 2vw, 2.5rem);
+  --rail-gap: clamp(1rem, 2vw, 2.5rem);
+  --rail-x: calc(var(--rail-gap) + 12px);
+  position: relative;
+  padding-left: calc(var(--rail-gap) + 24px);
   margin-top: 4rem;
 }
 
-.diag-process-dots {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  padding-block: 2.5rem;
-  width: 24px;
+/* Step rail — Figma node 6285:10115 bakes this into its plate: a light 2px
+   vertical line running the full height of the row stack, with a 9px dot
+   centred on each numbered block. Measured off the plate, the line is
+   #E6DFD8 (much lighter than the dots) and the dots are #A57B53.
+   The dots were previously spaced with `space-around` inside a padded column,
+   so they drifted off their rows and had no line at all. Each dot is now a
+   flex cell of equal height, which centres it on its row for any row height. */
+.diag-process-table::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(-1 * var(--rail-x));
+  width: 2px;
+  margin-left: -1px;
+  background: #e6dfd8;
 }
 
-.diag-process-dot {
+.diag-process-row::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(-1 * var(--rail-x) - 4.5px);
   width: 9px;
   height: 9px;
+  margin-top: -4.5px;
   border-radius: 50%;
-  background: #755436;
+  background: #a57b53;
 }
 
 .diag-process-table {
-  flex: 1;
+  position: relative;
   background: #FAF8F5;
   border: 1px solid rgba(15, 30, 49, 0.12);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
@@ -1663,6 +1750,7 @@ img {
 }
 
 .diag-process-row {
+  position: relative;
   display: flex;
   align-items: center;
   border-bottom: 1px solid rgba(15, 30, 49, 0.08);
@@ -1747,7 +1835,12 @@ img {
 }
 
 @media (max-width: 900px) {
-  .diag-process-dots {
+  /* Rows stack vertically here, so the rail has nothing to line up with. */
+  .diag-process-wrapper {
+    padding-left: 0;
+  }
+  .diag-process-table::before,
+  .diag-process-row::before {
     display: none;
   }
   .diag-process-row {
@@ -2023,13 +2116,22 @@ img {
 }
 
 /* Research Page Styles (Figma node 6188:10242) */
-.page-hero--research {
+/* Research hero — Figma frame 6188:10242, image node 6308:10249.
+   Figma draws the artwork 2125px wide on a 1920px frame, anchored at x=-91,
+   so the plate's own textured edge bleeds off both sides. `cover` fitted it to
+   exactly 1920 instead, which pulled those edges back inside the viewport and
+   showed them as strips down the left and right. Oversizing to 2125/1920 =
+   110.68% and centring restores the bleed; the crop is anchored to the top,
+   matching Figma's imageTransform (which shows the top ~79% of the source). */
+.page-hero.page-hero--research {
   background-color: #F6F4F2;
   background-image: url("/Gemini_Generated_Image_39u1qx39u1qx39u1_1.png");
-  background-position: center right;
-  background-size: cover;
+  background-position: center top;
+  background-size: 110.68% auto;
   background-repeat: no-repeat;
-  padding-block: clamp(5rem, 8vw, 8.5rem);
+  min-height: clamp(30rem, 46.146vw, 886px);
+  padding-top: clamp(3.5rem, 7.76vw, 149px);
+  padding-bottom: clamp(2.5rem, 4.32vw, 83px);
   text-align: left;
 }
 
@@ -2039,46 +2141,57 @@ img {
   align-items: flex-start;
 }
 
+/* Figma centres the copy in a ~1110px column whose centre sits at x694 of
+   1920 — pinned to the left gutter, not to the middle of the viewport. */
 .page-hero--research .research-hero-copy {
-  max-width: 940px;
+  max-width: 1110px;
   margin-left: 0;
   margin-right: auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
+  align-items: center;
+  text-align: center;
 }
 
 .page-hero--research .research-hero-title {
+  /* Figma 6188:10262: Inria Sans 700 100px, lh 102.95, #3C3B3B, centred. */
   color: #3C3B3B;
-  font-size: clamp(2.6rem, 5vw, 4.75rem);
+  font-size: clamp(2.6rem, 5.208vw, 6.25rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.08;
-  max-width: 22ch;
-  margin-block: 0.5rem 1.5rem;
-  text-align: left;
+  /* Figma letterSpacing is 0; the -0.02em tracking that used to be here made
+     the line narrower and changed where the headline wrapped. */
+  letter-spacing: 0;
+  line-height: 1.03;
+  max-width: 1085px;
+  margin-block: clamp(1rem, 2.083vw, 40px) clamp(1.25rem, 2.708vw, 52px);
+  text-align: center;
 }
 
 .page-hero--research .research-hero-lede {
+  /* Figma 6188:10263: Inria Sans 400 28px, lh 42, #3C3B3B, 1089px box. */
   color: #3C3B3B;
-  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
-  line-height: 1.6;
-  max-width: 56ch;
-  text-align: left;
+  font-size: clamp(1.05rem, 1.4583vw, 1.75rem);
+  line-height: 1.5;
+  max-width: 1089px;
+  text-align: center;
   margin: 0;
 }
 
 .page-hero--research .button-row {
-  justify-content: flex-start;
+  justify-content: center;
   width: 100%;
-  margin-top: 2.25rem;
-  gap: 1rem;
+  margin-top: clamp(1.5rem, 2.604vw, 50px);
+  gap: clamp(0.75rem, 2.448vw, 47px);
 }
 
 @media (max-width: 980px) {
-  .page-hero--research {
-    background: linear-gradient(180deg, rgba(246, 244, 242, 0.94) 0%, rgba(246, 244, 242, 0.98) 100%), url("/Gemini_Generated_Image_39u1qx39u1qx39u1_1.png") center top / cover no-repeat;
+  .page-hero.page-hero--research {
+    /* Narrow viewports are far taller than the artwork, so size it off the
+       height (110% of the hero) instead of the width: that still covers the
+       box and keeps the plate's textured edge outside the frame on all four
+       sides, which "cover" alone does not do at this aspect. */
+    background: linear-gradient(180deg, rgba(246, 244, 242, 0.94) 0%, rgba(246, 244, 242, 0.98) 100%), url("/Gemini_Generated_Image_39u1qx39u1qx39u1_1.png") center center / auto 110% no-repeat;
+    background-color: #F6F4F2;
     padding-block: clamp(3.5rem, 8vw, 5.5rem);
   }
 }
@@ -2303,6 +2416,10 @@ img {
   flex-direction: column;
   gap: 1.15rem;
   max-width: 1200px;
+  /* Figma 6299:10127: the P1-P5 bands run x360-1572 of the 1920 canvas, i.e.
+     centred on the canvas rather than pinned to the shell gutter like the
+     heading above them. */
+  margin-inline: auto;
   margin-top: clamp(2.5rem, 4vw, 3.5rem);
 }
 
@@ -3114,7 +3231,8 @@ img {
 .page-hero--figma .hero-proof-bar {
   font-size: 1.25rem;
   font-weight: 500;
-  color: #000000;
+  /* Figma 6113:10092: Inria Sans 28px in brand brown #755436 */
+  color: #755436;
   margin-top: 2rem;
   text-align: left;
 }
@@ -6165,20 +6283,25 @@ img {
   position: relative;
 }
 
-/* Figma node 6667:10189: a 1288x601 linear-gradient scrim over the left of the
-   hero, opaque warm brown at the left edge fading out to the right, so the
-   white copy stays legible against the photograph. Gradient handles run
-   right-to-left, which puts the stops at -5.28% / 34.22% / 76.07%. */
+/* Figma node 6667:10189: a linear-gradient scrim over the left of the hero,
+   opaque warm brown at the left edge fading out to the right, so the white
+   copy stays legible against the photograph.
+
+   The scrim rect is 1288px wide in Figma, but its gradient does not reach
+   alpha 0 until x=1356px. Painting it on a 1288px-wide element therefore
+   clipped the fade while the brown was still ~10.7% opaque, leaving a visible
+   vertical seam at that edge. So the element spans the full hero and the
+   Figma stops are remapped to hero-relative positions (x 1356 / 847 / 308 of
+   1920), which reproduces the same ramp and lets it finish cleanly. */
 .page-hero--contact::before {
   content: "";
   position: absolute;
-  inset: 0 auto 0 0;
-  width: 67.08%;
+  inset: 0;
   background: linear-gradient(
     to left,
-    rgba(172, 119, 35, 0) -5.28%,
-    rgba(94, 70, 29, 0.8) 34.22%,
-    rgb(159, 126, 96) 76.07%
+    rgba(172, 119, 35, 0) 29.37%,
+    rgba(94, 70, 29, 0.8) 55.87%,
+    rgb(159, 126, 96) 83.95%
   );
   pointer-events: none;
 }
@@ -6492,7 +6615,6 @@ img {
   /* Copy goes full width here, so the scrim must cover the whole hero to keep
      the white text legible over the photograph. */
   .page-hero--contact::before {
-    width: 100%;
     background: linear-gradient(
       to left,
       rgba(94, 70, 29, 0.72) 0%,
@@ -6616,7 +6738,7 @@ img {
      hardcoded px/ch value that becomes a narrow column once html hits 28px:
      the hero copy is pinned to 940px, the question grid to 1400px, the
      proposition rows to a literal 240px tag column. */
-  .page-hero--research .research-hero-copy { max-width: 1700px; }
+  .page-hero--research .research-hero-copy { max-width: 2008px; }
   .page-hero--research .research-hero-title {
     max-width: none;
     font-size: clamp(2.4rem, 3.2vw, 7.5rem);
@@ -6823,7 +6945,7 @@ img {
   /* Research page: the hardcoded caps leave the hero title on 6 lines for 8
      words, the proposition name on 3 lines for 2 words (240px tag column) and
      the question description on 12 lines for 19 words (307px column). */
-  .page-hero--research .research-hero-copy { max-width: 2400px; }
+  .page-hero--research .research-hero-copy { max-width: 2834px; }
   .page-hero--research .research-hero-title {
     max-width: none;
     font-size: clamp(3rem, 2.8vw, 9rem);
