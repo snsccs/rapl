@@ -1,5 +1,13 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
+import QRCode from "qrcode";
+
+const pollUrl = new URL("/poll", Astro.site ?? "https://raplleadership.com").href;
+const pollQrSvg = await QRCode.toString(pollUrl, {
+  type: "svg",
+  margin: 1,
+  color: { dark: "#3C3B3B", light: "#FFFFFF" },
+});
 
 const questions = [
   {
@@ -88,6 +96,16 @@ const participation = [
           </a>
         </div>
       </div>
+
+      <a
+        href="/poll"
+        class="research-poll-qr reveal-on-scroll"
+        aria-label="Scan or click to take the RAPL audience poll"
+      >
+        <p class="research-poll-qr-label">Scan the QR code to take the poll</p>
+        <div class="research-poll-qr-code" aria-hidden="true" set:html={pollQrSvg} />
+        <span class="research-poll-qr-link">raplleadership.com/poll</span>
+      </a>
     </div>
   </section>
 
