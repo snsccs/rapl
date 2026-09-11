@@ -1,0 +1,111 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Enrollment Confirmed | RAPL™ Leadership"
+  description="Your RAPL™ Executive Certificate enrollment is confirmed."
+  noindex
+>
+  <section class="page-hero page-hero--poll">
+    <div class="site-shell">
+      <div class="poll-hero-copy reveal-on-scroll">
+        <div class="eyebrow" style="color: #755436;">EXECUTIVE CERTIFICATE</div>
+        <h1 class="poll-hero-title" id="enroll-success-title">Checking your payment…</h1>
+        <p class="poll-hero-lede" id="enroll-success-lede">One moment while we confirm your enrollment.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background: #ffffff; padding-block: clamp(3rem, 6vw, 5rem);">
+    <div class="site-shell" style="max-width: 46rem; margin-inline: auto;">
+      <div class="contact-form-card">
+        <div id="enroll-success-body">
+          <p class="poll-loading">Loading…</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const API_BASE = "https://api.snsccs.com/api/rapl-executive-enrollment";
+
+  const titleEl = document.getElementById("enroll-success-title");
+  const ledeEl = document.getElementById("enroll-success-lede");
+  const bodyEl = document.getElementById("enroll-success-body");
+
+  const renderConfirmed = () => {
+    if (titleEl) titleEl.textContent = "You're enrolled.";
+    if (ledeEl) ledeEl.textContent = "Thank you for enrolling in the RAPL™ Executive Certificate.";
+    if (bodyEl) {
+      bodyEl.innerHTML = "";
+      const heading = document.createElement("h3");
+      heading.style.cssText = "font-size: 1.6rem; color: #3C3B3B; font-weight: 700; margin-bottom: 0.75rem;";
+      heading.textContent = "Payment received — welcome to the program.";
+      const body = document.createElement("p");
+      body.style.cssText = "color: #4C4747; font-family: var(--font-sans, 'Inria Sans', sans-serif); font-size: 1.1rem; line-height: 1.6;";
+      body.textContent = "A confirmation has been sent to your email. A member of our team will reach out shortly to get your program started.";
+      bodyEl.appendChild(heading);
+      bodyEl.appendChild(body);
+    }
+  };
+
+  const renderPending = () => {
+    if (titleEl) titleEl.textContent = "You're all set.";
+    if (ledeEl) ledeEl.textContent = "We're finishing up your enrollment.";
+    if (bodyEl) {
+      bodyEl.innerHTML = "";
+      const body = document.createElement("p");
+      body.style.cssText = "color: #4C4747; font-family: var(--font-sans, 'Inria Sans', sans-serif); font-size: 1.1rem; line-height: 1.6;";
+      body.textContent = "Your payment is being confirmed. You'll receive a confirmation email shortly — if you don't see it in a few minutes, contact us at leadership@raplleadership.com.";
+      bodyEl.appendChild(body);
+    }
+  };
+
+  const renderUnavailable = () => {
+    if (titleEl) titleEl.textContent = "We couldn't find that enrollment.";
+    if (ledeEl) ledeEl.textContent = "";
+    if (bodyEl) {
+      bodyEl.innerHTML = "";
+      const body = document.createElement("p");
+      body.style.cssText = "color: #4C4747; font-family: var(--font-sans, 'Inria Sans', sans-serif); font-size: 1.1rem; line-height: 1.6;";
+      body.textContent = "If you completed a payment, contact leadership@raplleadership.com and we'll sort it out.";
+      bodyEl.appendChild(body);
+    }
+  };
+
+  const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const checkStatus = async (sessionId: string, attempt = 0): Promise<void> => {
+    try {
+      const res = await fetch(`${API_BASE}/by-session/${encodeURIComponent(sessionId)}`);
+      const json = await res.json();
+
+      if (res.ok && json.success && json.data.status === "paid") {
+        renderConfirmed();
+        return;
+      }
+
+      if (attempt < 3) {
+        await wait(1500);
+        return checkStatus(sessionId, attempt + 1);
+      }
+
+      renderPending();
+    } catch {
+      if (attempt < 3) {
+        await wait(1500);
+        return checkStatus(sessionId, attempt + 1);
+      }
+      renderPending();
+    }
+  };
+
+  const sessionId = new URLSearchParams(window.location.search).get("session_id");
+  if (sessionId) {
+    checkStatus(sessionId);
+  } else {
+    renderUnavailable();
+  }
+</script>

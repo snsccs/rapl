@@ -7556,3 +7556,74 @@ img {
   font-style: italic;
   margin-top: 2.5rem;
 }
+
+/* ---- Enroll Now modal (/certificate) ---- */
+.enroll-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 32, 43, 0.55);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(2rem, 6vw, 4rem) 1rem;
+  z-index: 200;
+  overflow-y: auto;
+}
+
+.enroll-modal-overlay[hidden] {
+  display: none;
+}
+
+.enroll-modal {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: clamp(1.75rem, 4vw, 2.5rem);
+  width: 100%;
+  max-width: 640px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+}
+
+.enroll-modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: #4C4747;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+}
+
+.enroll-modal-close:hover {
+  color: #3C3B3B;
+}
+
+.enroll-cancelled-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #FBEAEA;
+  border: 1px solid rgba(120, 18, 34, 0.25);
+  color: #781222;
+  border-radius: 8px;
+  padding: 0.85rem 1.25rem;
+  margin: 0 0 1.25rem;
+  font-size: 0.9rem;
+}
+
+.enroll-cancelled-notice[hidden] {
+  display: none;
+}
+
+.enroll-cancelled-notice button {
+  background: transparent;
+  border: none;
+  color: #781222;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
