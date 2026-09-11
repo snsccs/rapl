@@ -4,7 +4,7 @@ import BaseLayout from "../components/BaseLayout.astro";
 
 <BaseLayout
   title="Audience Poll | RAPL™ Leadership"
-  description="Take the RAPL™ audience poll on the Leadership Capability Gap and see how other leaders responded."
+  description="Take the RAPL™ audience poll and see how other leaders responded."
 >
   <!-- ==================== 1. HERO ==================== -->
   <section class="page-hero page-hero--poll">
@@ -13,90 +13,55 @@ import BaseLayout from "../components/BaseLayout.astro";
         <div class="eyebrow" style="color: #755436;">
           AUDIENCE POLL
         </div>
-        <h1 class="poll-hero-title">
-          The Leadership Capability Gap: where does your organization stand?
+        <h1 class="poll-hero-title" id="poll-hero-title">
+          Take the poll
         </h1>
-        <p class="poll-hero-lede">
-          Answer a few quick questions, then see how other leaders responded. The fields below the questions are optional and only used if you want us to follow up.
+        <p class="poll-hero-lede" id="poll-hero-lede">
+          Answer a few quick questions — you can skip any of them.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- ==================== 2. POLL FORM + RESULTS ==================== -->
+  <!-- ==================== 2. POLL WIZARD ==================== -->
   <section class="section" style="background: #ffffff; padding-block: clamp(3rem, 6vw, 5rem);">
-    <div class="site-shell">
-      <div class="split-layout reveal-on-scroll">
-        <!-- Left: Poll form -->
-        <div class="contact-form-card" id="poll-form-card">
-          <div class="contact-form-head">
-            <h3 class="contact-form-title">Take the poll</h3>
-            <p class="contact-form-desc">Your responses help us understand how leaders see this gap.</p>
+    <div class="site-shell" style="max-width: 46rem; margin-inline: auto;">
+      <div class="contact-form-card reveal-on-scroll" id="poll-wizard-card">
+        <p id="poll-loading" class="poll-loading">Loading poll…</p>
+        <p id="poll-unavailable" class="poll-loading" hidden>This poll isn't available right now.</p>
+
+        <div id="poll-wizard" hidden>
+          <div class="poll-wizard-progress">
+            <div class="poll-wizard-progress-track">
+              <div class="poll-wizard-progress-fill" id="poll-progress-fill"></div>
+            </div>
+            <p class="poll-wizard-progress-text" id="poll-progress-text"></p>
           </div>
 
-          <form class="contact-form-grid" id="poll-form">
-            <div id="poll-questions" class="poll-questions">
-              <p class="poll-loading">Loading poll…</p>
-            </div>
+          <div id="poll-step-container" class="poll-step-container"></div>
+          <p id="poll-step-error" class="poll-step-error" hidden></p>
 
-            <div class="contact-form-row">
-              <div class="contact-form-field">
-                <label for="poll-name">Name:</label>
-                <input id="poll-name" name="name" type="text" placeholder="Optional" />
-              </div>
-              <div class="contact-form-field">
-                <label for="poll-email">Email:</label>
-                <input id="poll-email" name="email" type="email" placeholder="Optional" />
-              </div>
-            </div>
-            <div class="contact-form-row">
-              <div class="contact-form-field">
-                <label for="poll-phone">Contact Number:</label>
-                <input id="poll-phone" name="phone" type="tel" placeholder="Optional" />
-              </div>
-              <div class="contact-form-field">
-                <label for="poll-job-title">Job Title:</label>
-                <input id="poll-job-title" name="job_title" type="text" placeholder="Optional" />
-              </div>
-            </div>
-
-            <div class="contact-form-footer">
-              <p class="contact-privacy-note">
-                We never share individual responses — only aggregate poll results.
-              </p>
-              <button type="submit" class="contact-submit-btn" id="poll-submit-btn">
-                Submit response <span aria-hidden="true">→</span>
-              </button>
-            </div>
-          </form>
-
-          <div id="poll-thanks" hidden style="text-align: center; padding: 2.5rem 1rem;">
-            <h3 style="font-size: 1.6rem; color: #3C3B3B; font-weight: 700; margin-bottom: 0.75rem;">Thank you for taking the poll.</h3>
-            <p style="color: #4C4747; font-family: var(--font-sans, 'Inria Sans', sans-serif); font-size: 1.1rem; line-height: 1.6;">
-              Click "View Poll Results" on the right to see how other leaders responded.
-            </p>
-          </div>
-
-          <p id="poll-error" hidden style="color: #781222; margin-top: 1rem; font-family: var(--font-sans, 'Inria Sans', sans-serif);"></p>
-        </div>
-
-        <!-- Right: Results panel -->
-        <div class="poll-results-panel card card--feature">
-          <h3 class="contact-form-title" style="margin-bottom: 0.5rem;">See how others answered</h3>
-          <p class="contact-form-desc" style="margin-bottom: 1.5rem;">Aggregate results from everyone who has taken this poll so far.</p>
-          <button type="button" class="button primary" id="poll-view-results-btn">
-            View Poll Results
-          </button>
-          <div id="poll-results" hidden style="margin-top: 1.5rem;">
-            <div class="poll-results-header">
-              <p class="poll-total-responses"></p>
-              <button type="button" class="poll-refresh-btn" id="poll-refresh-results-btn">
-                ↻ Refresh
-              </button>
-            </div>
-            <div id="poll-results-charts"></div>
+          <div class="poll-wizard-nav">
+            <button type="button" class="poll-nav-btn poll-nav-btn--ghost" id="poll-back-btn">
+              Back
+            </button>
+            <button type="button" class="poll-nav-btn poll-nav-btn--ghost" id="poll-skip-btn">
+              Skip
+            </button>
+            <button type="button" class="poll-nav-btn poll-nav-btn--primary" id="poll-next-btn">
+              Next
+            </button>
           </div>
         </div>
+
+        <div id="poll-thanks" hidden style="text-align: center; padding: 2.5rem 1rem;">
+          <h3 style="font-size: 1.6rem; color: #3C3B3B; font-weight: 700; margin-bottom: 0.75rem;">Thank you for taking the poll.</h3>
+          <p style="color: #4C4747; font-family: var(--font-sans, 'Inria Sans', sans-serif); font-size: 1.1rem; line-height: 1.6;">
+            Your response has been recorded as part of the group totals.
+          </p>
+        </div>
+
+        <p id="poll-submit-error" hidden style="color: #781222; margin-top: 1rem; font-family: var(--font-sans, 'Inria Sans', sans-serif);"></p>
       </div>
     </div>
   </section>
@@ -111,40 +76,57 @@ import BaseLayout from "../components/BaseLayout.astro";
     required?: boolean;
   }
 
-  interface PollResultsQuestion extends PollQuestion {
-    counts?: Record<string, number>;
-    distribution?: Record<string, number>;
-    average?: number | null;
-    answeredCount?: number;
+  interface Poll {
+    slug: string;
+    title: string;
+    description: string | null;
+    status: string;
+    collectContactInfo: boolean;
+    questions: PollQuestion[];
   }
+
+  type Step = { kind: "question"; question: PollQuestion } | { kind: "contact" };
 
   const API_BASE = "https://api.snsccs.com/api/rapl-audience-poll";
 
-  let activeSlug: string | null = null;
-  let activeQuestions: PollQuestion[] = [];
+  const params = new URLSearchParams(window.location.search);
+  const slugParam = params.get("poll");
 
-  const questionsContainer = document.getElementById("poll-questions");
-  const form = document.getElementById("poll-form") as HTMLFormElement | null;
-  const submitBtn = document.getElementById("poll-submit-btn") as HTMLButtonElement | null;
+  let poll: Poll | null = null;
+  let steps: Step[] = [];
+  let currentStep = 0;
+  const answers: Record<string, string | string[]> = {};
+  const contact = { name: "", email: "", phone: "", job_title: "" };
+
+  const loadingEl = document.getElementById("poll-loading");
+  const unavailableEl = document.getElementById("poll-unavailable");
+  const wizardEl = document.getElementById("poll-wizard");
+  const progressFill = document.getElementById("poll-progress-fill") as HTMLDivElement | null;
+  const progressText = document.getElementById("poll-progress-text");
+  const stepContainer = document.getElementById("poll-step-container");
+  const stepError = document.getElementById("poll-step-error");
+  const backBtn = document.getElementById("poll-back-btn") as HTMLButtonElement | null;
+  const skipBtn = document.getElementById("poll-skip-btn") as HTMLButtonElement | null;
+  const nextBtn = document.getElementById("poll-next-btn") as HTMLButtonElement | null;
   const thanksEl = document.getElementById("poll-thanks");
-  const errorEl = document.getElementById("poll-error");
-  const resultsBtn = document.getElementById("poll-view-results-btn") as HTMLButtonElement | null;
-  const refreshBtn = document.getElementById("poll-refresh-results-btn") as HTMLButtonElement | null;
-  const resultsPanel = document.getElementById("poll-results");
-  const resultsCharts = document.getElementById("poll-results-charts");
-  const totalResponsesEl = document.querySelector<HTMLParagraphElement>(".poll-total-responses");
+  const submitErrorEl = document.getElementById("poll-submit-error");
+  const heroTitle = document.getElementById("poll-hero-title");
+  const heroLede = document.getElementById("poll-hero-lede");
 
-  const renderQuestion = (question: PollQuestion): HTMLElement => {
+  const buildSteps = (loadedPoll: Poll): Step[] => {
+    const questionSteps: Step[] = loadedPoll.questions.map((question) => ({ kind: "question", question }));
+    return loadedPoll.collectContactInfo ? [...questionSteps, { kind: "contact" }] : questionSteps;
+  };
+
+  const questionStepCount = () => steps.filter((step) => step.kind === "question").length;
+
+  const renderOptionsField = (question: PollQuestion): HTMLElement => {
     const wrap = document.createElement("div");
-    wrap.className = "contact-form-field poll-question";
-
-    const label = document.createElement("label");
-    label.textContent = question.label + (question.required ? " *" : "");
-    wrap.appendChild(label);
 
     if (question.type === "single" || question.type === "multi") {
       const optsWrap = document.createElement("div");
       optsWrap.className = "poll-options";
+      const current = answers[question.key];
       (question.options || []).forEach((option, index) => {
         const optId = `${question.key}-${index}`;
         const optLabel = document.createElement("label");
@@ -156,6 +138,8 @@ import BaseLayout from "../components/BaseLayout.astro";
         input.name = `answers.${question.key}`;
         input.id = optId;
         input.value = option;
+        if (question.type === "single" && current === option) input.checked = true;
+        if (question.type === "multi" && Array.isArray(current) && current.includes(option)) input.checked = true;
 
         optLabel.appendChild(input);
         optLabel.appendChild(document.createTextNode(option));
@@ -165,6 +149,7 @@ import BaseLayout from "../components/BaseLayout.astro";
     } else if (question.type === "scale") {
       const scaleWrap = document.createElement("div");
       scaleWrap.className = "poll-scale";
+      const current = answers[question.key];
       for (let i = 1; i <= 5; i += 1) {
         const optLabel = document.createElement("label");
         optLabel.className = "poll-scale-option";
@@ -173,6 +158,7 @@ import BaseLayout from "../components/BaseLayout.astro";
         input.type = "radio";
         input.name = `answers.${question.key}`;
         input.value = String(i);
+        if (current === String(i)) input.checked = true;
 
         optLabel.appendChild(input);
         optLabel.appendChild(document.createTextNode(String(i)));
@@ -183,66 +169,159 @@ import BaseLayout from "../components/BaseLayout.astro";
       const textarea = document.createElement("textarea");
       textarea.name = `answers.${question.key}`;
       textarea.rows = 3;
+      textarea.value = typeof answers[question.key] === "string" ? (answers[question.key] as string) : "";
       wrap.appendChild(textarea);
     }
 
     return wrap;
   };
 
-  const loadActivePoll = async () => {
-    if (!questionsContainer) return;
-    try {
-      const res = await fetch(`${API_BASE}/active`);
-      const json = await res.json();
-      if (!res.ok || !json.success) throw new Error(json.message || "Unable to load poll");
+  const renderQuestionStep = (question: PollQuestion) => {
+    if (!stepContainer) return;
+    stepContainer.innerHTML = "";
 
-      activeSlug = json.data.slug;
-      activeQuestions = Array.isArray(json.data.questions) ? json.data.questions : [];
+    const label = document.createElement("h3");
+    label.className = "poll-step-question";
+    label.textContent = question.label + (question.required ? " *" : "");
+    stepContainer.appendChild(label);
+    stepContainer.appendChild(renderOptionsField(question));
+  };
 
-      questionsContainer.innerHTML = "";
-      activeQuestions.forEach((question) => questionsContainer.appendChild(renderQuestion(question)));
-    } catch (err) {
-      questionsContainer.innerHTML = "";
-      const message = document.createElement("p");
-      message.className = "poll-loading";
-      message.textContent = "This poll isn't available right now.";
-      questionsContainer.appendChild(message);
+  const renderContactStep = () => {
+    if (!stepContainer) return;
+    stepContainer.innerHTML = "";
+
+    const intro = document.createElement("h3");
+    intro.className = "poll-step-question";
+    intro.textContent = "Optional — want us to follow up?";
+    stepContainer.appendChild(intro);
+
+    const fields: Array<{ id: string; name: keyof typeof contact; label: string; type: string }> = [
+      { id: "poll-name", name: "name", label: "Name:", type: "text" },
+      { id: "poll-email", name: "email", label: "Email:", type: "email" },
+      { id: "poll-phone", name: "phone", label: "Contact Number:", type: "tel" },
+      { id: "poll-job-title", name: "job_title", label: "Job Title:", type: "text" }
+    ];
+
+    fields.forEach((field) => {
+      const row = document.createElement("div");
+      row.className = "contact-form-field";
+      const fieldLabel = document.createElement("label");
+      fieldLabel.setAttribute("for", field.id);
+      fieldLabel.textContent = field.label;
+      const input = document.createElement("input");
+      input.id = field.id;
+      input.type = field.type;
+      input.name = field.name;
+      input.placeholder = "Optional";
+      input.value = contact[field.name];
+      row.appendChild(fieldLabel);
+      row.appendChild(input);
+      stepContainer.appendChild(row);
+    });
+  };
+
+  const updateNav = () => {
+    if (!backBtn || !skipBtn || !nextBtn) return;
+    const step = steps[currentStep];
+
+    backBtn.disabled = currentStep === 0;
+
+    const isRequiredQuestion = step.kind === "question" && Boolean(step.question.required);
+    skipBtn.hidden = isRequiredQuestion;
+
+    const isLastStep = currentStep === steps.length - 1;
+    nextBtn.textContent = isLastStep ? "Submit" : "Next";
+  };
+
+  const renderStep = () => {
+    stepError?.setAttribute("hidden", "true");
+    const step = steps[currentStep];
+
+    if (heroTitle && heroLede) {
+      if (step.kind === "question") {
+        const qIndex = steps.slice(0, currentStep + 1).filter((s) => s.kind === "question").length;
+        heroLede.textContent = `Question ${qIndex} of ${questionStepCount()} — you can skip any question.`;
+      } else {
+        heroLede.textContent = "Just a couple more optional fields, then you're done.";
+      }
+    }
+
+    if (progressFill) {
+      const pct = Math.round(((currentStep + 1) / steps.length) * 100);
+      progressFill.style.width = `${pct}%`;
+    }
+    if (progressText) {
+      progressText.textContent = `Step ${currentStep + 1} of ${steps.length}`;
+    }
+
+    if (step.kind === "question") {
+      renderQuestionStep(step.question);
+    } else {
+      renderContactStep();
+    }
+
+    updateNav();
+  };
+
+  const collectCurrentStep = () => {
+    const step = steps[currentStep];
+    if (!stepContainer) return;
+
+    if (step.kind === "question") {
+      const { key, type } = step.question;
+      if (type === "multi") {
+        const checked = Array.from(stepContainer.querySelectorAll<HTMLInputElement>(`input[name="answers.${key}"]:checked`));
+        const values = checked.map((input) => input.value);
+        if (values.length) answers[key] = values;
+        else delete answers[key];
+      } else if (type === "text") {
+        const textarea = stepContainer.querySelector<HTMLTextAreaElement>(`textarea[name="answers.${key}"]`);
+        const value = textarea?.value.trim() || "";
+        if (value) answers[key] = value;
+        else delete answers[key];
+      } else {
+        const checked = stepContainer.querySelector<HTMLInputElement>(`input[name="answers.${key}"]:checked`);
+        if (checked) answers[key] = checked.value;
+        else delete answers[key];
+      }
+    } else {
+      (Object.keys(contact) as Array<keyof typeof contact>).forEach((name) => {
+        const input = stepContainer.querySelector<HTMLInputElement>(`input[name="${name}"]`);
+        contact[name] = input?.value.trim() || "";
+      });
     }
   };
 
-  const collectAnswers = (formData: FormData): Record<string, string | string[]> => {
-    const answers: Record<string, string | string[]> = {};
-    activeQuestions.forEach((question) => {
-      if (question.type === "multi") {
-        const values = formData.getAll(`answers.${question.key}`).map(String);
-        if (values.length) answers[question.key] = values;
-      } else {
-        const value = formData.get(`answers.${question.key}`);
-        if (value !== null && String(value) !== "") answers[question.key] = String(value);
-      }
-    });
-    return answers;
+  const clearCurrentStepAnswer = () => {
+    const step = steps[currentStep];
+    if (step.kind === "question") {
+      delete answers[step.question.key];
+    } else {
+      (Object.keys(contact) as Array<keyof typeof contact>).forEach((name) => {
+        contact[name] = "";
+      });
+    }
   };
 
-  form?.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    if (!form || !activeSlug) return;
+  const submitPoll = async () => {
+    if (!poll || !nextBtn) return;
 
-    errorEl?.setAttribute("hidden", "true");
-    const formData = new FormData(form);
+    nextBtn.disabled = true;
+    if (backBtn) backBtn.disabled = true;
+    if (skipBtn) skipBtn.disabled = true;
+    submitErrorEl?.setAttribute("hidden", "true");
 
     const payload = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
-      job_title: formData.get("job_title"),
-      answers: collectAnswers(formData)
+      name: contact.name,
+      email: contact.email,
+      phone: contact.phone,
+      job_title: contact.job_title,
+      answers
     };
 
-    if (submitBtn) submitBtn.disabled = true;
-
     try {
-      const res = await fetch(`${API_BASE}/${activeSlug}/responses`, {
+      const res = await fetch(`${API_BASE}/${poll.slug}/responses`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -254,130 +333,77 @@ import BaseLayout from "../components/BaseLayout.astro";
         throw new Error(message);
       }
 
-      form.style.display = "none";
+      wizardEl?.setAttribute("hidden", "true");
       thanksEl?.removeAttribute("hidden");
     } catch (err) {
-      if (errorEl) {
-        errorEl.textContent = err instanceof Error ? err.message : "Something went wrong. Please try again.";
-        errorEl.removeAttribute("hidden");
+      if (submitErrorEl) {
+        submitErrorEl.textContent = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+        submitErrorEl.removeAttribute("hidden");
       }
-    } finally {
-      if (submitBtn) submitBtn.disabled = false;
+      nextBtn.disabled = false;
+      if (backBtn) backBtn.disabled = false;
+      if (skipBtn) skipBtn.disabled = false;
     }
+  };
+
+  backBtn?.addEventListener("click", () => {
+    if (currentStep === 0) return;
+    collectCurrentStep();
+    currentStep -= 1;
+    renderStep();
   });
 
-  const renderBar = (labelText: string, count: number, total: number): HTMLElement => {
-    const pct = total > 0 ? Math.round((count / total) * 100) : 0;
-
-    const row = document.createElement("div");
-    row.className = "poll-bar-row";
-
-    const labelEl = document.createElement("div");
-    labelEl.className = "poll-bar-label";
-    labelEl.textContent = labelText;
-
-    const track = document.createElement("div");
-    track.className = "poll-bar-track";
-    const fill = document.createElement("div");
-    fill.className = "poll-bar-fill";
-    fill.style.width = `${pct}%`;
-    track.appendChild(fill);
-
-    const countEl = document.createElement("div");
-    countEl.className = "poll-bar-count";
-    countEl.textContent = `${count} (${pct}%)`;
-
-    row.appendChild(labelEl);
-    row.appendChild(track);
-    row.appendChild(countEl);
-    return row;
-  };
-
-  const renderResults = (data: { totalResponses: number; questions: PollResultsQuestion[] }) => {
-    if (!resultsCharts || !totalResponsesEl) return;
-
-    totalResponsesEl.textContent = `${data.totalResponses} response${data.totalResponses === 1 ? "" : "s"} so far`;
-    resultsCharts.innerHTML = "";
-
-    (data.questions || []).forEach((question) => {
-      const block = document.createElement("div");
-      block.className = "poll-result-block";
-
-      const heading = document.createElement("h4");
-      heading.className = "poll-result-question";
-      heading.textContent = question.label;
-      block.appendChild(heading);
-
-      if (question.type === "scale") {
-        const avg = document.createElement("p");
-        avg.className = "poll-result-average";
-        avg.textContent = question.average != null ? `Average: ${question.average} / 5` : "No responses yet";
-        block.appendChild(avg);
-        for (let i = 1; i <= 5; i += 1) {
-          block.appendChild(renderBar(String(i), question.distribution?.[i] || 0, data.totalResponses));
-        }
-      } else if (question.type === "text") {
-        const p = document.createElement("p");
-        p.textContent = `${question.answeredCount || 0} response${question.answeredCount === 1 ? "" : "s"}`;
-        block.appendChild(p);
-      } else {
-        (question.options || []).forEach((option) => {
-          block.appendChild(renderBar(option, question.counts?.[option] || 0, data.totalResponses));
-        });
-      }
-
-      resultsCharts.appendChild(block);
-    });
-  };
-
-  const fetchResults = async (): Promise<{ totalResponses: number; questions: PollResultsQuestion[] } | null> => {
-    if (!activeSlug) return null;
-    const res = await fetch(`${API_BASE}/${activeSlug}/results`);
-    const json = await res.json();
-    if (!res.ok || !json.success) throw new Error(json.message || "Unable to load results");
-    return json.data;
-  };
-
-  resultsBtn?.addEventListener("click", async () => {
-    if (!activeSlug || !resultsPanel || !resultsBtn) return;
-
-    resultsBtn.disabled = true;
-    resultsBtn.textContent = "Loading…";
-
-    try {
-      const data = await fetchResults();
-      if (data) renderResults(data);
-      resultsPanel.removeAttribute("hidden");
-      resultsBtn.style.display = "none";
-    } catch (err) {
-      resultsBtn.textContent = "View Poll Results";
-      resultsBtn.disabled = false;
-    }
-  });
-
-  refreshBtn?.addEventListener("click", async () => {
-    if (!activeSlug || !refreshBtn) return;
-
-    refreshBtn.disabled = true;
-    const originalLabel = refreshBtn.textContent;
-    refreshBtn.textContent = "Refreshing…";
-
-    try {
-      const data = await fetchResults();
-      if (data) renderResults(data);
-    } catch (err) {
-      // Keep the last-good results on screen; briefly note the refresh failed.
-      refreshBtn.textContent = "Refresh failed";
-      setTimeout(() => {
-        if (refreshBtn) refreshBtn.textContent = originalLabel;
-      }, 2000);
+  skipBtn?.addEventListener("click", () => {
+    clearCurrentStepAnswer();
+    if (currentStep === steps.length - 1) {
+      submitPoll();
       return;
-    } finally {
-      refreshBtn.disabled = false;
     }
-
-    refreshBtn.textContent = originalLabel;
+    currentStep += 1;
+    renderStep();
   });
 
-  loadActivePoll();
+  nextBtn?.addEventListener("click", () => {
+    collectCurrentStep();
+
+    const step = steps[currentStep];
+    if (step.kind === "question" && step.question.required && !answers[step.question.key]) {
+      if (stepError) {
+        stepError.textContent = "This question is required.";
+        stepError.removeAttribute("hidden");
+      }
+      return;
+    }
+
+    if (currentStep === steps.length - 1) {
+      submitPoll();
+      return;
+    }
+    currentStep += 1;
+    renderStep();
+  });
+
+  const loadPoll = async () => {
+    try {
+      const endpoint = slugParam ? `${API_BASE}/${encodeURIComponent(slugParam)}` : `${API_BASE}/active`;
+      const res = await fetch(endpoint);
+      const json = await res.json();
+      if (!res.ok || !json.success) throw new Error(json.message || "Unable to load poll");
+
+      poll = json.data as Poll;
+      if (poll.status !== "active") throw new Error("This poll is not currently active");
+
+      steps = buildSteps(poll);
+      if (heroTitle) heroTitle.textContent = poll.title;
+
+      loadingEl?.setAttribute("hidden", "true");
+      wizardEl?.removeAttribute("hidden");
+      renderStep();
+    } catch (err) {
+      loadingEl?.setAttribute("hidden", "true");
+      unavailableEl?.removeAttribute("hidden");
+    }
+  };
+
+  loadPoll();
 </script>

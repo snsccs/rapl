@@ -1,0 +1,231 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Poll Results | RAPL™ Leadership"
+  description="Live presenter view of RAPL™ audience poll results."
+  noindex
+>
+  <section class="presenter-shell">
+    <p id="presenter-loading" class="poll-loading">Loading…</p>
+    <p id="presenter-unavailable" class="poll-loading" hidden>This poll isn't available right now.</p>
+
+    <div id="presenter-view" hidden>
+      <header class="presenter-header">
+        <h1 id="presenter-title" class="presenter-title"></h1>
+        <p id="presenter-progress" class="presenter-progress"></p>
+      </header>
+
+      <div class="presenter-question-card">
+        <h2 id="presenter-question-label" class="presenter-question-label"></h2>
+        <p id="presenter-answered-count" class="presenter-answered-count"></p>
+
+        <button type="button" id="presenter-reveal-btn" class="button primary">
+          Reveal results
+        </button>
+
+        <div id="presenter-bars" hidden></div>
+      </div>
+
+      <div class="presenter-nav">
+        <button type="button" id="presenter-back-btn" class="poll-nav-btn poll-nav-btn--ghost">
+          ← Previous
+        </button>
+        <button type="button" id="presenter-next-btn" class="poll-nav-btn poll-nav-btn--primary">
+          Next →
+        </button>
+      </div>
+
+      <footer class="presenter-footer">
+        Audience responses are self-reported and not a validated capability assessment.
+      </footer>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  interface PollQuestion {
+    key: string;
+    label: string;
+    type: "single" | "multi" | "scale" | "text";
+    options?: string[];
+    required?: boolean;
+  }
+
+  interface PollResultsQuestion extends PollQuestion {
+    counts?: Record<string, number>;
+    percentages?: Record<string, number>;
+    distribution?: Record<string, number>;
+    average?: number | null;
+    answeredCount: number;
+  }
+
+  interface PollResults {
+    totalResponses: number;
+    questions: PollResultsQuestion[];
+  }
+
+  const API_BASE = "https://api.snsccs.com/api/rapl-audience-poll";
+  const params = new URLSearchParams(window.location.search);
+  const slugParam = params.get("poll");
+
+  let pollSlug: string | null = null;
+  let questions: PollQuestion[] = [];
+  let currentIndex = 0;
+  let latestResults: PollResults | null = null;
+  const revealed = new Set<string>();
+
+  const loadingEl = document.getElementById("presenter-loading");
+  const unavailableEl = document.getElementById("presenter-unavailable");
+  const viewEl = document.getElementById("presenter-view");
+  const titleEl = document.getElementById("presenter-title");
+  const progressEl = document.getElementById("presenter-progress");
+  const questionLabelEl = document.getElementById("presenter-question-label");
+  const answeredCountEl = document.getElementById("presenter-answered-count");
+  const revealBtn = document.getElementById("presenter-reveal-btn") as HTMLButtonElement | null;
+  const barsEl = document.getElementById("presenter-bars");
+  const backBtn = document.getElementById("presenter-back-btn") as HTMLButtonElement | null;
+  const nextBtn = document.getElementById("presenter-next-btn") as HTMLButtonElement | null;
+
+  const renderBar = (labelText: string, count: number, pct: number): HTMLElement => {
+    const row = document.createElement("div");
+    row.className = "poll-bar-row";
+
+    const labelEl = document.createElement("div");
+    labelEl.className = "poll-bar-label";
+    labelEl.textContent = labelText;
+
+    const track = document.createElement("div");
+    track.className = "poll-bar-track";
+    const fill = document.createElement("div");
+    fill.className = "poll-bar-fill";
+    fill.style.width = `${pct}%`;
+    track.appendChild(fill);
+
+    const countEl = document.createElement("div");
+    countEl.className = "poll-bar-count";
+    countEl.textContent = `${count} (${pct}%)`;
+
+    row.appendChild(labelEl);
+    row.appendChild(track);
+    row.appendChild(countEl);
+    return row;
+  };
+
+  const renderBarsForQuestion = (key: string) => {
+    if (!barsEl || !answeredCountEl) return;
+    const result = latestResults?.questions.find((q) => q.key === key);
+
+    if (!result) {
+      answeredCountEl.textContent = "0 answered";
+      barsEl.innerHTML = "";
+      return;
+    }
+
+    answeredCountEl.textContent = `${result.answeredCount} answered${
+      latestResults ? ` of ${latestResults.totalResponses} responses` : ""
+    }`;
+    barsEl.innerHTML = "";
+
+    if (result.type === "scale") {
+      const avg = document.createElement("p");
+      avg.className = "poll-result-average";
+      avg.textContent = result.average != null ? `Average: ${result.average} / 5` : "No responses yet";
+      barsEl.appendChild(avg);
+      for (let i = 1; i <= 5; i += 1) {
+        const count = result.distribution?.[i] || 0;
+        const pct = result.answeredCount > 0 ? Math.round((count / result.answeredCount) * 1000) / 10 : 0;
+        barsEl.appendChild(renderBar(String(i), count, pct));
+      }
+    } else if (result.type === "text") {
+      const p = document.createElement("p");
+      p.textContent = `${result.answeredCount} response${result.answeredCount === 1 ? "" : "s"}`;
+      barsEl.appendChild(p);
+    } else {
+      (result.options || []).forEach((option) => {
+        const count = result.counts?.[option] || 0;
+        const pct = result.percentages?.[option] ?? 0;
+        barsEl.appendChild(renderBar(option, count, pct));
+      });
+    }
+  };
+
+  const renderCurrentQuestion = () => {
+    const question = questions[currentIndex];
+    if (!question || !questionLabelEl || !progressEl || !revealBtn || !barsEl || !backBtn || !nextBtn) return;
+
+    questionLabelEl.textContent = question.label;
+    progressEl.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
+    backBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === questions.length - 1;
+
+    const isRevealed = revealed.has(question.key);
+    revealBtn.hidden = isRevealed;
+    barsEl.hidden = !isRevealed;
+
+    if (isRevealed) {
+      renderBarsForQuestion(question.key);
+    } else if (answeredCountEl) {
+      answeredCountEl.textContent = "";
+    }
+  };
+
+  revealBtn?.addEventListener("click", () => {
+    const question = questions[currentIndex];
+    if (!question) return;
+    revealed.add(question.key);
+    renderCurrentQuestion();
+  });
+
+  backBtn?.addEventListener("click", () => {
+    if (currentIndex === 0) return;
+    currentIndex -= 1;
+    renderCurrentQuestion();
+  });
+
+  nextBtn?.addEventListener("click", () => {
+    if (currentIndex === questions.length - 1) return;
+    currentIndex += 1;
+    renderCurrentQuestion();
+  });
+
+  const connectLiveUpdates = (slug: string) => {
+    if (typeof EventSource === "undefined") return;
+
+    const source = new EventSource(`${API_BASE}/${slug}/results/stream`);
+    source.onmessage = (event) => {
+      try {
+        latestResults = JSON.parse(event.data) as PollResults;
+        const currentKey = questions[currentIndex]?.key;
+        if (currentKey && revealed.has(currentKey)) renderBarsForQuestion(currentKey);
+      } catch {
+        // Ignore malformed events; the next push will self-correct.
+      }
+    };
+  };
+
+  const loadPoll = async () => {
+    try {
+      const endpoint = slugParam ? `${API_BASE}/${encodeURIComponent(slugParam)}` : `${API_BASE}/active`;
+      const res = await fetch(endpoint);
+      const json = await res.json();
+      if (!res.ok || !json.success) throw new Error(json.message || "Unable to load poll");
+
+      pollSlug = json.data.slug;
+      questions = Array.isArray(json.data.questions) ? json.data.questions : [];
+      if (titleEl) titleEl.textContent = json.data.title;
+
+      loadingEl?.setAttribute("hidden", "true");
+      viewEl?.removeAttribute("hidden");
+
+      renderCurrentQuestion();
+      if (pollSlug) connectLiveUpdates(pollSlug);
+    } catch (err) {
+      loadingEl?.setAttribute("hidden", "true");
+      unavailableEl?.removeAttribute("hidden");
+    }
+  };
+
+  loadPoll();
+</script>
