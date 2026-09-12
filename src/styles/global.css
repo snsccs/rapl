@@ -7317,7 +7317,7 @@ img {
 
 .poll-split-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
   gap: 2rem;
   align-items: stretch;
 }
@@ -7392,10 +7392,11 @@ img {
 
 .poll-bar-row {
   display: grid;
-  grid-template-columns: minmax(8rem, 38%) 1fr auto;
+  grid-template-columns: minmax(8rem, 34%) 1fr 5rem;
   align-items: center;
   gap: 0.85rem;
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.85rem;
+  min-height: 3.25rem;
 }
 
 .poll-bar-label {

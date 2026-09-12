@@ -267,12 +267,13 @@ import BaseLayout from "../components/BaseLayout.astro";
 
     const figure = document.createElement("div");
     figure.className = "poll-bar-figure";
+    figure.title = `${count} response${count === 1 ? "" : "s"}`;
     const pctEl = document.createElement("span");
     pctEl.className = "poll-bar-pct";
     pctEl.textContent = `${pct}%`;
     const countEl = document.createElement("span");
     countEl.className = "poll-bar-count";
-    countEl.textContent = `· ${count} response${count === 1 ? "" : "s"}`;
+    countEl.textContent = `· ${count}`;
     figure.appendChild(pctEl);
     figure.appendChild(countEl);
 
