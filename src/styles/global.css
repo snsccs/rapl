@@ -7311,7 +7311,12 @@ img {
   font-style: italic;
 }
 
-.poll-options,
+.poll-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
 .poll-scale {
   display: flex;
   flex-wrap: wrap;
