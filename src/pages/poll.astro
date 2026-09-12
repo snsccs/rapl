@@ -25,43 +25,54 @@ import BaseLayout from "../components/BaseLayout.astro";
 
   <!-- ==================== 2. POLL WIZARD ==================== -->
   <section class="section" style="background: #ffffff; padding-block: clamp(3rem, 6vw, 5rem);">
-    <div class="site-shell" style="max-width: 60rem; margin-inline: auto;">
-      <div class="contact-form-card reveal-on-scroll" id="poll-wizard-card">
-        <p id="poll-loading" class="poll-loading">Loading poll…</p>
-        <p id="poll-unavailable" class="poll-loading" hidden>This poll isn't available right now.</p>
+    <div class="site-shell" style="max-width: 100rem; margin-inline: auto;">
+      <div class="poll-split-layout">
+        <div class="contact-form-card reveal-on-scroll" id="poll-wizard-card">
+          <p id="poll-loading" class="poll-loading">Loading poll…</p>
+          <p id="poll-unavailable" class="poll-loading" hidden>This poll isn't available right now.</p>
 
-        <div id="poll-wizard" hidden>
-          <div class="poll-wizard-progress">
-            <div class="poll-wizard-progress-track">
-              <div class="poll-wizard-progress-fill" id="poll-progress-fill"></div>
+          <div id="poll-wizard" hidden>
+            <div class="poll-wizard-progress">
+              <div class="poll-wizard-progress-track">
+                <div class="poll-wizard-progress-fill" id="poll-progress-fill"></div>
+              </div>
+              <p class="poll-wizard-progress-text" id="poll-progress-text"></p>
             </div>
-            <p class="poll-wizard-progress-text" id="poll-progress-text"></p>
+
+            <div id="poll-step-container" class="poll-step-container"></div>
+            <p id="poll-step-error" class="poll-step-error" hidden></p>
+
+            <div class="poll-wizard-nav">
+              <button type="button" class="poll-nav-btn poll-nav-btn--ghost" id="poll-back-btn">
+                Back
+              </button>
+              <button type="button" class="poll-nav-btn poll-nav-btn--ghost" id="poll-skip-btn">
+                Skip
+              </button>
+              <button type="button" class="poll-nav-btn poll-nav-btn--primary" id="poll-next-btn">
+                Next
+              </button>
+            </div>
           </div>
 
-          <div id="poll-step-container" class="poll-step-container"></div>
-          <p id="poll-step-error" class="poll-step-error" hidden></p>
-
-          <div class="poll-wizard-nav">
-            <button type="button" class="poll-nav-btn poll-nav-btn--ghost" id="poll-back-btn">
-              Back
-            </button>
-            <button type="button" class="poll-nav-btn poll-nav-btn--ghost" id="poll-skip-btn">
-              Skip
-            </button>
-            <button type="button" class="poll-nav-btn poll-nav-btn--primary" id="poll-next-btn">
-              Next
-            </button>
+          <div id="poll-thanks" hidden style="text-align: center; padding: 2.5rem 1rem;">
+            <h3 style="font-size: 1.6rem; color: #3C3B3B; font-weight: 700; margin-bottom: 0.75rem;">Thank you for taking the poll.</h3>
+            <p style="color: #4C4747; font-family: var(--font-sans, 'Inria Sans', sans-serif); font-size: 1.1rem; line-height: 1.6;">
+              Your response has been recorded as part of the group totals.
+            </p>
           </div>
+
+          <p id="poll-submit-error" hidden style="color: #781222; margin-top: 1rem; font-family: var(--font-sans, 'Inria Sans', sans-serif);"></p>
         </div>
 
-        <div id="poll-thanks" hidden style="text-align: center; padding: 2.5rem 1rem;">
-          <h3 style="font-size: 1.6rem; color: #3C3B3B; font-weight: 700; margin-bottom: 0.75rem;">Thank you for taking the poll.</h3>
-          <p style="color: #4C4747; font-family: var(--font-sans, 'Inria Sans', sans-serif); font-size: 1.1rem; line-height: 1.6;">
-            Your response has been recorded as part of the group totals.
-          </p>
+        <div class="contact-form-card poll-results-panel" id="poll-results-panel" hidden>
+          <div class="poll-results-panel-head">
+            <div class="eyebrow" style="color: #755436;">LIVE RESULTS</div>
+            <h3 class="poll-results-panel-title" id="poll-results-title">This question's results</h3>
+            <p class="poll-results-panel-sub" id="poll-results-subtitle"></p>
+          </div>
+          <div id="poll-results-body"></div>
         </div>
-
-        <p id="poll-submit-error" hidden style="color: #781222; margin-top: 1rem; font-family: var(--font-sans, 'Inria Sans', sans-serif);"></p>
       </div>
     </div>
   </section>
@@ -85,6 +96,19 @@ import BaseLayout from "../components/BaseLayout.astro";
     questions: PollQuestion[];
   }
 
+  interface PollResultsQuestion extends PollQuestion {
+    counts?: Record<string, number>;
+    percentages?: Record<string, number>;
+    distribution?: Record<string, number>;
+    average?: number | null;
+    answeredCount: number;
+  }
+
+  interface PollResults {
+    totalResponses: number;
+    questions: PollResultsQuestion[];
+  }
+
   type Step = { kind: "question"; question: PollQuestion } | { kind: "contact" };
 
   const API_BASE = "https://api.snsccs.com/api/rapl-audience-poll";
@@ -95,6 +119,7 @@ import BaseLayout from "../components/BaseLayout.astro";
   let poll: Poll | null = null;
   let steps: Step[] = [];
   let currentStep = 0;
+  let latestResults: PollResults | null = null;
   const answers: Record<string, string | string[]> = {};
   const contact = { name: "", email: "", phone: "", job_title: "" };
 
@@ -112,6 +137,10 @@ import BaseLayout from "../components/BaseLayout.astro";
   const submitErrorEl = document.getElementById("poll-submit-error");
   const heroTitle = document.getElementById("poll-hero-title");
   const heroLede = document.getElementById("poll-hero-lede");
+  const resultsPanelEl = document.getElementById("poll-results-panel");
+  const resultsTitleEl = document.getElementById("poll-results-title");
+  const resultsSubtitleEl = document.getElementById("poll-results-subtitle");
+  const resultsBodyEl = document.getElementById("poll-results-body");
 
   const buildSteps = (loadedPoll: Poll): Step[] => {
     const questionSteps: Step[] = loadedPoll.questions.map((question) => ({ kind: "question", question }));
@@ -221,6 +250,98 @@ import BaseLayout from "../components/BaseLayout.astro";
     });
   };
 
+  const renderBar = (labelText: string, count: number, pct: number): HTMLElement => {
+    const row = document.createElement("div");
+    row.className = "poll-bar-row";
+
+    const labelEl = document.createElement("div");
+    labelEl.className = "poll-bar-label";
+    labelEl.textContent = labelText;
+
+    const track = document.createElement("div");
+    track.className = "poll-bar-track";
+    const fill = document.createElement("div");
+    fill.className = "poll-bar-fill";
+    fill.style.width = `${pct}%`;
+    track.appendChild(fill);
+
+    const countEl = document.createElement("div");
+    countEl.className = "poll-bar-count";
+    countEl.textContent = `${count} (${pct}%)`;
+
+    row.appendChild(labelEl);
+    row.appendChild(track);
+    row.appendChild(countEl);
+    return row;
+  };
+
+  const renderResultsForStep = () => {
+    if (!resultsBodyEl || !resultsSubtitleEl || !resultsTitleEl) return;
+    const step = steps[currentStep];
+
+    if (!step || step.kind !== "question") {
+      resultsTitleEl.textContent = "Thanks for taking part";
+      resultsSubtitleEl.textContent = latestResults
+        ? `${latestResults.totalResponses} response${latestResults.totalResponses === 1 ? "" : "s"} so far`
+        : "";
+      resultsBodyEl.innerHTML = "";
+      const p = document.createElement("p");
+      p.className = "poll-loading";
+      p.textContent = "Live results for each question show here as you go through the poll.";
+      resultsBodyEl.appendChild(p);
+      return;
+    }
+
+    const { key, label, type } = step.question;
+    resultsTitleEl.textContent = label;
+    const result = latestResults?.questions.find((q) => q.key === key);
+
+    if (!result) {
+      resultsSubtitleEl.textContent = "No responses yet";
+      resultsBodyEl.innerHTML = "";
+      return;
+    }
+
+    resultsSubtitleEl.textContent = `${result.answeredCount} answered of ${latestResults?.totalResponses ?? 0} responses`;
+    resultsBodyEl.innerHTML = "";
+
+    if (type === "scale") {
+      const avg = document.createElement("p");
+      avg.className = "poll-result-average";
+      avg.textContent = result.average != null ? `Average: ${result.average} / 5` : "No responses yet";
+      resultsBodyEl.appendChild(avg);
+      for (let i = 1; i <= 5; i += 1) {
+        const count = result.distribution?.[i] || 0;
+        const pct = result.answeredCount > 0 ? Math.round((count / result.answeredCount) * 1000) / 10 : 0;
+        resultsBodyEl.appendChild(renderBar(String(i), count, pct));
+      }
+    } else if (type === "text") {
+      const p = document.createElement("p");
+      p.textContent = `${result.answeredCount} response${result.answeredCount === 1 ? "" : "s"} submitted so far.`;
+      resultsBodyEl.appendChild(p);
+    } else {
+      (result.options || []).forEach((option) => {
+        const count = result.counts?.[option] || 0;
+        const pct = result.percentages?.[option] ?? 0;
+        resultsBodyEl.appendChild(renderBar(option, count, pct));
+      });
+    }
+  };
+
+  const connectLiveResults = (slug: string) => {
+    if (typeof EventSource === "undefined") return;
+
+    const source = new EventSource(`${API_BASE}/${slug}/results/stream`);
+    source.onmessage = (event) => {
+      try {
+        latestResults = JSON.parse(event.data) as PollResults;
+        renderResultsForStep();
+      } catch {
+        // Ignore malformed events; the next push will self-correct.
+      }
+    };
+  };
+
   const updateNav = () => {
     if (!backBtn || !skipBtn || !nextBtn) return;
     const step = steps[currentStep];
@@ -262,6 +383,7 @@ import BaseLayout from "../components/BaseLayout.astro";
     }
 
     updateNav();
+    renderResultsForStep();
   };
 
   const collectCurrentStep = () => {
@@ -398,7 +520,9 @@ import BaseLayout from "../components/BaseLayout.astro";
 
       loadingEl?.setAttribute("hidden", "true");
       wizardEl?.removeAttribute("hidden");
+      resultsPanelEl?.removeAttribute("hidden");
       renderStep();
+      connectLiveResults(poll.slug);
     } catch (err) {
       loadingEl?.setAttribute("hidden", "true");
       unavailableEl?.removeAttribute("hidden");
