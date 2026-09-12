@@ -303,6 +303,17 @@ import BaseLayout from "../components/BaseLayout.astro";
     return svg as unknown as SVGSVGElement;
   };
 
+  const setHeadingWithBadge = (el: HTMLElement, ordinal: number | null, text: string) => {
+    el.innerHTML = "";
+    if (ordinal !== null) {
+      const badge = document.createElement("span");
+      badge.className = "poll-question-badge";
+      badge.textContent = `Q${ordinal}`;
+      el.appendChild(badge);
+    }
+    el.appendChild(document.createTextNode(text));
+  };
+
   const renderOverview = () => {
     if (!barsEl || !answeredCountEl || !latestResults) return;
 
@@ -312,13 +323,13 @@ import BaseLayout from "../components/BaseLayout.astro";
     const grid = document.createElement("div");
     grid.className = "poll-overview-grid";
 
-    latestResults.questions.forEach((question) => {
+    latestResults.questions.forEach((question, index) => {
       const card = document.createElement("div");
       card.className = "poll-chart-card";
 
       const heading = document.createElement("h4");
       heading.className = "poll-chart-title";
-      heading.textContent = question.label;
+      setHeadingWithBadge(heading, index + 1, question.label);
       heading.title = question.label;
       card.appendChild(heading);
 
@@ -366,12 +377,12 @@ import BaseLayout from "../components/BaseLayout.astro";
     viewEl?.classList.toggle("is-overview", isOverviewStep);
 
     if (isOverviewStep) {
-      questionLabelEl.textContent = "Overall Poll Results";
+      setHeadingWithBadge(questionLabelEl, null, "Overall Poll Results");
       progressEl.textContent = "Overview";
     } else {
       const question = questions[currentIndex];
       if (!question) return;
-      questionLabelEl.textContent = question.label;
+      setHeadingWithBadge(questionLabelEl, currentIndex + 1, question.label);
       progressEl.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
     }
 

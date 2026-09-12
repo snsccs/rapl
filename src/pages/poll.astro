@@ -205,13 +205,30 @@ import BaseLayout from "../components/BaseLayout.astro";
     return wrap;
   };
 
+  const questionOrdinal = (key: string): number | null => {
+    if (!poll) return null;
+    const idx = poll.questions.findIndex((q) => q.key === key);
+    return idx === -1 ? null : idx + 1;
+  };
+
+  const setHeadingWithBadge = (el: HTMLElement, ordinal: number | null, text: string) => {
+    el.innerHTML = "";
+    if (ordinal !== null) {
+      const badge = document.createElement("span");
+      badge.className = "poll-question-badge";
+      badge.textContent = `Q${ordinal}`;
+      el.appendChild(badge);
+    }
+    el.appendChild(document.createTextNode(text));
+  };
+
   const renderQuestionStep = (question: PollQuestion) => {
     if (!stepContainer) return;
     stepContainer.innerHTML = "";
 
     const label = document.createElement("h3");
     label.className = "poll-step-question";
-    label.textContent = question.label + (question.required ? " *" : "");
+    setHeadingWithBadge(label, questionOrdinal(question.key), question.label + (question.required ? " *" : ""));
     stepContainer.appendChild(label);
     stepContainer.appendChild(renderOptionsField(question));
   };
@@ -288,7 +305,7 @@ import BaseLayout from "../components/BaseLayout.astro";
     const step = steps[currentStep];
 
     if (!step || step.kind !== "question") {
-      resultsTitleEl.textContent = "Thanks for taking part";
+      setHeadingWithBadge(resultsTitleEl, null, "Thanks for taking part");
       resultsSubtitleEl.textContent = latestResults
         ? `${latestResults.totalResponses} response${latestResults.totalResponses === 1 ? "" : "s"} so far`
         : "";
@@ -301,7 +318,7 @@ import BaseLayout from "../components/BaseLayout.astro";
     }
 
     const { key, label, type } = step.question;
-    resultsTitleEl.textContent = label;
+    setHeadingWithBadge(resultsTitleEl, questionOrdinal(key), label);
     const result = latestResults?.questions.find((q) => q.key === key);
 
     if (!result) {
