@@ -265,13 +265,20 @@ import BaseLayout from "../components/BaseLayout.astro";
     fill.style.width = `${pct}%`;
     track.appendChild(fill);
 
-    const countEl = document.createElement("div");
+    const figure = document.createElement("div");
+    figure.className = "poll-bar-figure";
+    const pctEl = document.createElement("span");
+    pctEl.className = "poll-bar-pct";
+    pctEl.textContent = `${pct}%`;
+    const countEl = document.createElement("span");
     countEl.className = "poll-bar-count";
-    countEl.textContent = `${count} (${pct}%)`;
+    countEl.textContent = `· ${count} response${count === 1 ? "" : "s"}`;
+    figure.appendChild(pctEl);
+    figure.appendChild(countEl);
 
     row.appendChild(labelEl);
     row.appendChild(track);
-    row.appendChild(countEl);
+    row.appendChild(figure);
     return row;
   };
 
@@ -302,7 +309,11 @@ import BaseLayout from "../components/BaseLayout.astro";
       return;
     }
 
-    resultsSubtitleEl.textContent = `${result.answeredCount} answered of ${latestResults?.totalResponses ?? 0} responses`;
+    const total = latestResults?.totalResponses ?? 0;
+    resultsSubtitleEl.textContent =
+      result.answeredCount === total
+        ? `${total} response${total === 1 ? "" : "s"}`
+        : `${result.answeredCount} of ${total} respondents answered`;
     resultsBodyEl.innerHTML = "";
 
     if (type === "scale") {

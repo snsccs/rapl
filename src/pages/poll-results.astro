@@ -108,13 +108,20 @@ import BaseLayout from "../components/BaseLayout.astro";
     fill.style.width = `${pct}%`;
     track.appendChild(fill);
 
-    const countEl = document.createElement("div");
+    const figure = document.createElement("div");
+    figure.className = "poll-bar-figure";
+    const pctEl = document.createElement("span");
+    pctEl.className = "poll-bar-pct";
+    pctEl.textContent = `${pct}%`;
+    const countEl = document.createElement("span");
     countEl.className = "poll-bar-count";
-    countEl.textContent = `${count} (${pct}%)`;
+    countEl.textContent = `· ${count} response${count === 1 ? "" : "s"}`;
+    figure.appendChild(pctEl);
+    figure.appendChild(countEl);
 
     row.appendChild(labelEl);
     row.appendChild(track);
-    row.appendChild(countEl);
+    row.appendChild(figure);
     return row;
   };
 
@@ -123,14 +130,16 @@ import BaseLayout from "../components/BaseLayout.astro";
     const result = latestResults?.questions.find((q) => q.key === key);
 
     if (!result) {
-      answeredCountEl.textContent = "0 answered";
+      answeredCountEl.textContent = "0 responses";
       barsEl.innerHTML = "";
       return;
     }
 
-    answeredCountEl.textContent = `${result.answeredCount} answered${
-      latestResults ? ` of ${latestResults.totalResponses} responses` : ""
-    }`;
+    const total = latestResults?.totalResponses ?? 0;
+    answeredCountEl.textContent =
+      result.answeredCount === total
+        ? `${total} response${total === 1 ? "" : "s"}`
+        : `${result.answeredCount} of ${total} respondents answered`;
     barsEl.innerHTML = "";
 
     if (result.type === "scale") {
