@@ -3781,6 +3781,10 @@ img {
   margin-top: 1.75rem;
 }
 
+.button[hidden] {
+  display: none;
+}
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -7498,6 +7502,7 @@ img {
 .presenter-header {
   width: 100%;
   max-width: 64rem;
+  margin-inline: auto;
   text-align: center;
   margin-bottom: 1.5rem;
 }
@@ -7522,6 +7527,7 @@ img {
 .presenter-question-card {
   width: 100%;
   max-width: 64rem;
+  margin-inline: auto;
   background: #ffffff;
   border-radius: 16px;
   border: 1px solid rgba(16, 32, 43, 0.1);
@@ -7553,6 +7559,7 @@ img {
 .presenter-nav {
   width: 100%;
   max-width: 64rem;
+  margin-inline: auto;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
@@ -7561,6 +7568,7 @@ img {
 
 .presenter-footer {
   max-width: 64rem;
+  margin-inline: auto;
   text-align: center;
   color: #6b625f;
   font-size: 0.8rem;
@@ -7584,7 +7592,7 @@ img {
 }
 
 #presenter-view.is-overview .poll-overview-grid {
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(560px, 1fr));
   gap: 2rem;
 }
 
