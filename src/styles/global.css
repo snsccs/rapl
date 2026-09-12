@@ -2228,7 +2228,7 @@ img {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   text-align: center;
   text-decoration: none;
-  width: clamp(130px, 40vw, 190px);
+  width: clamp(160px, 45vw, 230px);
   transition: box-shadow 0.18s ease;
 }
 
@@ -2280,7 +2280,7 @@ img {
   .research-poll-qr {
     pointer-events: auto;
     margin: 0 0 40px;
-    width: clamp(140px, 11vw, 200px);
+    width: clamp(180px, 13vw, 260px);
   }
 }
 
