@@ -354,6 +354,25 @@ import BaseLayout from "../components/BaseLayout.astro";
     };
   };
 
+  // Belt-and-braces alongside the SSE push: browsers cap concurrent
+  // HTTP/1.1 connections per origin at 6, so a visitor with several poll
+  // tabs open can end up with a stream that's silently stuck. Re-fetch a
+  // fresh snapshot whenever this tab regains focus so it can't stay stale
+  // for longer than "until you look at it again".
+  const refreshResultsSnapshot = async (slug: string) => {
+    try {
+      const res = await fetch(`${API_BASE}/${slug}/results`);
+      const json = await res.json();
+      if (res.ok && json.success) {
+        latestResults = json.data as PollResults;
+        renderResultsForStep();
+      }
+    } catch {
+      // Leave whatever we already have on screen; the next SSE push or
+      // focus event will try again.
+    }
+  };
+
   const updateNav = () => {
     if (!backBtn || !skipBtn || !nextBtn) return;
     const step = steps[currentStep];
@@ -535,6 +554,12 @@ import BaseLayout from "../components/BaseLayout.astro";
       resultsPanelEl?.removeAttribute("hidden");
       renderStep();
       connectLiveResults(poll.slug);
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible" && poll) {
+          refreshResultsSnapshot(poll.slug);
+        }
+      });
     } catch (err) {
       loadingEl?.setAttribute("hidden", "true");
       unavailableEl?.removeAttribute("hidden");
