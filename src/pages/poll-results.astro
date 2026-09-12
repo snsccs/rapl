@@ -70,6 +70,11 @@ import BaseLayout from "../components/BaseLayout.astro";
   const params = new URLSearchParams(window.location.search);
   const slugParam = params.get("poll");
 
+  // A virtual final "step" after the last real question — the closing
+  // overview screen. currentIndex can reach questions.length to mean "on
+  // the overview step"; there is no step after that (Next stays disabled).
+  const OVERVIEW_KEY = "__overview__";
+
   let pollSlug: string | null = null;
   let questions: PollQuestion[] = [];
   let currentIndex = 0;
@@ -151,30 +156,235 @@ import BaseLayout from "../components/BaseLayout.astro";
     }
   };
 
+  // ---- Overview screen: one small vertical bar chart per question ----
+  // Fixed 0-100% y-domain on every chart (not auto-scaled per question) so
+  // the small multiples are genuinely comparable at a glance, per how this
+  // poll already reports percentages (each against that question's own
+  // answered count, not the overall response count).
+  const CHART = {
+    barSlot: 64,
+    gap: 14,
+    plotHeight: 120,
+    topMargin: 22,
+    leftMargin: 30,
+    rightMargin: 10,
+    labelLines: 3,
+    labelLineHeight: 13,
+    labelCharsPerLine: 11
+  };
+
+  const wrapLabel = (text: string): string[] => {
+    const words = text.split(/\s+/);
+    const lines: string[] = [];
+    let current = "";
+
+    words.forEach((word) => {
+      const candidate = current ? `${current} ${word}` : word;
+      if (candidate.length <= CHART.labelCharsPerLine || !current) {
+        current = candidate;
+      } else {
+        lines.push(current);
+        current = word;
+      }
+    });
+    if (current) lines.push(current);
+
+    if (lines.length > CHART.labelLines) {
+      const kept = lines.slice(0, CHART.labelLines);
+      kept[CHART.labelLines - 1] = `${kept[CHART.labelLines - 1].slice(0, CHART.labelCharsPerLine - 1)}…`;
+      return kept;
+    }
+    return lines;
+  };
+
+  const svgEl = <K extends keyof SVGElementTagNameMap>(tag: K, attrs: Record<string, string | number>) => {
+    const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, String(value)));
+    return el;
+  };
+
+  const buildVerticalBarChart = (bars: Array<{ label: string; pct: number; count: number }>): SVGSVGElement => {
+    const plotWidth = bars.length * CHART.barSlot;
+    const labelBlockHeight = CHART.labelLines * CHART.labelLineHeight + 8;
+    const width = CHART.leftMargin + plotWidth + CHART.rightMargin;
+    const height = CHART.topMargin + CHART.plotHeight + labelBlockHeight + 8;
+    const baselineY = CHART.topMargin + CHART.plotHeight;
+
+    const svg = svgEl("svg", {
+      viewBox: `0 0 ${width} ${height}`,
+      class: "poll-vbar-chart",
+      role: "img",
+      "aria-label": "Bar chart of responses by option"
+    });
+
+    // Gridlines + y-axis labels at 0/25/50/75/100%.
+    [0, 25, 50, 75, 100].forEach((tick) => {
+      const y = baselineY - (tick / 100) * CHART.plotHeight;
+      svg.appendChild(svgEl("line", {
+        x1: CHART.leftMargin,
+        y1: y,
+        x2: width - CHART.rightMargin,
+        y2: y,
+        stroke: "rgba(115, 82, 54, 0.15)",
+        "stroke-width": 1
+      }));
+      const tickLabel = svgEl("text", {
+        x: CHART.leftMargin - 6,
+        y: y + 3,
+        "text-anchor": "end",
+        "font-size": 9,
+        fill: "#8C8378"
+      });
+      tickLabel.textContent = `${tick}%`;
+      svg.appendChild(tickLabel);
+    });
+
+    bars.forEach((bar, index) => {
+      const slotX = CHART.leftMargin + index * CHART.barSlot;
+      const barWidth = CHART.barSlot - CHART.gap;
+      const barHeight = Math.max((bar.pct / 100) * CHART.plotHeight, 0);
+      const x = slotX + CHART.gap / 2;
+      const yTop = baselineY - barHeight;
+      const radius = Math.min(4, barHeight / 2);
+
+      if (barHeight > 0.5) {
+        const path = svgEl("path", {
+          d: `M ${x} ${baselineY}
+              L ${x} ${yTop + radius}
+              Q ${x} ${yTop} ${x + radius} ${yTop}
+              L ${x + barWidth - radius} ${yTop}
+              Q ${x + barWidth} ${yTop} ${x + barWidth} ${yTop + radius}
+              L ${x + barWidth} ${baselineY} Z`,
+          fill: "#755436"
+        });
+        svg.appendChild(path);
+      }
+
+      const valueLabel = svgEl("text", {
+        x: x + barWidth / 2,
+        y: Math.max(yTop - 6, CHART.topMargin - 8),
+        "text-anchor": "middle",
+        "font-size": 11,
+        "font-weight": 700,
+        fill: "#3C3B3B"
+      });
+      valueLabel.textContent = `${bar.pct}%`;
+      svg.appendChild(valueLabel);
+
+      const categoryLabel = svgEl("text", {
+        x: x + barWidth / 2,
+        y: baselineY + 16,
+        "text-anchor": "middle",
+        "font-size": 10,
+        fill: "#4C4747"
+      });
+      wrapLabel(bar.label).forEach((line, lineIndex) => {
+        const tspan = svgEl("tspan", {
+          x: x + barWidth / 2,
+          dy: lineIndex === 0 ? 0 : CHART.labelLineHeight
+        });
+        tspan.textContent = line;
+        categoryLabel.appendChild(tspan);
+      });
+      svg.appendChild(categoryLabel);
+    });
+
+    return svg as unknown as SVGSVGElement;
+  };
+
+  const renderOverview = () => {
+    if (!barsEl || !answeredCountEl || !latestResults) return;
+
+    answeredCountEl.textContent = `${latestResults.totalResponses} response${latestResults.totalResponses === 1 ? "" : "s"} total`;
+    barsEl.innerHTML = "";
+
+    const grid = document.createElement("div");
+    grid.className = "poll-overview-grid";
+
+    latestResults.questions.forEach((question) => {
+      const card = document.createElement("div");
+      card.className = "poll-chart-card";
+
+      const heading = document.createElement("h4");
+      heading.className = "poll-chart-title";
+      heading.textContent = question.label;
+      heading.title = question.label;
+      card.appendChild(heading);
+
+      if (question.type === "text") {
+        const p = document.createElement("p");
+        p.className = "poll-chart-subtext";
+        p.textContent = `${question.answeredCount || 0} response${question.answeredCount === 1 ? "" : "s"}`;
+        card.appendChild(p);
+      } else if (question.type === "scale") {
+        const bars = [1, 2, 3, 4, 5].map((i) => {
+          const count = question.distribution?.[i] || 0;
+          const pct = question.answeredCount > 0 ? Math.round((count / question.answeredCount) * 1000) / 10 : 0;
+          return { label: String(i), pct, count };
+        });
+        card.appendChild(buildVerticalBarChart(bars));
+        if (question.average != null) {
+          const avg = document.createElement("p");
+          avg.className = "poll-chart-subtext";
+          avg.textContent = `Average: ${question.average} / 5`;
+          card.appendChild(avg);
+        }
+      } else {
+        const bars = (question.options || []).map((option) => ({
+          label: option,
+          pct: question.percentages?.[option] ?? 0,
+          count: question.counts?.[option] || 0
+        }));
+        card.appendChild(buildVerticalBarChart(bars));
+      }
+
+      grid.appendChild(card);
+    });
+
+    barsEl.appendChild(grid);
+  };
+
+  const currentStepKey = (): string | null => {
+    if (currentIndex === questions.length) return OVERVIEW_KEY;
+    return questions[currentIndex]?.key ?? null;
+  };
+
   const renderCurrentQuestion = () => {
-    const question = questions[currentIndex];
-    if (!question || !questionLabelEl || !progressEl || !revealBtn || !barsEl || !backBtn || !nextBtn) return;
+    if (!questionLabelEl || !progressEl || !revealBtn || !barsEl || !backBtn || !nextBtn) return;
+    const isOverviewStep = currentIndex === questions.length;
+    viewEl?.classList.toggle("is-overview", isOverviewStep);
 
-    questionLabelEl.textContent = question.label;
-    progressEl.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
+    if (isOverviewStep) {
+      questionLabelEl.textContent = "Overall Poll Results";
+      progressEl.textContent = "Overview";
+    } else {
+      const question = questions[currentIndex];
+      if (!question) return;
+      questionLabelEl.textContent = question.label;
+      progressEl.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
+    }
+
     backBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex === questions.length - 1;
+    nextBtn.disabled = currentIndex === questions.length;
+    nextBtn.textContent = currentIndex === questions.length - 1 ? "See overview →" : "Next →";
 
-    const isRevealed = revealed.has(question.key);
+    const key = currentStepKey();
+    const isRevealed = key !== null && revealed.has(key);
     revealBtn.hidden = isRevealed;
     barsEl.hidden = !isRevealed;
 
-    if (isRevealed) {
-      renderBarsForQuestion(question.key);
+    if (isRevealed && key) {
+      if (isOverviewStep) renderOverview();
+      else renderBarsForQuestion(key);
     } else if (answeredCountEl) {
       answeredCountEl.textContent = "";
     }
   };
 
   revealBtn?.addEventListener("click", () => {
-    const question = questions[currentIndex];
-    if (!question) return;
-    revealed.add(question.key);
+    const key = currentStepKey();
+    if (!key) return;
+    revealed.add(key);
     renderCurrentQuestion();
   });
 
@@ -185,7 +395,7 @@ import BaseLayout from "../components/BaseLayout.astro";
   });
 
   nextBtn?.addEventListener("click", () => {
-    if (currentIndex === questions.length - 1) return;
+    if (currentIndex === questions.length) return;
     currentIndex += 1;
     renderCurrentQuestion();
   });
@@ -197,8 +407,10 @@ import BaseLayout from "../components/BaseLayout.astro";
     source.onmessage = (event) => {
       try {
         latestResults = JSON.parse(event.data) as PollResults;
-        const currentKey = questions[currentIndex]?.key;
-        if (currentKey && revealed.has(currentKey)) renderBarsForQuestion(currentKey);
+        const key = currentStepKey();
+        if (!key || !revealed.has(key)) return;
+        if (key === OVERVIEW_KEY) renderOverview();
+        else renderBarsForQuestion(key);
       } catch {
         // Ignore malformed events; the next push will self-correct.
       }
