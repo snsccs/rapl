@@ -1,0 +1,1641 @@
+---
+import BaseLayout from "../../components/BaseLayout.astro";
+
+const apiBaseUrl = (import.meta.env.PUBLIC_RAPL_API_BASE_URL || "https://api.snsccs.com").replace(/\/$/, "");
+---
+
+<BaseLayout
+  title="Blog Management | RAPL Admin"
+  description="Protected blog and podcast management route for RAPL Leadership."
+  noindex={true}
+  noCanonical={true}
+>
+  <main class="rapl-admin-page" data-blog-admin data-api-base={apiBaseUrl}>
+    <section class="rapl-admin-login-card" data-login-panel>
+      <div>
+        <p class="rapl-admin-kicker">Protected route</p>
+        <h1>Blog Management</h1>
+        <p>Sign in to create and manage RAPL articles and podcasts.</p>
+      </div>
+      <form class="rapl-admin-login-form" data-login-form>
+        <label>
+          Email
+          <input name="email" type="email" autocomplete="username" required />
+        </label>
+        <label>
+          Password
+          <input name="password" type="password" autocomplete="current-password" required />
+        </label>
+        <button type="submit">Login</button>
+        <p class="rapl-admin-message" data-login-message aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="rapl-admin-shell" data-admin-panel hidden>
+      <header class="rapl-admin-topbar">
+        <div>
+          <p class="rapl-admin-kicker">Admin User</p>
+          <h1>Blog Management</h1>
+        </div>
+        <div class="rapl-admin-user">
+          <span data-status-banner class="rapl-admin-status-banner" hidden></span>
+          <button type="button" class="rapl-admin-logout" data-logout>Logout</button>
+        </div>
+      </header>
+
+      <div class="rapl-admin-toolbar">
+        <label class="rapl-admin-search">
+          <span>Search</span>
+          <input type="search" data-blog-search placeholder="Search blogs and podcasts..." />
+        </label>
+        <select data-type-filter aria-label="Filter by type">
+          <option value="all">All Types</option>
+          <option value="article">Article</option>
+          <option value="podcast">Podcast</option>
+        </select>
+        <select data-status-filter aria-label="Filter by status">
+          <option value="all">All Status</option>
+          <option value="published">Published</option>
+          <option value="draft">Draft</option>
+        </select>
+        <button type="button" class="rapl-admin-primary" data-open-modal>Create New Blog</button>
+      </div>
+
+      <div class="rapl-admin-table-wrap">
+        <table class="rapl-admin-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Views</th>
+              <th>Published</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody data-blog-table>
+            <tr><td colspan="7">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="rapl-admin-modal" data-blog-modal hidden>
+      <div class="rapl-admin-modal-backdrop" data-close-modal></div>
+      <section class="rapl-admin-modal-panel" role="dialog" aria-modal="true" aria-labelledby="rapl-modal-title">
+        <header class="rapl-admin-modal-header">
+          <h2 id="rapl-modal-title" data-modal-title>Create New Blog</h2>
+          <button type="button" data-close-modal aria-label="Close">&times;</button>
+        </header>
+        <form class="rapl-admin-form" data-blog-form>
+          <input type="hidden" name="id" />
+
+          <label class="rapl-admin-content-label">
+            Content *
+            <div class="rapl-editor">
+              <div class="rapl-editor-toolbar" data-editor-toolbar aria-label="Editor toolbar">
+                <button type="button" data-command="formatBlock" data-value="h1" title="Heading 1">H1</button>
+                <button type="button" data-command="formatBlock" data-value="h2" title="Heading 2">H2</button>
+                <button type="button" data-command="formatBlock" data-value="h3" title="Heading 3">H3</button>
+                <span class="rapl-editor-sep" aria-hidden="true"></span>
+                <button type="button" data-font-size="decrease" title="Decrease font size">A&darr;</button>
+                <button type="button" data-font-size="increase" title="Increase font size">A&uarr;</button>
+                <span class="rapl-editor-sep" aria-hidden="true"></span>
+                <button type="button" data-command="bold" title="Bold"><strong>B</strong></button>
+                <button type="button" data-command="italic" title="Italic"><em>I</em></button>
+                <button type="button" data-command="underline" title="Underline"><u>U</u></button>
+                <button type="button" data-command="strikeThrough" title="Strikethrough"><s>S</s></button>
+                <span class="rapl-editor-sep" aria-hidden="true"></span>
+                <button type="button" data-command="insertUnorderedList" title="Bulleted list">List</button>
+                <button type="button" data-command="insertOrderedList" title="Numbered list">1. List</button>
+                <button type="button" data-command="formatBlock" data-value="blockquote" title="Quote">Quote</button>
+                <span class="rapl-editor-sep" aria-hidden="true"></span>
+                <button type="button" data-command="justifyLeft" title="Align left">Left</button>
+                <button type="button" data-command="justifyCenter" title="Align center">Center</button>
+                <button type="button" data-command="justifyRight" title="Align right">Right</button>
+                <span class="rapl-editor-sep" aria-hidden="true"></span>
+                <button type="button" data-link title="Insert link">Link</button>
+                <button type="button" data-image-upload title="Upload images from your computer">Image</button>
+                <button type="button" data-command="removeFormat" title="Clear formatting">Clear</button>
+                <button type="button" class="rapl-editor-docx-btn" data-docx-upload title="Upload Word document (.docx) — extracts headings, tables, colors, alignment">Upload .docx</button>
+                <input data-docx-input type="file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden />
+                <input data-image-input type="file" accept="image/jpeg,image/jpg,image/png,image/gif,image/webp" multiple hidden />
+              </div>
+              <div
+                class="rapl-editor-area"
+                data-editor
+                contenteditable="true"
+                role="textbox"
+                aria-multiline="true"
+                data-placeholder="Write your blog content here..."
+              ></div>
+            </div>
+          </label>
+
+          <div class="rapl-admin-grid">
+            <label>
+              Type *
+              <select name="type" data-type-select>
+                <option value="article">Article</option>
+                <option value="podcast">Podcast</option>
+              </select>
+            </label>
+            <label>
+              Title *
+              <input name="title" required />
+            </label>
+            <label>
+              Subtitle / Excerpt
+              <textarea name="subtitle" rows="2"></textarea>
+            </label>
+            <label>
+              Category *
+              <input name="category" list="rapl-category-options" required placeholder="e.g. Leadership" />
+              <datalist id="rapl-category-options">
+                <option value="Leadership"></option>
+                <option value="AI &amp; Technology"></option>
+                <option value="Strategy &amp; Governance"></option>
+                <option value="Organizational Change"></option>
+                <option value="Executive Development"></option>
+                <option value="Research &amp; Insights"></option>
+              </datalist>
+            </label>
+            <label>
+              Badge
+              <input name="badge" placeholder="e.g. Featured" />
+            </label>
+            <label>
+              Author
+              <input name="author" value="RAPL Leadership" />
+            </label>
+            <label>
+              Publish Date
+              <input name="published_at" type="date" />
+              <small>Leave empty to use current date when publishing.</small>
+            </label>
+            <label>
+              Featured Image
+              <input name="featured_image" type="file" accept="image/*" />
+            </label>
+          </div>
+
+          <fieldset class="rapl-admin-podcast-fields" data-podcast-fields hidden>
+            <legend>Podcast Details</legend>
+            <div class="rapl-admin-grid">
+              <label>
+                Podcast / Video Link
+                <input name="podcast_url" type="url" placeholder="https://www.youtube.com/watch?v=..." />
+              </label>
+              <label>
+                Platform
+                <select name="podcast_platform">
+                  <option value="">Select platform</option>
+                  <option>YouTube</option>
+                  <option>LinkedIn Live</option>
+                  <option>Zoom</option>
+                  <option>Microsoft Teams</option>
+                  <option>Google Meet</option>
+                  <option>Spotify</option>
+                  <option>Apple Podcasts</option>
+                  <option>Other</option>
+                </select>
+              </label>
+              <label>
+                Session Start Time
+                <input name="podcast_start_time" type="datetime-local" />
+              </label>
+              <label>
+                Session End Time
+                <input name="podcast_end_time" type="datetime-local" />
+              </label>
+              <label>
+                Time Zone
+                <select name="timezone">
+                  <option value="America/New_York">Eastern (America/New_York)</option>
+                  <option value="America/Chicago">Central (America/Chicago)</option>
+                  <option value="America/Denver">Mountain (America/Denver)</option>
+                  <option value="America/Los_Angeles">Pacific (America/Los_Angeles)</option>
+                  <option value="America/Toronto">Toronto</option>
+                  <option value="UTC">UTC</option>
+                  <option value="Europe/London">London</option>
+                  <option value="Asia/Dubai">Dubai</option>
+                  <option value="Asia/Kolkata">Kolkata</option>
+                </select>
+              </label>
+              <label>
+                Recorded Session Link (optional)
+                <input name="recorded_link" type="url" placeholder="https://..." />
+              </label>
+            </div>
+          </fieldset>
+
+          <label>
+            Tags
+            <div class="rapl-admin-tags-input">
+              <input type="text" data-tag-input placeholder="Type a tag and press Add" />
+              <button type="button" data-tag-add>Add</button>
+            </div>
+            <div class="rapl-admin-tag-list" data-tag-list></div>
+            <input type="hidden" name="tags" data-tags-hidden value="[]" />
+          </label>
+
+          <fieldset class="rapl-admin-seo-fieldset">
+            <legend>SEO Settings</legend>
+            <label>
+              Meta Title
+              <input name="meta_title" />
+            </label>
+            <label>
+              Meta Description
+              <textarea name="meta_description" rows="3"></textarea>
+            </label>
+            <label>
+              URL for the Page
+              <input name="seo_slug" placeholder="auto-generated-from-title" />
+              <small>Leave empty to use an auto-generated URL from the title.</small>
+            </label>
+            <label>
+              Custom Schema (JSON-LD)
+              <textarea name="custom_schema" rows="6" placeholder='{"@context":"https://schema.org","@type":"BlogPosting"}'></textarea>
+              <small>Must be valid JSON if provided — invalid JSON will block saving.</small>
+            </label>
+          </fieldset>
+
+          <div class="rapl-admin-flags">
+            <label><input name="is_featured" type="checkbox" /> Mark as Featured</label>
+            <label><input name="is_published" type="checkbox" /> Publish Immediately</label>
+          </div>
+
+          <p class="rapl-admin-message" data-form-message aria-live="polite"></p>
+          <footer class="rapl-admin-modal-actions">
+            <button type="button" class="rapl-admin-secondary" data-close-modal>Cancel</button>
+            <button type="submit" class="rapl-admin-primary" data-submit-blog>Create Blog</button>
+          </footer>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // Vanilla-JS port of the SNSCCS admin blog editor (pmitraining-react's
+    // RichTextEditor.jsx) for RAPL's protected /admin/blogs route. RAPL has
+    // no React setup, so this is a faithful functional port rather than a
+    // shared component — see the architecture report for why.
+
+    type Blog = {
+      id: number;
+      title: string;
+      subtitle?: string;
+      content?: string;
+      category?: string;
+      type: "article" | "podcast";
+      badge?: string;
+      author?: string;
+      featured_image?: string;
+      podcast_url?: string;
+      recorded_link?: string;
+      podcast_platform?: string;
+      podcast_start_time?: string;
+      podcast_end_time?: string;
+      timezone?: string;
+      tags?: string[];
+      is_featured?: boolean;
+      is_published?: boolean;
+      published_at?: string;
+      views_count?: number;
+      meta_title?: string;
+      meta_description?: string;
+      slug?: string;
+      custom_schema?: Record<string, unknown> | null;
+    };
+
+    const tokenKey = "rapl-blog-admin-token";
+    const root = document.querySelector<HTMLElement>("[data-blog-admin]")!;
+    const apiBaseUrl = root.dataset.apiBase || "";
+
+    const loginPanel = document.querySelector<HTMLElement>("[data-login-panel]")!;
+    const adminPanel = document.querySelector<HTMLElement>("[data-admin-panel]")!;
+    const loginForm = document.querySelector<HTMLFormElement>("[data-login-form]")!;
+    const loginMessage = document.querySelector<HTMLElement>("[data-login-message]")!;
+    const statusBanner = document.querySelector<HTMLElement>("[data-status-banner]")!;
+    const formMessage = document.querySelector<HTMLElement>("[data-form-message]")!;
+    const tableBody = document.querySelector<HTMLElement>("[data-blog-table]")!;
+    const modal = document.querySelector<HTMLElement>("[data-blog-modal]")!;
+    const blogForm = document.querySelector<HTMLFormElement>("[data-blog-form]")!;
+    const editor = document.querySelector<HTMLElement>("[data-editor]")!;
+    const editorToolbar = document.querySelector<HTMLElement>("[data-editor-toolbar]")!;
+    const docxInput = document.querySelector<HTMLInputElement>("[data-docx-input]")!;
+    const imageInput = document.querySelector<HTMLInputElement>("[data-image-input]")!;
+    const modalTitle = document.querySelector<HTMLElement>("[data-modal-title]")!;
+    const submitButton = document.querySelector<HTMLButtonElement>("[data-submit-blog]")!;
+    const searchInput = document.querySelector<HTMLInputElement>("[data-blog-search]")!;
+    const typeFilter = document.querySelector<HTMLSelectElement>("[data-type-filter]")!;
+    const statusFilter = document.querySelector<HTMLSelectElement>("[data-status-filter]")!;
+    const typeSelect = document.querySelector<HTMLSelectElement>("[data-type-select]")!;
+    const podcastFields = document.querySelector<HTMLElement>("[data-podcast-fields]")!;
+    const tagInput = document.querySelector<HTMLInputElement>("[data-tag-input]")!;
+    const tagList = document.querySelector<HTMLElement>("[data-tag-list]")!;
+    const tagsHidden = document.querySelector<HTMLInputElement>("[data-tags-hidden]")!;
+
+    let blogs: Blog[] = [];
+    let tags: string[] = [];
+    let savedEditorRange: Range | null = null;
+    const minFontSize = 8;
+    const maxFontSize = 72;
+    const fontSizeStep = 2;
+
+    const getToken = () => sessionStorage.getItem(tokenKey) || "";
+    const setToken = (token: string) => sessionStorage.setItem(tokenKey, token);
+    const clearToken = () => sessionStorage.removeItem(tokenKey);
+
+    const assetUrl = (value?: string) => {
+      if (!value) return "";
+      if (/^https?:\/\//i.test(value) || value.startsWith("data:")) return value;
+      return `${apiBaseUrl}${value.startsWith("/") ? "" : "/"}${value}`;
+    };
+
+    const formatDate = (value?: string) => {
+      if (!value) return "-";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "-";
+      return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    };
+
+    const showStatusBanner = (text: string, ms = 5000) => {
+      statusBanner.textContent = text;
+      statusBanner.hidden = false;
+      window.setTimeout(() => {
+        statusBanner.hidden = true;
+      }, ms);
+    };
+
+    const request = async (url: string, options: RequestInit & { isFormData?: boolean } = {}) => {
+      const headers = new Headers(options.headers || {});
+      const token = getToken();
+      if (token) headers.set("Authorization", `Bearer ${token}`);
+      const response = await fetch(`${apiBaseUrl}${url}`, { ...options, headers });
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(payload.message || payload.error || "Request failed.");
+      return payload;
+    };
+
+    const syncPanels = () => {
+      const loggedIn = Boolean(getToken());
+      loginPanel.hidden = loggedIn;
+      adminPanel.hidden = !loggedIn;
+    };
+
+    /* ───────────────────── Table / list ───────────────────── */
+
+    const filteredBlogs = () => {
+      const query = (searchInput.value || "").toLowerCase();
+      const type = typeFilter.value;
+      const status = statusFilter.value;
+      return blogs.filter((blog) => {
+        const matchesQuery = [blog.title, blog.category, blog.author, (blog.tags || []).join(" ")]
+          .join(" ")
+          .toLowerCase()
+          .includes(query);
+        const matchesType = type === "all" || blog.type === type;
+        const matchesStatus =
+          status === "all" ||
+          (status === "published" && blog.is_published) ||
+          (status === "draft" && !blog.is_published);
+        return matchesQuery && matchesType && matchesStatus;
+      });
+    };
+
+    const renderTable = () => {
+      const rows = filteredBlogs();
+      if (!rows.length) {
+        tableBody.innerHTML = '<tr><td colspan="7">No posts found.</td></tr>';
+        return;
+      }
+      tableBody.innerHTML = rows
+        .map(
+          (blog) => `
+            <tr>
+              <td>
+                <div class="rapl-admin-title-cell">
+                  ${blog.featured_image ? `<img src="${assetUrl(blog.featured_image)}" alt="" />` : '<span class="rapl-admin-thumb"></span>'}
+                  <span>${blog.title}${blog.is_featured ? ' <span class="rapl-admin-pill rapl-admin-pill--featured">Featured</span>' : ""}</span>
+                </div>
+              </td>
+              <td>${blog.category || "-"}</td>
+              <td><span class="rapl-admin-pill rapl-admin-pill--type-${blog.type}">${blog.type === "podcast" ? "Podcast" : "Article"}</span></td>
+              <td><span class="rapl-admin-status ${blog.is_published ? "is-published" : ""}">${blog.is_published ? "Published" : "Draft"}</span></td>
+              <td>${blog.views_count || 0}</td>
+              <td>${formatDate(blog.published_at)}</td>
+              <td>
+                <div class="rapl-admin-actions">
+                  <button type="button" data-edit="${blog.id}">Edit</button>
+                  <button type="button" data-toggle="${blog.id}">${blog.is_published ? "Unpublish" : "Publish"}</button>
+                  <button type="button" data-delete="${blog.id}">Delete</button>
+                </div>
+              </td>
+            </tr>
+          `
+        )
+        .join("");
+    };
+
+    const loadBlogs = async () => {
+      try {
+        const payload = await request("/api/rapl/admin/blogs?limit=100");
+        blogs = payload.data || [];
+        renderTable();
+      } catch (error: any) {
+        tableBody.innerHTML = `<tr><td colspan="7">${error.message}</td></tr>`;
+        if (error.message === "Unauthorized") {
+          clearToken();
+          syncPanels();
+        }
+      }
+    };
+
+    /* ───────────────────── Tags ───────────────────── */
+
+    const renderTags = () => {
+      tagList.innerHTML = tags
+        .map(
+          (tag, i) =>
+            `<span class="rapl-admin-tag-chip">${tag}<button type="button" data-remove-tag="${i}" aria-label="Remove tag">&times;</button></span>`
+        )
+        .join("");
+      tagsHidden.value = JSON.stringify(tags);
+    };
+
+    tagList.addEventListener("click", (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-remove-tag]");
+      if (!button) return;
+      tags.splice(Number(button.dataset.removeTag), 1);
+      renderTags();
+    });
+
+    const addTagFromInput = () => {
+      const value = tagInput.value.trim();
+      if (value && !tags.includes(value)) {
+        tags.push(value);
+        renderTags();
+      }
+      tagInput.value = "";
+    };
+
+    document.querySelector("[data-tag-add]")!.addEventListener("click", addTagFromInput);
+    tagInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        addTagFromInput();
+      }
+    });
+
+    /* ───────────────────── Modal / form ───────────────────── */
+
+    const applyTypeVisibility = () => {
+      podcastFields.hidden = typeSelect.value !== "podcast";
+    };
+    typeSelect.addEventListener("change", applyTypeVisibility);
+
+    const openModal = (blog: Blog | null = null) => {
+      blogForm.reset();
+      editor.innerHTML = "";
+      formMessage.textContent = "";
+      tags = [];
+      renderTags();
+      (blogForm.elements.namedItem("id") as HTMLInputElement).value = "";
+      modalTitle.textContent = "Create New Blog";
+      submitButton.textContent = "Create Blog";
+      typeSelect.value = "article";
+      applyTypeVisibility();
+
+      if (blog) {
+        const el = (name: string) =>
+          blogForm.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+        (el("id") as HTMLInputElement).value = String(blog.id);
+        (el("title") as HTMLInputElement).value = blog.title || "";
+        (el("subtitle") as HTMLTextAreaElement).value = blog.subtitle || "";
+        (el("category") as HTMLInputElement).value = blog.category || "";
+        (el("badge") as HTMLInputElement).value = blog.badge || "";
+        (el("author") as HTMLInputElement).value = blog.author || "RAPL Leadership";
+        (el("published_at") as HTMLInputElement).value = blog.published_at ? blog.published_at.slice(0, 10) : "";
+        (el("podcast_url") as HTMLInputElement).value = blog.podcast_url || "";
+        (el("podcast_platform") as HTMLSelectElement).value = blog.podcast_platform || "";
+        (el("podcast_start_time") as HTMLInputElement).value = blog.podcast_start_time ? blog.podcast_start_time.slice(0, 16) : "";
+        (el("podcast_end_time") as HTMLInputElement).value = blog.podcast_end_time ? blog.podcast_end_time.slice(0, 16) : "";
+        (el("timezone") as HTMLSelectElement).value = blog.timezone || "America/New_York";
+        (el("recorded_link") as HTMLInputElement).value = blog.recorded_link || "";
+        (el("meta_title") as HTMLInputElement).value = blog.meta_title || "";
+        (el("meta_description") as HTMLTextAreaElement).value = blog.meta_description || "";
+        (el("seo_slug") as HTMLInputElement).value = blog.slug || "";
+        (el("custom_schema") as HTMLTextAreaElement).value = blog.custom_schema ? JSON.stringify(blog.custom_schema, null, 2) : "";
+        (el("is_featured") as HTMLInputElement).checked = Boolean(blog.is_featured);
+        (el("is_published") as HTMLInputElement).checked = Boolean(blog.is_published);
+        typeSelect.value = blog.type || "article";
+        applyTypeVisibility();
+        tags = [...(blog.tags || [])];
+        renderTags();
+        editor.innerHTML = blog.content || "";
+        modalTitle.textContent = "Edit Blog";
+        submitButton.textContent = "Update Blog";
+      }
+
+      modal.hidden = false;
+      window.setTimeout(() => (blogForm.elements.namedItem("title") as HTMLInputElement).focus(), 0);
+    };
+
+    const closeModal = () => {
+      modal.hidden = true;
+    };
+
+    /* ───────────────────── Editor: selection helpers ───────────────────── */
+
+    const isEditorSelection = () => {
+      const selection = window.getSelection();
+      if (!selection || selection.rangeCount === 0) return false;
+      const node = selection.anchorNode;
+      return Boolean(node && editor.contains(node.nodeType === Node.ELEMENT_NODE ? (node as Element) : node.parentElement));
+    };
+
+    const rememberSelection = () => {
+      const selection = window.getSelection();
+      if (!selection || selection.rangeCount === 0 || !isEditorSelection()) return;
+      savedEditorRange = selection.getRangeAt(0).cloneRange();
+    };
+
+    const restoreSelection = () => {
+      editor.focus();
+      const selection = window.getSelection();
+      if (!selection) return;
+      selection.removeAllRanges();
+      if (savedEditorRange) {
+        selection.addRange(savedEditorRange);
+        return;
+      }
+      const range = document.createRange();
+      range.selectNodeContents(editor);
+      range.collapse(false);
+      selection.addRange(range);
+    };
+
+    const runEditorCommand = (command: string, value: string | null = null) => {
+      restoreSelection();
+      document.execCommand(command, false, value ?? undefined);
+      editor.dispatchEvent(new Event("input", { bubbles: true }));
+      rememberSelection();
+    };
+
+    /* ───────────────────── Editor: font size ───────────────────── */
+
+    const applyFontSizePx = (px: number) => {
+      restoreSelection();
+      document.execCommand("styleWithCSS", false, "false");
+      document.execCommand("fontSize", false, "7");
+      editor.querySelectorAll('font[size="7"]').forEach((font) => {
+        font.removeAttribute("size");
+        (font as HTMLElement).style.fontSize = `${px}px`;
+        font.querySelectorAll('[style*="font-size"]').forEach((child) => {
+          (child as HTMLElement).style.removeProperty("font-size");
+          if (!child.getAttribute("style")) child.removeAttribute("style");
+        });
+      });
+      editor.dispatchEvent(new Event("input", { bubbles: true }));
+    };
+
+    const changeFontSize = (direction: string) => {
+      const selection = window.getSelection();
+      if (!selection || selection.rangeCount === 0 || selection.isCollapsed) {
+        editor.focus();
+        return;
+      }
+      let node: Node | null = selection.anchorNode;
+      if (node && node.nodeType === Node.TEXT_NODE) node = node.parentElement;
+      const current = node ? parseInt(window.getComputedStyle(node as Element).fontSize, 10) : 16;
+      const base = Number.isFinite(current) ? current : 16;
+      const next =
+        direction === "increase" ? Math.min(maxFontSize, base + fontSizeStep) : Math.max(minFontSize, base - fontSizeStep);
+      applyFontSizePx(next);
+    };
+
+    /* ───────────────────── Editor: Word-paste cleaning ───────────────────── */
+
+    const MSO_THEME_COLORS: Record<string, string> = {
+      dk2: "#1F3864", lt2: "#E7E6E6", accent1: "#4472C4", accent2: "#ED7D31",
+      accent3: "#A9D18E", accent4: "#FF0000", accent5: "#FFC000", accent6: "#9DC3E6",
+      hyperlink: "#0563C1", followedhyperlink: "#954F72",
+      text2: "#595959", background2: "#F2F2F2",
+    };
+
+    function extractClassColors(doc: Document) {
+      const map: Record<string, string> = {};
+      doc.querySelectorAll("style").forEach((styleEl) => {
+        const css = styleEl.textContent || "";
+        const ruleRe = /([^{}]+)\{([^{}]+)\}/g;
+        let rm: RegExpExecArray | null;
+        while ((rm = ruleRe.exec(css)) !== null) {
+          const decls = rm[2];
+          const cm = decls.match(/(?:^|;)\s*color\s*:\s*([^;!\n]+)/i);
+          if (!cm) continue;
+          let colorVal = cm[1].trim();
+          const lower = colorVal.toLowerCase().replace(/\s/g, "");
+          if (["windowtext", "black", "#000000", "#000", "auto", "inherit", "initial"].includes(lower)) {
+            const tc = decls.match(/mso-themecolor\s*:\s*(\S+)/i);
+            if (tc) {
+              const m = MSO_THEME_COLORS[tc[1].trim().toLowerCase()];
+              if (m) colorVal = m;
+              else continue;
+            } else continue;
+          }
+          const classRe = /\.([A-Za-z][\w-]*)/g;
+          let clsMatch: RegExpExecArray | null;
+          while ((clsMatch = classRe.exec(rm[1])) !== null) {
+            const key = clsMatch[1].replace(/\s+/g, "").toLowerCase();
+            if (!map[key]) map[key] = colorVal;
+          }
+        }
+      });
+      return map;
+    }
+
+    function extractInlineColors(styleStr: string, classColorMap: Record<string, string>, elementClass: string) {
+      const keep: string[] = [];
+      const colorRe = /(?:^|;)\s*color\s*:\s*([^;]+)/i;
+      const cm = styleStr.match(colorRe);
+      let resolved: string | null = null;
+      if (cm) {
+        const v = cm[1].trim();
+        const lo = v.toLowerCase().replace(/\s/g, "");
+        const skip = ["windowtext", "black", "#000000", "#000", "rgb(0,0,0)", "auto", "inherit"];
+        if (skip.includes(lo)) {
+          const tc = styleStr.match(/mso-themecolor\s*:\s*(\S+)/i);
+          if (tc) {
+            const m = MSO_THEME_COLORS[tc[1].trim().toLowerCase()];
+            if (m) resolved = m;
+          }
+        } else {
+          resolved = v;
+        }
+      } else {
+        const tc = styleStr.match(/mso-themecolor\s*:\s*(\S+)/i);
+        if (tc) {
+          const m = MSO_THEME_COLORS[tc[1].trim().toLowerCase()];
+          if (m) resolved = m;
+        }
+      }
+      if (!resolved && elementClass && classColorMap[elementClass]) resolved = classColorMap[elementClass];
+      if (resolved) keep.push(`color:${resolved}`);
+
+      const bgRe = /(?:^|;)\s*background(?:-color)?\s*:\s*([^;]+)/i;
+      const bm = styleStr.match(bgRe);
+      if (bm) {
+        const v = bm[1].trim();
+        const low = v.toLowerCase().replace(/\s/g, "");
+        if (!["white", "#ffffff", "#fff", "rgb(255,255,255)", "transparent", "none", "auto", "window"].includes(low)) {
+          keep.push(`background-color:${v}`);
+        }
+      }
+      return keep.join(";");
+    }
+
+    function cleanWordHtml(html: string) {
+      html = html.replace(/<!--\[if[\s\S]*?<!\[endif\]-->/gi, "");
+      html = html.replace(/<\/?o:[^>]*>/gi, "");
+      html = html.replace(/<\/?w:[^>]*>/gi, "");
+      html = html.replace(/<\/?m:[^>]*>/gi, "");
+      html = html.replace(/<\/?v:[^>]*>/gi, "");
+      html = html.replace(/<\?xml[\s\S]*?\?>/gi, "");
+      html = html.replace(/<(meta|link)[^>]*>/gi, "");
+
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      ["script", "head", "meta", "link"].forEach((t) => doc.querySelectorAll(t).forEach((el) => el.remove()));
+
+      const classColors = extractClassColors(doc);
+
+      const cellBgMap = new Map<Element, string>();
+      doc.querySelectorAll("td, th").forEach((cell) => {
+        const rawStyle = cell.getAttribute("style") || "";
+        const bm = rawStyle.match(/background(?:-color)?\s*:\s*([^;]+)/i);
+        if (bm) {
+          const val = bm[1].trim().toLowerCase().replace(/\s/g, "");
+          const skip = ["white", "#ffffff", "#fff", "rgb(255,255,255)", "transparent", "none", "auto", "initial", "windowtext"];
+          if (!skip.includes(val)) cellBgMap.set(cell, bm[1].trim());
+        }
+      });
+
+      doc.querySelectorAll("style").forEach((el) => el.remove());
+
+      const allowedAttrs: Record<string, string[]> = {
+        a: ["href", "title", "target"], img: ["src", "alt", "width", "height"],
+        table: ["border", "cellpadding", "cellspacing", "width"],
+        col: ["width", "span"], colgroup: ["width", "span"],
+        td: ["colspan", "rowspan", "width", "align", "valign"],
+        th: ["colspan", "rowspan", "width", "align", "valign", "scope"],
+        ol: ["type", "start"],
+      };
+      const headingMap: Record<string, string> = { msoheading1: "h1", msoheading2: "h2", msoheading3: "h3", msoheading4: "h4", msotitle: "h1", msosubtitle: "h2" };
+
+      doc.querySelectorAll("*").forEach((el) => {
+        const tag = el.tagName.toLowerCase();
+        const normClass = (el.className || "").toString().replace(/\s+/g, "").toLowerCase();
+        const rawStyle = el.getAttribute("style") || "";
+        if (tag === "p") {
+          const hTag = headingMap[normClass];
+          if (hTag) {
+            const cs = extractInlineColors(rawStyle, classColors, normClass);
+            const newEl = doc.createElement(hTag);
+            newEl.innerHTML = el.innerHTML;
+            if (cs) newEl.setAttribute("style", cs);
+            el.replaceWith(newEl);
+            return;
+          }
+        }
+        const colorStyle = extractInlineColors(rawStyle, classColors, normClass);
+        const allowed = allowedAttrs[tag] || [];
+        Array.from(el.attributes).forEach((a) => {
+          if (!allowed.includes(a.name)) el.removeAttribute(a.name);
+        });
+        if (colorStyle && !["table", "td", "th"].includes(tag)) el.setAttribute("style", colorStyle);
+      });
+
+      doc.querySelectorAll("table").forEach((t) => {
+        t.setAttribute("border", "1");
+        t.setAttribute("cellpadding", "8");
+        t.setAttribute("cellspacing", "0");
+        (t as HTMLElement).style.cssText = "border-collapse:collapse;width:100%;margin:1em 0;";
+      });
+      doc.querySelectorAll("td, th").forEach((cell) => {
+        const wordBg = cellBgMap.get(cell);
+        const bgStyle = wordBg ? `background-color:${wordBg};` : "";
+        (cell as HTMLElement).style.cssText = `border:1px solid #cbd5e1;padding:8px 12px;vertical-align:top;text-align:left;${bgStyle}`;
+      });
+      doc.querySelectorAll("th").forEach((th) => {
+        if (!cellBgMap.has(th)) (th as HTMLElement).style.cssText += "background:#f1f5f9;font-weight:700;";
+        else (th as HTMLElement).style.cssText += "font-weight:700;";
+      });
+
+      doc.querySelectorAll("span").forEach((span) => {
+        if (span.attributes.length === 0) {
+          const parent = span.parentNode;
+          if (parent) {
+            while (span.firstChild) parent.insertBefore(span.firstChild, span);
+            parent.removeChild(span);
+          }
+        }
+      });
+
+      let emptyCount = 0;
+      doc.querySelectorAll("p").forEach((p) => {
+        if (p.closest("td") || p.closest("th")) return;
+        const text = p.textContent?.replace(/ /g, "").trim() || "";
+        if (!text && p.innerHTML.replace(/&nbsp;/gi, "").trim() === "") {
+          emptyCount++;
+          if (emptyCount > 1) p.remove();
+        } else {
+          emptyCount = 0;
+        }
+      });
+
+      return doc.body.innerHTML;
+    }
+
+    editor.addEventListener("paste", (event: ClipboardEvent) => {
+      const htmlData = event.clipboardData?.getData("text/html");
+      if (htmlData) {
+        event.preventDefault();
+        document.execCommand("insertHTML", false, cleanWordHtml(htmlData));
+        editor.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+    });
+
+    /* ───────────────────── Editor: .docx import (structure + XML colors) ───────────────────── */
+
+    const THEME_HEX: Record<string, string> = {
+      dk1: "#000000", dk2: "#1F3864", lt1: "#FFFFFF", lt2: "#E7E6E6",
+      accent1: "#4472C4", accent2: "#ED7D31", accent3: "#A9D18E",
+      accent4: "#FF0000", accent5: "#FFC000", accent6: "#9DC3E6",
+      hyperlink: "#0563C1", followedhyperlink: "#954F72",
+      text1: "#000000", text2: "#595959", background1: "#FFFFFF", background2: "#F2F2F2",
+    };
+    const HIGHLIGHT_HEX: Record<string, string> = {
+      yellow: "#FFFF00", green: "#00FF00", cyan: "#00FFFF", magenta: "#FF00FF",
+      blue: "#0000FF", red: "#FF0000", darkBlue: "#000080", darkCyan: "#008080",
+      darkGreen: "#008000", darkMagenta: "#800080", darkRed: "#800000",
+      darkYellow: "#808000", darkGray: "#808080", lightGray: "#C0C0C0",
+    };
+
+    const xChildren = (el: Element | null, name: string) =>
+      el ? Array.from(el.children).filter((c) => c.localName === name) : [];
+    const xChild = (el: Element | null, name: string) =>
+      el ? Array.from(el.children).find((c) => c.localName === name) ?? null : null;
+    const xAttr = (el: Element | null, name: string) =>
+      el ? el.getAttribute("w:" + name) ?? el.getAttribute(name) ?? null : null;
+
+    function resolveRunColor(hexVal: string | null, themeColor: string | null) {
+      if (hexVal === "FFFFFF" || hexVal === "ffffff") return "#FFFFFF";
+      if (themeColor === "lt1" || themeColor === "background1") return "#FFFFFF";
+      if (themeColor && THEME_HEX[themeColor.toLowerCase()]) {
+        const v = THEME_HEX[themeColor.toLowerCase()];
+        if (v === "#000000" || v === "#FFFFFF") return null;
+        return v;
+      }
+      if (hexVal && hexVal !== "auto" && /^[0-9A-Fa-f]{6}$/.test(hexVal)) {
+        if (hexVal.toLowerCase() === "000000") return null;
+        return "#" + hexVal.toUpperCase();
+      }
+      return null;
+    }
+
+    function resolveCellBg(hexVal: string | null, themeColor: string | null) {
+      if (themeColor && THEME_HEX[themeColor.toLowerCase()]) {
+        const v = THEME_HEX[themeColor.toLowerCase()];
+        if (v === "#FFFFFF" || v === "#000000") return null;
+        return v;
+      }
+      if (hexVal && hexVal !== "auto" && /^[0-9A-Fa-f]{6}$/.test(hexVal)) {
+        if (hexVal.toLowerCase() === "ffffff") return null;
+        return "#" + hexVal.toUpperCase();
+      }
+      return null;
+    }
+
+    function extractCellTextColor(tcEl: Element) {
+      const colors = new Set<string>();
+      for (const p of xChildren(tcEl, "p")) {
+        for (const r of xChildren(p, "r")) {
+          const rPr = xChild(r, "rPr");
+          const colorEl = xChild(rPr, "color");
+          const resolved = resolveRunColor(xAttr(colorEl, "val"), xAttr(colorEl, "themeColor"));
+          if (resolved) colors.add(resolved);
+        }
+      }
+      return colors.size === 1 ? Array.from(colors)[0] : null;
+    }
+
+    async function parseDocxColors(arrayBuffer: ArrayBuffer) {
+      const JSZipMod = await import("jszip");
+      const JSZip = JSZipMod.default;
+      const zip = await JSZip.loadAsync(arrayBuffer);
+      const xmlStr = await zip.file("word/document.xml")?.async("string");
+      if (!xmlStr) return { tables: [] as any[], headings: [] as any[], bodyRuns: [] as any[], paragraphSpacings: [] as any[] };
+
+      const xmlDoc = new DOMParser().parseFromString(xmlStr, "application/xml");
+      const body = xChild(xmlDoc.documentElement, "body");
+      if (!body) return { tables: [] as any[], headings: [] as any[], bodyRuns: [] as any[], paragraphSpacings: [] as any[] };
+
+      const HEADING_STYLES: Record<string, string> = {
+        heading1: "h1", heading2: "h2", heading3: "h3", heading4: "h4", heading5: "h5", heading6: "h6",
+        title: "h1", subtitle: "h2",
+      };
+
+      const tables: any[] = [];
+      const headings: any[] = [];
+      const bodyRuns: any[] = [];
+
+      function walkBody(el: Element) {
+        for (const child of Array.from(el.children)) {
+          const name = child.localName;
+
+          if (name === "tbl") {
+            const tableData: any[] = [];
+            for (const tr of xChildren(child, "tr")) {
+              const rowData: any[] = [];
+              for (const tc of xChildren(tr, "tc")) {
+                const tcPr = xChild(tc, "tcPr");
+                const shd = xChild(tcPr, "shd");
+                rowData.push({
+                  bgColor: resolveCellBg(xAttr(shd, "fill"), xAttr(shd, "themeFill")),
+                  textColor: extractCellTextColor(tc),
+                });
+              }
+              tableData.push(rowData);
+            }
+            tables.push(tableData);
+          } else if (name === "p") {
+            const pPr = xChild(child, "pPr");
+            const pStyle = xAttr(xChild(pPr, "pStyle"), "val")?.toLowerCase() ?? "";
+            const hTag = HEADING_STYLES[pStyle] ?? null;
+
+            const runs = xChildren(child, "r");
+            const runText = runs.map((r) => xChild(r, "t")?.textContent ?? "").join("");
+
+            if (hTag && runText.trim()) {
+              const hColors = new Set<string>();
+              for (const r of runs) {
+                const rPr = xChild(r, "rPr");
+                const cEl = xChild(rPr, "color");
+                const c = resolveRunColor(xAttr(cEl, "val"), xAttr(cEl, "themeColor"));
+                if (c) hColors.add(c);
+              }
+              headings.push({ text: runText.trim(), color: hColors.size === 1 ? Array.from(hColors)[0] : null, tag: hTag });
+            } else {
+              for (const r of runs) {
+                const rPr = xChild(r, "rPr");
+                const colorEl = xChild(rPr, "color");
+                const highlightEl = xChild(rPr, "highlight");
+                const rShdEl = xChild(rPr, "shd");
+                const textEl = xChild(r, "t");
+                const text = textEl?.textContent ?? "";
+                if (!text.trim()) continue;
+
+                const textColor = resolveRunColor(xAttr(colorEl, "val"), xAttr(colorEl, "themeColor"));
+                let bgColor: string | null = null;
+                if (highlightEl) {
+                  bgColor = HIGHLIGHT_HEX[xAttr(highlightEl, "val") ?? ""] ?? null;
+                } else if (rShdEl) {
+                  bgColor = resolveCellBg(xAttr(rShdEl, "fill"), null);
+                }
+                if (textColor || bgColor) bodyRuns.push({ text, textColor, bgColor });
+              }
+            }
+          } else {
+            walkBody(child);
+          }
+        }
+      }
+
+      walkBody(body);
+
+      const TWIPS_TO_PX = (v: string | null) => Math.round((parseInt(v ?? "0") * 96) / 1440);
+      const paragraphSpacings: any[] = [];
+      for (const child of Array.from(body.children)) {
+        if (child.localName !== "p") continue;
+        const pPr = xChild(child, "pPr");
+        const spEl = xChild(pPr, "spacing");
+        const afterPx = spEl ? TWIPS_TO_PX(xAttr(spEl, "after")) : 0;
+        const beforePx = spEl ? TWIPS_TO_PX(xAttr(spEl, "before")) : 0;
+        const lineVal = spEl ? parseInt(xAttr(spEl, "line") ?? "0") : 0;
+        const lineRule = spEl ? xAttr(spEl, "lineRule") ?? "auto" : "auto";
+        paragraphSpacings.push({
+          marginBottom: afterPx > 0 ? afterPx + "px" : null,
+          marginTop: beforePx > 0 ? beforePx + "px" : null,
+          lineHeight: lineRule === "auto" && lineVal > 0 && lineVal !== 240 ? (lineVal / 240).toFixed(2) : null,
+        });
+      }
+
+      return { tables, headings, bodyRuns, paragraphSpacings };
+    }
+
+    function applyDocxColors(html: string, { tables, headings, bodyRuns, paragraphSpacings = [] }: any) {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+
+      const htmlTables = Array.from(doc.querySelectorAll("table"));
+      tables.forEach((tableData: any[], ti: number) => {
+        const tbl = htmlTables[ti];
+        if (!tbl) return;
+        const rows = Array.from(tbl.querySelectorAll("tr"));
+        tableData.forEach((rowData: any[], ri: number) => {
+          const row = rows[ri];
+          if (!row) return;
+          const cells = Array.from(row.querySelectorAll("td, th"));
+          rowData.forEach((style: any, ci: number) => {
+            const cell = cells[ci] as HTMLElement;
+            if (!cell) return;
+            if (style.bgColor) cell.style.setProperty("background-color", style.bgColor);
+            if (style.textColor) cell.style.setProperty("color", style.textColor);
+          });
+        });
+      });
+
+      const htmlHeadings = Array.from(doc.querySelectorAll("h1,h2,h3,h4,h5,h6"));
+      headings.forEach(({ text, color, tag }: any) => {
+        if (!color) return;
+        const el = htmlHeadings.find((h) => h.tagName.toLowerCase() === tag && h.textContent?.trim() === text);
+        if (el) (el as HTMLElement).style.color = color;
+      });
+
+      if (bodyRuns.length > 0) {
+        const runMap = new Map<string, any>();
+        for (const run of bodyRuns) {
+          if (!runMap.has(run.text)) runMap.set(run.text, run);
+        }
+
+        const walkTextNodes = (node: Node) => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            const content = node.textContent || "";
+            for (const [runText, style] of runMap) {
+              const idx = content.indexOf(runText);
+              if (idx === -1) continue;
+              const before = content.slice(0, idx);
+              const after = content.slice(idx + runText.length);
+              const span = doc.createElement("span");
+              if (style.textColor) span.style.color = style.textColor;
+              if (style.bgColor) span.style.backgroundColor = style.bgColor;
+              span.textContent = runText;
+              const parent = node.parentNode;
+              if (!parent) continue;
+              if (before) parent.insertBefore(doc.createTextNode(before), node);
+              parent.insertBefore(span, node);
+              if (after) parent.insertBefore(doc.createTextNode(after), node);
+              parent.removeChild(node);
+              runMap.delete(runText);
+              break;
+            }
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            const tag = (node as Element).tagName.toLowerCase();
+            if (["table", "script", "style"].includes(tag)) return;
+            for (const child of Array.from(node.childNodes)) walkTextNodes(child);
+          }
+        };
+
+        for (const child of Array.from(doc.body.childNodes)) {
+          if (child.nodeType === Node.ELEMENT_NODE && !["table", "script", "style"].includes((child as Element).tagName.toLowerCase())) {
+            walkTextNodes(child);
+          }
+        }
+      }
+
+      if (paragraphSpacings.length > 0) {
+        const htmlBlocks = Array.from(doc.body.children).filter((el) =>
+          ["p", "h1", "h2", "h3", "h4", "h5", "h6", "blockquote", "ul", "ol"].includes(el.tagName.toLowerCase())
+        );
+        paragraphSpacings.forEach((spacing: any, i: number) => {
+          const el = htmlBlocks[i] as HTMLElement;
+          if (!el) return;
+          if (spacing.marginBottom) el.style.marginBottom = spacing.marginBottom;
+          if (spacing.marginTop) el.style.marginTop = spacing.marginTop;
+          if (spacing.lineHeight) el.style.lineHeight = spacing.lineHeight;
+        });
+      }
+
+      return doc.body.innerHTML;
+    }
+
+    const convertDocxToHtml = async (file: File) => {
+      const arrayBuffer = await file.arrayBuffer();
+
+      const mammothMod: any = await import("mammoth/mammoth.browser.min.js");
+      const mammoth = mammothMod.default ?? mammothMod;
+
+      const alignmentData: (string | null)[] = [];
+      const { value: rawHtml } = await mammoth.convertToHtml(
+        { arrayBuffer },
+        {
+          styleMap: [
+            "p[style-name='Heading 1'] => h1:fresh",
+            "p[style-name='Heading 2'] => h2:fresh",
+            "p[style-name='Heading 3'] => h3:fresh",
+            "p[style-name='Heading 4'] => h4:fresh",
+            "p[style-name='Heading 5'] => h5:fresh",
+            "p[style-name='Heading 6'] => h6:fresh",
+            "p[style-name='Title'] => h1:fresh",
+            "p[style-name='Subtitle'] => h2:fresh",
+            "p[style-name='Quote'] => blockquote:fresh",
+            "p[style-name='Intense Quote'] => blockquote:fresh",
+          ],
+          transformDocument: mammoth.transforms?.paragraph?.((para: any) => {
+            alignmentData.push(para.alignment ?? null);
+            return para;
+          }),
+        }
+      );
+
+      let html = rawHtml;
+      if (alignmentData.some((a) => a && a !== "left" && a !== "start")) {
+        const tmp = new DOMParser().parseFromString(html, "text/html");
+        const blocks = Array.from(tmp.querySelectorAll("p,h1,h2,h3,h4,h5,h6,blockquote"));
+        blocks.forEach((el, i) => {
+          const a = alignmentData[i];
+          if (a && a !== "left" && a !== "start") {
+            (el as HTMLElement).style.textAlign = a === "both" ? "justify" : a;
+          }
+        });
+        html = tmp.body.innerHTML;
+      }
+
+      const colorData = await parseDocxColors(arrayBuffer);
+      html = applyDocxColors(html, colorData);
+      return html;
+    };
+
+    /* ───────────────────── Editor: image upload ───────────────────── */
+
+    const openImagePicker = () => {
+      rememberSelection();
+      imageInput.click();
+    };
+
+    imageInput.addEventListener("change", async () => {
+      const files = Array.from(imageInput.files || []);
+      imageInput.value = "";
+      if (!files.length) return;
+      if (files.length > 20) {
+        alert("You can upload up to 20 images at once.");
+        return;
+      }
+
+      const button = editorToolbar.querySelector<HTMLButtonElement>("[data-image-upload]")!;
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = "Uploading...";
+      try {
+        const formData = new FormData();
+        files.forEach((file) => formData.append("images", file));
+        const response = await request("/api/rapl/admin/blogs/content-images", {
+          method: "POST",
+          body: formData,
+        });
+        const urls: string[] = response?.data?.urls || [];
+        if (!urls.length) throw new Error("Upload succeeded but no image URLs were returned.");
+
+        restoreSelection();
+        const html = urls.map((path) => `<img src="${assetUrl(path)}" alt="" style="max-width:100%;height:auto;" />`).join("<p><br></p>");
+        document.execCommand("insertHTML", false, html);
+        editor.dispatchEvent(new Event("input", { bubbles: true }));
+      } catch (error: any) {
+        alert(error?.message || "Could not upload images. Please try again.");
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    });
+
+    /* ───────────────────── Editor toolbar wiring ───────────────────── */
+
+    editor.addEventListener("keyup", rememberSelection);
+    editor.addEventListener("mouseup", rememberSelection);
+    editor.addEventListener("input", rememberSelection);
+
+    editorToolbar.addEventListener("mousedown", (event) => {
+      const button = (event.target as HTMLElement).closest("button");
+      if (button) event.preventDefault();
+    });
+
+    editorToolbar.addEventListener("click", (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>("button");
+      if (!button) return;
+
+      if (button.hasAttribute("data-docx-upload")) {
+        docxInput.click();
+        return;
+      }
+      if (button.hasAttribute("data-image-upload")) {
+        openImagePicker();
+        return;
+      }
+      if (button.dataset.fontSize) {
+        changeFontSize(button.dataset.fontSize);
+        return;
+      }
+      if (button.hasAttribute("data-link")) {
+        const href = window.prompt("Enter URL:");
+        if (href) runEditorCommand("createLink", href);
+        return;
+      }
+      runEditorCommand(button.dataset.command!, button.dataset.value || null);
+    });
+
+    docxInput.addEventListener("change", async () => {
+      const file = docxInput.files?.[0];
+      if (!file) return;
+      if (!file.name.toLowerCase().endsWith(".docx")) {
+        alert("Please select a .docx Word document.");
+        docxInput.value = "";
+        return;
+      }
+      const button = editorToolbar.querySelector<HTMLButtonElement>("[data-docx-upload]")!;
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = "Converting...";
+      try {
+        const html = await convertDocxToHtml(file);
+        editor.innerHTML = html;
+        editor.dispatchEvent(new Event("input", { bubbles: true }));
+      } catch (error) {
+        console.error("[RAPL admin] .docx conversion failed:", error);
+        alert("Could not read the document. Please make sure it is a valid .docx file.");
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+        docxInput.value = "";
+      }
+    });
+
+    /* ───────────────────── Login / CRUD wiring ───────────────────── */
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      loginMessage.textContent = "";
+      const formData = new FormData(loginForm);
+      try {
+        const payload = await request("/api/rapl/admin/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: formData.get("email"), password: formData.get("password") }),
+        });
+        setToken(payload.token || payload.data?.token);
+        syncPanels();
+        await loadBlogs();
+      } catch (error: any) {
+        loginMessage.textContent = error.message;
+      }
+    });
+
+    blogForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      formMessage.textContent = "";
+      const formData = new FormData(blogForm);
+      formData.set("content", editor.innerHTML.trim());
+      const featuredImageField = formData.get("featured_image") as File | null;
+      if (!featuredImageField || !featuredImageField.name) formData.delete("featured_image");
+
+      const id = formData.get("id");
+      const willBePublished = blogForm.elements.namedItem("is_published") instanceof HTMLInputElement
+        ? (blogForm.elements.namedItem("is_published") as HTMLInputElement).checked
+        : false;
+
+      try {
+        await request(id ? `/api/rapl/admin/blogs/${id}` : "/api/rapl/admin/blogs", {
+          method: id ? "PUT" : "POST",
+          body: formData,
+        });
+        closeModal();
+        await loadBlogs();
+        if (willBePublished) {
+          showStatusBanner("Published — site update in progress. It may take a couple of minutes to appear live.");
+        }
+      } catch (error: any) {
+        formMessage.textContent = error.message;
+      }
+    });
+
+    document.querySelector("[data-open-modal]")!.addEventListener("click", () => openModal());
+    document.querySelector("[data-logout]")!.addEventListener("click", () => {
+      clearToken();
+      syncPanels();
+    });
+    document.querySelectorAll("[data-close-modal]").forEach((button) => button.addEventListener("click", closeModal));
+    searchInput.addEventListener("input", renderTable);
+    typeFilter.addEventListener("change", renderTable);
+    statusFilter.addEventListener("change", renderTable);
+
+    tableBody.addEventListener("click", async (event) => {
+      const target = event.target as HTMLElement;
+      const editButton = target.closest<HTMLButtonElement>("[data-edit]");
+      const toggleButton = target.closest<HTMLButtonElement>("[data-toggle]");
+      const deleteButton = target.closest<HTMLButtonElement>("[data-delete]");
+      try {
+        if (editButton) {
+          const blog = blogs.find((item) => String(item.id) === editButton.dataset.edit);
+          if (blog) {
+            // Full record (with content) isn't in the list payload — fetch it.
+            const payload = await request(`/api/rapl/admin/blogs/${blog.id}`);
+            openModal(payload.data);
+          }
+        }
+        if (toggleButton) {
+          await request(`/api/rapl/admin/blogs/${toggleButton.dataset.toggle}/toggle-publish`, { method: "PATCH" });
+          await loadBlogs();
+          showStatusBanner("Saved — site update in progress. It may take a couple of minutes to appear live.");
+        }
+        if (deleteButton && window.confirm("Delete this post?")) {
+          await request(`/api/rapl/admin/blogs/${deleteButton.dataset.delete}`, { method: "DELETE" });
+          await loadBlogs();
+          showStatusBanner("Deleted — site update in progress if this was published.");
+        }
+      } catch (error: any) {
+        alert(error.message);
+      }
+    });
+
+    syncPanels();
+    if (getToken()) loadBlogs();
+  </script>
+
+  <style is:global>
+    .rapl-admin-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(2rem, 5vw, 4rem) var(--shell-padding, 1.5rem) 6rem;
+      font-family: var(--font-sans);
+      color: var(--ink);
+    }
+
+    .rapl-admin-kicker {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--brass-deep, #8f6e36);
+      margin: 0 0 0.5rem;
+    }
+
+    .rapl-admin-login-card {
+      max-width: 460px;
+      margin: 4rem auto;
+      padding: 2.5rem;
+      background: var(--paper, #fdfcf9);
+      border: 1px solid rgba(16, 32, 43, 0.12);
+      border-radius: var(--radius, 4px);
+    }
+
+    .rapl-admin-login-form, .rapl-admin-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .rapl-admin-page label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .rapl-admin-page input[type="text"],
+    .rapl-admin-page input[type="email"],
+    .rapl-admin-page input[type="password"],
+    .rapl-admin-page input[type="url"],
+    .rapl-admin-page input[type="date"],
+    .rapl-admin-page input[type="datetime-local"],
+    .rapl-admin-page input[type="search"],
+    .rapl-admin-page input[type="file"],
+    .rapl-admin-page select,
+    .rapl-admin-page textarea {
+      font: inherit;
+      font-weight: 400;
+      padding: 0.55rem 0.7rem;
+      border: 1px solid rgba(16, 32, 43, 0.2);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .rapl-admin-page small {
+      font-weight: 400;
+      color: var(--graphite-light, #6b625f);
+    }
+
+    .rapl-admin-login-form button, .rapl-admin-primary, .rapl-admin-secondary {
+      font-family: var(--font-sans);
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 0.65rem 1.4rem;
+      border: 1px solid transparent;
+    }
+
+    .rapl-admin-login-form button, .rapl-admin-primary {
+      background: var(--ink, #0f1e31);
+      color: #fff;
+    }
+
+    .rapl-admin-secondary {
+      background: transparent;
+      border-color: rgba(16, 32, 43, 0.3);
+      color: var(--ink);
+    }
+
+    .rapl-admin-message {
+      min-height: 1.2em;
+      color: var(--annotation, #781222);
+      font-size: 0.9rem;
+    }
+
+    .rapl-admin-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .rapl-admin-user {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .rapl-admin-status-banner {
+      background: #eef7ee;
+      border: 1px solid #bfe3bf;
+      color: #245c24;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+
+    .rapl-admin-logout {
+      background: transparent;
+      border: 1px solid rgba(16, 32, 43, 0.3);
+      border-radius: 4px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .rapl-admin-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: end;
+      margin-bottom: 1.25rem;
+    }
+
+    .rapl-admin-search {
+      flex: 1 1 220px;
+    }
+
+    .rapl-admin-table-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(16, 32, 43, 0.12);
+      border-radius: 4px;
+    }
+
+    .rapl-admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .rapl-admin-table th, .rapl-admin-table td {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(16, 32, 43, 0.08);
+      vertical-align: middle;
+    }
+
+    .rapl-admin-title-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .rapl-admin-title-cell img, .rapl-admin-thumb {
+      width: 44px;
+      height: 32px;
+      object-fit: cover;
+      border-radius: 3px;
+      background: rgba(16, 32, 43, 0.08);
+      flex-shrink: 0;
+    }
+
+    .rapl-admin-pill {
+      display: inline-block;
+      padding: 0.15rem 0.55rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(16, 32, 43, 0.08);
+    }
+
+    .rapl-admin-pill--featured { background: rgba(205, 163, 103, 0.25); color: var(--brass-deep, #8f6e36); }
+    .rapl-admin-pill--type-podcast { background: rgba(120, 18, 34, 0.1); color: var(--annotation, #781222); }
+    .rapl-admin-pill--type-article { background: rgba(15, 30, 49, 0.1); color: var(--ink); }
+
+    .rapl-admin-status { color: var(--graphite-light, #6b625f); font-weight: 600; }
+    .rapl-admin-status.is-published { color: #245c24; }
+
+    .rapl-admin-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .rapl-admin-actions button {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      border: 1px solid rgba(16, 32, 43, 0.2);
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .rapl-admin-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 3rem 1rem;
+      overflow-y: auto;
+    }
+
+    .rapl-admin-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 30, 49, 0.55);
+    }
+
+    .rapl-admin-modal-panel {
+      position: relative;
+      background: #fff;
+      border-radius: 6px;
+      max-width: 780px;
+      width: 100%;
+      padding: 1.75rem;
+    }
+
+    .rapl-admin-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .rapl-admin-modal-header button {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .rapl-editor {
+      border: 1px solid rgba(16, 32, 43, 0.2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .rapl-editor-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      padding: 0.5rem;
+      background: #f6f4f2;
+      border-bottom: 1px solid rgba(16, 32, 43, 0.12);
+    }
+
+    .rapl-editor-toolbar button {
+      font: inherit;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.55rem;
+      border: 1px solid rgba(16, 32, 43, 0.18);
+      border-radius: 3px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .rapl-editor-docx-btn { font-weight: 700; }
+    .rapl-editor-sep { width: 1px; background: rgba(16, 32, 43, 0.15); margin: 0 0.2rem; }
+
+    .rapl-editor-area {
+      min-height: 320px;
+      padding: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      outline: none;
+    }
+
+    .rapl-editor-area:empty::before {
+      content: attr(data-placeholder);
+      color: rgba(16, 32, 43, 0.4);
+    }
+
+    .rapl-admin-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .rapl-admin-podcast-fields, .rapl-admin-seo-fieldset {
+      border: 1px solid rgba(16, 32, 43, 0.15);
+      border-radius: 4px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .rapl-admin-podcast-fields legend, .rapl-admin-seo-fieldset legend {
+      font-weight: 700;
+      padding: 0 0.4rem;
+    }
+
+    .rapl-admin-tags-input { display: flex; gap: 0.5rem; }
+    .rapl-admin-tags-input input { flex: 1; }
+    .rapl-admin-tags-input button {
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      border: 1px solid rgba(16, 32, 43, 0.2);
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .rapl-admin-tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+    .rapl-admin-tag-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(16, 32, 43, 0.08);
+      padding: 0.25rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .rapl-admin-tag-chip button { background: none; border: none; cursor: pointer; font-weight: 700; }
+
+    .rapl-admin-flags { display: flex; gap: 1.5rem; margin: 1rem 0; }
+    .rapl-admin-flags label { flex-direction: row; align-items: center; font-weight: 600; }
+
+    .rapl-admin-modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 720px) {
+      .rapl-admin-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</BaseLayout>

@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../../components/BaseLayout.astro";
+import BlogCard from "../../components/BlogCard.astro";
+import PodcastCard from "../../components/PodcastCard.astro";
+import { fetchPublishedRaplBlogs } from "../../lib/raplBlogApi";
+
+// Fetched at build time so this page ships as plain, crawlable static HTML —
+// see the architecture report's SEO/indexing plan for why (no client-side
+// data fetching for anything that needs to be indexable).
+const [podcasts, articles] = await Promise.all([
+  fetchPublishedRaplBlogs("podcast"),
+  fetchPublishedRaplBlogs("article"),
+]);
+---
+
+<BaseLayout
+  title="Blog & Podcasts | RAPL™ Leadership"
+  description="RAPL™ Leadership articles and podcast conversations on leadership capability, AI-enabled change, sponsorship and sustained value."
+  ogType="website"
+>
+  <section class="page-hero">
+    <div class="site-shell">
+      <div class="reveal-on-scroll">
+        <div class="eyebrow">Insights</div>
+        <h1 class="display-title">Blog &amp; Podcasts</h1>
+        <p class="lede" style="margin-top: 1rem; max-width: 46rem;">
+          Conversations and briefs on the Leadership Capability Gap, AI-enabled change and the discipline of sustained value.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell">
+      <h2 class="section-title">Podcasts</h2>
+      {podcasts.length > 0 ? (
+        <div class="blog-grid podcast-grid reveal-on-scroll">
+          {podcasts.map((blog) => <PodcastCard blog={blog} />)}
+        </div>
+      ) : (
+        <p class="lede" style="margin-top: 1rem;">New episodes are on the way — check back soon.</p>
+      )}
+    </div>
+  </section>
+
+  <section class="section section--tight" style="background: var(--bg-cream-1);">
+    <div class="site-shell">
+      <h2 class="section-title">Articles</h2>
+      {articles.length > 0 ? (
+        <div class="blog-grid reveal-on-scroll">
+          {articles.map((blog) => <BlogCard blog={blog} />)}
+        </div>
+      ) : (
+        <p class="lede" style="margin-top: 1rem;">New articles are on the way — check back soon.</p>
+      )}
+    </div>
+  </section>
+</BaseLayout>

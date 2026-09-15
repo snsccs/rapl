@@ -4,7 +4,11 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://raplleadership.com',
   trailingSlash: 'never',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => !new URL(page).pathname.startsWith('/admin'),
+    }),
+  ],
   build: {
     inlineStylesheets: 'auto',
   },

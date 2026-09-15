@@ -1,0 +1,27 @@
+---
+import { raplAssetUrl, raplBlogHref, formatRaplDate, type RaplBlogRecord } from "../lib/raplBlogApi";
+
+interface Props {
+  blog: RaplBlogRecord;
+}
+
+const { blog } = Astro.props;
+const href = raplBlogHref(blog);
+const image = raplAssetUrl(blog.featured_image);
+---
+
+<a class="podcast-card card card--bordered" href={href}>
+  <div class="podcast-card-thumb">
+    {image ? <img src={image} alt="" loading="lazy" /> : <span class="podcast-card-thumb-fallback" aria-hidden="true">&#9654;</span>}
+    <span class="podcast-card-play" aria-hidden="true">&#9654;</span>
+  </div>
+  <div class="podcast-card-body">
+    <div class="blog-card-meta">
+      {blog.category && <span class="blog-card-category">{blog.category}</span>}
+      {blog.published_at && <span class="blog-card-date">{formatRaplDate(blog.published_at)}</span>}
+    </div>
+    <h3 class="blog-card-title">{blog.title}</h3>
+    {blog.subtitle && <p class="blog-card-excerpt">{blog.subtitle}</p>}
+    {blog.podcast_platform && <span class="podcast-card-platform">{blog.podcast_platform}</span>}
+  </div>
+</a>

@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../../components/BaseLayout.astro";
+import { fetchPublishedRaplBlogs, raplAssetUrl, formatRaplDate, type RaplBlogRecord } from "../../lib/raplBlogApi";
+
+export async function getStaticPaths() {
+  const articles = await fetchPublishedRaplBlogs("article");
+  return articles.map((blog) => ({
+    params: { slug: blog.seo_slug || blog.slug },
+    props: { blog },
+  }));
+}
+
+interface Props {
+  blog: RaplBlogRecord;
+}
+
+const { blog } = Astro.props;
+
+const image = raplAssetUrl(blog.featured_image);
+const canonicalSlug = blog.seo_slug || blog.slug;
+
+const defaultSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: blog.meta_title || blog.title,
+  description: blog.meta_description || blog.subtitle || undefined,
+  image: image || undefined,
+  datePublished: blog.published_at || undefined,
+  dateModified: blog.published_at || undefined,
+  author: { "@type": "Organization", name: blog.author || "RAPL Leadership" },
+  mainEntityOfPage: `https://raplleadership.com/blogs/${canonicalSlug}`,
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://raplleadership.com/" },
+    { "@type": "ListItem", position: 2, name: "Blog & Podcasts", item: "https://raplleadership.com/blogs" },
+    { "@type": "ListItem", position: 3, name: blog.title, item: `https://raplleadership.com/blogs/${canonicalSlug}` },
+  ],
+};
+
+const jsonLd = [blog.custom_schema || defaultSchema, breadcrumbSchema];
+---
+
+<BaseLayout
+  title={`${blog.meta_title || blog.title} | RAPL™ Leadership`}
+  description={blog.meta_description || blog.subtitle || `${blog.title} — RAPL™ Leadership`}
+  ogType="article"
+  ogImage={image || undefined}
+  jsonLd={jsonLd}
+>
+  <article class="blog-detail-page">
+    <section class="page-hero page-hero--tight">
+      <div class="site-shell">
+        <nav class="blog-breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a> <span aria-hidden="true">/</span>
+          <a href="/blogs">Blog &amp; Podcasts</a> <span aria-hidden="true">/</span>
+          <span aria-current="page">{blog.title}</span>
+        </nav>
+        <div class="eyebrow">{blog.category}</div>
+        <h1 class="display-title">{blog.title}</h1>
+        {blog.subtitle && <p class="lede" style="margin-top: 1rem;">{blog.subtitle}</p>}
+        <div class="blog-detail-meta">
+          {blog.author && <span>{blog.author}</span>}
+          {blog.published_at && <span>{formatRaplDate(blog.published_at)}</span>}
+        </div>
+        {blog.tags?.length > 0 && (
+          <div class="blog-detail-tags">
+            {blog.tags.map((tag) => <span class="pill pill--ink">{tag}</span>)}
+          </div>
+        )}
+      </div>
+    </section>
+
+    {image && (
+      <div class="site-shell blog-detail-image-wrap">
+        <img class="blog-detail-image" src={image} alt="" />
+      </div>
+    )}
+
+    <div class="site-shell blog-detail-body prose" set:html={blog.content} />
+  </article>
+</BaseLayout>
