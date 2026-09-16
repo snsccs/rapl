@@ -8122,6 +8122,15 @@ img {
   margin-top: 1.25rem;
 }
 
+/* The title and lede used to run the full shell width while the body sat in a
+   much narrower column, so the article read as two different layouts stacked.
+   Pinning the hero to the same measure as the body makes it one column.
+   max-width includes the shell's own side padding, so the inner content lands
+   on exactly the body's 72rem. */
+.blog-detail-page .page-hero .site-shell {
+  max-width: calc(72rem + 2 * var(--shell-padding));
+}
+
 /* Full-bleed: the wrapper also carries .site-shell, so its max-width and side
    padding have to be undone here for the lead image to reach both edges.
    Declared after .site-shell, so equal specificity resolves in this rule's
@@ -8147,12 +8156,18 @@ img {
    comfortable 50-75ch range rather than improving readability. */
 .blog-detail-body {
   padding-block: clamp(2rem, 4vw, 3.5rem);
-  max-width: 58rem;
+  /* Same expression as the hero above, so the two resolve to identical geometry
+     at every width: the shell's side padding is inside this box, so it has to be
+     added to the 72rem measure or the body's text starts further in than the
+     title's once the padding begins to bite (below ~1280px). */
+  max-width: calc(72rem + 2 * var(--shell-padding));
 }
 
 .blog-detail-body.prose {
   font-family: var(--font-sans);
-  font-size: 1.15rem;
+  /* Size rises with the column: a wider measure needs bigger type to stay
+     readable, so 72rem is set against 1.25rem rather than left at 1.15rem. */
+  font-size: 1.25rem;
   line-height: 1.75;
   color: var(--graphite);
 }
@@ -8169,6 +8184,16 @@ img {
 
 .blog-detail-body.prose p {
   margin: 0 0 1.25rem;
+}
+
+/* Clears the global `p, li { max-width: 68ch }`. That cap held every paragraph
+   at ~834px however wide the column was, and because the text is left-aligned
+   all the leftover space collected on the right — which is what made the
+   article look off-centre with a large empty gutter. The article column itself
+   is now the measure, so paragraphs and list items fill it. */
+.blog-detail-body.prose p,
+.blog-detail-body.prose li {
+  max-width: none;
 }
 
 .blog-detail-body.prose a {
