@@ -20,6 +20,8 @@ const { blog } = Astro.props;
 
 const image = raplAssetUrl(blog.featured_image);
 const canonicalSlug = blog.seo_slug || blog.slug;
+// Derived rather than hardcoded so schema URLs always match the canonical host.
+const siteOrigin = (Astro.site?.href ?? "https://www.raplleadership.com/").replace(/\/$/, "");
 const youTubeId = extractYouTubeId(blog.podcast_url) || extractYouTubeId(blog.recorded_link);
 const watchLink = blog.podcast_url || blog.recorded_link || null;
 
@@ -46,9 +48,9 @@ const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://raplleadership.com/" },
-    { "@type": "ListItem", position: 2, name: "Blog & Podcasts", item: "https://raplleadership.com/blogs" },
-    { "@type": "ListItem", position: 3, name: blog.title, item: `https://raplleadership.com/podcasts/${canonicalSlug}` },
+    { "@type": "ListItem", position: 1, name: "Home", item: `${siteOrigin}/` },
+    { "@type": "ListItem", position: 2, name: "Blog & Podcasts", item: `${siteOrigin}/blogs` },
+    { "@type": "ListItem", position: 3, name: blog.title, item: `${siteOrigin}/podcasts/${canonicalSlug}` },
   ],
 };
 

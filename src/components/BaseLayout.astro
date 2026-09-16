@@ -28,7 +28,7 @@ const {
 // Strip the trailing slash so the canonical matches the URL Google crawls
 // (the host serves both /framework and /framework/ with no redirect).
 const canonicalPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
-const canonical = new URL(canonicalPath, Astro.site ?? "https://raplleadership.com");
+const canonical = new URL(canonicalPath, Astro.site ?? "https://www.raplleadership.com");
 
 const orgJsonLd = {
   "@context": "https://schema.org",
@@ -47,7 +47,7 @@ const frameworkJsonLd = {
   name: "RAPL™ Leadership Framework",
   description:
     "Role-Agnostic Project Leadership — an executive leadership framework for senior leaders who must diagnose the right work, govern investment, lead adoption and sustain value across AI-enabled, project-shaped change.",
-  url: "https://raplleadership.com",
+  url: "https://www.raplleadership.com",
   founder: {
     "@type": "Person",
     name: "Samia Waqar",

@@ -8122,25 +8122,37 @@ img {
   margin-top: 1.25rem;
 }
 
+/* Full-bleed: the wrapper also carries .site-shell, so its max-width and side
+   padding have to be undone here for the lead image to reach both edges.
+   Declared after .site-shell, so equal specificity resolves in this rule's
+   favour. */
 .blog-detail-image-wrap {
-  margin-top: 2rem;
+  margin-top: 0;
+  max-width: none;
+  padding-inline: 0;
 }
 
 .blog-detail-image {
   width: 100%;
-  max-height: 520px;
+  max-height: clamp(320px, 42vw, 620px);
   object-fit: cover;
-  border-radius: var(--radius);
+  /* Rounded corners read as a floating card; edge-to-edge should be square. */
+  border-radius: 0;
 }
 
+/* Was 48rem, which left ~416px of dead space each side at 1600px while the
+   title above ran the full shell width — the body read as stranded. Widened,
+   and the type bumped with it: at 48rem/1.05rem the measure was already ~89
+   characters, so widening alone would have pushed line length further past the
+   comfortable 50-75ch range rather than improving readability. */
 .blog-detail-body {
   padding-block: clamp(2rem, 4vw, 3.5rem);
-  max-width: 48rem;
+  max-width: 58rem;
 }
 
 .blog-detail-body.prose {
   font-family: var(--font-sans);
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   line-height: 1.75;
   color: var(--graphite);
 }
