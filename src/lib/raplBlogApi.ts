@@ -49,8 +49,20 @@ export const raplAssetUrl = (value?: string | null) => {
  * instead leaves the previously-deployed content on S3 untouched. A
  * genuinely empty (but successful) result is not an error and returns [].
  */
-export async function fetchPublishedRaplBlogs(type: "article" | "podcast", limit = 100): Promise<RaplBlogRecord[]> {
-  const response = await fetch(`${RAPL_API_BASE}/api/rapl/blogs?type=${type}&is_published=true&limit=${limit}`);
+export async function fetchPublishedRaplBlogs(
+  type: "article" | "podcast",
+  limit = 100,
+  includeContent = false,
+): Promise<RaplBlogRecord[]> {
+  // The public list endpoint drops `content` unless asked for it
+  // (`attributes: { exclude: ['content'] }` in raplBlog.controller.js), to keep
+  // listing payloads small. Detail pages render `blog.content`, so without this
+  // flag every post published as just a title and image with an empty body.
+  // Listing pages leave it off — they only need the card fields.
+  const contentParam = includeContent ? "&include_content=true" : "";
+  const response = await fetch(
+    `${RAPL_API_BASE}/api/rapl/blogs?type=${type}&is_published=true&limit=${limit}${contentParam}`,
+  );
   if (!response.ok) {
     throw new Error(`[rapl] Failed to fetch published ${type}s: HTTP ${response.status} ${response.statusText}`);
   }
