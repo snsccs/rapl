@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../../components/BaseLayout.astro";
+import PodcastCard from "../../components/PodcastCard.astro";
+import { fetchPublishedRaplBlogs } from "../../lib/raplBlogApi";
+
+// Podcast detail pages live at /podcasts/<slug>, but there was no page at the
+// bare /podcasts path, so trimming the URL — or any link to the section — hit a
+// 404. Built at build time for the same reason as /blogs: the listing has to
+// ship as crawlable static HTML.
+const podcasts = await fetchPublishedRaplBlogs("podcast");
+---
+
+<BaseLayout
+  title="Podcasts | RAPL™ Leadership"
+  description="RAPL™ Leadership podcast conversations on leadership capability, AI-enabled change, sponsorship and the discipline of sustained value."
+  ogType="website"
+>
+  <section class="page-hero">
+    <div class="site-shell">
+      <div class="reveal-on-scroll">
+        <div class="eyebrow">Insights</div>
+        <h1 class="display-title">Podcasts</h1>
+        <p class="lede" style="margin-top: 1rem; max-width: 46rem;">
+          Conversations on the Leadership Capability Gap, AI-enabled change and what it takes to carry strategy through to sustained value.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="site-shell">
+      {podcasts.length > 0 ? (
+        <div class="blog-grid podcast-grid reveal-on-scroll">
+          {podcasts.map((blog) => <PodcastCard blog={blog} />)}
+        </div>
+      ) : (
+        <p class="lede">New episodes are on the way — check back soon.</p>
+      )}
+
+      <p class="lede" style="margin-top: 2.5rem;">
+        Looking for written pieces too? Browse <a href="/blogs">Blog &amp; Podcasts</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
