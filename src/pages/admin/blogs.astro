@@ -91,10 +91,17 @@ const apiBaseUrl = (import.meta.env.PUBLIC_RAPL_API_BASE_URL || "https://api.sns
         <form class="rapl-admin-form" data-blog-form>
           <input type="hidden" name="id" />
 
-          <label class="rapl-admin-content-label">
-            Content *
+          <!-- Deliberately a <div>, not a <label>: a label forwards clicks to its
+               first labelable control, which here is the toolbar's H1 button. That
+               made every click into the editor synthesise a click on H1, so the
+               caret's block became <h1> and the first line of every post was
+               published as a heading. The editor is a contenteditable div, which a
+               label cannot legitimately label anyway. -->
+          <div class="rapl-admin-content-label">
+            <span class="rapl-admin-content-label-text">Content *</span>
             <div class="rapl-editor">
               <div class="rapl-editor-toolbar" data-editor-toolbar aria-label="Editor toolbar">
+                <button type="button" data-command="formatBlock" data-value="p" title="Normal text">P</button>
                 <button type="button" data-command="formatBlock" data-value="h1" title="Heading 1">H1</button>
                 <button type="button" data-command="formatBlock" data-value="h2" title="Heading 2">H2</button>
                 <button type="button" data-command="formatBlock" data-value="h3" title="Heading 3">H3</button>
@@ -131,7 +138,7 @@ const apiBaseUrl = (import.meta.env.PUBLIC_RAPL_API_BASE_URL || "https://api.sns
                 data-placeholder="Write your blog content here..."
               ></div>
             </div>
-          </label>
+          </div>
 
           <div class="rapl-admin-grid">
             <label>
@@ -324,6 +331,14 @@ const apiBaseUrl = (import.meta.env.PUBLIC_RAPL_API_BASE_URL || "https://api.sns
     const modal = document.querySelector<HTMLElement>("[data-blog-modal]")!;
     const blogForm = document.querySelector<HTMLFormElement>("[data-blog-form]")!;
     const editor = document.querySelector<HTMLElement>("[data-editor]")!;
+    // Without this, Enter produces <div> blocks (and the very first line no block
+    // at all), which is poor markup for a published article. <p> is what the
+    // public /blogs and /podcasts templates are styled for.
+    try {
+      document.execCommand("defaultParagraphSeparator", false, "p");
+    } catch {
+      /* Not supported everywhere; the editor still works, blocks are just divs. */
+    }
     const editorToolbar = document.querySelector<HTMLElement>("[data-editor-toolbar]")!;
     const docxInput = document.querySelector<HTMLInputElement>("[data-docx-input]")!;
     const imageInput = document.querySelector<HTMLInputElement>("[data-image-input]")!;
@@ -577,6 +592,47 @@ const apiBaseUrl = (import.meta.env.PUBLIC_RAPL_API_BASE_URL || "https://api.sns
       range.selectNodeContents(editor);
       range.collapse(false);
       selection.addRange(range);
+    };
+
+    /**
+     * The editor starts empty, so the first line a user types lands as a bare
+     * text node with no block wrapper — only subsequent lines become <p>. That
+     * bare run would publish without paragraph spacing, so lift any stray
+     * top-level text/inline nodes into a <p> before saving.
+     */
+    const serializeEditorContent = () => {
+      const scratch = document.createElement("div");
+      scratch.innerHTML = editor.innerHTML;
+
+      const BLOCKS = new Set([
+        "P", "DIV", "H1", "H2", "H3", "H4", "H5", "H6",
+        "UL", "OL", "LI", "BLOCKQUOTE", "PRE", "TABLE", "FIGURE", "HR", "IMG",
+      ]);
+
+      let buffer: Node[] = [];
+      const flush = () => {
+        if (!buffer.length) return;
+        const wrapper = document.createElement("p");
+        scratch.insertBefore(wrapper, buffer[0]);
+        buffer.forEach((node) => wrapper.appendChild(node));
+        buffer = [];
+      };
+
+      for (const node of Array.from(scratch.childNodes)) {
+        const isBlock = node.nodeType === Node.ELEMENT_NODE && BLOCKS.has((node as Element).tagName);
+        if (isBlock) {
+          flush();
+        } else if (node.nodeType === Node.TEXT_NODE && !node.textContent?.trim()) {
+          // Drop whitespace-only gaps between blocks rather than wrapping them.
+          if (!buffer.length) { node.parentNode?.removeChild(node); continue; }
+          buffer.push(node);
+        } else {
+          buffer.push(node);
+        }
+      }
+      flush();
+
+      return scratch.innerHTML.trim();
     };
 
     const runEditorCommand = (command: string, value: string | null = null) => {
@@ -1235,7 +1291,7 @@ const apiBaseUrl = (import.meta.env.PUBLIC_RAPL_API_BASE_URL || "https://api.sns
       event.preventDefault();
       formMessage.textContent = "";
       const formData = new FormData(blogForm);
-      formData.set("content", editor.innerHTML.trim());
+      formData.set("content", serializeEditorContent());
       const featuredImageField = formData.get("featured_image") as File | null;
       if (!featuredImageField || !featuredImageField.name) formData.delete("featured_image");
 
@@ -1337,6 +1393,17 @@ const apiBaseUrl = (import.meta.env.PUBLIC_RAPL_API_BASE_URL || "https://api.sns
     }
 
     .rapl-admin-page label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* Mirrors `.rapl-admin-page label` so the content field still reads as a
+       labelled field now that it is a div (see the markup note above). */
+    .rapl-admin-content-label {
       display: flex;
       flex-direction: column;
       gap: 0.35rem;
@@ -1500,6 +1567,16 @@ const apiBaseUrl = (import.meta.env.PUBLIC_RAPL_API_BASE_URL || "https://api.sns
       cursor: pointer;
     }
 
+    /* A class that sets `display` outranks the UA's `[hidden] { display: none }`,
+       so this modal stayed mounted as an invisible, full-viewport, z-index 100
+       overlay even while carrying the `hidden` attribute -- and swallowed every
+       click on the page beneath it, including Login. Scoping the display rule to
+       the open state keeps `hidden` authoritative. Same failure mode as the one
+       fixed on the enroll-now cancelled notice in ca4dcf5. */
+    .rapl-admin-modal[hidden] {
+      display: none;
+    }
+
     .rapl-admin-modal {
       position: fixed;
       inset: 0;
@@ -1575,6 +1652,12 @@ const apiBaseUrl = (import.meta.env.PUBLIC_RAPL_API_BASE_URL || "https://api.sns
       font-size: 0.95rem;
       line-height: 1.6;
       outline: none;
+      /* The content field's wrapper is styled like the other field labels, at
+         weight 600. The editor inherited that, so Chrome reported every
+         selection as already bold (it treats >=600 as bold) and the Bold button
+         un-bolded instead of bolding, emitting font-weight:normal spans.
+         Body copy in the editor has to start at a normal weight. */
+      font-weight: 400;
     }
 
     .rapl-editor-area:empty::before {
