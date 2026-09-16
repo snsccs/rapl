@@ -2,7 +2,7 @@
 import BaseLayout from "../components/BaseLayout.astro";
 import QRCode from "qrcode";
 
-const pollUrl = new URL("/poll", Astro.site ?? "https://raplleadership.com").href;
+const pollUrl = new URL("/poll", Astro.site ?? "https://www.raplleadership.com").href;
 const pollQrSvg = await QRCode.toString(pollUrl, {
   type: "svg",
   margin: 1,
