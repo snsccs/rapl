@@ -7850,6 +7850,17 @@ img {
   cursor: default;
 }
 
+@media (max-width: 480px) {
+  .poll-wizard-nav {
+    gap: 0.4rem;
+  }
+
+  .poll-nav-btn {
+    padding: 0.65rem 0.85rem;
+    font-size: 0.85rem;
+  }
+}
+
 /* ---- Presenter results view (/poll-results) ---- */
 .presenter-shell {
   min-height: 100vh;
