@@ -846,6 +846,282 @@ img {
   }
 }
 
+/* ============ Executive Certificate page ============ */
+/* Content transferred from snsccs.com/executive-training; styling reuses the
+   RAPL tokens already in this file -- #755436 accent, #4C4747 body, the
+   #F2EEEB / #FFFFFF / #F6F4F2 section rhythm. */
+
+/* Hero: the ten programme modules as chips under the lede. */
+.cert-hero-modules {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  max-width: 62rem;
+}
+
+.cert-hero-module {
+  background: rgba(117, 84, 54, 0.08);
+  border: 1px solid rgba(117, 84, 54, 0.28);
+  border-radius: 999px;
+  color: #4C4747;
+  font-size: clamp(0.9rem, 1vw, 1.05rem);
+  line-height: 1.35;
+  padding: 0.5rem 1rem;
+}
+
+.cert-industry-grid {
+  list-style: none;
+  padding: 0;
+  margin: 2.75rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.cert-industry-chip {
+  background: #FFFFFF;
+  border: 1px solid rgba(117, 84, 54, 0.22);
+  border-radius: 6px;
+  color: #4C4747;
+  font-size: clamp(1rem, 1.15vw, 1.2rem);
+  font-weight: 700;
+  padding: 1.1rem 1.25rem;
+  text-align: center;
+}
+
+/* The stat row carries words here ("Two Weeks", "$10,000 USD") rather than the
+   short numerals it was built for. Smaller, and no breaking inside a hyphenated
+   phrase, so "One-to-One" doesn't split across lines. */
+.cert-stat-num.cert-stat-num--text {
+  font-size: clamp(1.45rem, 1.85vw, 2.05rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  overflow-wrap: break-word;
+  word-break: keep-all;
+}
+
+/* Title + body cards, used for both "Who Should Attend" and "Core Learning
+   Areas". Height comes from content, so no min-height to leave dead space. */
+.cert-topic-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.75rem;
+  margin-top: 3.5rem;
+}
+
+.cert-topic-card {
+  background: #FAF8F5;
+  border: 1.5px solid rgba(140, 109, 79, 0.45);
+  border-radius: 12px;
+  padding: 1.9rem 2rem 2.1rem;
+  box-shadow: 0 4px 16px rgba(140, 109, 79, 0.08);
+}
+
+.cert-topic-title {
+  color: #755436;
+  font-size: clamp(1.3rem, 1.6vw, 1.65rem);
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.cert-topic-kicker {
+  color: #8C6D4F;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-top: 0.6rem;
+  text-transform: uppercase;
+}
+
+.cert-topic-desc {
+  color: #4C4747;
+  font-size: clamp(1rem, 1.1vw, 1.15rem);
+  line-height: 1.6;
+  margin: 0.75rem 0 0;
+}
+
+.cert-cred-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.cert-cred-card {
+  background: #FAF8F5;
+  border: 1.5px solid rgba(140, 109, 79, 0.45);
+  border-radius: 12px;
+  padding: 1.5rem 1.4rem;
+  text-align: center;
+}
+
+.cert-cred-code {
+  color: #755436;
+  font-size: clamp(1.25rem, 1.5vw, 1.6rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.cert-cred-name {
+  color: #4C4747;
+  font-size: clamp(0.9rem, 1vw, 1.02rem);
+  line-height: 1.45;
+  margin-top: 0.5rem;
+}
+
+.cert-artifact-list {
+  list-style: none;
+  padding: 0;
+  margin: 3rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.1rem 3rem;
+}
+
+.cert-artifact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  color: #4C4747;
+  font-size: clamp(1.05rem, 1.2vw, 1.25rem);
+  line-height: 1.5;
+}
+
+.cert-artifact-check {
+  color: #755436;
+  flex-shrink: 0;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+/* The shared steps grid is three-up; this page's process has four stages.
+   Doubled selector so it outranks .cert-steps-grid, which is declared later. */
+.cert-steps-grid.cert-steps-grid--four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.cert-quote-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.75rem;
+  margin-top: 3.5rem;
+}
+
+.cert-quote-card {
+  background: #FAF8F5;
+  border: 1.5px solid rgba(140, 109, 79, 0.45);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+  padding: 2rem;
+}
+
+.cert-quote-text {
+  color: #4C4747;
+  font-size: clamp(1rem, 1.1vw, 1.15rem);
+  line-height: 1.65;
+  margin: 0;
+  quotes: none;
+}
+
+.cert-quote-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-top: 1.75rem;
+}
+
+.cert-quote-name {
+  color: #755436;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.cert-quote-role {
+  color: #4C4747;
+  font-size: 0.98rem;
+}
+
+.cert-quote-result {
+  color: #755436;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+}
+
+.cert-faq-list {
+  border-top: 1px solid rgba(117, 84, 54, 0.22);
+  margin-top: 3rem;
+  max-width: 68rem;
+}
+
+.cert-faq-item {
+  border-bottom: 1px solid rgba(117, 84, 54, 0.22);
+}
+
+.cert-faq-q {
+  align-items: center;
+  color: #755436;
+  cursor: pointer;
+  display: flex;
+  font-size: clamp(1.1rem, 1.3vw, 1.35rem);
+  font-weight: 700;
+  gap: 1.5rem;
+  justify-content: space-between;
+  line-height: 1.4;
+  list-style: none;
+  padding: 1.5rem 0;
+}
+
+.cert-faq-q::-webkit-details-marker,
+.cert-faq-q::marker {
+  content: "";
+  display: none;
+}
+
+.cert-faq-chevron {
+  color: #755436;
+  display: inline-flex;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.cert-faq-item[open] .cert-faq-chevron {
+  transform: rotate(180deg);
+}
+
+.cert-faq-a {
+  color: #4C4747;
+  font-size: clamp(1rem, 1.15vw, 1.2rem);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 76ch;
+  padding: 0 0 1.75rem;
+}
+
+@media (max-width: 1100px) {
+  .cert-topic-grid,
+  .cert-quote-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cert-cred-grid,
+  .cert-industry-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cert-steps-grid.cert-steps-grid--four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  .cert-topic-grid,
+  .cert-quote-grid,
+  .cert-artifact-list { grid-template-columns: 1fr; }
+  .cert-steps-grid.cert-steps-grid--four { grid-template-columns: 1fr; }
+  .cert-cred-grid,
+  .cert-industry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 .cert-stat-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -3612,18 +3888,20 @@ img {
 }
 
 .framework-eyebrow {
+  /* Figma 6130:10126: Inter 32px w600 #CDA367 */
   color: #CDA367;
-  font-size: 1.25rem;
+  font-size: clamp(1.1rem, 1.667vw, 2rem);
   letter-spacing: 0.08em;
-  font-weight: 700;
+  font-weight: 600;
   font-family: var(--font-sans);
   margin-bottom: 0.25rem;
   display: block;
 }
 
 .framework-title {
+  /* Figma 6130:10128: Inria Sans 96px w700 #122341 */
   color: #122341;
-  font-size: clamp(2.4rem, 4.5vw, 4.5rem);
+  font-size: clamp(2.4rem, 5vw, 6rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.08;
@@ -3631,19 +3909,21 @@ img {
 }
 
 .framework-lede {
+  /* Figma 6130:10129: Inria Sans 28px w700 #0F0F0F, 741px box */
   margin-top: 1rem;
-  font-size: 1.15rem;
-  color: #1F2937;
-  line-height: 1.5;
-  font-weight: 600;
-  max-width: 48ch;
+  font-size: clamp(1.05rem, 1.4583vw, 1.75rem);
+  color: #0F0F0F;
+  line-height: 1.34;
+  font-weight: 700;
+  max-width: min(741px, 38.59vw);
 }
 
 .framework-features-list {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 2rem;
+  /* Figma badge tops 369/471/574/676 -> ~102px pitch on a 72px disc. */
+  gap: clamp(1rem, 1.563vw, 30px);
+  margin-top: clamp(1.5rem, 2.71vw, 52px);
 }
 
 .framework-feature-item {
@@ -3652,44 +3932,54 @@ img {
   gap: 1.25rem;
 }
 
+/* Figma: 72px disc, ground #122341, icon drawn in the brand gold #CDA367
+   (measured rgb(204,164,110) off the exported group) -- it used to be white. */
 .framework-feature-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  height: 52px;
+  width: clamp(48px, 3.75vw, 72px);
+  height: clamp(48px, 3.75vw, 72px);
   border-radius: 50%;
-  background: #0F1E31;
-  color: #ffffff;
+  background: #122341;
+  color: #CDA367;
   flex-shrink: 0;
 }
 
+.framework-feature-badge svg {
+  width: clamp(20px, 1.615vw, 31px);
+  height: clamp(20px, 1.615vw, 31px);
+}
+
+/* Figma: a 1px x 45px gold hairline, not a 2px navy bar. */
 .framework-feature-divider {
-  width: 2px;
-  height: 36px;
-  background: #0F1E31;
+  width: 1px;
+  height: clamp(30px, 2.344vw, 45px);
+  background: #DDC29C;
   flex-shrink: 0;
 }
 
 .framework-feature-info h4 {
-  font-size: 1.25rem;
+  /* Figma 6130:10131/2/5/7: Inria Sans 24px w700 #0F0F0F */
+  font-size: clamp(1.05rem, 1.25vw, 1.5rem);
   font-weight: 700;
-  color: #111827;
+  color: #0F0F0F;
   margin: 0 0 0.15rem;
 }
 
 .framework-feature-info p {
-  font-size: 0.98rem;
-  color: #4B5563;
+  /* Figma 6130:10133/4/6/8: Inria Sans 22px w400 #0F0F0F */
+  font-size: clamp(0.95rem, 1.1458vw, 1.375rem);
+  color: #0F0F0F;
   margin: 0;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .framework-cta-card {
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  background: #FAF6EF;
+  background: #F6F5F0;
   border: 1px solid #EADBCC;
   border-radius: 8px;
   padding: 1.25rem 1.5rem;
@@ -3709,8 +3999,8 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: clamp(44px, 3.229vw, 62px);
+  height: clamp(44px, 3.229vw, 62px);
   border-radius: 50%;
   border: 2px solid #CDA367;
   color: #CDA367;
@@ -3719,9 +4009,11 @@ img {
 }
 
 .framework-cta-card span.title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #0F1E31;
+  /* Figma 6130:10130: Inria Sans 28px w400 #0F0F0F */
+  font-size: clamp(1.05rem, 1.4583vw, 1.75rem);
+  font-weight: 400;
+  line-height: 1.11;
+  color: #0F0F0F;
 }
 
 .framework-diagram-wrap {

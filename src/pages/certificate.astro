@@ -1,88 +1,182 @@
 ---
 import BaseLayout from "../components/BaseLayout.astro";
 
+/* Content transferred from snsccs.com/executive-training, styled in the RAPL theme. */
+
+const modules = [
+  "Operational Reality and Current State Analysis",
+  "Business Need, Future State and OKR Definition",
+  "Strategy Execution Design",
+  "Portfolio Strategy and Investment Leadership",
+  "Program Benefits Leadership",
+  "Project and Initiative Delivery Leadership",
+  "Risk, Resilience and Uncertainty Leadership",
+  "Execution Office and PMO Governance",
+  "AI Enabled Optimization and AI Initiative Leadership",
+  "Operational Transition, Change and Value Sustainment",
+];
+
 const format = [
-  { value: "50", label: "HOURS", note: "Total executive development hours" },
-  { value: "12", label: "MODULES", note: "Mapped to the twelve RAPL™ capabilities" },
-  { value: "12–18", label: "COHORT", note: "Senior leaders per cohort" },
-  { value: "Live", label: "CAPSTONE", note: "Real strategic work, not a simulation" },
+  { value: "Two Weeks", label: "DURATION", note: "Focused executive experience" },
+  { value: "One-to-One", label: "FORMAT", note: "Private executive delivery" },
+  { value: "Fully Tailored", label: "CUSTOMIZATION", note: "Built around leader time, priorities and organizational needs" },
+  { value: "$10,000 USD", label: "INVESTMENT", note: "Premium one-to-one program" },
 ];
 
-const allModules = [
-  { num: "01", name: "Diagnose the Work", phase: "DEFINE" },
-  { num: "02", name: "Choose the Work", phase: "DEFINE" },
-  { num: "03", name: "Translate the Work", phase: "DEFINE" },
-  { num: "04", name: "Select the Shape", phase: "GOVERN" },
-  { num: "05", name: "Integrate the System", phase: "GOVERN" },
-  { num: "06", name: "Sponsor Delivery", phase: "GOVERN" },
-  { num: "07", name: "Protect Value and Risk", phase: "PROTECT" },
-  { num: "08", name: "Align Stakeholders", phase: "PROTECT" },
-  { num: "09", name: "Govern Investment", phase: "PROTECT" },
-  { num: "10", name: "Optimize in Flight", phase: "LAND" },
-  { num: "11", name: "Drive Adoption", phase: "LAND" },
-  { num: "12", name: "Sustain Benefits", phase: "LAND" },
+const industries = [
+  "IT & Technology",
+  "Banking & Finance",
+  "Healthcare",
+  "Construction",
+  "Telecom",
+  "Manufacturing",
+  "Government",
+  "Education",
 ];
 
-const outcomes = [
+const valueAreas = [
+  "Operations current state analysis",
+  "Business need and future state definition",
+  "OKR and performance alignment",
+  "Strategy execution design",
+  "Portfolio prioritization",
+  "Program benefits coordination",
+  "Project and initiative delivery leadership",
+  "Risk, resilience and uncertainty leadership",
+  "Execution office and PMO governance",
+  "AI enabled optimization",
+  "Change management and adoption",
+  "Operational transition and value sustainment",
+];
+
+const audiences = [
   {
-    num: "01",
-    text: "A personal baseline across all twelve RAPL™ capabilities, measured against the demands of your seat.",
+    title: "Chiefs and C-Suite Leaders",
+    desc: "If you're setting direction for the business, this executive training connects strategy, investment decisions, risk and AI adoption into one operating view so decisions at the top actually show up in delivery below.",
   },
   {
-    num: "02",
-    text: "Decision frameworks, briefs and tools you can apply in your live work during the program.",
+    title: "Directors",
+    desc: "You're the translation layer between strategy and execution. This program gives you a structured way to turn executive priorities into portfolios, programs and delivery plans your teams can run with.",
   },
   {
-    num: "03",
-    text: "A peer cohort of senior leaders confronting the same kind of work — and a network that continues afterward.",
+    title: "Senior Managers",
+    desc: "Running a team is one job. Leading change inside that team is another. This training builds both so you can hit operational targets while still driving the improvements your function needs.",
   },
   {
-    num: "04",
-    text: "A structured development path through the four phases — Define, Govern, Protect, Land.",
+    title: "Succession Pipeline Leaders",
+    desc: "For leaders being groomed for bigger roles, this is enterprise-level thinking practiced early — portfolio judgment, execution discipline and stakeholder leadership, before you're handed the title.",
   },
   {
-    num: "05",
-    text: "An integrated capstone that turns learning into a personal leadership intervention for a real strategic challenge.",
+    title: "PMO and Execution Office Leaders",
+    desc: "If your PMO is still seen as a reporting function, this program repositions it as a value-driving capability — with the governance model and language to prove it to the C-suite.",
   },
+  {
+    title: "Operations, transformation and functional leaders",
+    desc: "Improve efficiency, adoption, service delivery, customer outcomes and measurable performance improvement.",
+  },
+];
+
+const learningAreas = [
+  { title: "Strategic Leadership", desc: "Develop vision, direction, and organizational alignment." },
+  { title: "Executive Decision Making", desc: "Improve judgment, prioritization, and risk-based decisions." },
+  { title: "Change & Transformation", desc: "Lead digital change and enterprise transformation initiatives." },
+  { title: "High-Performance Teams", desc: "Build accountable, motivated, and productive teams." },
+  { title: "Governance & Execution", desc: "Improve business execution through structured oversight." },
+  { title: "Communication & Influence", desc: "Strengthen executive presence and stakeholder communication." },
+  { title: "Innovation & Growth", desc: "Drive innovation, market opportunities, and sustainable growth." },
+];
+
+const credentials = [
+  { code: "PMP®", name: "Project Management Professional" },
+  { code: "PgMP®", name: "Program Management Professional" },
+  { code: "PfMP®", name: "Portfolio Management Professional" },
+  { code: "PMI-CPMAI®", name: "Citizen Developer Practitioner" },
+  { code: "PMI-RMP®", name: "Risk Management Professional" },
+  { code: "PMI-ACP®", name: "Agile Certified Practitioner" },
+  { code: "PMI-PMOCP®", name: "PMO Certified Practitioner" },
+  { code: "PMI-PBA®", name: "Professional in Business Analysis" },
+];
+
+const artifacts = [
+  "RAPL™ Operations to Operations Value Cycle Map",
+  "Current State Operational Analysis",
+  "Future State and OKR Alignment Map",
+  "Portfolio Prioritization View",
+  "Program Benefits Map",
+  "Initiative Delivery Brief",
+  "Risk, Resilience and Uncertainty Review",
+  "Change and Stakeholder Adoption Map",
+  "AI Optimization Opportunity Canvas",
+  "Execution Office or PMO Governance View",
+  "Operational Transition and Value Sustainment Plan",
+  "Executive Certificate of Completion",
+  "Optional digital badge for credential visibility",
 ];
 
 const steps = [
+  { step: "STEP 1", title: "Consultation", desc: "We understand your leadership challenges and goals." },
+  { step: "STEP 2", title: "Program Design", desc: "Customized learning roadmap based on needs." },
+  { step: "STEP 3", title: "Training Delivery", desc: "Engaging sessions, coaching, and workshops." },
+  { step: "STEP 4", title: "Performance Impact", desc: "Measure learning outcomes and business value." },
+];
+
+const testimonials = [
   {
-    step: "STEP 1",
-    title: "Baseline",
-    desc: "A capability baseline and seat-demand assessment at the start, mapped to the twelve RAPL™ capabilities & the consequences of weak performance in your role.",
+    quote: "Samia's coaching helped me bridge project management theory with how work actually happens at Amazon. Her breadth of credentials and real-world experience is unmatched. The one-on-one sessions played a key role in helping me grow.",
+    name: "Nyle Hassan",
+    role: "Project Manager",
+    org: "Amazon",
+    result: "Passed - Above Target",
   },
   {
-    step: "STEP 2",
-    title: "Cohort work",
-    desc: "A 12–18 person cohort of senior leaders working through the four phases, with case material drawn from real strategic, AI and transformation work.",
+    quote: "I studied project management with Samia over a decade ago and passed PMP on the first attempt. Years later, I returned for one-on-one PgMP coaching. Very few professionals maintain this level of depth and relevance over time.",
+    name: "Moeen Khurshid",
+    role: "Senior Project Manager",
+    org: "Ontario Public Service",
+    result: "15% Salary Increase",
   },
   {
-    step: "STEP 3",
-    title: "Capstone",
-    desc: "A personal leadership intervention on a live strategic challenge — assessed against the RAPL™ capabilities, peer-reviewed & applied in your work.",
+    quote: "I completed PMP with Samia five years ago and am now enrolled in CPMAI. Her ability to simplify complex project management frameworks while keeping them practical and relevant has consistently supported my professional growth.",
+    name: "Syeda Rabbia",
+    role: "Project Manager",
+    org: "Ontario Public Service",
+    result: "Passed First Attempt",
   },
 ];
 
-const whoItIsFor = [
-  "CEOs, COOs and business-unit leaders accountable for strategic outcomes.",
-  "CIOs, CHROs, CFOs and chief transformation officers who sponsor, govern or enable strategic work.",
-  "PMO, delivery and execution-office leaders bridging strategy and operations.",
-  "Senior leaders in functions that shape, enable or depend on AI and transformation initiatives.",
-];
-
-const isNotList = [
-  "Project management training for executives.",
-  "A replacement for PMO, change or delivery specialists.",
-  "A generalist leadership program that ignores the work.",
+const faqs = [
+  {
+    q: "Who is this executive training program designed for?",
+    a: "It's built for C-suite leaders, directors, senior managers and PMO leaders who are accountable for strategy execution, transformation or portfolio performance — not for early-career project managers.",
+  },
+  {
+    q: "How is this different from a PMP or PgMP certification?",
+    a: "PMP®, PgMP® and PfMP® build deep expertise in one discipline. This program is broader and one-to-one — it applies the RAPL™ framework to your actual organizational challenge across strategy, portfolio, risk, PMO governance and AI adoption at once.",
+  },
+  {
+    q: "What does the $10,000 investment include?",
+    a: "Two weeks of private, one-to-one delivery tailored to your schedule and organization, plus a full set of executive artifacts including your Operations Value Cycle Map, Portfolio Prioritization View, AI Optimization Canvas and Executive Certificate of Completion.",
+  },
+  {
+    q: "Is this delivered in a group or privately?",
+    a: "Privately. This is a one-to-one executive program, not a cohort-based class — every session is built around your organization's live situation.",
+  },
+  {
+    q: "Do I need a PMI certification before starting?",
+    a: "No. This program is designed for leaders regardless of certification background. If you also want a formal PMI credential alongside this, our PMP and PfMP programs run separately.",
+  },
+  {
+    q: "How is the two-week program structured?",
+    a: "It follows a four-step process: consultation, program design, delivery and performance impact review — detailed in the “How It Works” section above.",
+  },
 ];
 ---
 
 <BaseLayout
-  title="Executive Certificate | RAPL™ Leadership Program"
-  description="A personalized 50-hour executive certificate built on 12 RAPL™ modules & an integrated capstone. Develop judgment to lead above, across & beyond."
+  title="Executive Certificate | Executive Leadership Training for C-Suite, Directors & PMO Leaders"
+  description="A private, one-to-one executive certificate built on the RAPL™ framework for leaders accountable for strategy execution, portfolio decisions and organizational performance."
 >
-  <!-- ==================== 1. HERO SECTION (Figma Node 6221:10324) ==================== -->
+  <!-- ==================== 1. HERO ==================== -->
   <section class="page-hero page-hero--certificate">
     <div class="site-shell">
       <div class="cert-hero-copy reveal-on-scroll">
@@ -90,11 +184,18 @@ const isNotList = [
           EXECUTIVE CERTIFICATE
         </div>
         <h1 class="cert-hero-title">
-          Develop the executive judgment leaders need <span style="color: #755436;">above, across &amp; beyond</span> delivery.
+          Executive Leadership Training for <span style="color: #755436;">C-Suite, Directors and PMO Leaders</span>
         </h1>
         <p class="cert-hero-lede">
-          A personalized, fifty-hour executive development program built around twelve RAPL™ modules and an integrated capstone.
+          A private, one-to-one executive certificate built on the RAPL™ framework for leaders who are accountable for strategy execution, portfolio decisions and organizational performance.
         </p>
+
+        <ul class="cert-hero-modules">
+          {modules.map((m) => (
+            <li class="cert-hero-module">{m}</li>
+          ))}
+        </ul>
+
         <p id="enroll-cancelled-notice" class="enroll-cancelled-notice" hidden>
           Checkout was cancelled — no payment was made.
           <button type="button" id="enroll-cancelled-dismiss" aria-label="Dismiss">×</button>
@@ -103,54 +204,79 @@ const isNotList = [
           <button type="button" class="button primary" id="enroll-now-btn" style="background: #755436; color: #ffffff; border: 1px solid #755436; border-radius: 4px; font-size: 0.95rem; font-weight: 700; padding: 0.7rem 1.5rem; cursor: pointer;">
             Enroll Now→
           </button>
-          <a class="button primary" href="/contact?interest=certificate" style="background: #3C3B3B; color: #ffffff; border: 1px solid #3C3B3B; border-radius: 4px; font-size: 0.95rem; font-weight: 700; padding: 0.7rem 1.5rem; text-decoration: none;">
-            Apply for the next cohort→
+          <a class="button" href="/contact?interest=consultation" style="background: transparent; color: #102033; border: 1.5px solid #755436; border-radius: 4px; font-size: 0.95rem; font-weight: 700; padding: 0.7rem 1.5rem; text-decoration: none;">
+            Request Free Consultation
           </a>
-          <a class="button" href="/framework" style="background: transparent; color: #102033; border: 1.5px solid #755436; border-radius: 4px; font-size: 0.95rem; font-weight: 700; padding: 0.7rem 1.5rem; text-decoration: none;">
-            Explore the framework
+          <a class="button" href="/contact?interest=brochure" style="background: transparent; color: #102033; border: 1.5px solid #755436; border-radius: 4px; font-size: 0.95rem; font-weight: 700; padding: 0.7rem 1.5rem; text-decoration: none;">
+            Download Brochure
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== 2. WHO IT'S FOR ==================== -->
-  <section class="section" style="background: #F2EEEB; padding-block: clamp(5rem, 8vw, 7.5rem);">
-    <div class="site-shell site-shell--wide">
-      <div class="cert-who-split reveal-on-scroll">
-        <div class="cert-who-left">
-          <div class="eyebrow" style="color: #755436; font-size: 1.35rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem;">
-            WHO IT’S FOR
-          </div>
-          <h2 style="color: #4C4747; font-size: clamp(2.4rem, 4.5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0; margin-bottom: 1.5rem;">
-            Senior leaders accountable for strategic work they don't personally deliver
-          </h2>
-          <p style="font-size: 1.25rem; line-height: 1.6; color: #4C4747; margin: 0; max-width: 50ch;">
-            RAPL™ is not project management training for executives. It develops the executive judgment, governance capability, integration skill, sponsorship discipline &amp; value leadership senior leaders need.
-          </p>
-        </div>
-
-        <div class="cert-who-right">
-          <ul class="cert-who-list">
-            {whoItIsFor.map((item) => (
-              <li class="cert-who-item">
-                <span class="cert-who-dot" aria-hidden="true">·</span>
-                <span class="cert-who-text">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== 3. KEY NUMBERS / METRICS ==================== -->
-  <section class="section section--tight" style="background: #FFFFFF; border-block: 1px solid rgba(15, 30, 49, 0.08); padding-block: 3.5rem;">
+  <!-- ==================== 2. TRUSTED BY / INDUSTRIES ==================== -->
+  <section class="section" style="background: #F2EEEB; padding-block: clamp(4rem, 7vw, 6.5rem);">
     <div class="site-shell">
+      <div style="max-width: 62rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+          INDUSTRIES SERVED
+        </div>
+        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem;">
+          Trusted by Professionals &amp; Organizations
+        </h2>
+        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.6; margin-top: 1.25rem; max-width: 62ch;">
+          Helping leaders across industries strengthen performance, strategy, and execution through world-class executive learning experiences.
+        </p>
+      </div>
+
+      <ul class="cert-industry-grid reveal-on-scroll">
+        {industries.map((i) => (
+          <li class="cert-industry-chip">{i}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ==================== 3. PROGRAM OVERVIEW ==================== -->
+  <section class="section" style="background: #FFFFFF; padding-block: clamp(5rem, 8vw, 7.5rem);" id="overview">
+    <div class="site-shell">
+      <div style="max-width: 68rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+          PROGRAM OVERVIEW
+        </div>
+        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 26ch;">
+          Executive Certificate in Role Agnostic Project Leadership
+        </h2>
+        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.65; margin-top: 1.5rem; max-width: 70ch;">
+          Most executive training programs teach leadership theory. This one is different. It's built for leaders who already run people, budgets and business outcomes and who now need to run projects, portfolios and transformation with the same discipline.
+        </p>
+        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.65; margin-top: 1.25rem; max-width: 70ch;">
+          Delivered one-to-one over two weeks, this executive leadership training program takes a real challenge from your organization — a stalled transformation, a portfolio that's spread too thin, a PMO that isn't taken seriously in the boardroom — and works through it using the RAPL™ (Role Agnostic Project Leadership) framework. You leave with a plan you can actually use, not a certificate that sits on a wall.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 4. DURATION, FORMAT & INVESTMENT ==================== -->
+  <section class="section section--tight" style="background: #FFFFFF; border-block: 1px solid rgba(15, 30, 49, 0.08); padding-block: 3.5rem;" id="investment">
+    <div class="site-shell">
+      <div style="max-width: 68rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+          DURATION, FORMAT AND INVESTMENT
+        </div>
+        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.65; margin-top: 1rem; max-width: 70ch;">
+          This two week executive program is delivered one to one and tailored to the leader's time, priorities and organizational needs. The investment is $10,000 USD.
+        </p>
+        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.65; margin-top: 1rem; max-width: 70ch;">
+          This program is delivered privately, not in a cohort — your organizational context, live challenges and schedule shape every session.
+        </p>
+      </div>
+
       <div class="cert-stat-grid reveal-on-scroll">
         {format.map((f) => (
           <div class="cert-stat-item">
-            <div class="cert-stat-num">{f.value}</div>
+            <div class="cert-stat-num cert-stat-num--text">{f.value}</div>
             <div class="cert-stat-label">{f.label}</div>
             <p class="cert-stat-desc">{f.note}</p>
           </div>
@@ -159,7 +285,7 @@ const isNotList = [
     </div>
   </section>
 
-  <!-- ==================== 4. CURRICULUM — 12 MODULES ==================== -->
+  <!-- ==================== 5. WHAT MAKES THIS PROGRAM VALUABLE ==================== -->
   <section class="section section--cert-curriculum" id="curriculum">
     <div class="site-shell">
       <div style="max-width: 68rem;" class="reveal-on-scroll">
@@ -167,57 +293,145 @@ const isNotList = [
           CURRICULUM
         </div>
         <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 26ch;">
-          Twelve modules. Four phases. One integrated program.
+          What Makes This Program Valuable
         </h2>
-        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.6; margin-top: 1.25rem; max-width: 60ch;">
-          The certificate moves through the same value cycle RAPL™ describes — from diagnosing the right work, through governing and protecting it, to landing the value in operations.
-        </p>
       </div>
 
       <div class="cert-modules-grid reveal-on-scroll">
-        {allModules.map((m) => (
+        {valueAreas.map((v, i) => (
           <div class="cert-module-card">
             <div class="cert-module-header">
-              <span class="cert-module-num">{m.num}</span>
-              <span class="cert-module-badge">{m.phase}</span>
+              <span class="cert-module-num">{String(i + 1).padStart(2, "0")}</span>
             </div>
-            <h3 class="cert-module-title">{m.name}</h3>
+            <h3 class="cert-module-title">{v}</h3>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ==================== 5. OUTCOMES ==================== -->
-  <section class="section" style="background: #FFFFFF; padding-block: clamp(5rem, 8vw, 7.5rem); border-block: 1px solid rgba(15, 30, 49, 0.06);">
+  <!-- ==================== 6. WHO SHOULD ATTEND ==================== -->
+  <section class="section" style="background: #FFFFFF; padding-block: clamp(5rem, 8vw, 7.5rem);" id="who">
     <div class="site-shell">
-      <div style="max-width: 60rem;" class="reveal-on-scroll">
+      <div style="max-width: 68rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+          WHO SHOULD ATTEND
+        </div>
+        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 26ch;">
+          Built for leaders accountable for execution and performance
+        </h2>
+        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.65; margin-top: 1.25rem; max-width: 70ch;">
+          This program is designed for leaders who are accountable for organizational performance, strategy execution, transformation and succession readiness.
+        </p>
+      </div>
+
+      <div class="cert-topic-grid reveal-on-scroll">
+        {audiences.map((a) => (
+          <div class="cert-topic-card">
+            <h3 class="cert-topic-title">{a.title}</h3>
+            <div class="cert-topic-kicker">Why this audience needs RAPL™</div>
+            <p class="cert-topic-desc">{a.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 7. CORE LEARNING AREAS ==================== -->
+  <section class="section" style="background: #F6F4F2; padding-block: clamp(5rem, 8vw, 7.5rem);" id="learning">
+    <div class="site-shell">
+      <div style="max-width: 68rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+          CORE LEARNING AREAS
+        </div>
+        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem;">
+          What Executives Will Learn
+        </h2>
+      </div>
+
+      <div class="cert-topic-grid reveal-on-scroll">
+        {learningAreas.map((l) => (
+          <div class="cert-topic-card">
+            <h3 class="cert-topic-title">{l.title}</h3>
+            <p class="cert-topic-desc">{l.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 8. BUILT ON PMI FRAMEWORKS ==================== -->
+  <section class="section" style="background: #FFFFFF; padding-block: clamp(5rem, 8vw, 7.5rem); border-block: 1px solid rgba(15, 30, 49, 0.06);" id="pmi">
+    <div class="site-shell">
+      <div style="max-width: 68rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+          FOUNDATIONS
+        </div>
+        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.08; margin-top: 0.5rem; max-width: 28ch;">
+          Built on PMI's Project, Program, Portfolio and Risk Frameworks
+        </h2>
+        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.65; margin-top: 1.5rem; max-width: 70ch;">
+          RAPL™ doesn't replace PMI's certifications — it sits above them. Where PMP®, PgMP® and PfMP® build depth in a single discipline, this executive training program integrates all of them into one enterprise-level operating model, so a leader accountable for outcomes across the business isn't stitching frameworks together themselves.
+        </p>
+        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.65; margin-top: 1.25rem; max-width: 70ch;">
+          This program is built on PMI capability areas across project, program, portfolio, agile, risk, business analysis, PMO, and AI-enabled delivery. It integrates the disciplines covered in:
+        </p>
+      </div>
+
+      <div class="cert-cred-grid reveal-on-scroll">
+        {credentials.map((c) => (
+          <div class="cert-cred-card">
+            <div class="cert-cred-code">{c.code}</div>
+            <div class="cert-cred-name">({c.name})</div>
+          </div>
+        ))}
+      </div>
+
+      <p class="reveal-on-scroll" style="color: #4C4747; font-size: 1.2rem; line-height: 1.65; margin-top: 2.5rem; max-width: 70ch;">
+        At SNSCCS, these are not treated as isolated credentials. They are brought together into one executive capability model focused on strategy realization and enterprise leadership.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== 9. WHAT PARTICIPANTS LEAVE WITH ==================== -->
+  <section class="section" style="background: #F2EEEB; padding-block: clamp(5rem, 8vw, 7.5rem);" id="outcomes">
+    <div class="site-shell">
+      <div style="max-width: 62rem;" class="reveal-on-scroll">
         <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
           OUTCOMES
         </div>
         <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.1; margin-top: 0.5rem;">
-          What you leave with.
+          What Participants Leave With
         </h2>
-        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.55; margin-top: 1rem; max-width: 56ch;">
-          Not a certificate of attendance — a structured personal development intervention.
+        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.55; margin-top: 1.25rem; max-width: 64ch;">
+          Participants complete the program with practical executive artifacts they can use immediately in their organization.
         </p>
       </div>
 
-      <div class="cert-outcomes-grid reveal-on-scroll">
-        {outcomes.map((o) => (
-          <div class="cert-outcome-item">
-            <div class="cert-outcome-num">{o.num}</div>
-            <p class="cert-outcome-text">{o.text}</p>
-          </div>
+      <ul class="cert-artifact-list reveal-on-scroll">
+        {artifacts.map((a) => (
+          <li class="cert-artifact-item">
+            <span class="cert-artifact-check" aria-hidden="true">✓</span>
+            <span>{a}</span>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
 
-  <!-- ==================== 6. HOW IT WORKS (3 STEPS) ==================== -->
-  <section class="section" style="background: #F6F4F2; padding-block: clamp(4.5rem, 8vw, 7rem);">
+  <!-- ==================== 10. HOW IT WORKS ==================== -->
+  <section class="section" style="background: #F6F4F2; padding-block: clamp(4.5rem, 8vw, 7rem);" id="how">
     <div class="site-shell">
-      <div class="cert-steps-grid reveal-on-scroll">
+      <div style="max-width: 62rem; margin-bottom: 3rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+          HOW IT WORKS
+        </div>
+        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.1; margin-top: 0.5rem;">
+          Simple 4-Step Process
+        </h2>
+      </div>
+
+      <div class="cert-steps-grid cert-steps-grid--four reveal-on-scroll">
         {steps.map((s) => (
           <div class="cert-step-card">
             <div class="cert-step-label">{s.step}</div>
@@ -229,65 +443,83 @@ const isNotList = [
     </div>
   </section>
 
-  <!-- ==================== 7. SnS PROGRAM & WHAT IT IS NOT ==================== -->
-  <section class="section section--cert-sns">
+  <!-- ==================== 11. TESTIMONIALS ==================== -->
+  <section class="section" style="background: #FFFFFF; padding-block: clamp(5rem, 8vw, 7.5rem);" id="testimonials">
     <div class="site-shell">
-      <div class="split-layout reveal-on-scroll" style="align-items: center; gap: 3.5rem;">
-        <div>
-          <div class="eyebrow" style="color: #755436; font-size: clamp(1.25rem, 1.667vw, 2rem); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
-            OUTCOMES
-          </div>
-          <h2 style="color: #4C4747; font-size: clamp(1.9rem, 5vw, 6rem); font-weight: 700; line-height: 1.1; margin-top: 0.75rem; max-width: 18ch;">
-            A program from SnS Coaching and Consulting Services.
-          </h2>
-          <p style="font-size: clamp(1rem, 1.4583vw, 1.75rem); line-height: 1.65; color: #4C4747; margin-top: 1.5rem; max-width: 48ch;">
-            The Executive Certificate is delivered through <a href="https://snsccs.com/" target="_blank" rel="noopener noreferrer" style="color: inherit; font-weight: inherit; text-decoration: underline; text-underline-offset: 3px;">SnS Coaching and Consulting Services</a>, and built around the same RAPL™ Leadership Framework published on this site.
-          </p>
+      <div style="max-width: 62rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+          TESTIMONIALS
         </div>
+        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.1; margin-top: 0.5rem;">
+          Trusted by Executives &amp; Corporate Teams
+        </h2>
+      </div>
 
-        <div style="background: #F6F3EA; border-radius: 6px; padding: clamp(2.5rem, 4.17vw, 5rem); width: 100%;">
-          <div style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: clamp(2rem, 4.22vw, 5rem);">
-            <span style="flex-shrink: 0; width: clamp(2.8rem, 3.594vw, 4.3rem); height: clamp(2.8rem, 3.594vw, 4.3rem); border-radius: 50%; background: #755436; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: clamp(1.3rem, 1.7vw, 2rem); font-weight: 700;" aria-hidden="true">✕</span>
-            <h3 style="color: #4C4747; font-size: clamp(1.5rem, 2.5vw, 3rem); font-weight: 700; margin: 0; line-height: 1.2;">
-              What this program is not
-            </h3>
-          </div>
-          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: clamp(1rem, 1.25vw, 1.5rem);">
-            {isNotList.map((item) => (
-              <li style="display: flex; align-items: center; gap: 0.85rem; font-size: clamp(1rem, 1.4583vw, 1.75rem); line-height: 1.5; color: #4C4747;">
-                <span style="color: #755436; font-weight: 700; font-size: 1.2rem; line-height: 1;" aria-hidden="true">✕</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div class="cert-quote-grid reveal-on-scroll">
+        {testimonials.map((t) => (
+          <figure class="cert-quote-card">
+            <blockquote class="cert-quote-text">{t.quote}</blockquote>
+            <figcaption class="cert-quote-meta">
+              <span class="cert-quote-name">{t.name}</span>
+              <span class="cert-quote-role">{t.role}, {t.org}</span>
+              <span class="cert-quote-result">✓ {t.result}</span>
+            </figcaption>
+          </figure>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- ==================== 8. NEXT COHORT CTA BANNER ==================== -->
-  <section class="section" id="apply" style="background: #F2EEEB; padding-block: clamp(5rem, 9vw, 8rem);">
+  <!-- ==================== 12. FAQs ==================== -->
+  <section class="section" style="background: #F2EEEB; padding-block: clamp(5rem, 8vw, 7.5rem);" id="faqs">
+    <div class="site-shell">
+      <div style="max-width: 62rem;" class="reveal-on-scroll">
+        <div class="eyebrow" style="color: #755436; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">
+          FAQS
+        </div>
+        <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 4.25rem); font-weight: 700; line-height: 1.1; margin-top: 0.5rem;">
+          Executive Training FAQs
+        </h2>
+        <p style="color: #4C4747; font-size: 1.2rem; line-height: 1.55; margin-top: 1.25rem; max-width: 64ch;">
+          Get answers to common questions about this executive leadership training program.
+        </p>
+      </div>
+
+      <div class="cert-faq-list reveal-on-scroll">
+        {faqs.map((f) => (
+          <details class="cert-faq-item" name="cert-faq">
+            <summary class="cert-faq-q">
+              <span>{f.q}</span>
+              <span class="cert-faq-chevron" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </span>
+            </summary>
+            <p class="cert-faq-a">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 13. CLOSING CTA ==================== -->
+  <section class="section" id="apply" style="background: #FFFFFF; padding-block: clamp(5rem, 9vw, 8rem);">
     <div class="site-shell reveal-on-scroll">
       <div class="eyebrow" style="color: #4C4747; font-size: clamp(1.25rem, 1.667vw, 2rem); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem;">
-        NEXT COHORT
+        GET STARTED
       </div>
       <h2 style="color: #4C4747; font-size: clamp(2.4rem, 5vw, 6rem); font-weight: 700; line-height: 1.1; max-width: 26ch;">
-        Apply for the next Executive Certificate cohort.
+        Build the capability to move from strategy to realization.
       </h2>
-      <p style="color: #000000; font-size: clamp(1rem, 1.4583vw, 1.75rem); margin-top: 1.5rem; max-width: 58ch; line-height: 1.5;">
-        Spaces are limited to preserve cohort depth. The next cohort opens enrollment quarterly.
-      </p>
       <div class="button-row" style="margin-top: 2.5rem; gap: 1rem;">
         <a class="button primary" href="/contact?interest=certificate" style="background: #755436; color: #ffffff; border: 1px solid #755436; font-weight: 700; border-radius: 7px; padding: 0.75rem 1.75rem; text-decoration: none;">
-          Apply or request a brief→
+          Apply for Executive Training→
         </a>
-        <a class="button" href="/framework" style="background: transparent; border: 1.5px solid #755436; color: #755436; font-weight: 700; border-radius: 7px; padding: 0.75rem 1.75rem; text-decoration: none;">
-          See the framework first
+        <a class="button" href="/contact?interest=consultation" style="background: transparent; border: 1.5px solid #755436; color: #755436; font-weight: 700; border-radius: 7px; padding: 0.75rem 1.75rem; text-decoration: none;">
+          Book a Free Consultation
         </a>
       </div>
     </div>
   </section>
-
   <!-- ==================== ENROLL NOW MODAL ==================== -->
   <div class="enroll-modal-overlay" id="enroll-modal-overlay" hidden>
     <div class="enroll-modal" role="dialog" aria-modal="true" aria-labelledby="enroll-modal-title">
