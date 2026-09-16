@@ -3876,8 +3876,13 @@ img {
    (no colored section behind it), so this section also uses the
    page bg — white — to match. */
 .section--framework-detail {
+  /* Figma places this frame tight against its neighbours (measured
+     38px above, 26px below at the 1920px reference width) - 1.979vw
+     and 1.354vw hit those exactly at 1920px, same Figma-fidelity vw
+     pattern used elsewhere in this file. */
   background: #FFFFFF;
-  padding-block: clamp(4.5rem, 8vw, 7rem);
+  padding-top: clamp(20px, 1.979vw, 38px);
+  padding-bottom: clamp(14px, 1.354vw, 26px);
 }
 
 .framework-diagram-wrap {
