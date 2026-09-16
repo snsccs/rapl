@@ -3,7 +3,9 @@ import BaseLayout from "../../components/BaseLayout.astro";
 import { fetchPublishedRaplBlogs, raplAssetUrl, formatRaplDate, type RaplBlogRecord } from "../../lib/raplBlogApi";
 
 export async function getStaticPaths() {
-  const articles = await fetchPublishedRaplBlogs("article");
+  // include_content=true: the detail page renders blog.content, which the list
+  // endpoint omits by default.
+  const articles = await fetchPublishedRaplBlogs("article", 100, true);
   return articles.map((blog) => ({
     params: { slug: blog.seo_slug || blog.slug },
     props: { blog },
