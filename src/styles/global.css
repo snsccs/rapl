@@ -6785,6 +6785,28 @@ img {
   max-width: 42ch;
 }
 
+.community-consent {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  cursor: pointer;
+}
+
+.community-consent input {
+  margin: 0.2rem 0 0;
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: #755436;
+}
+
+.community-consent span {
+  color: #4C4747;
+  font-family: var(--font-sans, "Inria Sans", sans-serif);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
 .contact-submit-btn {
   background: #755436;
   color: #FFFFFF;
@@ -6805,6 +6827,12 @@ img {
 .contact-submit-btn:hover {
   background: #5D432B;
   transform: translateY(-1px);
+}
+
+.contact-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
 }
 
 /* Info Cards below */

@@ -1,0 +1,161 @@
+---
+import BaseLayout from "../components/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Join the RAPL™ Community | RAPL Leadership"
+  description="Join the RAPL™ Community for framework updates, research findings, event invitations and Executive Certificate news."
+>
+  <section class="page-hero page-hero--poll">
+    <div class="site-shell">
+      <div class="poll-hero-copy reveal-on-scroll">
+        <div class="eyebrow" style="color: #755436;">JOIN THE RAPL COMMUNITY</div>
+        <h1 class="poll-hero-title">
+          Join the Role-Agnostic Project Leadership™ Community
+        </h1>
+        <p class="poll-hero-lede">
+          Receive framework updates, research findings, event invitations and opportunities to take part in the broader RAPL™ community. Joining does not create any obligation — it's an invitation to follow, test and help strengthen the framework.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background: #ffffff; padding-block: clamp(3rem, 6vw, 5rem);">
+    <div class="site-shell" style="max-width: 60rem; margin-inline: auto;">
+      <div class="contact-form-card reveal-on-scroll">
+        <div id="community-form-wrap">
+          <form class="contact-form-grid" id="community-form">
+            <input type="text" name="website" id="community-honeypot" autocomplete="off" tabindex="-1" style="position: absolute; left: -9999px;" aria-hidden="true" />
+
+            <div class="contact-form-row">
+              <div class="contact-form-field">
+                <label for="community-first-name">First Name:</label>
+                <input id="community-first-name" name="first_name" type="text" required autocomplete="given-name" />
+              </div>
+              <div class="contact-form-field">
+                <label for="community-last-name">Last Name:</label>
+                <input id="community-last-name" name="last_name" type="text" required autocomplete="family-name" />
+              </div>
+            </div>
+
+            <div class="contact-form-row">
+              <div class="contact-form-field">
+                <label for="community-email">Email Address:</label>
+                <input id="community-email" name="email" type="email" required autocomplete="email" />
+              </div>
+              <div class="contact-form-field">
+                <label for="community-role">Role or Title:</label>
+                <input id="community-role" name="role" type="text" autocomplete="organization-title" />
+              </div>
+            </div>
+
+            <div class="contact-form-row">
+              <div class="contact-form-field">
+                <label for="community-org">Organization:</label>
+                <input id="community-org" name="organization" type="text" autocomplete="organization" />
+              </div>
+              <div class="contact-form-field">
+                <label for="community-country">Country:</label>
+                <input id="community-country" name="country" type="text" autocomplete="country-name" />
+              </div>
+            </div>
+
+            <div class="contact-form-field">
+              <label for="community-interest">Primary Interest:</label>
+              <select id="community-interest" name="interest">
+                <option>Reader</option>
+                <option>Research</option>
+                <option>Executive Certificate</option>
+                <option>Organizational application</option>
+                <option>Speaking or media</option>
+                <option>Event host</option>
+              </select>
+            </div>
+
+            <label class="community-consent">
+              <input type="checkbox" name="consent" required />
+              <span>
+                Yes, I would like to receive RAPL&trade; framework updates, research, events and Executive Certificate news from RAPL Leadership. I understand I can unsubscribe at any time.
+              </span>
+            </label>
+
+            <div class="contact-form-footer">
+              <p class="contact-privacy-note">
+                We use your details only to send RAPL™ community updates. No marketing list beyond this. No sharing.
+              </p>
+              <button type="submit" class="contact-submit-btn" id="community-submit-btn">
+                Join the RAPL Community <span aria-hidden="true">→</span>
+              </button>
+            </div>
+
+            <p id="community-error" hidden style="color: #781222; margin-top: 0.5rem; font-family: var(--font-sans, 'Inria Sans', sans-serif);"></p>
+          </form>
+        </div>
+
+        <div id="community-thanks" hidden style="text-align: center; padding: 2.5rem 1rem;">
+          <h3 style="font-size: 1.6rem; color: #3C3B3B; font-weight: 700; margin-bottom: 0.75rem;">You're in.</h3>
+          <p style="color: #4C4747; font-family: var(--font-sans, 'Inria Sans', sans-serif); font-size: 1.1rem; line-height: 1.6;">
+            Thanks for joining the RAPL™ community — we'll be in touch with updates.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const API_URL = "https://api.snsccs.com/api/community-signups";
+
+  const form = document.getElementById("community-form") as HTMLFormElement | null;
+  const submitBtn = document.getElementById("community-submit-btn") as HTMLButtonElement | null;
+  const errorEl = document.getElementById("community-error");
+  const formWrap = document.getElementById("community-form-wrap");
+  const thanksEl = document.getElementById("community-thanks");
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!form || !submitBtn) return;
+
+    errorEl?.setAttribute("hidden", "true");
+    submitBtn.disabled = true;
+
+    const data = new FormData(form);
+    const consentInput = form.querySelector<HTMLInputElement>('input[name="consent"]');
+
+    const payload = {
+      source: "rapl",
+      first_name: String(data.get("first_name") || "").trim(),
+      last_name: String(data.get("last_name") || "").trim(),
+      email: String(data.get("email") || "").trim(),
+      role: String(data.get("role") || "").trim(),
+      organization: String(data.get("organization") || "").trim(),
+      country: String(data.get("country") || "").trim(),
+      interest: String(data.get("interest") || "").trim(),
+      consent: consentInput?.checked ?? false,
+      website: String(data.get("website") || "")
+    };
+
+    try {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const json = await res.json();
+
+      if (!res.ok || !json.success) {
+        const message = json.errors?.[0]?.msg || json.message || "Something went wrong. Please try again.";
+        throw new Error(message);
+      }
+
+      formWrap?.setAttribute("hidden", "true");
+      thanksEl?.removeAttribute("hidden");
+    } catch (err) {
+      if (errorEl) {
+        errorEl.textContent = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+        errorEl.removeAttribute("hidden");
+      }
+      submitBtn.disabled = false;
+    }
+  });
+</script>
