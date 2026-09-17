@@ -21,8 +21,8 @@ import BaseLayout from "../components/BaseLayout.astro";
   </section>
 
   <section class="section" style="background: #ffffff; padding-block: clamp(3rem, 6vw, 5rem);">
-    <div class="site-shell" style="max-width: 60rem; margin-inline: auto;">
-      <div class="contact-form-card reveal-on-scroll">
+    <div class="site-shell" style="max-width: 75rem; margin-inline: auto;">
+      <div class="contact-form-card community-form-card--lg reveal-on-scroll">
         <div id="community-form-wrap">
           <form class="contact-form-grid" id="community-form">
             <input type="text" name="website" id="community-honeypot" autocomplete="off" tabindex="-1" style="position: absolute; left: -9999px;" aria-hidden="true" />
@@ -159,3 +159,49 @@ import BaseLayout from "../components/BaseLayout.astro";
     }
   });
 </script>
+
+<style>
+  .community-form-card--lg {
+    padding: clamp(2.5rem, 4vw, 4rem);
+  }
+
+  .community-form-card--lg .contact-form-grid {
+    gap: 1.75rem;
+  }
+
+  .community-form-card--lg .contact-form-row {
+    gap: 1.75rem;
+  }
+
+  .community-form-card--lg .contact-form-field label {
+    font-size: clamp(1.05rem, 1.2vw, 1.4rem);
+  }
+
+  .community-form-card--lg .contact-form-field input,
+  .community-form-card--lg .contact-form-field select {
+    padding: 1.15rem 1.25rem;
+    font-size: 1.1rem;
+    border-radius: 10px;
+  }
+
+  .community-form-card--lg .community-consent span {
+    font-size: 1rem;
+  }
+
+  .community-form-card--lg .contact-submit-btn {
+    padding: 1.1rem 2.25rem;
+    font-size: 1.15rem;
+    border-radius: 6px;
+  }
+
+  .community-form-card--lg .contact-privacy-note {
+    max-width: 48ch;
+    font-size: clamp(1rem, 1.1vw, 1.3rem);
+  }
+
+  @media (max-width: 600px) {
+    .community-form-card--lg {
+      padding: clamp(1.75rem, 6vw, 2.5rem);
+    }
+  }
+</style>
