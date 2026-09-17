@@ -2421,7 +2421,11 @@ img {
 .research-community-banner {
   display: flex;
   justify-content: center;
-  margin-bottom: clamp(1.5rem, 3vw, 2.75rem);
+  position: absolute;
+  top: clamp(0.75rem, 1.6vw, 1.5rem);
+  left: 0;
+  right: 0;
+  z-index: 2;
 }
 
 .research-community-link {
