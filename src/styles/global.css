@@ -3935,11 +3935,9 @@ img {
 }
 
 .framework-diagram-img {
-  /* 85.625vw = 1644px (the Figma export's own pixel width) at exactly a
-     1920px viewport, matching the source frame 1:1 at that breakpoint;
-     capped at 1644px so it doesn't keep growing past that on wider
-     screens, same pattern as this file's other Figma-fidelity vw values. */
-  width: min(85.625vw, 1644px);
+  /* 83.333vw = 1600px (the updated graphic's natural pixel width) at a
+     1920px viewport; capped at 1600px so it renders crisp without upscaling. */
+  width: min(83.333vw, 1600px);
   max-width: 100%;
   height: auto;
   object-fit: contain;
