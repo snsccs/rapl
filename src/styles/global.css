@@ -8072,14 +8072,43 @@ img {
   margin-top: 0;
   max-width: none;
   padding-inline: 0;
+  background: var(--bg-cream-1);
 }
 
 .blog-detail-image {
   width: 100%;
+  height: auto;
   max-height: clamp(320px, 42vw, 620px);
-  object-fit: cover;
+  object-fit: contain;
   /* Rounded corners read as a floating card; edge-to-edge should be square. */
   border-radius: 0;
+}
+
+@media (max-width: 768px) {
+  .blog-detail-page .page-hero {
+    padding-bottom: 1rem;
+  }
+
+  .blog-detail-tags {
+    margin-top: 0.75rem;
+    gap: 0.35rem 0.4rem;
+  }
+
+  .blog-detail-tags .pill {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.72rem;
+  }
+
+  .blog-detail-meta {
+    margin-top: 0.75rem;
+  }
+
+  .blog-detail-image {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+  }
 }
 
 /* Was 48rem, which left ~416px of dead space each side at 1600px while the
