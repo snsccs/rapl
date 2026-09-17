@@ -2422,7 +2422,7 @@ img {
   display: flex;
   justify-content: center;
   position: absolute;
-  top: clamp(0.75rem, 1.6vw, 1.5rem);
+  top: clamp(0.35rem, 0.8vw, 0.75rem);
   left: 0;
   right: 0;
   z-index: 2;
@@ -2502,6 +2502,16 @@ img {
     background: linear-gradient(180deg, rgba(246, 244, 242, 0.94) 0%, rgba(246, 244, 242, 0.98) 100%), url("/Gemini_Generated_Image_39u1qx39u1qx39u1_1.png") center center / auto 110% no-repeat;
     background-color: #F6F4F2;
     padding-block: clamp(3.5rem, 8vw, 5.5rem);
+  }
+}
+
+/* The community banner is absolutely positioned near the hero's own top
+   edge, independent of .research-hero-copy's flow position - below 770px
+   the hero's padding-top shrinks enough that the eyebrow sits right under
+   it with almost no gap. Push the copy down a bit more here specifically. */
+@media (max-width: 770px) {
+  .page-hero--research .research-hero-copy {
+    margin-top: 2.25rem;
   }
 }
 
