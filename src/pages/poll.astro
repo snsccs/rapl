@@ -430,6 +430,20 @@ import BaseLayout from "../components/BaseLayout.astro";
     nextBtn.textContent = isLastStep ? "Submit" : "Next";
   };
 
+  // On mobile the step after this one is usually a different height, so
+  // keeping the same scroll offset can leave the new question's heading
+  // above the fold with only its answer options visible. Scroll the card
+  // back into view, offset by the sticky site header's actual height
+  // (computed live since it varies by breakpoint) so the heading isn't
+  // hidden behind it.
+  const scrollToWizardTop = () => {
+    const card = document.getElementById("poll-wizard-card");
+    if (!card) return;
+    const headerHeight = document.querySelector(".site-header")?.getBoundingClientRect().height ?? 0;
+    const top = card.getBoundingClientRect().top + window.scrollY - headerHeight - 16;
+    window.scrollTo({ top, behavior: "smooth" });
+  };
+
   const renderStep = () => {
     stepError?.setAttribute("hidden", "true");
     const step = steps[currentStep];
@@ -532,6 +546,7 @@ import BaseLayout from "../components/BaseLayout.astro";
 
       wizardEl?.setAttribute("hidden", "true");
       thanksEl?.removeAttribute("hidden");
+      scrollToWizardTop();
     } catch (err) {
       if (submitErrorEl) {
         submitErrorEl.textContent = isNetworkError(err)
@@ -550,6 +565,7 @@ import BaseLayout from "../components/BaseLayout.astro";
     collectCurrentStep();
     currentStep -= 1;
     renderStep();
+    scrollToWizardTop();
   });
 
   skipBtn?.addEventListener("click", () => {
@@ -560,6 +576,7 @@ import BaseLayout from "../components/BaseLayout.astro";
     }
     currentStep += 1;
     renderStep();
+    scrollToWizardTop();
   });
 
   nextBtn?.addEventListener("click", () => {
@@ -580,6 +597,7 @@ import BaseLayout from "../components/BaseLayout.astro";
     }
     currentStep += 1;
     renderStep();
+    scrollToWizardTop();
   });
 
   const loadPoll = async () => {
