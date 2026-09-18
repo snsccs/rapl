@@ -644,5 +644,17 @@ import BaseLayout from "../components/BaseLayout.astro";
     }
   });
 
+  // The visibilitychange refresh above only helps a visitor who alt-tabs
+  // away and back — it never fires for a presenter screen left open and
+  // visible the whole time, which is exactly when a silently-dead SSE
+  // connection (killed by some proxy/firewall along the way without either
+  // side noticing) would go unnoticed longest. Poll on a fixed interval
+  // regardless of visibility or SSE state, so results can never be stale
+  // for more than this long no matter what the stream is doing.
+  const RESULTS_POLL_MS = 15000;
+  setInterval(() => {
+    if (poll) refreshResultsSnapshot(poll.slug);
+  }, RESULTS_POLL_MS);
+
   loadPoll();
 </script>
