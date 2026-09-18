@@ -651,7 +651,12 @@ import BaseLayout from "../components/BaseLayout.astro";
   // side noticing) would go unnoticed longest. Poll on a fixed interval
   // regardless of visibility or SSE state, so results can never be stale
   // for more than this long no matter what the stream is doing.
-  const RESULTS_POLL_MS = 15000;
+  // TEMP: dropped from 15000 to 5000 for the live conference window while
+  // the 2-instance SSE split-brain bug (see pmitraining-backend
+  // raplAudiencePoll.controller.js) is unresolved — bounds worst-case
+  // staleness tighter. Revert to 15000 after the event; no urgency either
+  // way once that root cause is actually fixed.
+  const RESULTS_POLL_MS = 5000;
   setInterval(() => {
     if (poll) refreshResultsSnapshot(poll.slug);
   }, RESULTS_POLL_MS);
