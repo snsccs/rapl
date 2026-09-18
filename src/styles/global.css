@@ -7770,14 +7770,38 @@ img {
   cursor: default;
 }
 
+/* Lets someone who already submitted step back through other questions'
+   live results — only shown post-submit, inside the results panel. */
+.poll-results-browse-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(16, 32, 43, 0.1);
+}
+
+.poll-results-browse-label {
+  color: #4C4747;
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 @media (max-width: 480px) {
-  .poll-wizard-nav {
+  .poll-wizard-nav,
+  .poll-results-browse-nav {
     gap: 0.4rem;
   }
 
   .poll-nav-btn {
     padding: 0.65rem 0.85rem;
     font-size: 0.85rem;
+  }
+
+  .poll-results-browse-label {
+    font-size: 0.8rem;
   }
 }
 

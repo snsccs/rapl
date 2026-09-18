@@ -77,6 +77,15 @@ import BaseLayout from "../components/BaseLayout.astro";
             <p class="poll-results-panel-sub" id="poll-results-subtitle"></p>
           </div>
           <div id="poll-results-body"></div>
+          <div class="poll-results-browse-nav" id="poll-results-browse-nav" hidden>
+            <button type="button" class="poll-nav-btn poll-nav-btn--ghost" id="poll-results-prev-btn">
+              Back
+            </button>
+            <span class="poll-results-browse-label" id="poll-results-browse-label"></span>
+            <button type="button" class="poll-nav-btn poll-nav-btn--ghost" id="poll-results-next-btn">
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -145,6 +154,9 @@ import BaseLayout from "../components/BaseLayout.astro";
   let steps: Step[] = [];
   let currentStep = 0;
   let latestResults: PollResults | null = null;
+  // Once true, currentStep is driven by the results-browse Back/Next
+  // buttons rather than the wizard, and the browse nav becomes visible.
+  let hasSubmitted = false;
   const answers: Record<string, string | string[]> = {};
   const contact = { name: "", email: "", phone: "", job_title: "" };
 
@@ -168,6 +180,10 @@ import BaseLayout from "../components/BaseLayout.astro";
   const resultsTitleEl = document.getElementById("poll-results-title");
   const resultsSubtitleEl = document.getElementById("poll-results-subtitle");
   const resultsBodyEl = document.getElementById("poll-results-body");
+  const resultsBrowseNavEl = document.getElementById("poll-results-browse-nav");
+  const resultsBrowseLabelEl = document.getElementById("poll-results-browse-label");
+  const resultsPrevBtn = document.getElementById("poll-results-prev-btn") as HTMLButtonElement | null;
+  const resultsNextBtn = document.getElementById("poll-results-next-btn") as HTMLButtonElement | null;
 
   const buildSteps = (loadedPoll: Poll): Step[] => {
     const questionSteps: Step[] = loadedPoll.questions.map((question) => ({ kind: "question", question }));
@@ -175,6 +191,15 @@ import BaseLayout from "../components/BaseLayout.astro";
   };
 
   const questionStepCount = () => steps.filter((step) => step.kind === "question").length;
+
+  // Indices into `steps` for question steps only — used to let someone who
+  // already submitted browse other questions' live results without landing
+  // on the contact-info step, which has no results to show.
+  const questionStepIndices = () =>
+    steps.reduce<number[]>((acc, step, i) => {
+      if (step.kind === "question") acc.push(i);
+      return acc;
+    }, []);
 
   const renderOptionsField = (question: PollQuestion): HTMLElement => {
     const wrap = document.createElement("div");
@@ -327,8 +352,28 @@ import BaseLayout from "../components/BaseLayout.astro";
     return row;
   };
 
+  // currentStep can land on a non-question step (the optional contact-info
+  // step is last in the wizard) right after submitting. Treat that as
+  // "past the last question" for browse purposes, so Back still works —
+  // only jumping in once actually moves to a real question.
+  const updateResultsBrowseNav = () => {
+    if (!resultsBrowseNavEl || !resultsBrowseLabelEl || !resultsPrevBtn || !resultsNextBtn) return;
+    const indices = questionStepIndices();
+    if (!hasSubmitted || !indices.length) {
+      resultsBrowseNavEl.setAttribute("hidden", "true");
+      return;
+    }
+    const pos = indices.indexOf(currentStep);
+    const effectivePos = pos === -1 ? indices.length : pos;
+    resultsBrowseNavEl.removeAttribute("hidden");
+    resultsPrevBtn.disabled = effectivePos <= 0;
+    resultsNextBtn.disabled = effectivePos >= indices.length - 1;
+    resultsBrowseLabelEl.textContent = pos === -1 ? "" : `Q${pos + 1} of ${indices.length}`;
+  };
+
   const renderResultsForStep = () => {
     if (!resultsBodyEl || !resultsSubtitleEl || !resultsTitleEl) return;
+    updateResultsBrowseNav();
     const step = steps[currentStep];
 
     if (!step || step.kind !== "question") {
@@ -547,6 +592,9 @@ import BaseLayout from "../components/BaseLayout.astro";
       wizardEl?.setAttribute("hidden", "true");
       thanksEl?.removeAttribute("hidden");
       scrollToWizardTop();
+
+      hasSubmitted = true;
+      renderResultsForStep();
     } catch (err) {
       if (submitErrorEl) {
         submitErrorEl.textContent = isNetworkError(err)
@@ -598,6 +646,28 @@ import BaseLayout from "../components/BaseLayout.astro";
     currentStep += 1;
     renderStep();
     scrollToWizardTop();
+  });
+
+  resultsPrevBtn?.addEventListener("click", () => {
+    const indices = questionStepIndices();
+    if (!indices.length) return;
+    const pos = indices.indexOf(currentStep);
+    const effectivePos = pos === -1 ? indices.length : pos;
+    if (effectivePos > 0) {
+      currentStep = indices[effectivePos - 1];
+      renderResultsForStep();
+    }
+  });
+
+  resultsNextBtn?.addEventListener("click", () => {
+    const indices = questionStepIndices();
+    if (!indices.length) return;
+    const pos = indices.indexOf(currentStep);
+    const effectivePos = pos === -1 ? indices.length : pos;
+    if (effectivePos < indices.length - 1) {
+      currentStep = indices[effectivePos + 1];
+      renderResultsForStep();
+    }
   });
 
   const loadPoll = async () => {
