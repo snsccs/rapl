@@ -475,19 +475,21 @@ import BaseLayout from "../components/BaseLayout.astro";
     nextBtn.textContent = isLastStep ? "Submit" : "Next";
   };
 
-  // On mobile the step after this one is usually a different height, so
-  // keeping the same scroll offset can leave the new question's heading
-  // above the fold with only its answer options visible. Scroll the card
+  // On mobile the next card content is usually a different height, so
+  // keeping the same scroll offset can leave its heading above the fold
+  // with only the options/bars below it visible. Scroll the given card
   // back into view, offset by the sticky site header's actual height
   // (computed live since it varies by breakpoint) so the heading isn't
   // hidden behind it.
-  const scrollToWizardTop = () => {
-    const card = document.getElementById("poll-wizard-card");
+  const scrollCardTop = (cardId: string) => {
+    const card = document.getElementById(cardId);
     if (!card) return;
     const headerHeight = document.querySelector(".site-header")?.getBoundingClientRect().height ?? 0;
     const top = card.getBoundingClientRect().top + window.scrollY - headerHeight - 16;
     window.scrollTo({ top, behavior: "smooth" });
   };
+  const scrollToWizardTop = () => scrollCardTop("poll-wizard-card");
+  const scrollToResultsTop = () => scrollCardTop("poll-results-panel");
 
   const renderStep = () => {
     stepError?.setAttribute("hidden", "true");
@@ -656,6 +658,7 @@ import BaseLayout from "../components/BaseLayout.astro";
     if (effectivePos > 0) {
       currentStep = indices[effectivePos - 1];
       renderResultsForStep();
+      scrollToResultsTop();
     }
   });
 
@@ -667,6 +670,7 @@ import BaseLayout from "../components/BaseLayout.astro";
     if (effectivePos < indices.length - 1) {
       currentStep = indices[effectivePos + 1];
       renderResultsForStep();
+      scrollToResultsTop();
     }
   });
 
