@@ -7789,6 +7789,20 @@ img {
   white-space: nowrap;
 }
 
+/* The default .poll-nav-btn--ghost (transparent bg, faint border) reads
+   fine on the wizard card where it sits beside a solid primary button for
+   contrast, but disappears against the plain white results card with
+   nothing next to it to set it off. Give it the same visible tan-card
+   treatment as the poll options elsewhere on this page instead. */
+.poll-results-browse-nav .poll-nav-btn--ghost {
+  background: #F8F4F0;
+  border-color: rgba(115, 82, 0, 0.53);
+}
+
+.poll-results-browse-nav .poll-nav-btn--ghost:hover {
+  background: #F1E9DF;
+}
+
 @media (max-width: 480px) {
   .poll-wizard-nav,
   .poll-results-browse-nav {
