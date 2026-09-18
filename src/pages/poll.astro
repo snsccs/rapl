@@ -29,7 +29,12 @@ import BaseLayout from "../components/BaseLayout.astro";
       <div class="poll-split-layout">
         <div class="contact-form-card reveal-on-scroll" id="poll-wizard-card">
           <p id="poll-loading" class="poll-loading">Loading poll…</p>
-          <p id="poll-unavailable" class="poll-loading" hidden>This poll isn't available right now.</p>
+          <div id="poll-unavailable" hidden>
+            <p id="poll-unavailable-text" class="poll-loading">This poll isn't available right now.</p>
+            <button type="button" class="poll-nav-btn poll-nav-btn--ghost" id="poll-retry-btn" hidden>
+              Try again
+            </button>
+          </div>
 
           <div id="poll-wizard" hidden>
             <div class="poll-wizard-progress">
@@ -125,6 +130,8 @@ import BaseLayout from "../components/BaseLayout.astro";
 
   const loadingEl = document.getElementById("poll-loading");
   const unavailableEl = document.getElementById("poll-unavailable");
+  const unavailableTextEl = document.getElementById("poll-unavailable-text");
+  const retryBtn = document.getElementById("poll-retry-btn") as HTMLButtonElement | null;
   const wizardEl = document.getElementById("poll-wizard");
   const progressFill = document.getElementById("poll-progress-fill") as HTMLDivElement | null;
   const progressText = document.getElementById("poll-progress-text");
@@ -507,7 +514,9 @@ import BaseLayout from "../components/BaseLayout.astro";
       thanksEl?.removeAttribute("hidden");
     } catch (err) {
       if (submitErrorEl) {
-        submitErrorEl.textContent = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+        submitErrorEl.textContent = err instanceof TypeError
+          ? "Couldn't reach the server — check your connection and tap Submit again."
+          : err instanceof Error ? err.message : "Something went wrong. Please try again.";
         submitErrorEl.removeAttribute("hidden");
       }
       nextBtn.disabled = false;
@@ -553,7 +562,16 @@ import BaseLayout from "../components/BaseLayout.astro";
     renderStep();
   });
 
+  // Fetch failures (no signal, DNS hiccup, carrier interference) throw a
+  // TypeError before any HTTP response exists. Those are transient and
+  // worth a retry button; a real "no active poll" response is not.
+  const isNetworkError = (err: unknown) => err instanceof TypeError;
+
   const loadPoll = async () => {
+    loadingEl?.removeAttribute("hidden");
+    unavailableEl?.setAttribute("hidden", "true");
+    retryBtn?.setAttribute("hidden", "true");
+
     try {
       const endpoint = slugParam ? `${API_BASE}/${encodeURIComponent(slugParam)}` : `${API_BASE}/active`;
       const res = await fetch(endpoint);
@@ -571,17 +589,27 @@ import BaseLayout from "../components/BaseLayout.astro";
       resultsPanelEl?.removeAttribute("hidden");
       renderStep();
       connectLiveResults(poll.slug);
-
-      document.addEventListener("visibilitychange", () => {
-        if (document.visibilityState === "visible" && poll) {
-          refreshResultsSnapshot(poll.slug);
-        }
-      });
     } catch (err) {
       loadingEl?.setAttribute("hidden", "true");
       unavailableEl?.removeAttribute("hidden");
+      if (unavailableTextEl) {
+        unavailableTextEl.textContent = isNetworkError(err)
+          ? "Couldn't reach the poll — check your connection."
+          : "This poll isn't available right now.";
+      }
+      retryBtn?.toggleAttribute("hidden", !isNetworkError(err));
     }
   };
+
+  retryBtn?.addEventListener("click", () => {
+    loadPoll();
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible" && poll) {
+      refreshResultsSnapshot(poll.slug);
+    }
+  });
 
   loadPoll();
 </script>
