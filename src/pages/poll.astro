@@ -118,6 +118,26 @@ import BaseLayout from "../components/BaseLayout.astro";
 
   const API_BASE = "https://api.snsccs.com/api/rapl-audience-poll";
 
+  // Plain fetch() has no timeout — on a slow/flaky connection it can hang
+  // well past what a visitor will wait for, leaving "Loading poll…" (or a
+  // submit spinner) on screen indefinitely instead of failing into the
+  // retry UI. It also ties up one of the 6 concurrent connections a
+  // browser allows per origin for however long it hangs, which can starve
+  // the SSE results stream on the same page. Bound every request so a bad
+  // connection fails fast into something the visitor can act on.
+  const FETCH_TIMEOUT_MS = 10000;
+  const fetchWithTimeout = (input: string, init: RequestInit = {}) => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+    return fetch(input, { ...init, signal: controller.signal }).finally(() => clearTimeout(timer));
+  };
+
+  // A connection failure throws TypeError; fetchWithTimeout's own abort
+  // throws a DOMException named AbortError. Both mean "couldn't reach the
+  // server this time," not "the server told us no" — worth a retry.
+  const isNetworkError = (err: unknown) =>
+    err instanceof TypeError || (err instanceof DOMException && err.name === "AbortError");
+
   const params = new URLSearchParams(window.location.search);
   const slugParam = params.get("poll");
 
@@ -385,7 +405,7 @@ import BaseLayout from "../components/BaseLayout.astro";
   // for longer than "until you look at it again".
   const refreshResultsSnapshot = async (slug: string) => {
     try {
-      const res = await fetch(`${API_BASE}/${slug}/results`);
+      const res = await fetchWithTimeout(`${API_BASE}/${slug}/results`);
       const json = await res.json();
       if (res.ok && json.success) {
         latestResults = json.data as PollResults;
@@ -498,7 +518,7 @@ import BaseLayout from "../components/BaseLayout.astro";
     };
 
     try {
-      const res = await fetch(`${API_BASE}/${poll.slug}/responses`, {
+      const res = await fetchWithTimeout(`${API_BASE}/${poll.slug}/responses`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -514,7 +534,7 @@ import BaseLayout from "../components/BaseLayout.astro";
       thanksEl?.removeAttribute("hidden");
     } catch (err) {
       if (submitErrorEl) {
-        submitErrorEl.textContent = err instanceof TypeError
+        submitErrorEl.textContent = isNetworkError(err)
           ? "Couldn't reach the server — check your connection and tap Submit again."
           : err instanceof Error ? err.message : "Something went wrong. Please try again.";
         submitErrorEl.removeAttribute("hidden");
@@ -562,11 +582,6 @@ import BaseLayout from "../components/BaseLayout.astro";
     renderStep();
   });
 
-  // Fetch failures (no signal, DNS hiccup, carrier interference) throw a
-  // TypeError before any HTTP response exists. Those are transient and
-  // worth a retry button; a real "no active poll" response is not.
-  const isNetworkError = (err: unknown) => err instanceof TypeError;
-
   const loadPoll = async () => {
     loadingEl?.removeAttribute("hidden");
     unavailableEl?.setAttribute("hidden", "true");
@@ -574,7 +589,7 @@ import BaseLayout from "../components/BaseLayout.astro";
 
     try {
       const endpoint = slugParam ? `${API_BASE}/${encodeURIComponent(slugParam)}` : `${API_BASE}/active`;
-      const res = await fetch(endpoint);
+      const res = await fetchWithTimeout(endpoint);
       const json = await res.json();
       if (!res.ok || !json.success) throw new Error(json.message || "Unable to load poll");
 
