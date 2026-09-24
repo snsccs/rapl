@@ -1,3 +1,5 @@
+export type RaplBlogType = "article" | "podcast" | "leadership_article";
+
 export interface RaplBlogRecord {
   id: number;
   slug: string;
@@ -6,7 +8,7 @@ export interface RaplBlogRecord {
   subtitle?: string | null;
   content: string;
   category: string;
-  type: "article" | "podcast";
+  type: RaplBlogType;
   badge?: string | null;
   featured_image?: string | null;
   podcast_url?: string | null;
@@ -50,7 +52,7 @@ export const raplAssetUrl = (value?: string | null) => {
  * genuinely empty (but successful) result is not an error and returns [].
  */
 export async function fetchPublishedRaplBlogs(
-  type: "article" | "podcast",
+  type: RaplBlogType,
   limit = 100,
   includeContent = false,
 ): Promise<RaplBlogRecord[]> {
