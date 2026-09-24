@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "postbuild": "node -e \"require('fs').copyFileSync('dist/sitemap-index.xml','dist/sitemap.xml')\"",
     "preview": "astro preview",
     "check": "astro check"
   },
