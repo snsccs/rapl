@@ -5,8 +5,12 @@ import { fetchPublishedRaplBlogs, raplAssetUrl, formatRaplDate, type RaplBlogRec
 export async function getStaticPaths() {
   // include_content=true: the detail page renders blog.content, which the list
   // endpoint omits by default.
-  const articles = await fetchPublishedRaplBlogs("article", 100, true);
-  return articles.map((blog) => ({
+  // Leadership articles share the /blogs/<slug> route with regular articles.
+  const [articles, leadershipArticles] = await Promise.all([
+    fetchPublishedRaplBlogs("article", 100, true),
+    fetchPublishedRaplBlogs("leadership_article", 100, true),
+  ]);
+  return [...articles, ...leadershipArticles].map((blog) => ({
     params: { slug: blog.seo_slug || blog.slug },
     props: { blog },
   }));

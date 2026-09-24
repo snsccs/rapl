@@ -7,9 +7,10 @@ import { fetchPublishedRaplBlogs } from "../../lib/raplBlogApi";
 // Fetched at build time so this page ships as plain, crawlable static HTML —
 // see the architecture report's SEO/indexing plan for why (no client-side
 // data fetching for anything that needs to be indexable).
-const [podcasts, articles] = await Promise.all([
+const [podcasts, articles, leadershipArticles] = await Promise.all([
   fetchPublishedRaplBlogs("podcast"),
   fetchPublishedRaplBlogs("article"),
+  fetchPublishedRaplBlogs("leadership_article"),
 ]);
 ---
 
@@ -52,6 +53,22 @@ const [podcasts, articles] = await Promise.all([
         </div>
       ) : (
         <p class="lede" style="margin-top: 1rem;">New articles are on the way — check back soon.</p>
+      )}
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-label="Leadership articles">
+    <div class="site-shell">
+      <h2 class="section-title">Leadership Articles</h2>
+      <p class="lede" style="margin-top: 0.5rem; max-width: 46rem;">
+        Leadership principles, team management, and growth strategies for senior leaders.
+      </p>
+      {leadershipArticles.length > 0 ? (
+        <div class="blog-grid reveal-on-scroll" style="margin-top: 1.5rem;">
+          {leadershipArticles.map((blog) => <BlogCard blog={{ ...blog, category: blog.category || "Leadership" }} />)}
+        </div>
+      ) : (
+        <p class="lede" style="margin-top: 1rem;">No leadership articles yet — check back soon.</p>
       )}
     </div>
   </section>

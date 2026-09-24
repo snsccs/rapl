@@ -52,6 +52,7 @@ const apiBaseUrl = (import.meta.env.PUBLIC_RAPL_API_BASE_URL || "https://api.sns
           <option value="all">All Types</option>
           <option value="article">Article</option>
           <option value="podcast">Podcast</option>
+          <option value="leadership_article">Leadership Articles</option>
         </select>
         <select data-status-filter aria-label="Filter by status">
           <option value="all">All Status</option>
@@ -146,6 +147,7 @@ const apiBaseUrl = (import.meta.env.PUBLIC_RAPL_API_BASE_URL || "https://api.sns
               <select name="type" data-type-select>
                 <option value="article">Article</option>
                 <option value="podcast">Podcast</option>
+                <option value="leadership_article">Leadership Article</option>
               </select>
             </label>
             <label>
@@ -296,7 +298,7 @@ const apiBaseUrl = (import.meta.env.PUBLIC_RAPL_API_BASE_URL || "https://api.sns
       subtitle?: string;
       content?: string;
       category?: string;
-      type: "article" | "podcast";
+      type: "article" | "podcast" | "leadership_article";
       badge?: string;
       author?: string;
       featured_image?: string;
@@ -438,7 +440,7 @@ const apiBaseUrl = (import.meta.env.PUBLIC_RAPL_API_BASE_URL || "https://api.sns
                 </div>
               </td>
               <td>${blog.category || "-"}</td>
-              <td><span class="rapl-admin-pill rapl-admin-pill--type-${blog.type}">${blog.type === "podcast" ? "Podcast" : "Article"}</span></td>
+              <td><span class="rapl-admin-pill rapl-admin-pill--type-${blog.type}">${blog.type === "podcast" ? "Podcast" : blog.type === "leadership_article" ? "Leadership Article" : "Article"}</span></td>
               <td><span class="rapl-admin-status ${blog.is_published ? "is-published" : ""}">${blog.is_published ? "Published" : "Draft"}</span></td>
               <td>${blog.views_count || 0}</td>
               <td>${formatDate(blog.published_at)}</td>
@@ -1577,6 +1579,7 @@ const apiBaseUrl = (import.meta.env.PUBLIC_RAPL_API_BASE_URL || "https://api.sns
     .rapl-admin-pill--featured { background: rgba(205, 163, 103, 0.25); color: var(--brass-deep, #8f6e36); }
     .rapl-admin-pill--type-podcast { background: rgba(120, 18, 34, 0.1); color: var(--annotation, #781222); }
     .rapl-admin-pill--type-article { background: rgba(15, 30, 49, 0.1); color: var(--ink); }
+    .rapl-admin-pill--type-leadership_article { background: rgba(114, 84, 54, 0.12); color: #725436; }
 
     .rapl-admin-status { color: var(--graphite-light, #6b625f); font-weight: 600; }
     .rapl-admin-status.is-published { color: #245c24; }
