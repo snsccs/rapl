@@ -5399,8 +5399,13 @@ img {
   .is-not-grid { grid-template-columns: 1fr; }
 }
 
-/* Pill — dark variant for evidence section */
-.pill--ink {
+/* Pill — light-text variant for dark backgrounds (e.g. evidence section).
+   Was named .pill--ink, colliding with the dark-ink-text variant defined
+   near the base .pill rules — that duplicate silently shadowed the real
+   .pill--ink everywhere tags render on a light background (blog/podcast
+   detail tag pills, the featured podcast card), making the tag text nearly
+   invisible. Currently unused in markup; renamed so it stops shadowing. */
+.pill--inverse {
   background: transparent;
   color: var(--paper);
   border: 1px solid rgba(255, 255, 255, 0.25);
@@ -8378,5 +8383,278 @@ img {
 @media (max-width: 640px) {
   .blog-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ============ Featured podcast (listing pages) ============ */
+
+.podcast-featured {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  background: var(--bg-cream-1);
+  border: 1px solid rgba(16, 32, 43, 0.08);
+  border-radius: var(--radius);
+}
+
+.podcast-featured-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.podcast-featured-badge {
+  align-self: flex-start;
+}
+
+.podcast-featured-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  line-height: 1.25;
+  color: var(--ink);
+  margin: 0;
+}
+
+.podcast-featured-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.podcast-featured-title a:hover {
+  text-decoration: underline;
+}
+
+.podcast-featured-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  font-size: 0.88rem;
+  color: var(--graphite-light);
+  font-weight: 600;
+  margin: 0;
+}
+
+.podcast-featured-excerpt {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--graphite);
+  margin: 0;
+}
+
+.podcast-featured-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.podcast-featured-content > .button {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+}
+
+.podcast-featured-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.podcast-media-play {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.podcast-media-play img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.podcast-media-play-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brass-light);
+  font-size: 2.25rem;
+}
+
+.podcast-media-play-icon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  color: var(--ink);
+  background: var(--brass);
+  border-radius: 50%;
+  box-shadow: 0 8px 24px rgba(15, 30, 49, 0.35);
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.podcast-media-play:hover .podcast-media-play-icon {
+  transform: scale(1.08);
+  background: var(--brass-light);
+}
+
+.podcast-details-card {
+  background: var(--paper);
+  border: 1px solid rgba(16, 32, 43, 0.1);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.4rem;
+}
+
+.podcast-details-card h4 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--ink);
+  margin: 0 0 0.85rem;
+}
+
+.podcast-details-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.88rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid rgba(16, 32, 43, 0.08);
+}
+
+.podcast-details-row:first-of-type {
+  border-top: 0;
+}
+
+.podcast-details-row span:first-child {
+  color: var(--graphite-light);
+  font-weight: 600;
+}
+
+.podcast-details-row span:last-child {
+  color: var(--ink);
+  font-weight: 700;
+  text-align: right;
+}
+
+.podcast-details-cta {
+  display: block;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.podcast-details-link {
+  display: block;
+  text-align: center;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--annotation);
+  text-decoration: none;
+}
+
+.podcast-details-link:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 860px) {
+  .podcast-featured {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .podcast-featured-content {
+    flex: 1.15;
+  }
+
+  .podcast-featured-aside {
+    flex: 1;
+    max-width: 22rem;
+  }
+}
+
+/* ============ Podcast detail page: content + sticky sidebar ============ */
+
+.podcast-detail-info {
+  padding-block: 0.5rem 0;
+}
+
+.podcast-detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.podcast-detail-layout .blog-detail-body {
+  padding-block: 2rem 0;
+  max-width: none;
+}
+
+.podcast-detail-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.podcast-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.podcast-nav-list a {
+  font-size: 0.88rem;
+  color: var(--graphite);
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.podcast-nav-list a:hover {
+  color: var(--annotation);
+  text-decoration: underline;
+}
+
+.podcast-previous-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.podcast-previous-heading a {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--annotation);
+  text-decoration: none;
+}
+
+.podcast-previous-heading a:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 900px) {
+  .podcast-detail-layout {
+    grid-template-columns: minmax(0, 1fr) 20rem;
+  }
+
+  .podcast-detail-sidebar {
+    position: sticky;
+    top: 6.5rem;
   }
 }

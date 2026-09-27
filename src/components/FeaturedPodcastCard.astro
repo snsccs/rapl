@@ -1,0 +1,50 @@
+---
+import { raplAssetUrl, raplBlogHref, formatRaplDate, formatRuntimeMinutes, type RaplBlogRecord } from "../lib/raplBlogApi";
+
+interface Props {
+  blog: RaplBlogRecord;
+}
+
+const { blog } = Astro.props;
+const href = raplBlogHref(blog);
+const image = raplAssetUrl(blog.featured_image);
+const runtime = formatRuntimeMinutes(blog.podcast_start_time, blog.podcast_end_time);
+---
+
+<div class="podcast-featured reveal-on-scroll">
+  <div class="podcast-featured-content">
+    <span class="pill pill--brass podcast-featured-badge">Featured Podcast</span>
+    <h3 class="podcast-featured-title"><a href={href}>{blog.title}</a></h3>
+    <p class="podcast-featured-meta">
+      {blog.category && <span>{blog.category}</span>}
+      {blog.published_at && <span>{formatRaplDate(blog.published_at)}</span>}
+      {runtime && <span>{runtime}</span>}
+    </p>
+    {blog.subtitle && <p class="podcast-featured-excerpt">{blog.subtitle}</p>}
+    {blog.tags?.length > 0 && (
+      <div class="podcast-featured-tags">
+        {blog.tags.map((tag) => <span class="pill pill--ink">{tag}</span>)}
+      </div>
+    )}
+    <a class="button brass" href={href}>Watch Recording <span class="arrow" aria-hidden="true">&rarr;</span></a>
+  </div>
+
+  <div class="podcast-featured-aside">
+    <a class="podcast-media-play" href={href} aria-label={`Watch ${blog.title}`}>
+      {image ? (
+        <img src={image} alt="" loading="lazy" />
+      ) : (
+        <span class="podcast-media-play-fallback" aria-hidden="true">&#9654;</span>
+      )}
+      <span class="podcast-media-play-icon" aria-hidden="true">&#9654;</span>
+    </a>
+    <div class="podcast-details-card">
+      <h4>Details</h4>
+      <div class="podcast-details-row"><span>Format</span><span>On-demand</span></div>
+      {blog.podcast_platform && (
+        <div class="podcast-details-row"><span>Channel</span><span>{blog.podcast_platform}</span></div>
+      )}
+      {runtime && <div class="podcast-details-row"><span>Runtime</span><span>{runtime}</span></div>}
+    </div>
+  </div>
+</div>

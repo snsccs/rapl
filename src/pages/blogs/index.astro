@@ -2,6 +2,7 @@
 import BaseLayout from "../../components/BaseLayout.astro";
 import BlogCard from "../../components/BlogCard.astro";
 import PodcastCard from "../../components/PodcastCard.astro";
+import FeaturedPodcastCard from "../../components/FeaturedPodcastCard.astro";
 import { fetchPublishedRaplBlogs } from "../../lib/raplBlogApi";
 
 // Fetched at build time so this page ships as plain, crawlable static HTML —
@@ -12,6 +13,11 @@ const [podcasts, articles, leadershipArticles] = await Promise.all([
   fetchPublishedRaplBlogs("article"),
   fetchPublishedRaplBlogs("leadership_article"),
 ]);
+
+// One podcast (the marked-featured one, else the most recent) gets the large
+// highlight treatment; the rest fall into the grid below it.
+const featuredPodcast = podcasts.find((blog) => blog.is_featured) || podcasts[0] || null;
+const morePodcasts = featuredPodcast ? podcasts.filter((blog) => blog.id !== featuredPodcast.id) : [];
 ---
 
 <BaseLayout
@@ -34,10 +40,15 @@ const [podcasts, articles, leadershipArticles] = await Promise.all([
   <section class="section">
     <div class="site-shell">
       <h2 class="section-title">Podcasts</h2>
-      {podcasts.length > 0 ? (
-        <div class="blog-grid podcast-grid reveal-on-scroll">
-          {podcasts.map((blog) => <PodcastCard blog={blog} />)}
-        </div>
+      {featuredPodcast ? (
+        <>
+          <FeaturedPodcastCard blog={featuredPodcast} />
+          {morePodcasts.length > 0 && (
+            <div class="blog-grid podcast-grid reveal-on-scroll" style="margin-top: 2rem;">
+              {morePodcasts.map((blog) => <PodcastCard blog={blog} />)}
+            </div>
+          )}
+        </>
       ) : (
         <p class="lede" style="margin-top: 1rem;">New episodes are on the way — check back soon.</p>
       )}

@@ -1,22 +1,33 @@
 ---
 import BaseLayout from "../../components/BaseLayout.astro";
-import { fetchPublishedRaplBlogs, raplAssetUrl, formatRaplDate, extractYouTubeId, type RaplBlogRecord } from "../../lib/raplBlogApi";
+import PodcastCard from "../../components/PodcastCard.astro";
+import {
+  fetchPublishedRaplBlogs,
+  raplAssetUrl,
+  formatRaplDate,
+  formatRuntimeMinutes,
+  extractYouTubeId,
+  injectSectionAnchors,
+  type RaplBlogRecord,
+} from "../../lib/raplBlogApi";
 
 export async function getStaticPaths() {
   // include_content=true: the detail page renders blog.content, which the list
-  // endpoint omits by default.
+  // endpoint omits by default. Fetched once and reused as `allPodcasts` so the
+  // "Previous Podcast" section doesn't need a second build-time round trip.
   const podcasts = await fetchPublishedRaplBlogs("podcast", 100, true);
   return podcasts.map((blog) => ({
     params: { slug: blog.seo_slug || blog.slug },
-    props: { blog },
+    props: { blog, allPodcasts: podcasts },
   }));
 }
 
 interface Props {
   blog: RaplBlogRecord;
+  allPodcasts: RaplBlogRecord[];
 }
 
-const { blog } = Astro.props;
+const { blog, allPodcasts } = Astro.props;
 
 const image = raplAssetUrl(blog.featured_image);
 const canonicalSlug = blog.seo_slug || blog.slug;
@@ -24,6 +35,9 @@ const canonicalSlug = blog.seo_slug || blog.slug;
 const siteOrigin = (Astro.site?.href ?? "https://www.raplleadership.com/").replace(/\/$/, "");
 const youTubeId = extractYouTubeId(blog.podcast_url) || extractYouTubeId(blog.recorded_link);
 const watchLink = blog.podcast_url || blog.recorded_link || null;
+const runtime = formatRuntimeMinutes(blog.podcast_start_time, blog.podcast_end_time);
+const { html: contentHtml, navItems } = injectSectionAnchors(blog.content || "");
+const previousPodcasts = allPodcasts.filter((p) => p.id !== blog.id).slice(0, 2);
 
 const defaultSchema = {
   "@context": "https://schema.org",
@@ -33,11 +47,6 @@ const defaultSchema = {
   image: image || undefined,
   datePublished: blog.published_at || undefined,
   ...(watchLink ? { url: watchLink } : {}),
-  ...(blog.podcast_start_time && blog.podcast_end_time
-    ? {
-        duration: undefined, // Not tracked precisely; start/end are session times, not media duration.
-      }
-    : {}),
   associatedMedia: youTubeId
     ? { "@type": "VideoObject", embedUrl: `https://www.youtube.com/embed/${youTubeId}` }
     : undefined,
@@ -64,7 +73,7 @@ const jsonLd = [blog.custom_schema || defaultSchema, breadcrumbSchema];
   ogImage={image || undefined}
   jsonLd={jsonLd}
 >
-  <article class="blog-detail-page">
+  <article class="blog-detail-page podcast-detail-page">
     <section class="page-hero page-hero--tight">
       <div class="site-shell">
         <nav class="blog-breadcrumbs" aria-label="Breadcrumb">
@@ -72,23 +81,11 @@ const jsonLd = [blog.custom_schema || defaultSchema, breadcrumbSchema];
           <a href="/blogs">Blog &amp; Podcasts</a> <span aria-hidden="true">/</span>
           <span aria-current="page">{blog.title}</span>
         </nav>
-        <div class="eyebrow">{blog.category}</div>
-        <h1 class="display-title">{blog.title}</h1>
-        {blog.subtitle && <p class="lede" style="margin-top: 1rem;">{blog.subtitle}</p>}
-        <div class="blog-detail-meta">
-          {blog.author && <span>{blog.author}</span>}
-          {blog.published_at && <span>{formatRaplDate(blog.published_at)}</span>}
-          {blog.podcast_platform && <span>{blog.podcast_platform}</span>}
-        </div>
-        {blog.tags?.length > 0 && (
-          <div class="blog-detail-tags">
-            {blog.tags.map((tag) => <span class="pill pill--ink">{tag}</span>)}
-          </div>
-        )}
+        <span class="pill pill--brass">Recorded Podcast</span>
       </div>
     </section>
 
-    <div class="site-shell podcast-detail-media">
+    <div class="site-shell podcast-detail-media" id="podcast-video">
       {youTubeId ? (
         <div class="podcast-detail-embed">
           <iframe
@@ -109,13 +106,72 @@ const jsonLd = [blog.custom_schema || defaultSchema, breadcrumbSchema];
           )}
         </>
       )}
-      {youTubeId && watchLink && blog.recorded_link && blog.recorded_link !== blog.podcast_url && (
-        <a class="button ghost" href={blog.recorded_link} target="_blank" rel="noopener noreferrer" style="margin-top: 1rem;">
-          Watch recording <span class="arrow" aria-hidden="true">&rarr;</span>
-        </a>
-      )}
     </div>
 
-    <div class="site-shell blog-detail-body prose" set:html={blog.content} />
+    <section class="section podcast-detail-info">
+      <div class="site-shell">
+        <h1 class="display-title">{blog.title}</h1>
+        <div class="blog-detail-meta">
+          {blog.category && <span>{blog.category}</span>}
+          {blog.published_at && <span>{formatRaplDate(blog.published_at)}</span>}
+          {runtime && <span>{runtime}</span>}
+          {blog.author && <span>{blog.author}</span>}
+        </div>
+        {blog.subtitle && <p class="lede" style="margin-top: 1rem;">{blog.subtitle}</p>}
+        {blog.tags?.length > 0 && (
+          <div class="blog-detail-tags">
+            {blog.tags.map((tag) => <span class="pill pill--ink">{tag}</span>)}
+          </div>
+        )}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="site-shell podcast-detail-layout">
+        <div class="blog-detail-body prose" set:html={contentHtml} />
+
+        <aside class="podcast-detail-sidebar">
+          <div class="podcast-details-card">
+            <h4>Details</h4>
+            <div class="podcast-details-row"><span>Format</span><span>On-demand</span></div>
+            {blog.podcast_platform && (
+              <div class="podcast-details-row"><span>Channel</span><span>{blog.podcast_platform}</span></div>
+            )}
+            {runtime && <div class="podcast-details-row"><span>Runtime</span><span>{runtime}</span></div>}
+            {(youTubeId || watchLink) && (
+              <a class="button brass podcast-details-cta" href={youTubeId ? "#podcast-video" : watchLink!}>
+                Watch Recording
+              </a>
+            )}
+            <a class="podcast-details-link" href="/podcasts">More Podcasts</a>
+          </div>
+
+          {navItems.length > 0 && (
+            <div class="podcast-details-card">
+              <h4>In this discussion</h4>
+              <ul class="podcast-nav-list">
+                {navItems.map((item) => (
+                  <li><a href={`#${item.id}`}>{item.label}</a></li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </aside>
+      </div>
+    </section>
+
+    {previousPodcasts.length > 0 && (
+      <section class="section section--tight" style="background: var(--bg-cream-1);">
+        <div class="site-shell">
+          <div class="podcast-previous-heading">
+            <h2 class="section-title">Previous Podcast</h2>
+            <a href="/podcasts">View all podcasts</a>
+          </div>
+          <div class="blog-grid podcast-grid" style="margin-top: 1.5rem;">
+            {previousPodcasts.map((p) => <PodcastCard blog={p} />)}
+          </div>
+        </div>
+      </section>
+    )}
   </article>
 </BaseLayout>

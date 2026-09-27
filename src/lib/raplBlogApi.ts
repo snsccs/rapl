@@ -87,6 +87,47 @@ export const formatRaplDate = (value?: string | null) => {
   return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 };
 
+/** Formats a start/end pair as e.g. "42 min" or "1h 5m"; null if either is missing/invalid or end isn't after start. */
+export const formatRuntimeMinutes = (start?: string | null, end?: string | null): string | null => {
+  if (!start || !end) return null;
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) return null;
+  const minutes = Math.round((endDate.getTime() - startDate.getTime()) / 60000);
+  if (minutes <= 0) return null;
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  return hours > 0 ? `${hours}h ${mins}m` : `${mins} min`;
+};
+
+export interface SectionNavItem {
+  id: string;
+  label: string;
+}
+
+/**
+ * Walks the admin-authored content HTML for h2–h6 headings, gives each an id
+ * (skipping ones that already have one), and returns the modified HTML plus
+ * the {id, label} list those ids point to. The "In this discussion" sidebar
+ * on a podcast detail page is just this list rendered as anchor links — there
+ * is no separate CMS field for it, the nav is derived from whatever headings
+ * the post's content happens to contain.
+ */
+export const injectSectionAnchors = (html: string): { html: string; navItems: SectionNavItem[] } => {
+  const navItems: SectionNavItem[] = [];
+  let count = 0;
+  const withIds = html.replace(/<h([2-6])((?:\s[^>]*)?)>([\s\S]*?)<\/h\1>/gi, (match, level, attrs, inner) => {
+    const label = inner.replace(/<[^>]+>/g, "").trim();
+    if (!label) return match;
+    count += 1;
+    const id = `podcast-section-${count}`;
+    navItems.push({ id, label });
+    if (/\sid=/i.test(attrs)) return match;
+    return `<h${level}${attrs} id="${id}">${inner}</h${level}>`;
+  });
+  return { html: withIds, navItems };
+};
+
 /** Matches youtube.com/watch, youtu.be/, youtube.com/embed/ and /live/ links; returns the video ID or null. */
 export const extractYouTubeId = (url?: string | null): string | null => {
   if (!url) return null;

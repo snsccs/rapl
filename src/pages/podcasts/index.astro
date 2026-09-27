@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../components/BaseLayout.astro";
 import PodcastCard from "../../components/PodcastCard.astro";
+import FeaturedPodcastCard from "../../components/FeaturedPodcastCard.astro";
 import { fetchPublishedRaplBlogs } from "../../lib/raplBlogApi";
 
 // Podcast detail pages live at /podcasts/<slug>, but there was no page at the
@@ -8,6 +9,8 @@ import { fetchPublishedRaplBlogs } from "../../lib/raplBlogApi";
 // 404. Built at build time for the same reason as /blogs: the listing has to
 // ship as crawlable static HTML.
 const podcasts = await fetchPublishedRaplBlogs("podcast");
+const featuredPodcast = podcasts.find((blog) => blog.is_featured) || podcasts[0] || null;
+const morePodcasts = featuredPodcast ? podcasts.filter((blog) => blog.id !== featuredPodcast.id) : [];
 ---
 
 <BaseLayout
@@ -29,10 +32,15 @@ const podcasts = await fetchPublishedRaplBlogs("podcast");
 
   <section class="section">
     <div class="site-shell">
-      {podcasts.length > 0 ? (
-        <div class="blog-grid podcast-grid reveal-on-scroll">
-          {podcasts.map((blog) => <PodcastCard blog={blog} />)}
-        </div>
+      {featuredPodcast ? (
+        <>
+          <FeaturedPodcastCard blog={featuredPodcast} />
+          {morePodcasts.length > 0 && (
+            <div class="blog-grid podcast-grid reveal-on-scroll" style="margin-top: 2rem;">
+              {morePodcasts.map((blog) => <PodcastCard blog={blog} />)}
+            </div>
+          )}
+        </>
       ) : (
         <p class="lede">New episodes are on the way — check back soon.</p>
       )}
