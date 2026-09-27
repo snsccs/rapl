@@ -8,7 +8,9 @@ import { fetchPublishedRaplBlogs } from "../../lib/raplBlogApi";
 // bare /podcasts path, so trimming the URL — or any link to the section — hit a
 // 404. Built at build time for the same reason as /blogs: the listing has to
 // ship as crawlable static HTML.
-const podcasts = await fetchPublishedRaplBlogs("podcast");
+// include_content=true: the featured card pulls a lead excerpt and "Topics
+// covered" list out of the post's own content when it has no subtitle set.
+const podcasts = await fetchPublishedRaplBlogs("podcast", 100, true);
 const featuredPodcast = podcasts.find((blog) => blog.is_featured) || podcasts[0] || null;
 const morePodcasts = featuredPodcast ? podcasts.filter((blog) => blog.id !== featuredPodcast.id) : [];
 ---

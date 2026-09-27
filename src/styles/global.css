@@ -8443,6 +8443,49 @@ img {
   margin: 0;
 }
 
+.podcast-featured-excerpt p {
+  margin: 0 0 0.75rem;
+}
+
+.podcast-featured-excerpt p:last-child {
+  margin-bottom: 0;
+}
+
+.podcast-featured-topics h4 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--ink);
+  margin: 0 0 0.6rem;
+}
+
+.podcast-featured-topics ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.5rem 1.5rem;
+}
+
+.podcast-featured-topics li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--graphite);
+}
+
+.podcast-featured-topics li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brass);
+}
+
 .podcast-featured-tags {
   display: flex;
   flex-wrap: wrap;

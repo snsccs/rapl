@@ -1,5 +1,12 @@
 ---
-import { raplAssetUrl, raplBlogHref, formatRaplDate, formatRuntimeMinutes, type RaplBlogRecord } from "../lib/raplBlogApi";
+import {
+  raplAssetUrl,
+  raplBlogHref,
+  formatRaplDate,
+  formatRuntimeMinutes,
+  extractCardPreview,
+  type RaplBlogRecord,
+} from "../lib/raplBlogApi";
 
 interface Props {
   blog: RaplBlogRecord;
@@ -9,6 +16,9 @@ const { blog } = Astro.props;
 const href = raplBlogHref(blog);
 const image = raplAssetUrl(blog.featured_image);
 const runtime = formatRuntimeMinutes(blog.podcast_start_time, blog.podcast_end_time);
+// Falls back to the post's own content when there's no subtitle, so the card
+// doesn't read as empty — see extractCardPreview()'s doc comment.
+const { leadHtml, topics } = extractCardPreview(blog.content || "");
 ---
 
 <div class="podcast-featured reveal-on-scroll">
@@ -20,7 +30,19 @@ const runtime = formatRuntimeMinutes(blog.podcast_start_time, blog.podcast_end_t
       {blog.published_at && <span>{formatRaplDate(blog.published_at)}</span>}
       {runtime && <span>{runtime}</span>}
     </p>
-    {blog.subtitle && <p class="podcast-featured-excerpt">{blog.subtitle}</p>}
+    {blog.subtitle ? (
+      <p class="podcast-featured-excerpt">{blog.subtitle}</p>
+    ) : (
+      leadHtml && <div class="podcast-featured-excerpt" set:html={leadHtml} />
+    )}
+    {topics.length > 0 && (
+      <div class="podcast-featured-topics">
+        <h4>Topics covered</h4>
+        <ul>
+          {topics.map((topic) => <li>{topic}</li>)}
+        </ul>
+      </div>
+    )}
     {blog.tags?.length > 0 && (
       <div class="podcast-featured-tags">
         {blog.tags.map((tag) => <span class="pill pill--ink">{tag}</span>)}

@@ -100,6 +100,43 @@ export const formatRuntimeMinutes = (start?: string | null, end?: string | null)
   return hours > 0 ? `${hours}h ${mins}m` : `${mins} min`;
 };
 
+export interface CardPreview {
+  leadHtml: string;
+  topics: string[];
+}
+
+/**
+ * Pulls a short preview out of the post's own content HTML, for cards that
+ * need more than just the title/subtitle — e.g. the featured podcast card,
+ * which otherwise reads as empty whenever a post has no `subtitle` set
+ * (there's no separate "card excerpt" field in the CMS).
+ *
+ * `leadHtml` is the intro: every <p> that appears before the first heading,
+ * capped at two paragraphs. `topics` is the first bullet/numbered list found
+ * anywhere in the content (typically a "What you'll learn" list), flattened
+ * to plain-text items, capped at eight.
+ */
+export const extractCardPreview = (html: string): CardPreview => {
+  if (!html) return { leadHtml: "", topics: [] };
+
+  const headingIndex = html.search(/<h[1-6][^>]*>/i);
+  const introSlice = headingIndex === -1 ? html : html.slice(0, headingIndex);
+  const leadHtml = [...introSlice.matchAll(/<p[^>]*>[\s\S]*?<\/p>/gi)]
+    .slice(0, 2)
+    .map((match) => match[0])
+    .join("");
+
+  const listMatch = html.match(/<(ul|ol)[^>]*>([\s\S]*?)<\/\1>/i);
+  const topics = listMatch
+    ? [...listMatch[2].matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)]
+        .map((match) => match[1].replace(/<[^>]+>/g, "").trim())
+        .filter(Boolean)
+        .slice(0, 8)
+    : [];
+
+  return { leadHtml, topics };
+};
+
 export interface SectionNavItem {
   id: string;
   label: string;

@@ -8,8 +8,11 @@ import { fetchPublishedRaplBlogs } from "../../lib/raplBlogApi";
 // Fetched at build time so this page ships as plain, crawlable static HTML —
 // see the architecture report's SEO/indexing plan for why (no client-side
 // data fetching for anything that needs to be indexable).
+// include_content=true for podcasts: the featured card pulls a lead excerpt
+// and "Topics covered" list out of the post's own content when it has no
+// subtitle set (see extractCardPreview()).
 const [podcasts, articles, leadershipArticles] = await Promise.all([
-  fetchPublishedRaplBlogs("podcast"),
+  fetchPublishedRaplBlogs("podcast", 100, true),
   fetchPublishedRaplBlogs("article"),
   fetchPublishedRaplBlogs("leadership_article"),
 ]);
