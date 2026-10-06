@@ -1,4 +1,7 @@
 ---
+import InsightsHero from "../../components/InsightsHero.astro";
+import InsightsFilters from "../../components/InsightsFilters.astro";
+import "../../styles/insights.css";
 import BaseLayout from "../../components/BaseLayout.astro";
 import BlogCard from "../../components/BlogCard.astro";
 import PodcastCard from "../../components/PodcastCard.astro";
@@ -21,6 +24,17 @@ const [podcasts, articles, leadershipArticles] = await Promise.all([
 // highlight treatment; the rest fall into the grid below it.
 const featuredPodcast = podcasts.find((blog) => blog.is_featured) || podcasts[0] || null;
 const morePodcasts = featuredPodcast ? podcasts.filter((blog) => blog.id !== featuredPodcast.id) : [];
+const allPosts = [...podcasts, ...articles, ...leadershipArticles];
+const categoryFor = (blog: (typeof allPosts)[number]) => blog.category || (blog.type === "leadership_article" ? "Leadership" : "");
+const categories = [...new Set(allPosts.map(categoryFor).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+const filterAttributes = (blog: (typeof allPosts)[number]) => ({
+  "data-insights-entry": true,
+  "data-type": blog.type,
+  "data-category": categoryFor(blog),
+  "data-search": [blog.title, blog.subtitle, categoryFor(blog), ...(blog.tags || [])].filter(Boolean).join(" ").toLocaleLowerCase(),
+  "data-date": new Date(blog.published_at || "").getTime() || 0,
+  "data-views": blog.views_count || 0,
+});
 ---
 
 <BaseLayout
@@ -28,27 +42,19 @@ const morePodcasts = featuredPodcast ? podcasts.filter((blog) => blog.id !== fea
   description="RAPL™ Leadership articles and podcast conversations on leadership capability, AI-enabled change, sponsorship and sustained value."
   ogType="website"
 >
-  <section class="page-hero">
-    <div class="site-shell">
-      <div class="reveal-on-scroll">
-        <div class="eyebrow">Insights</div>
-        <h1 class="display-title">Blog &amp; Podcasts</h1>
-        <p class="lede" style="margin-top: 1rem; max-width: 46rem;">
-          Conversations and briefs on the Leadership Capability Gap, AI-enabled change and the discipline of sustained value.
-        </p>
-      </div>
-    </div>
-  </section>
+  <div class="insights-page">
+  <InsightsHero />
+  <InsightsFilters categories={categories} />
 
-  <section class="section">
+  <section class="section" data-insights-section>
     <div class="site-shell">
       <h2 class="section-title">Podcasts</h2>
       {featuredPodcast ? (
         <>
-          <FeaturedPodcastCard blog={featuredPodcast} />
+          <div {...filterAttributes(featuredPodcast)}><FeaturedPodcastCard blog={featuredPodcast} /></div>
           {morePodcasts.length > 0 && (
-            <div class="blog-grid podcast-grid reveal-on-scroll" style="margin-top: 2rem;">
-              {morePodcasts.map((blog) => <PodcastCard blog={blog} />)}
+            <div class="blog-grid podcast-grid reveal-on-scroll" data-insights-sort-group style="margin-top: 2rem;">
+              {morePodcasts.map((blog) => <div {...filterAttributes(blog)}><PodcastCard blog={blog} /></div>)}
             </div>
           )}
         </>
@@ -58,12 +64,12 @@ const morePodcasts = featuredPodcast ? podcasts.filter((blog) => blog.id !== fea
     </div>
   </section>
 
-  <section class="section section--tight" style="background: var(--bg-cream-1);">
+  <section class="section section--tight" data-insights-section style="background: var(--bg-cream-1);">
     <div class="site-shell">
       <h2 class="section-title">Articles</h2>
       {articles.length > 0 ? (
-        <div class="blog-grid reveal-on-scroll">
-          {articles.map((blog) => <BlogCard blog={blog} />)}
+        <div class="blog-grid reveal-on-scroll" data-insights-sort-group>
+          {articles.map((blog) => <div {...filterAttributes(blog)}><BlogCard blog={blog} /></div>)}
         </div>
       ) : (
         <p class="lede" style="margin-top: 1rem;">New articles are on the way — check back soon.</p>
@@ -71,19 +77,20 @@ const morePodcasts = featuredPodcast ? podcasts.filter((blog) => blog.id !== fea
     </div>
   </section>
 
-  <section class="section section--tight" aria-label="Leadership articles">
+  <section class="section section--tight" data-insights-section aria-label="Leadership articles">
     <div class="site-shell">
       <h2 class="section-title">Leadership Articles</h2>
       <p class="lede" style="margin-top: 0.5rem; max-width: 46rem;">
         Leadership principles, team management, and growth strategies for senior leaders.
       </p>
       {leadershipArticles.length > 0 ? (
-        <div class="blog-grid reveal-on-scroll" style="margin-top: 1.5rem;">
-          {leadershipArticles.map((blog) => <BlogCard blog={{ ...blog, category: blog.category || "Leadership" }} />)}
+        <div class="blog-grid reveal-on-scroll" data-insights-sort-group style="margin-top: 1.5rem;">
+          {leadershipArticles.map((blog) => <div {...filterAttributes(blog)}><BlogCard blog={{ ...blog, category: categoryFor(blog) }} /></div>)}
         </div>
       ) : (
         <p class="lede" style="margin-top: 1rem;">No leadership articles yet — check back soon.</p>
       )}
     </div>
   </section>
+  </div>
 </BaseLayout>
