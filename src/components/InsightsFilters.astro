@@ -1,0 +1,110 @@
+---
+interface Props { categories: string[]; }
+const { categories } = Astro.props;
+---
+<section class="insights-filter-band" aria-label="Find articles and podcasts">
+  <form class="insights-filters" action="/blogs" method="get" role="search" data-insights-form>
+    <div class="insights-search-field">
+      <label class="insights-sr-only" for="insights-search">Search articles and podcasts</label>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="m15 15 7 7"/></svg>
+      <input id="insights-search" type="search" name="q" placeholder="Search Articles, Podcast, Project management tip of the day.." />
+    </div>
+    <div class="insights-select-field">
+      <label class="insights-sr-only" for="insights-type">Content type</label>
+      <select id="insights-type" name="type">
+        <option value="">All Types</option>
+        <option value="article">Articles</option>
+        <option value="podcast">Podcasts</option>
+        <option value="leadership_article">Leadership Articles</option>
+      </select>
+    </div>
+    <div class="insights-select-field">
+      <label class="insights-sr-only" for="insights-category">Category</label>
+      <select id="insights-category" name="category">
+        <option value="">All Categories</option>
+        {categories.map(category => <option value={category}>{category}</option>)}
+      </select>
+    </div>
+    <div class="insights-select-field">
+      <label class="insights-sr-only" for="insights-sort">Sort order</label>
+      <select id="insights-sort" name="sort">
+        <option value="recent">Most Recent</option>
+        <option value="oldest">Oldest First</option>
+        <option value="popular">Most Viewed</option>
+      </select>
+    </div>
+    <button class="insights-search-button" type="submit">Search</button>
+  </form>
+</section>
+<p class="insights-results-status insights-sr-only" role="status" aria-live="polite" data-insights-status></p>
+<div class="insights-no-results" data-insights-empty hidden>
+  <h2>No matching articles or podcasts</h2>
+  <p>Try a different search or clear your filters.</p>
+  <button type="button" data-insights-reset>Clear filters</button>
+</div>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-insights-form]');
+  if (form) {
+    const search = form.querySelector<HTMLInputElement>('[name="q"]')!;
+    const type = form.querySelector<HTMLSelectElement>('[name="type"]')!;
+    const category = form.querySelector<HTMLSelectElement>('[name="category"]')!;
+    const sort = form.querySelector<HTMLSelectElement>('[name="sort"]')!;
+    const entries = Array.from(document.querySelectorAll<HTMLElement>('[data-insights-entry]'));
+    const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-insights-section]'));
+    const empty = document.querySelector<HTMLElement>('[data-insights-empty]')!;
+    const status = document.querySelector<HTMLElement>('[data-insights-status]')!;
+    const params = new URLSearchParams(window.location.search);
+    search.value = params.get('q') || '';
+    for (const select of [type, category, sort]) {
+      const value = params.get(select.name);
+      if (value && Array.from(select.options).some(option => option.value === value)) select.value = value;
+    }
+
+    const filterPosts = (updateUrl = true) => {
+      const query = search.value.trim().toLocaleLowerCase();
+      let matches = 0;
+      for (const entry of entries) {
+        const match = (!query || (entry.dataset.search || '').includes(query))
+          && (!type.value || entry.dataset.type === type.value)
+          && (!category.value || entry.dataset.category === category.value);
+        entry.hidden = !match;
+        if (match) matches++;
+      }
+      const isFiltered = Boolean(query || type.value || category.value);
+      for (const section of sections) {
+        const sectionEntries = Array.from(section.querySelectorAll<HTMLElement>('[data-insights-entry]'));
+        // Keep the original "coming soon" messages when no filters are active.
+        section.hidden = isFiltered && !sectionEntries.some(entry => !entry.hidden);
+        for (const group of section.querySelectorAll<HTMLElement>('[data-insights-sort-group]')) {
+          const cards = Array.from(group.children).filter((child): child is HTMLElement => child instanceof HTMLElement && child.hasAttribute('data-insights-entry'));
+          cards.sort((a, b) => {
+            if (sort.value === 'popular') return Number(b.dataset.views) - Number(a.dataset.views);
+            const difference = Number(b.dataset.date) - Number(a.dataset.date);
+            return sort.value === 'oldest' ? -difference : difference;
+          });
+          cards.forEach(card => group.appendChild(card));
+          group.hidden = cards.length > 0 && cards.every(card => card.hidden);
+        }
+      }
+      empty.hidden = matches > 0 || !isFiltered;
+      status.textContent = `${matches} ${matches === 1 ? 'post' : 'posts'} found.`;
+      if (updateUrl) {
+        const url = new URL(window.location.href);
+        for (const control of [search, type, category, sort]) {
+          const value = control.value.trim();
+          if (value && !(control === sort && value === 'recent')) url.searchParams.set(control.name, value);
+          else url.searchParams.delete(control.name);
+        }
+        window.history.replaceState(null, '', url);
+      }
+    };
+    form.addEventListener('submit', event => { event.preventDefault(); filterPosts(); });
+    [type, category, sort].forEach(select => select.addEventListener('change', () => filterPosts()));
+    search.addEventListener('search', () => filterPosts());
+    document.querySelector('[data-insights-reset]')?.addEventListener('click', () => {
+      form.reset(); filterPosts(); search.focus();
+    });
+    filterPosts(false);
+  }
+</script>
