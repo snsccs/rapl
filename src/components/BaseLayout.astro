@@ -107,6 +107,8 @@ const structuredData = [
     <Header />
     <slot />
     <Footer />
+    <speaking-inquiry-modal api-base={import.meta.env.PUBLIC_RAPL_API_BASE_URL || "https://api.snsccs.com"}></speaking-inquiry-modal>
+    <script is:inline src="/scripts/speaking-inquiry.js" defer></script>
   </body>
 </html>
 
